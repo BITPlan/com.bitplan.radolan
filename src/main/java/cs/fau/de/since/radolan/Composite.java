@@ -25,12 +25,14 @@ package cs.fau.de.since.radolan;
 //Package radolan parses the DWD RADOLAN / RADVOR radar composite format. This data
 
 import java.io.InputStream;
+import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 
 import org.apache.commons.io.IOUtils;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
+import cs.fau.de.since.radolan.Data.Encoding;
 
 //is available at the Global Basic Dataset (http://www.dwd.de/DE/leistungen/gds/gds.html).
 //The obtained results can be processed and visualized with additional functions.
@@ -103,6 +105,8 @@ public class Composite {
   
   Unit DataUnit;
   
+  public float[][] PlainData; // data for parsed plain data element [y][x]
+  
   int Px;  // plain data width
   int Py;  // plain data height
   
@@ -124,6 +128,10 @@ public class Composite {
   public byte bytes[];
   public String header;
 
+  // for lambda error handling
+  public Throwable error;
+  protected String url;
+
   /**
    * default constructor
    */
@@ -140,6 +148,24 @@ public class Composite {
     this.Product = product;
     this.Dx = dx;
     this.Dy = dy;
+  }
+  
+  /**
+   * construct me from an url;
+   * @param url
+   * @throws Throwable 
+   */
+  public Composite(String url) throws Throwable {
+    this.url=url;
+    InputStream inputStream = new URL(url).openStream();
+    read(inputStream);
+    init();
+  }
+  
+  public void init() throws Throwable {
+    parseData();
+    arrangeData();
+    calibrateProjection();
   }
 
   // NewDummy creates a blank dummy composite with the given product label and
@@ -176,9 +202,21 @@ public class Composite {
   public void parseHeader() throws Exception {
     Header.parseHeader(this);
   }
+  
+  public void parseData() throws Throwable {
+    Data.getInstance().parseData(this);
+  }
+  
+  public void arrangeData() throws Throwable {
+    Data.getInstance().parseData(this);
+  }
 
   public void calibrateProjection() {
     Translate.calibrateProjection(this);
+  }
+  
+  public Encoding identifyEncoding() {
+    return Data.getInstance().identifyEncoding(this);
   }
 
   /**

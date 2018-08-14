@@ -23,18 +23,22 @@
  */
 package cs.fau.de.since.radolan;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import static org.junit.Assert.assertEquals;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestTranslate.class, TestConversion.class,TestData.class,TestHeader.class })
-/**
- * TestSuite
- * 
- * @author wf
- *
- *         no content necessary - annotation has info
- */
-public class TestSuite {
-  public static boolean debug = false;
+import org.junit.Test;
+
+import cs.fau.de.since.radolan.Data.Encoding;
+
+public class TestData {
+
+  @Test
+  public void testRW() throws Throwable {
+    Composite rw=new Composite("https://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin");
+    assertEquals("RW",rw.Product);
+    assertEquals(900,rw.Dx);
+    assertEquals(900,rw.Dy);
+    assertEquals(rw.Dx*rw.Dy*2,rw.dataLength);
+    assertEquals(rw.dataLength+rw.header.length(),rw.bytes.length);
+    assertEquals(Encoding.littleEndian,rw.identifyEncoding());
+  }
 }

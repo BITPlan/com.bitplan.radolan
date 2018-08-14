@@ -65,7 +65,7 @@ public class ImageViewer extends Application {
 
   public static Image image;
   public static String title="Image Viewer";
-  static double rotate=0.0;
+  private static double rotate=0.0;
 
   @Override
   public void start(Stage stage) {
@@ -76,7 +76,7 @@ public class ImageViewer extends Application {
     // simple displays ImageView the image as is
     ImageView imageView = new ImageView();
     imageView.setImage(image);
-    imageView.setRotate(rotate);
+    imageView.setRotate(getRotate());
 
     Group root = new Group();
     Scene scene = new Scene(root);
@@ -102,5 +102,13 @@ public class ImageViewer extends Application {
    */
   public static void main(String[] args) {
     Application.launch(args);
+  }
+
+  public static double getRotate() {
+    return rotate;
+  }
+
+  public static void setRotate(double rotate) {
+    ImageViewer.rotate = rotate;
   }
 }
