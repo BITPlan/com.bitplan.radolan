@@ -1,0 +1,17 @@
+# travis configuration for com.bitplan.sprinkler open source project
+# WF 2018-08-02
+# https://github.com/lukaszlenart/launch4j-maven-plugin/issues/29
+# https://github.com/travis-ci/travis-ci/issues/3701
+# https://github.com/travis-ci/travis-ci/issues/5176
+sudo: required
+# has followup problems with maven
+# dist: precise
+before_script:
+  - sudo apt-get update
+  - sudo apt-get install lib32z1 lib32ncurses5 
+  - xvfb-run make test
+
+# this is a java project using maven
+language: java
+# switch off gpg handling
+install: mvn install -Dgpg.skip=true
