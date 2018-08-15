@@ -23,10 +23,15 @@
  */
 package com.bitplan.radolan;
 
+import java.io.File;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 
 import com.github.filosganga.geogson.gson.GeometryAdapterFactory;
 import com.github.filosganga.geogson.model.Feature;
@@ -38,6 +43,7 @@ import com.github.filosganga.geogson.model.LinearRing;
 import com.github.filosganga.geogson.model.MultiPolygon;
 import com.github.filosganga.geogson.model.Point;
 import com.github.filosganga.geogson.model.Polygon;
+import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -61,9 +67,9 @@ public class Borders {
   // https://github.com/isellsoap/deutschlandGeoJSON
   // https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/master/2_bundeslaender/4_niedrig.geojson
   public Borders(String borderName) throws Exception {
-    // https://stackoverflow.com/a/26421518/1497139
-    String json = new String(Files.readAllBytes(Paths
-        .get(getClass().getClassLoader().getResource(borderName).toURI())));
+    // https://stackoverflow.com/a/21337734/1497139
+    String json=IOUtils.toString(this.getClass().getClassLoader().getResource(borderName), "UTF-8");
+    
     // System.out.println(json.length());
     Gson gson = new GsonBuilder()
         .registerTypeAdapterFactory(new GeometryAdapterFactory()).create();

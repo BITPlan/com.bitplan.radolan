@@ -23,39 +23,59 @@
  */
 package cs.fau.de.since.radolan;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+
 import org.junit.Test;
 
 import com.bitplan.radolan.Radolan;
 
 /**
  * test the main application
+ * 
  * @author wf
  *
  */
 public class TestRadolan {
-  
-  public void testRadolan(String url,int viewTimeSecs) {
-    String args[]= {"-i",url,"-t",""+viewTimeSecs};
-    Radolan.testMode=true;
-    Radolan.main(args);  
+
+  String tmpDir = System.getProperty("java.io.tmpdir");
+
+  /**
+   * test radolan display
+   * 
+   * @param url
+   * @param viewTimeSecs
+   */
+  public void testRadolan(String url, int viewTimeSecs, String output) {
+    String outputPath = "";
+    if (output != null)
+      outputPath = tmpDir + "/" + output;
+    String args[] = { "-i", url, "-t", "" + viewTimeSecs, "-o", outputPath };
+    Radolan.testMode = true;
+    Radolan.main(args);
+    if (output != null) {
+      File outputFile = new File(outputPath);
+      assertTrue(outputFile.exists());
+      System.out.println(outputFile.getAbsolutePath());
+    }
   }
-  
+
   @Test
   public void testSF() {
-    String url="https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
-    testRadolan(url,25);
+    String url = "https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
+    testRadolan(url, 5, "SF.png");
   }
 
   @Test
   public void testRadarPicture() {
-    String url="https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
-    testRadolan(url,3);
+    String url = "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
+    testRadolan(url, 3, "rad_brd_akt.png");
   }
-  
-  
+
   @Test
   public void testRadarfilm() {
-    String url="https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
-    testRadolan(url,12);
+    String url = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
+    testRadolan(url, 12, null);
   }
 }
