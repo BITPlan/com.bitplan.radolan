@@ -36,7 +36,7 @@ public class Translate {
   // Polarstereographische Projektion
   public static final double junctionNorth = 60.0; // N
   public static final double junctionEast = 10.0; // E
-  
+
   public static final double lambda0 = rad(junctionEast);
   public static final double phi0 = rad(junctionNorth);
 
@@ -50,8 +50,10 @@ public class Translate {
 
   public static final IPoint nationalGrid = minRes(new IPoint(900, 900));
   public static final IPoint nationalPictureGrid = minRes(new IPoint(920, 920));
-  public static final IPoint extendedNationalGrid = minRes(new IPoint(900, 1100));
-  public static final IPoint middleEuropeanGrid = minRes(new IPoint(1400, 1500));
+  public static final IPoint extendedNationalGrid = minRes(
+      new IPoint(900, 1100));
+  public static final IPoint middleEuropeanGrid = minRes(
+      new IPoint(1400, 1500));
 
   // minRes repeatedly bisects the given edges until no further step is possible
   // for at least one edge. The resulting dimensions are the returned.
@@ -169,17 +171,17 @@ public class Translate {
     return deg * Math.PI / 180.0;
   }
 
-  // Translate translates geographical coordinates 
+  // Translate translates geographical coordinates
   // (latitude north, longitude east) to the
   // according data indices in the coordinate system of the composite.
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
   public static DPoint translate(Composite c, double north, double east) {
     if (!c.isHasProjection()) {
-      return new DPoint(Double.NaN,Double.NaN);
+      return new DPoint(Double.NaN, Double.NaN);
     }
-    DPoint p = polarStereoProjection(north,east);
-   
+    DPoint p = polarStereoProjection(north, east);
+
     // offset correction
     p.x -= c.offx;
     p.y -= c.offy;
@@ -189,10 +191,11 @@ public class Translate {
     p.y /= c.getRy();
     return p;
   }
-  
+
   /**
-   * convert the given north - latitude /east -longitude  values to a cartesian
+   * convert the given north - latitude /east -longitude values to a cartesian
    * coordinate
+   * 
    * @param north
    * @param east
    * @return
@@ -201,27 +204,47 @@ public class Translate {
     double lambda = rad(east);
     double phi = rad(north);
 
-    // see https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
+    // see
+    // https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
     // 1.3 Polarstereografische Projektion
     double m = (1.0 + Math.sin(phi0)) / (1.0 + Math.sin(phi));
     double x = (earthRadius * m * Math.cos(phi) * Math.sin(lambda - lambda0));
     double y = (earthRadius * m * Math.cos(phi) * Math.cos(lambda - lambda0));
-    return new DPoint(x,y);
+    return new DPoint(x, y);
   }
-
 
   /**
    * translate a coordinate to lat/lon
+   * 
    * @param p
    * @return the lat/lon point
    */
-  public static DPoint translateXYtoLatLon(Composite c,DPoint p) {
+  public static DPoint translateXYtoLatLon(Composite c, DPoint p) {
     if (!c.isHasProjection()) {
-      return new DPoint(Double.NaN,Double.NaN);
+      return new DPoint(Double.NaN, Double.NaN);
     }
-    // see https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
-    // 1.4 Inverse Polarstereografische Projektion
-    DPoint latlon=new DPoint(0,0);
+    DPoint latlon = new DPoint(0, 0);
     return latlon;
+  }
+
+  // see
+  // https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
+  // 1.4 Inverse Polarstereografische Projektion
+  /**
+   * convert the given cartesian coordinate to a lat/lon coordinate
+   * 
+   * @param x
+   * @param y
+   * @return
+   */
+  public static DPoint inversePolarStereoProjection(double x, double y) {
+    double lambda = Math.atan(-x / y) + lambda0;
+    double term=square(earthRadius)*square((1+Math.sin(phi0)));
+    double phi=Math.asin((term-(square(x)+square(y)))/(term+(square(x)+square(y))));
+    return new DPoint(Math.toDegrees(phi),Math.toDegrees(lambda));
+  }
+  
+  public static double square(double n) {
+    return n*n;
   }
 }
