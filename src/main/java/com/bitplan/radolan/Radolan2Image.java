@@ -79,7 +79,7 @@ public class Radolan2Image {
     // draw borders
     if (comp.isHasProjection()) {
       System.out.println(String.format("detected grid: %.1f km * %.1f km\n", comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
-      Borders borders=new Borders("1_deutschland/3_mittel.geojson");
+      Borders borders=new Borders("2_bundeslaender/2_hoch.geojson"); //"1_deutschland/3_mittel.geojson"
       for (DPoint point:borders.getPoints()) {
         DPoint dp = comp.translate(point.x, point.y);
         IPoint ip = new IPoint(dp);

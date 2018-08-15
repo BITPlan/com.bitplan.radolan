@@ -330,7 +330,7 @@ public class Composite {
    */
   public byte getByte(int x, int y) {
     int ofs=header.length();
-    int pos=y*getDx()+x+ofs;
+    int pos=y*getDx()*2+x+ofs;
     return bytes[pos];
   }
 

@@ -63,7 +63,7 @@ public class LittleEndian {
    */
   public static byte[] readRowLittleEndian(Composite c, int y) {
     byte[] yrow = new byte[c.getDx() * 2];
-    for (int x=0;x<c.getDx();x++)  {
+    for (int x=0;x<c.getDx()*2;x++)  {
       yrow[x]=c.getByte(x,y);
     }
     return yrow;
