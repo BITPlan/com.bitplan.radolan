@@ -142,10 +142,11 @@ public class TestTranslate extends Testing {
           test.comp.getRx(), test.comp.getRy());
       Logf("dummy%s: offx = %f; offy = %f\n", test.comp.getProduct(),
           test.comp.offx, test.comp.offy);
-
+      debug=true;
       for (double[] edge : test.edge) {
+        DPoint latlon=new DPoint(edge[0], edge[1]);
         // result
-        DPoint r = test.comp.translate(edge[0], edge[1]);
+        DPoint r = test.comp.translate(latlon.x,latlon.y);
         // expected
         DPoint e = new DPoint(edge[2], edge[3]);
 
@@ -155,7 +156,12 @@ public class TestTranslate extends Testing {
               "dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
               test.comp.getProduct(), edge[0], edge[1], r.x, r.y, e.x, e.y);
         }
-        DPoint r2 = test.comp.translateXYtoLatLon(e);
+        DPoint latlon2 = test.comp.translateXYtoLatLon(e);
+        if (dist(latlon2.x, latlon2.y, latlon.x, latlon.y) > 0.1) {
+          Logf(
+              "dummy%s.TranslateXYtoLatLon(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
+              test.comp.getProduct(), e.x,e.y, latlon2.x, latlon2.y, latlon.x, latlon.y);
+        }
 
       }
     }

@@ -167,6 +167,10 @@ public class Translate {
     c.setRy((res.y) / c.getDy());
   }
 
+  public static double square(double n) {
+    return n*n;
+  }
+  
   public static double rad(double deg) {
     return deg * Math.PI / 180.0;
   }
@@ -223,7 +227,16 @@ public class Translate {
     if (!c.isHasProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
-    DPoint latlon = new DPoint(0, 0);
+    // scaling
+    p.x *= c.getRx();
+    p.y *= c.getRy();
+    
+    // offset correction
+    p.x += c.offx;
+    p.y += c.offy;
+ 
+    DPoint latlon = inversePolarStereoProjection(p.x,p.y);
+   
     return latlon;
   }
 
@@ -242,9 +255,5 @@ public class Translate {
     double term=square(earthRadius)*square((1+Math.sin(phi0)));
     double phi=Math.asin((term-(square(x)+square(y)))/(term+(square(x)+square(y))));
     return new DPoint(Math.toDegrees(phi),Math.toDegrees(lambda));
-  }
-  
-  public static double square(double n) {
-    return n*n;
   }
 }
