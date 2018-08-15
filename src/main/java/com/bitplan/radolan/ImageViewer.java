@@ -31,6 +31,7 @@ import com.bitplan.javafx.WaitableApp;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -49,6 +50,8 @@ public class ImageViewer extends WaitableApp {
   public static Image image;
   public static String title="Image Viewer";
   private static double rotate=0.0;
+  public ImageView imageView;
+  public Tooltip toolTip;
 
   @Override
   public void start(Stage stage) {
@@ -58,10 +61,11 @@ public class ImageViewer extends WaitableApp {
       image = new Image("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
 
     // simple displays ImageView the image as is
-    ImageView imageView = new ImageView();
+    imageView = new ImageView();
     imageView.setImage(image);
     imageView.setRotate(getRotate());
-
+    toolTip = new Tooltip("no info");
+    Tooltip.install(imageView, toolTip);
     Group root = new Group();
     Scene scene = new Scene(root);
     scene.setFill(Color.BLACK);

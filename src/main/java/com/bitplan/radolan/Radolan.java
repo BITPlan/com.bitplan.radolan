@@ -23,6 +23,7 @@
  */
 package com.bitplan.radolan;
 
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -37,6 +38,7 @@ import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
 import javafx.application.Platform;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
 /**
@@ -47,7 +49,7 @@ import javafx.scene.image.Image;
  */
 @SuppressWarnings("restriction")
 public class Radolan extends Main {
-  
+
   @Option(name = "-s", aliases = {
       "--show" }, usage = "show\nshow resulting image")
   protected boolean showImage = true;
@@ -65,44 +67,65 @@ public class Radolan extends Main {
   protected String output;
 
   private Image image;
- 
+
   /**
    * stop the application with the given exit Code
+   * 
    * @param pExitCode
    */
   public void stop(int pExitCode) {
-    Platform.runLater(()->{Platform.exit();});
-    exitCode=pExitCode;
+    Platform.runLater(() -> {
+      Platform.exit();
+    });
+    exitCode = pExitCode;
     if (!testMode) {
       System.exit(pExitCode);
     }
   }
-  
+
   /**
    * show the given image
+   * 
    * @param image
-   * @param title 
+   * @param title
+   * @param composite
    */
-  public void showImage(Image image, String title) {
+  public void showImage(Image image, String title, Composite composite) {
+    ImageViewer.toolkitInit();
     ImageViewer.image = image;
     String[] args = {};
-    ImageViewer.title=title;
-    ImageViewer imageViewer=new ImageViewer();
+    ImageViewer.title = title;
+    ImageViewer imageViewer = new ImageViewer();
     imageViewer.limitShowTime(this.showTimeSecs);
-    imageViewer.maininstance(args);
+    imageViewer.show();
+    imageViewer.waitOpen();
+    // do we show a radolan image?
+    if (composite != null) {
+      // https://stackoverflow.com/a/39712217/1497139
+      imageViewer.toolTip.setOnShowing(ev -> {// called just prior to being
+                                              // shown
+        Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
+        Point2D local = imageViewer.imageView.screenToLocal(mouse.x, mouse.y);
+        String msg = String.format("%f,%f", local.getX(), local.getY());
+        LOGGER.log(Level.INFO, msg);
+        imageViewer.toolTip.setText(msg);
+      });
+    }
+    imageViewer.waitClose();
   }
 
   /**
    * show the image from the given input
+   * 
    * @param input
    */
   public Image showImage(String input) {
     ImageViewer.toolkitInit();
     Image image = new Image(input);
-    showImage(image,input);
+    showImage(image, input, null);
     return image;
   }
-  
+
   /**
    * do the required work
    */
@@ -116,28 +139,30 @@ public class Radolan extends Main {
       if (input.contains(".png") || input.contains(".jpg")
           || input.contains(".gif")) {
         if (this.showImage)
-          image=showImage(input);
+          image = showImage(input);
         else {
           // silently fail here?
         }
       } else {
         try {
-          Composite composite=new Composite(input);
-          String msg=String.format("%s-image (%s) showing %s", composite.getProduct(),composite.getDataUnit(),composite.getForecastTime());
+          Composite composite = new Composite(input);
+          String msg = String.format("%s-image (%s) showing %s",
+              composite.getProduct(), composite.getDataUnit(),
+              composite.getForecastTime());
           LOGGER.log(Level.INFO, msg);
           image = Radolan2Image.getImage(composite);
           if (this.showImage)
-            showImage(image,msg);
+            showImage(image, msg, composite);
         } catch (Throwable th) {
           ErrorHandler.handle(th);
         }
       }
       // shall we save the image
-      if (image!=null && output!=null && !output.isEmpty()) {
+      if (image != null && output != null && !output.isEmpty()) {
         String ext = FilenameUtils.getExtension(output);
-        File outputFile=new File(output);
+        File outputFile = new File(output);
         BufferedImage bImage = ImageViewer.fromFXImage(image, null);
-        String formatName=ext;
+        String formatName = ext;
         try {
           ImageIO.write(bImage, formatName, outputFile);
         } catch (IOException e) {

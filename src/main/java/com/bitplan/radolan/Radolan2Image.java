@@ -39,7 +39,7 @@ import javafx.scene.paint.Color;
 public class Radolan2Image {
   
   public static Color borderColor = Color.BROWN;
-  public static Color meshColor   = Color.rgb(0x33, 0xFF, 0x22, 1);
+  public static Color meshColor   = Color.BLACK;
   
   /**
    * get the Image for the given composite
@@ -78,17 +78,50 @@ public class Radolan2Image {
     WritableImage image = getImage(comp,heatmap);
     // draw borders
     if (comp.isHasProjection()) {
-      System.out.println(String.format("detected grid: %.1f km * %.1f km\n", comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
-      Borders borders=new Borders("2_bundeslaender/2_hoch.geojson"); //"1_deutschland/3_mittel.geojson"
-      for (DPoint point:borders.getPoints()) {
-        DPoint dp = comp.translate(point.x, point.y);
-        IPoint ip = new IPoint(dp);
-        if (ip.x>0 && ip.y>0) {
-          image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
+      drawBorders(comp,"2_bundeslaender/2_hoch.geojson",image);
+      drawMesh(comp,image);
+    }
+    return image;
+  }
+  
+  /**
+   * draw Borders
+   * @param comp
+   * @param image
+   * @throws Exception
+   */
+  protected static void drawBorders(Composite comp, String borderName,WritableImage image) throws Exception {
+    System.out.println(String.format("detected grid: %.1f km * %.1f km\n", comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
+    Borders borders=new Borders(borderName); //"1_deutschland/3_mittel.geojson"
+    for (DPoint point:borders.getPoints()) {
+      DPoint dp = comp.translate(point.x, point.y);
+      IPoint ip = new IPoint(dp);
+      if (ip.x>0 && ip.y>0) {
+        image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
+      }
+    }
+  }
+  /**
+   * draw a coordinate mesh
+   * @param comp - the composite to draw the mesh for
+   * @param image
+   */
+  protected static void drawMesh(Composite comp,WritableImage image) {
+    // draw mesh
+    // loop over east and north 
+    for (double e = 1.0; e < 16.0; e += 0.1) {
+      for (double n = 46.0; n < 55.0; n += 0.1) {
+        double edist = Math.abs(e-Math.round(e));
+        double ndist=Math.abs(n-Math.round(n));
+        if ((edist < 0.01) || (ndist < 0.01)) {
+          DPoint dp = comp.translate(n, e);
+          IPoint ip=new IPoint(dp);
+          if (ip.x>=0 && ip.y>=0 && ip.x<comp.getPx() && ip.y<comp.getPy())
+            image.getPixelWriter().setColor(ip.x,ip.y, meshColor);
         }
       }
     }
-    return image;
+    
   }
   /**
    * get the Image for the given composite and color map

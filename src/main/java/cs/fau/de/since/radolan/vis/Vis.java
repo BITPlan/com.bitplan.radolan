@@ -195,13 +195,13 @@ public class Vis {
     FloatFunction<Color> heatMap = (val) -> {
       val = compression.apply(val);
       if (val < min) {
-        return Color.rgb(0xE0,0xE0, 0xE0,0.75); // black half opaque
+        return Color.rgb(0xE8,0xE8, 0xE8,0.75); // gray 3/4 opaque
       }
       if (val>max) {
         return Color.PURPLE; 
       }
       if (Float.isNaN(val)) {
-        return Color.rgb(0xF0,0xF0,0xF0,0.95); // transparent;
+        return Color.rgb(0xF0,0xF0,0xF0,0.95); // 95% opaque
       }
 
       double p = (val - min) / (max - min);

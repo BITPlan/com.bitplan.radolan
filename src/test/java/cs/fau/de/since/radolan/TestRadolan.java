@@ -68,7 +68,7 @@ public class TestRadolan {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 5, product+".png");
+      testRadolan(url, 10, product+".png");
     }
   }
   

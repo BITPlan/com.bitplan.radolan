@@ -165,8 +165,8 @@ public class Translate {
     return deg * Math.PI / 180.0;
   }
 
-  // Translate translates geographical coordinates (latitude north, longitude
-  // east) to the
+  // Translate translates geographical coordinates 
+  // (latitude north, longitude east) to the
   // according data indices in the coordinate system of the composite.
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
