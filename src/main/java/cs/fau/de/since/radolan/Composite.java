@@ -321,6 +321,16 @@ public class Composite {
   public DPoint translate(double lat, double lon) {
     return Translate.translate(this, lat, lon);
   }
+  
+  /**
+   * translate a coordinate to lat/lon
+   * @param p
+   * @return the lat/lon point
+   */
+  public DPoint translateXYtoLatLon(DPoint p) {
+    return Translate.translateXYtoLatLon(this,p);
+  }
+
 
   /**
    * get the byte at the given x,y position in the binary data
@@ -334,4 +344,5 @@ public class Composite {
     return bytes[pos];
   }
 
+  
 }

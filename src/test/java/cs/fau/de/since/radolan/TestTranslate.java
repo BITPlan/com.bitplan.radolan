@@ -23,6 +23,8 @@
  */
 package cs.fau.de.since.radolan;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -170,7 +172,34 @@ public class TestTranslate extends Testing {
           Errorf("dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
             test.comp.getProduct(), edge[0], edge[1], r.x, r.y, e.x, e.y);
         }
+        DPoint r2=test.comp.translateXYtoLatLon(e);
+        
       }
+    }
+  }
+ 
+  // PolarStereo Projection
+  class PSP {
+    double north;
+    double east;
+    double x;
+    double y;
+    public PSP(double east, double north, double x, double y) {
+      this.east=east;
+      this.north=north;
+      this.x=x;
+      this.y=y;
+    }
+   
+  }
+  @Test
+  public void testFormulas() {
+    PSP[] pspTable = { new PSP(3.5889, 46.9526, -523.4622, -4658.645),
+        };
+    for (PSP psp:pspTable) {
+      DPoint p = Translate.polarStereoProjection(psp.north, psp.east);
+      assertEquals(psp.x,p.x,0.003);
+      assertEquals(psp.y,-p.y,0.003);
     }
   }
   

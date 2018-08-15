@@ -33,8 +33,12 @@ package cs.fau.de.since.radolan;
 public class Translate {
   public static final double earthRadius = 6370.04; // km
 
+  // Polarstereographische Projektion
   public static final double junctionNorth = 60.0; // N
   public static final double junctionEast = 10.0; // E
+  
+  public static final double lambda0 = rad(junctionEast);
+  public static final double phi0 = rad(junctionNorth);
 
   enum GridType {
     unknownGrid, //
@@ -174,23 +178,50 @@ public class Translate {
     if (!c.isHasProjection()) {
       return new DPoint(Double.NaN,Double.NaN);
     }
-
-    double lamda0 = rad(junctionEast);
-    double phi0 = rad(junctionNorth);
-    double lamda = rad(east);
-    double phi = rad(north);
-
-    double m = (1.0 + Math.sin(phi0)) / (1.0 + Math.sin(phi));
-    double x = (earthRadius * m * Math.cos(phi) * Math.sin(lamda - lamda0));
-    double y = (earthRadius * m * Math.cos(phi) * Math.cos(lamda - lamda0));
-
+    DPoint p = polarStereoProjection(north,east);
+   
     // offset correction
-    x -= c.offx;
-    y -= c.offy;
+    p.x -= c.offx;
+    p.y -= c.offy;
 
     // scaling
-    x /= c.getRx();
-    y /= c.getRy();
+    p.x /= c.getRx();
+    p.y /= c.getRy();
+    return p;
+  }
+  
+  /**
+   * convert the given north - latitude /east -longitude  values to a cartesian
+   * coordinate
+   * @param north
+   * @param east
+   * @return
+   */
+  public static DPoint polarStereoProjection(double north, double east) {
+    double lambda = rad(east);
+    double phi = rad(north);
+
+    // see https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
+    // 1.3 Polarstereografische Projektion
+    double m = (1.0 + Math.sin(phi0)) / (1.0 + Math.sin(phi));
+    double x = (earthRadius * m * Math.cos(phi) * Math.sin(lambda - lambda0));
+    double y = (earthRadius * m * Math.cos(phi) * Math.cos(lambda - lambda0));
     return new DPoint(x,y);
+  }
+
+
+  /**
+   * translate a coordinate to lat/lon
+   * @param p
+   * @return the lat/lon point
+   */
+  public static DPoint translateXYtoLatLon(Composite c,DPoint p) {
+    if (!c.isHasProjection()) {
+      return new DPoint(Double.NaN,Double.NaN);
+    }
+    // see https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
+    // 1.4 Inverse Polarstereografische Projektion
+    DPoint latlon=new DPoint(0,0);
+    return latlon;
   }
 }
