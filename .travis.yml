@@ -35,7 +35,7 @@ before_install: sudo apt-get install xvfb
 # and split install and test phase of maven since xvfb will only
 # be available in test phase
 # let's first compile without tests
-install: mvn install skipTests=true -Dgpg.skip=true
+install: mvn install -D skipTests=true -Dgpg.skip=true
 # do the tests separately after xvfb has been installed
 script: mvn test
 # we need a few extra packages to be installed

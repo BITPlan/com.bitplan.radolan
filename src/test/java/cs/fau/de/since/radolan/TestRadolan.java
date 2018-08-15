@@ -62,16 +62,16 @@ public class TestRadolan {
   }
 
   @Test
-  public void testSF() {
-    String url = "https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
-    testRadolan(url, 5, "SF.png");
+  public void testOpenData() {
+    String products[] = { "sf", "rw", "ry" };
+    for (String product : products) {
+      String url = String.format(
+          "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
+          product, product);
+      testRadolan(url, 5, product+".png");
+    }
   }
   
-  @Test
-  public void testRW() {
-    String url = "https://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin";
-    testRadolan(url, 5, "RW.png");
-  }
 
   @Test
   public void testRadarPicture() {

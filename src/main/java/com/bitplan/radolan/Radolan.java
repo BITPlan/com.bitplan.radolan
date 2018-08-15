@@ -81,10 +81,12 @@ public class Radolan extends Main {
   /**
    * show the given image
    * @param image
+   * @param title 
    */
-  public void showImage(Image image) {
+  public void showImage(Image image, String title) {
     ImageViewer.image = image;
     String[] args = {};
+    ImageViewer.title=title;
     ImageViewer imageViewer=new ImageViewer();
     imageViewer.limitShowTime(this.showTimeSecs);
     imageViewer.maininstance(args);
@@ -97,7 +99,7 @@ public class Radolan extends Main {
   public Image showImage(String input) {
     ImageViewer.toolkitInit();
     Image image = new Image(input);
-    showImage(image);
+    showImage(image,input);
     return image;
   }
   
@@ -121,10 +123,11 @@ public class Radolan extends Main {
       } else {
         try {
           Composite composite=new Composite(input);
-          LOGGER.log(Level.INFO, String.format("%s-image (%s) showing %s", composite.getProduct(),composite.getDataUnit(),composite.getForecastTime()));
+          String msg=String.format("%s-image (%s) showing %s", composite.getProduct(),composite.getDataUnit(),composite.getForecastTime());
+          LOGGER.log(Level.INFO, msg);
           image = Radolan2Image.getImage(composite);
           if (this.showImage)
-            showImage(image);
+            showImage(image,msg);
         } catch (Throwable th) {
           ErrorHandler.handle(th);
         }

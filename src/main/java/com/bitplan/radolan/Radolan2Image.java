@@ -38,7 +38,7 @@ import javafx.scene.paint.Color;
 @SuppressWarnings("restriction")
 public class Radolan2Image {
   
-  public static Color borderColor = Color.BEIGE;
+  public static Color borderColor = Color.BROWN;
   public static Color meshColor   = Color.rgb(0x33, 0xFF, 0x22, 1);
   
   /**

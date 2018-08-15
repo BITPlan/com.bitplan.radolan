@@ -21,13 +21,19 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import cs.fau.de.since.radolan.TestConversion;
+import cs.fau.de.since.radolan.TestData;
+import cs.fau.de.since.radolan.TestHeader;
+import cs.fau.de.since.radolan.TestRadolan;
+import cs.fau.de.since.radolan.TestTranslate;
+
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestTranslate.class, TestConversion.class,TestData.class,TestHeader.class,TestRadolan.class })
+@Suite.SuiteClasses({ TestUnLocodeManager.class,TestTranslate.class, TestConversion.class,TestData.class,TestHeader.class,TestRadolan.class })
 /**
  * TestSuite
  * 
