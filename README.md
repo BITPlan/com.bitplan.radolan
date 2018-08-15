@@ -6,6 +6,12 @@ Dual Licensed: MIT/Apache
 ### Project
 [![Build Status](https://travis-ci.org/BITPlan/com.bitplan.radolan.svg?branch=master)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
 
+The Precipitation Information if Deutscher Wetterdienst DWD is based on RADOLAN data which is publicly available via the OpenData Services of DWD
+![DWD Regenradar](https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg)
+![DWD RADOLAN RW](https://www.dwd.de/DE/leistungen/radolan/radolan_info/rw_karte.png?view=nasImage&nn=16102)
+
+This is a library to help analyze and visualize the RADOLAN files 
+
 # Links
 * http://www.bitplan.com/index.php/Radolan
 

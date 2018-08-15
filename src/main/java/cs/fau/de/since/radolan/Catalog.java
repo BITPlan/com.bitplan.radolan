@@ -26,6 +26,12 @@ package cs.fau.de.since.radolan;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * migrated to Java from
+ * https://gitlab.cs.fau.de/since/radolan/blob/master/catalog.go
+ * @author wf
+ *
+ */
 public class Catalog {
   Map<String, Spec> dimensionCatalog = new HashMap<String, Spec>();
   Map<String, Unit> unitCatalog = new HashMap<String, Unit>();

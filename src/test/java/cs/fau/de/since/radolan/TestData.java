@@ -31,28 +31,29 @@ import cs.fau.de.since.radolan.Data.Encoding;
 
 /**
  * test access to the OpenData results of DWD
+ * 
  * @author wf
  *
  */
 public class TestData {
 
   @Test
-  public void testRW() throws Throwable {
-    Composite rw = new Composite(
-        "https://opendata.dwd.de/weather/radar/radolan/rw/raa01-rw_10000-latest-dwd---bin");
-    checkLittleEndian(rw, "RW");
-  }
-
-  @Test
-  public void testSF() throws Throwable {
-    Composite sf = new Composite(
-        "https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin");
-    checkLittleEndian(sf, "SF");
+  public void testOpendata() throws Throwable {
+    String products[] = { "rw", "ry", "sf" };
+    for (String product : products) {
+      String url = String.format(
+          "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
+          product, product);
+      Composite c = new Composite(url);
+      checkLittleEndian(c, product.toUpperCase());
+    }
   }
 
   /**
    * check the given composite
-   * @param c - the composite to check
+   * 
+   * @param c
+   *          - the composite to check
    * @param product
    */
   public void checkLittleEndian(Composite c, String product) {
