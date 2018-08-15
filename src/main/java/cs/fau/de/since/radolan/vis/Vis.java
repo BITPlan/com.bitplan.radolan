@@ -23,186 +23,250 @@
  */
 package cs.fau.de.since.radolan.vis;
 
+import cs.fau.de.since.radolan.FloatFunction;
+import javafx.scene.paint.Color;
+
 /**
- * migrated to Java from https://gitlab.cs.fau.de/since/radolan/blob/master/radolan2png/vis/vis.go
+ * migrated to Java from
+ * https://gitlab.cs.fau.de/since/radolan/blob/master/radolan2png/vis/vis.go
+ * 
  * @author wf
  *
  */
+@SuppressWarnings("restriction")
 public class Vis {
-
-/*
-  // A ColorFunc can be used to assign colors to data values for image creation.
-  type ColorFunc func(val float64) color.RGBA
-
-  // Sample color and grayscale gradients for visualization with the image method.
-  var (
-    // HeatmapReflectivityShort is a color gradient for cloud reflectivity
-    // composites between 5dBZ and 75dBZ.
-    HeatmapReflectivityShort = Heatmap(5.0, 75.0, Id)
-
-    // HeatmapReflectivity is a color gradient for cloud reflectivity
-    // composites between 5dBZ and 75dBZ.
-    HeatmapReflectivity = Heatmap(1.0, 75.0, Id)
-
-    // HeatmapReflectivityWide is a color gradient for cloud reflectivity
-    // composites between -32.5dBZ and 75dBZ.
-    HeatmapReflectivityWide = Heatmap(-32.5, 75.0, Id)
-
-    // HeatmapAccumulatedHour is a color gradient for accumulated rainfall
-    // composites (e.g RW) between 0.1mm/h and 100 mm/h using logarithmic
-    // compression.
-    HeatmapAccumulatedHour = Heatmap(0.1, 100, Log)
-
-    // HeatmapAccumulatedDay is a color gradient for accumulated rainfall
-    // composites (e.g. SF) between 0.1mm and 200mm using logarithmic
-    // compression.
-    HeatmapAccumulatedDay = Heatmap(0.1, 200, Log)
-
-    HeatmapRadialVelocity = Radialmap(-31.5, 31.5, Log)
-
-    // GraymapLinear is a linear grayscale gradient between the (raw) rvp-6
-    // values 0 and 409.5.
-    GraymapLinear = Graymap(0, 409.5, Id)
-
-    // GraymapLinearWide is a linear grayscale gradient between the (raw)
-    // rvp-6 values 0 and 4095.
-    GraymapLinearWide = Graymap(0, 4095, Id)
-  )
-
   // Id is the identity (no compression)
-  func Id(x float64) float64 {
-    return x
-  }
+  public static FloatFunction<Float> Id = (x) -> x;
 
   // Log is the natural logarithm (logarithmic compression)
-  func Log(x float64) float64 {
-    return math.Log(x)
+  public static FloatFunction<Float> Log = (x) -> (float) Math.log(x);
+
+  // A ColorFunc can be used to assign colors to data values for image creation.
+  // type ColorFunc func(val float64) color.RGBA
+  // we'll use a FloatFunction<Color> for this
+
+  // Sample color and grayscale gradients for visualization with the image
+  // method.
+  // HeatmapReflectivityShort is a color gradient for cloud reflectivity
+  // composites between 5dBZ and 75dBZ.
+  public static FloatFunction<Color> HeatmapReflectivityShort = Heatmap(5.0f,
+      75.0f, Id);
+
+  // HeatmapReflectivity is a color gradient for cloud reflectivity
+  // composites between 5dBZ and 75dBZ.
+  public static FloatFunction<Color> HeatmapReflectivity = Heatmap(1.0f, 75.0f,
+      Id);
+
+  // HeatmapReflectivityWide is a color gradient for cloud reflectivity
+  // composites between -32.5dBZ and 75dBZ.
+  public static FloatFunction<Color> HeatmapReflectivityWide = Heatmap(-32.5f,
+      75.0f, Id);
+
+  // HeatmapAccumulatedHour is a color gradient for accumulated rainfall
+  // composites (e.g RW) between 0.1mm/h and 100 mm/h using logarithmic
+  // compression.
+  public static FloatFunction<Color> HeatmapAccumulatedHour =
+
+      Heatmap(0.1f, 100f, Log);
+
+  // HeatmapAccumulatedDay is a color gradient for accumulated rainfall
+  // composites (e.g. SF) between 0.1mm and 200mm using logarithmic
+  // compression.
+  public static FloatFunction<Color> HeatmapAccumulatedDay = Heatmap(0.1f, 200f,
+      Log);
+
+  public static FloatFunction<Color> HeatmapRadialVelocity = Radialmap(-31.5f,
+      31.5f, Log);
+
+  // GraymapLinear is a linear grayscale gradient between the (raw) rvp-6
+  // values 0 and 409.5.
+  public static FloatFunction<Color> GraymapLinear = Graymap(0f, 409.5f, Id);
+
+  // GraymapLinearWide is a linear grayscale gradient between the (raw)
+  // rvp-6 values 0 and 4095.
+  public static FloatFunction<Color> GraymapLinearWide = Graymap(0f, 4095f, Id);
+
+  /**
+   * get the integer for the given color
+   * 
+   * @param c
+   * @return the color integer
+   */
+  public static int getIntFromColor(Color c) {
+    int R = (int) Math.round(255 * c.getRed());
+    int G = (int) Math.round(255 * c.getGreen());
+    int B = (int) Math.round(255 * c.getBlue());
+    int A = (int) Math.round(255 * c.getOpacity());
+    A = (A << 24) & 0xFF000000;
+    R = (R << 16) & 0x00FF0000;
+    G = (G << 8) & 0x0000FF00;
+    B = B & 0x000000FF;
+
+    return A | R | G | B;
   }
 
   // Image creates an image by evaluating the color function fn for each data
   // value in the given z-layer.
-  func Image(fn ColorFunc, c *radolan.Composite, layer int) *image.RGBA {
-    rec := image.Rect(0, 0, c.Dx, c.Dy)
-    img := image.NewRGBA(rec)
+  /*
+   * func Image(fn ColorFunc, c *radolan.Composite, layer int) *image.RGBA {
+   * rec := image.Rect(0, 0, c.Dx, c.Dy)
+   * img := image.NewRGBA(rec)
+   * 
+   * if layer < 0 || layer >= c.Dz {
+   * return img
+   * }
+   * 
+   * for y := 0; y < c.Dy; y++ {
+   * for x := 0; x < c.Dx; x++ {
+   * img.Set(x, y, fn(float64(c.DataZ[layer][y][x])))
+   * }
+   * }
+   * 
+   * return img
+   * }
+   */
 
-    if layer < 0 || layer >= c.Dz {
-      return img
-    }
-
-    for y := 0; y < c.Dy; y++ {
-      for x := 0; x < c.Dx; x++ {
-        img.Set(x, y, fn(float64(c.DataZ[layer][y][x])))
-      }
-    }
-
-    return img
-  }
-
-  // Graymap returns a grayscale gradient between min and max. A compression function is used to
+  // Graymap returns a grayscale gradient function between min and max. A
+  // compression function is used to
   // make logarithmic scales possible.
-  func Graymap(min, max float64, compression func(float64) float64) ColorFunc {
-    min = compression(min)
-    max = compression(max)
+  public static FloatFunction<Color> Graymap(float pMin, float pMax,
+      FloatFunction<Float> compression) {
+    final float min = compression.apply(pMin);
+    final float max = compression.apply(pMax);
 
-    return func(val float64) color.RGBA {
-      val = compression(val)
+    FloatFunction<Color> gradient = (val) -> {
+      val = compression.apply(val);
 
-      if val < min {
-        return color.RGBA{0x00, 0x00, 0x00, 0xFF} // black
+      if (val < min) {
+        return Color.BLACK; // black
       }
 
-      p := (val - min) / (max - min)
-      if p > 1 {
-        p = 1
+      double p = (val - min) / (max - min);
+      if (p > 1) {
+        p = 1;
       }
 
-      l := uint8(0xFF * p)
-      return color.RGBA{l, l, l, 0xFF}
-    }
+      byte l = (byte) (0xFF * p);
+      return Color.rgb(l, l, l, 0xFF);
+    };
+    return gradient;
   }
 
   // Radialmap returns a dichromatic gradient from min to 0 to max which can
   // be used for doppler radar radial velocity products.
-  func Radialmap(min, max float64, compression func(float64) float64) ColorFunc {
-    return func(val float64) color.RGBA {
-      if val != val {
-        return color.RGBA{0x00, 0x00, 0x00, 0xFF} // black
+  public static FloatFunction<Color> Radialmap(float min, float max,
+      FloatFunction<Float> compression) {
+    FloatFunction<Color> radialmap = (val) -> {
+      if (val != val) {
+        return Color.BLACK; // black
       }
 
-      base := math.Max(math.Abs(min), math.Abs(max))
-      p := compression(math.Abs(val)) / compression(base)
+      float base = Math.max(Math.abs(min), Math.abs(max));
+      float p = compression.apply(Math.abs(val)) / compression.apply(base);
 
-      if p > 1 {
-        p = 1
+      if (p > 1) {
+        p = 1;
       }
-      lev := uint8(0xFF * p)
+      int lev = (byte) (0xFF * p);
 
-      var non byte = 0x00
-      if math.Abs(val) <= 1 {
-        lev = 0xFF
-        non = 0xCC
-      }
-
-      if val < 0 {
-        return color.RGBA{non, lev, lev, 0xFF}
+      int non = 0x00;
+      if (Math.abs(val) <= 1) {
+        lev = 0xFF;
+        non = 0xCC;
       }
 
-      return color.RGBA{lev, non, non, 0xFF}
-    }
+      if (val < 0) {
+        return Color.rgb(non, lev, lev, 0xFF);
+      }
+
+      return Color.rgb(lev, non, non, 0xFF);
+    };
+    return radialmap;
   }
 
-  // Heatmap returns a colour gradient between min and max. A compression function is used to
+  // Heatmap returns a colour gradient between min and max. A compression
+  // function is used to
   // make logarithmic scales possible.
-  func Heatmap(min, max float64, compression func(float64) float64) ColorFunc {
-    min = compression(min)
-    max = compression(max)
+  public static FloatFunction<Color> Heatmap(float pMin, float pMax,
+      FloatFunction<Float> compression) {
+    final float min = compression.apply(pMin);
+    final float max = compression.apply(pMax);
 
-    return func(val float64) color.RGBA {
-      val = compression(val)
-      if val < min {
-        return color.RGBA{0x00, 0x00, 0x00, 0xFF} // black
+    FloatFunction<Color> heatMap = (val) -> {
+      val = compression.apply(val);
+      if (val < min) {
+        return Color.BLACK; // black
+      }
+      if (val>max) {
+        return Color.RED; 
+      }
+      if (Float.isNaN(val)) {
+        return Color.LIGHTSLATEGREY; 
       }
 
-      p := (val - min) / (max - min)
-      if p > 1 { // limit
-        p = 1
+      double p = (val - min) / (max - min);
+      if (p > 1) { // limit
+        p = 1;
       }
-      h := math.Mod(360-(330*p)+240, 360)
+      int h = (int) (Math.round(360 - (330 * p) + 240) % 360);
 
-      s := 1.0          // saturation
-      l := 0.5*p + 0.25 // lightness
+      double s = 1.0; // saturation
+      double l = 0.5 * p + 0.25; // lightness
 
       // adapted from https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSL
-      c := (1 - math.Abs(2*l-1)) * s // calculate chroma
+      double c = (1 - Math.abs(2 * l - 1)) * s; // calculate chroma
 
-      hh := h / 60
-      x := c * (1 - math.Abs(math.Mod(hh, 2)-1))
+      int hh = h / 60;
+      double x = c * (1 - Math.abs(hh % 2) - 1);
 
-      if math.IsNaN(hh) {
-        hh = -1
-      }
-
-      var rr, gg, bb float64
-      switch int(hh) {
+      double rr = 0;
+      double gg = 0;
+      double bb = 0;
+      switch (hh) {
       case 0:
-        rr, gg, bb = c, x, 0
+        rr = c;
+        gg = x;
+        bb = 0;
+        break;
       case 1:
-        rr, gg, bb = x, c, 0
+        rr = x;
+        gg = c;
+        bb = 0;
+        break;
       case 2:
-        rr, gg, bb = 0, c, x
+        rr = 0;
+        gg = c;
+        bb = x;
+        break;
       case 3:
-        rr, gg, bb = 0, x, c
+        rr = 0;
+        gg = x;
+        bb = c;
+        break;
       case 4:
-        rr, gg, bb = x, 0, c
+        rr = x;
+        gg = 0;
+        bb = c;
+        break;
       case 5:
-        rr, gg, bb = c, 0, x
+        rr = c;
+        gg = 0;
+        bb = x;
+        break;
       }
 
-      m := l - c/2
-      r, g, b := uint8(0xFF*(rr+m)), uint8(0xFF*(gg+m)), uint8(0xFF*(bb+m))
+      double m = l - c / 2;
+      int r = (int) (0xFF * (rr + m));
+      int g = (int) (0xFF * (gg + m));
+      int b = (int) (0xFF * (bb + m));
 
-      return color.RGBA{r, g, b, 0xFF}
-    }
+      if (r>=0 && g>=0 && b>=0) {
+        return Color.rgb(r, g, b, 1);
+      } else {
+        return Color.ORANGE;
+      }
+    };
+    return heatMap;
   }
-*/
+
 }

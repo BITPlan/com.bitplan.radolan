@@ -23,6 +23,12 @@
  */
 package cs.fau.de.since.radolan;
 
+/**
+ * migrated to Java from
+ * https://gitlab.cs.fau.de/since/radolan/blob/master/conversion.go
+ * @author wf
+ *
+ */
 public class Conversion {
   
   /*

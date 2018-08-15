@@ -77,12 +77,12 @@ public class TestTranslate extends Testing {
       DPoint src = comp.translate(srcLat, srcLon);
       DPoint dst = comp.translate(dstLat, dstLon);
 
-      double resDist = dist(src.x * comp.Rx, src.y * comp.Ry, dst.x * comp.Rx,
-          dst.y * comp.Ry);
+      double resDist = dist(src.x * comp.getRx(), src.y * comp.getRy(), dst.x * comp.getRx(),
+          dst.y * comp.getRy());
 
       if (!absequal(resDist, expDist, 0.000001)) { // inaccuracy by 1mm
         Errorf("dummy.Rx = %.2f, dummy.Ry = %.2f; distance: %.3f km expected: %.3f km)",
-            comp.Rx, comp.Ry, resDist, expDist);
+            comp.getRx(), comp.getRy(), resDist, expDist);
       }
     }
   }
@@ -154,9 +154,9 @@ public class TestTranslate extends Testing {
 
     for (TranslateTestCase test:testcases) {
       Logf("dummy%s: Rx = %f; Ry = %f\n",
-        test.comp.Product, test.comp.Rx, test.comp.Ry);
+        test.comp.getProduct(), test.comp.getRx(), test.comp.getRy());
       Logf("dummy%s: offx = %f; offy = %f\n",
-        test.comp.Product, test.comp.offx, test.comp.offy);
+        test.comp.getProduct(), test.comp.offx, test.comp.offy);
 
      
       for (double [] edge : test.edge) {
@@ -168,7 +168,7 @@ public class TestTranslate extends Testing {
         // allowed inaccuracy by 100 meters
         if (dist(r.x, r.y, e.x, e.y) > 0.1) {
           Errorf("dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
-            test.comp.Product, edge[0], edge[1], r.x, r.y, e.x, e.y);
+            test.comp.getProduct(), edge[0], edge[1], r.x, r.y, e.x, e.y);
         }
       }
     }
@@ -216,8 +216,8 @@ public class TestTranslate extends Testing {
     }
 
     for (Composite comp:dummys) {
-      String lname = String.format("src/test/data/lambda_%s_%dx%d.txt", mode, comp.Dy, comp.Dx);
-      String pname = String.format("src/test/data/phi_%s_%dx%d.txt", mode, comp.Dy, comp.Dx);
+      String lname = String.format("src/test/data/lambda_%s_%dx%d.txt", mode, comp.getDy(), comp.getDx());
+      String pname = String.format("src/test/data/phi_%s_%dx%d.txt", mode, comp.getDy(), comp.getDx());
 
       String lbuf=FileUtils.readFileToString(new File(lname),"UTF-8");
       String pbuf=FileUtils.readFileToString(new File(pname),"UTF-8");
@@ -236,8 +236,8 @@ public class TestTranslate extends Testing {
       //  jeweils auf die linke untere Ecke jedes Datenelements. Für Dateien mit der Bezeichnung
       //  _center auf den Zentralpunkt."
 
-      for (int y=comp.Dy - 1; y >= 0; y--) {
-        for (int x = 0; x < comp.Dx; x++) {
+      for (int y=comp.getDy() - 1; y >= 0; y--) {
+        for (int x = 0; x < comp.getDx(); x++) {
 
           // newlines can occur in input files.
           while  ('\n'==lbuf.charAt(l))  {
@@ -266,7 +266,7 @@ public class TestTranslate extends Testing {
           
           if (dist(t.x, t.y, e.x, e.y) > 0.01) { // 10m
             Errorf("dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
-              comp.Product, phi, lamda, t.x, t.y, e.x, e.y);
+              comp.getProduct(), phi, lamda, t.x, t.y, e.x, e.y);
           }
         }
       }

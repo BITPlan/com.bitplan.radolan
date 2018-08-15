@@ -22,27 +22,11 @@
  * under MIT license.
  */
 package com.bitplan.radolan;
-/**
- * Copyright (c) 2018 BITPlan GmbH
- *
- * http://www.bitplan.com
- *
- * This file is part of the Opensource project at:
- * https://github.com/BITPlan/com.bitplan.sprinkler
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+import java.util.Timer;
+import java.util.TimerTask;
+
+import com.bitplan.javafx.WaitableApp;
 
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -61,14 +45,14 @@ import javafx.stage.Stage;
  *
  */
 @SuppressWarnings("restriction")
-public class ImageViewer extends Application {
-
+public class ImageViewer extends WaitableApp {
   public static Image image;
   public static String title="Image Viewer";
   private static double rotate=0.0;
 
   @Override
   public void start(Stage stage) {
+    super.start(stage);
     // load the image
     if (image == null)
       image = new Image("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
@@ -94,16 +78,7 @@ public class ImageViewer extends Application {
     stage.sizeToScene();
     stage.show();
   }
-
-  /**
-   * launch me with the given arguments
-   * 
-   * @param args
-   */
-  public static void main(String[] args) {
-    Application.launch(args);
-  }
-
+   
   public static double getRotate() {
     return rotate;
   }
@@ -111,4 +86,37 @@ public class ImageViewer extends Application {
   public static void setRotate(double rotate) {
     ImageViewer.rotate = rotate;
   }
+  
+  @Override
+  public void stop() {
+    // https://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.html
+    System.err.println("ImageViewer stopped");
+  }
+
+  /**
+   * launch me with the given arguments
+   * 
+   * @param args
+   */
+  public void maininstance(String[] args) {
+    toolkitInit();
+    //System.err.println("imageViewer created - now showing");
+    show();
+    //System.err.println("imageViewer showed - now waiting to open");
+    waitOpen();
+    //System.err.println("imageViewer opened - now waiting to close");
+    waitClose(); 
+    //System.err.println("imageViewer closed");
+  }
+  
+  /**
+   * launch me with the given arguments
+   * 
+   * @param args
+   */
+  public static void main(String[] args) {
+    ImageViewer imageViewer=new ImageViewer();
+    imageViewer.maininstance(args);
+  }
+
 }

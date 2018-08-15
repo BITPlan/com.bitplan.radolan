@@ -27,6 +27,10 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+/**
+ * migrated to Java from
+ * https://gitlab.cs.fau.de/since/radolan/blob/master/data.go
+ */
 public class Data {
   enum Encoding {
     runlength, littleEndian, singleByte, unknown
@@ -45,7 +49,7 @@ public class Data {
   // only comparing header characteristics.
   // This method requires header data to be already written.
   public Encoding identifyEncoding(Composite c) {
-    int values = c.Px * c.Py;
+    int values = c.getPx() * c.getPy();
     if (c.level != null) {
       return Encoding.runlength;
     } else if (c.dataLength == values * 2) {
@@ -60,15 +64,15 @@ public class Data {
   // parseData parses the composite data and writes the related fields.
   // This method requires header data to be already written.
   public void parseData(Composite c) throws Throwable {
-    if (c.Px == 0 || c.Py == 0) {
+    if (c.getPx() == 0 || c.getPy() == 0) {
       c.error = new Exception("parseData - parsed header data required");
       return;
     }
 
     // create Data fields
-    c.PlainData = new float[c.Py][c.Px];
+    c.PlainData = new float[c.getPy()][c.getPx()];
     for (int i = 0; i < c.PlainData.length; i++) {
-      c.PlainData[i] = new float[c.Px];
+      c.PlainData[i] = new float[c.getPx()];
     }
     Encoding encoding = identifyEncoding(c);
     Consumer<Composite> parser = parseMap.get(encoding);

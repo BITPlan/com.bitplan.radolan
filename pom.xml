@@ -35,6 +35,19 @@
 		<commons.io.version>2.6</commons.io.version>
 	</properties>
 	<dependencies>
+		<dependency>
+			<groupId>com.bitplan.gui</groupId>
+			<artifactId>com.bitplan.javafx</artifactId>
+			<version>0.0.17</version>
+		</dependency>
+		<!-- 
+		 https://gis.stackexchange.com/questions/130913/geojson-java-library
+		 https://github.com/filosganga/geogson  -->
+		<dependency>
+			<groupId>com.github.filosganga</groupId>
+			<artifactId>geogson-core</artifactId>
+			<version>1.2.21</version>
+		</dependency>
 		<!-- JUnit testing -->
 		<dependency>
 			<groupId>junit</groupId>

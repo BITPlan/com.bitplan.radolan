@@ -57,11 +57,12 @@ public class TestData {
    * @param product
    */
   public void checkLittleEndian(Composite c, String product) {
-    assertEquals(product, c.Product);
-    assertEquals(900, c.Dx);
-    assertEquals(900, c.Dy);
-    assertEquals(c.Dx * c.Dy * 2, c.dataLength);
+    assertEquals(product, c.getProduct());
+    assertEquals(900, c.getDx());
+    assertEquals(900, c.getDy());
+    assertEquals(c.getDx() * c.getDy() * 2, c.dataLength);
     assertEquals(c.dataLength + c.header.length(), c.bytes.length);
+    assertEquals(c.PlainData.length,c.getDy());
     assertEquals(Encoding.littleEndian, c.identifyEncoding());
   }
 }

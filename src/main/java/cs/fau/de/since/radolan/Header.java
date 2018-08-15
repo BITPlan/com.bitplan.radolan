@@ -86,13 +86,13 @@ public class Header {
     Map<String, String> section = splitHeader(c.header); // without delimiter
 
     // Parse Product - Example: "PG" or "FZ"
-    c.Product = c.header.substring(0, 2);
+    c.setProduct(c.header.substring(0, 2));
 
     // Lookup Unit
-    c.DataUnit = Unit.Unit_unknown;
+    c.setDataUnit(Unit.Unit_unknown);
     Catalog catalog = Catalog.getInstance();
-    if (catalog.unitCatalog.containsKey(c.Product)) {
-      c.DataUnit = catalog.unitCatalog.get(c.Product);
+    if (catalog.unitCatalog.containsKey(c.getProduct())) {
+      c.setDataUnit(catalog.unitCatalog.get(c.getProduct()));
     }
 
     // Parse DataLength - Example: "BY 405160"
@@ -120,13 +120,13 @@ public class Header {
     // Parse ForecastTime - Example: "VV 005"
     String vv = section.get("VV");
 
-    c.ForecastTime = c.CaptureTime;
+    c.setForecastTime(c.CaptureTime);
     int min = 0;
     if (vv != null) {
       min = Integer.parseInt(vv.trim());
     }
 
-    c.ForecastTime = c.CaptureTime.plus(Duration.ofMinutes(min));
+    c.setForecastTime(c.CaptureTime.plus(Duration.ofMinutes(min)));
 
     // Parse Interval - Example "INT 5" or "INT1008"
     String intv = section.get("INT");
@@ -136,7 +136,7 @@ public class Header {
     }
 
     c.Interval = Duration.ofMinutes(min);
-    switch (c.Product) {
+    switch (c.getProduct()) {
     case "W1":
     case "W2":
     case "W3":
@@ -151,30 +151,30 @@ public class Header {
     String dim = section.get("GP");
     if (dim != null) {
       String[] parts = dim.split("x");
-      c.Dx = Integer.parseInt(parts[0].trim());
-      c.Dy = Integer.parseInt(parts[1].trim());
-      c.Px = c.Dx;
-      c.Py = c.Dy; // composite formats do not show elevation
+      c.setDx(Integer.parseInt(parts[0].trim()));
+      c.setDy(Integer.parseInt(parts[1].trim()));
+      c.setPx(c.getDx());
+      c.setPy(c.getDy()); // composite formats do not show elevation
     } else {
       dim = section.get("BG");
       Spec v;
       if (dim != null) {
-        c.Dy = Integer.parseInt(dim.substring(0, 3));
-        c.Dx = Integer.parseInt(dim.substring(3, 6));
-        c.Px = c.Dx;
-        c.Py = c.Dy; // composite formats do not show elevation
+        c.setDy(Integer.parseInt(dim.substring(0, 3)));
+        c.setDx(Integer.parseInt(dim.substring(3, 6)));
+        c.setPx(c.getDx());
+        c.setPy(c.getDy()); // composite formats do not show elevation
       } else { // dimensions of local picture products not defined in header
-        v = catalog.dimensionCatalog.get(c.Product);
+        v = catalog.dimensionCatalog.get(c.getProduct());
         if (v == null) {
           throw new Exception(
               "parseHeader: no dimension information available");
         }
-        c.Px = v.px;
-        c.Py = v.py; // plain data dimensions
-        c.Dx = v.dx;
-        c.Dy = v.dy; // data layer dimensions
-        c.Rx = v.rx;
-        c.Ry = v.ry; // data resolution
+        c.setPx(v.px);
+        c.setPy(v.py); // plain data dimensions
+        c.setDx(v.dx);
+        c.setDy(v.dy); // data layer dimensions
+        c.setRx(v.rx);
+        c.setRy(v.ry); // data resolution
       }
     }
 

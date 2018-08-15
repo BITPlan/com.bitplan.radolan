@@ -138,9 +138,9 @@ public class TestHeader extends Testing {
 
     // test results
     // Product
-    if (!ht.expProduct.equals(dummy.Product)) {
+    if (!ht.expProduct.equals(dummy.getProduct())) {
       Errorf("%s.parseHeader(): Product: %s; expected: %s", ht.expProduct,
-          dummy.Product, ht.expProduct);
+          dummy.getProduct(), ht.expProduct);
     }
     // CaptureTime
     assertNotNull("CaptureTime should be set for "+ht.expProduct,dummy.CaptureTime);
@@ -148,11 +148,11 @@ public class TestHeader extends Testing {
       Errorf("%s.parseHeader(): CaptureTime: %s; expected: %s", ht.expProduct,
           dummy.CaptureTime.toString(), ht.expCaptureTime.toString());
     }
-    assertNotNull("ForecastTime should be set for "+ht.expProduct,dummy.ForecastTime);
+    assertNotNull("ForecastTime should be set for "+ht.expProduct,dummy.getForecastTime());
     // ForecastTime
-    if (!ht.expForecastTime.equals(dummy.ForecastTime)) {
+    if (!ht.expForecastTime.equals(dummy.getForecastTime())) {
       Errorf("%s.parseHeader(): ForecastTime: %s; expected: %s", ht.expProduct,
-          dummy.ForecastTime.toString(), ht.expForecastTime.toString());
+          dummy.getForecastTime().toString(), ht.expForecastTime.toString());
     }
 
     // Interval
@@ -162,9 +162,9 @@ public class TestHeader extends Testing {
     }
 
     // Dx Dy
-    if (dummy.Dx != ht.expDx || dummy.Dy != ht.expDy) {
+    if (dummy.getDx() != ht.expDx || dummy.getDy() != ht.expDy) {
       Errorf("%s.parseHeader(): Dx: %d Dy: %d; expected Dx: %d Dy: %d",
-          ht.expProduct, dummy.Dx, dummy.Dy, ht.expDx, ht.expDy);
+          ht.expProduct, dummy.getDx(), dummy.getDy(), ht.expDx, ht.expDy);
     }
 
     // dataLength

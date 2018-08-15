@@ -23,13 +23,123 @@
  */
 package com.bitplan.radolan;
 
+import java.util.logging.Level;
+
+import org.kohsuke.args4j.Option;
+
+import com.bitplan.javafx.Main;
+
+import cs.fau.de.since.radolan.Composite;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
+
 /**
  * Main for radolan.jar and radolan.exe
+ * 
  * @author wf
  *
  */
-public class Radolan {
+@SuppressWarnings("restriction")
+public class Radolan extends Main {
+  
+  @Option(name = "-s", aliases = {
+      "--show" }, usage = "show\nshow resulting image")
+  protected boolean showImage = true;
+
+  @Option(name = "-t", aliases = {
+      "--showTime" }, usage = "showTime\nshow result for the given time in seconds")
+  protected int showTimeSecs = Integer.MAX_VALUE / 1100; // over 20 years
+
+  @Option(name = "-i", aliases = {
+      "--input" }, usage = "input\nurl/file of the input")
+  protected String input = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif"; // "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
+
+  @Option(name = "-o", aliases = {
+      "--output" }, usage = "output/e.g. path of png/jpg/gif file")
+  protected String output;
+ 
+  /**
+   * stop the application with the given exit Code
+   * @param pExitCode
+   */
+  public void stop(int pExitCode) {
+    Platform.runLater(()->{Platform.exit();});
+    exitCode=pExitCode;
+    if (!testMode) {
+      System.exit(pExitCode);
+    }
+  }
+  
+  /**
+   * show the given image
+   * @param image
+   */
+  public void showImage(Image image) {
+    ImageViewer.image = image;
+    String[] args = {};
+    ImageViewer imageViewer=new ImageViewer();
+    imageViewer.limitShowTime(this.showTimeSecs);
+    imageViewer.maininstance(args);
+  }
+
+  /**
+   * show the image from the given input
+   * @param input
+   */
+  public void showImage(String input) {
+    ImageViewer.toolkitInit();
+    Image image = new Image(input);
+    showImage(image);
+  }
+  
+  /**
+   * do the required work
+   */
+  public void work() {
+    if (showVersion)
+      this.showVersion();
+    if (showHelp)
+      this.showHelp();
+    else {
+      // is the input a showable image?
+      if (input.contains(".png") || input.contains(".jpg")
+          || input.contains(".gif")) {
+        if (this.showImage)
+          showImage(input);
+        else {
+          // silently fail here?
+        }
+      } else {
+        try {
+          Composite composite=new Composite(input);
+          LOGGER.log(Level.INFO, String.format("%s-image (%s) showing %s", composite.getProduct(),composite.getDataUnit(),composite.getForecastTime()));
+          Image image = Radolan2Image.getImage(composite);
+          if (this.showImage)
+            showImage(image);
+        } catch (Throwable th) {
+          ErrorHandler.handle(th);
+        }
+      }
+    }
+  }
+
+  /**
+   * main routine
+   * 
+   * @param args
+   */
   public static void main(String[] args) {
-    ImageViewer.main(args);
+    Radolan radolan = new Radolan();
+    radolan.maininstance(args);
+  }
+
+  @Override
+  public String getSupportEMail() {
+    return "support@bitplan.com";
+  }
+
+  @Override
+  public String getSupportEMailPreamble() {
+    return "Dear Radolan user";
   }
 }

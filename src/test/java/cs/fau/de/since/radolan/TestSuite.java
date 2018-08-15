@@ -27,7 +27,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestTranslate.class, TestConversion.class,TestData.class,TestHeader.class })
+@Suite.SuiteClasses({ TestTranslate.class, TestConversion.class,TestData.class,TestHeader.class,TestRadolan.class })
 /**
  * TestSuite
  * 

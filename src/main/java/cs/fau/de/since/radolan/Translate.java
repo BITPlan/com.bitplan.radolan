@@ -69,7 +69,7 @@ public class Translate {
   // detectGrid identifies the used projection grid based on the composite
   // dimensions
   public static GridType detectGrid(Composite c) {
-    IPoint d = minRes(new IPoint(c.Dx, c.Dy));
+    IPoint d = minRes(new IPoint(c.getDx(), c.getDy()));
     if (d.x == nationalGrid.x && d.y == nationalGrid.y) {
       return GridType.nationalGrid;
     }
@@ -136,19 +136,19 @@ public class Translate {
     CornerPoints cp = cornerPoints(c);
     if (cp == null) {
       double nan = Double.NaN;
-      c.Rx = nan;
-      c.Ry = nan;
+      c.setRx(nan);
+      c.setRy(nan);
       c.offx = nan;
       c.offy = nan;
       return;
     }
 
     // found matching projection rule
-    c.HasProjection = true;
+    c.setHasProjection(true);
 
     // set resolution to 1 km for calibration
-    c.Rx = 1.0;
-    c.Ry = 1.0;
+    c.setRx(1.0);
+    c.setRy(1.0);
 
     // calibrate offset correction
     DPoint off = translate(c, cp.originTop, cp.originLeft);
@@ -157,8 +157,8 @@ public class Translate {
 
     // calibrate scaling
     DPoint res = translate(c, cp.edgeBottom, cp.edgeRight);
-    c.Rx = (res.x) / c.Dx;
-    c.Ry = (res.y) / c.Dy;
+    c.setRx((res.x) / c.getDx());
+    c.setRy((res.y) / c.getDy());
   }
 
   public static double rad(double deg) {
@@ -171,8 +171,8 @@ public class Translate {
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
   public static DPoint translate(Composite c, double north, double east) {
-    if (!c.HasProjection) {
-      return new DPoint(Double.NaN, Double.NaN);
+    if (!c.isHasProjection()) {
+      return new DPoint(Double.NaN,Double.NaN);
     }
 
     double lamda0 = rad(junctionEast);
@@ -189,8 +189,8 @@ public class Translate {
     y -= c.offy;
 
     // scaling
-    x /= c.Rx;
-    y /= c.Ry;
-    return new DPoint(x, y);
+    x /= c.getRx();
+    y /= c.getRy();
+    return new DPoint(x,y);
   }
 }

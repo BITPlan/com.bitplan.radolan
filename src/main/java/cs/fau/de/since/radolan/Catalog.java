@@ -36,7 +36,7 @@ public class Catalog {
   Map<String, Spec> dimensionCatalog = new HashMap<String, Spec>();
   Map<String, Unit> unitCatalog = new HashMap<String, Unit>();
 
-  enum Unit {
+  public static enum Unit {
     Unit_unknown("unknown unit"), Unit_mm("mm"), // mm/interval
     Unit_dBZ("dbZ"), // dBZ
     Unit_km("km"), // km

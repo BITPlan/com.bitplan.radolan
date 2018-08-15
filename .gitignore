@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+# Mac internal
+.DS_Store
+
 # eclipse settings
 .settings
 

@@ -23,6 +23,11 @@
  */
 package cs.fau.de.since.radolan;
 
+/**
+ * Integer point helper class
+ * @author wf
+ *
+ */
 public class IPoint {
   public int x;
   public int y;
@@ -30,6 +35,15 @@ public class IPoint {
   public IPoint(int x,int y) {
     this.x=x;
     this.y=y;
+  }
+
+  /**
+   * convert me from a Double Point
+   * @param dp
+   */
+  public IPoint(DPoint dp) {
+    this.x=(int) Math.round(dp.x);
+    this.y=(int) Math.round(dp.y);
   }
 
 }

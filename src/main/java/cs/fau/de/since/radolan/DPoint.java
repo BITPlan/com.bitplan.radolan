@@ -23,9 +23,14 @@
  */
 package cs.fau.de.since.radolan;
 
+/**
+ * double precision Point Helper class
+ * @author wf
+ *
+ */
 public class DPoint {
-  double x;
-  double y;
+  public double x;
+  public double y;
   public DPoint(double x, double y) {
     this.x=x;
     this.y=y;

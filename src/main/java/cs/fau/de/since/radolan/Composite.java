@@ -97,26 +97,26 @@ import cs.fau.de.since.radolan.Data.Encoding;
  *
  */
 public class Composite {
-  String Product; // composite product label
+  private String Product; // composite product label
   
   ZonedDateTime CaptureTime;
-  ZonedDateTime ForecastTime;
+  private ZonedDateTime ForecastTime;
   Duration Interval;
   
-  Unit DataUnit;
+  private Unit DataUnit;
   
   public float[][] PlainData; // data for parsed plain data element [y][x]
   
-  int Px;  // plain data width
-  int Py;  // plain data height
+  private int Px;  // plain data width
+  private int Py;  // plain data height
   
-  int Dx; // data width
-  int Dy;// data height
+  private int Dx; // data width
+  private int Dy;// data height
 
-  double Rx; // horizontal resolution in km/px
-  double Ry; // vertical resolution in km/px
+  private double Rx; // horizontal resolution in km/px
+  private double Ry; // vertical resolution in km/px
 
-  boolean HasProjection; // coordinate translation available
+  private boolean HasProjection; // coordinate translation available
   
   int dataLength; // length of binary section in bytes
 
@@ -132,6 +132,94 @@ public class Composite {
   public Throwable error;
   protected String url;
 
+  public int getDx() {
+    return Dx;
+  }
+
+  public void setDx(int dx) {
+    Dx = dx;
+  }
+  
+  public int getDy() {
+    return Dy;
+  }
+
+  public void setDy(int dy) {
+    Dy = dy;
+  }
+
+  public int getPx() {
+    return Px;
+  }
+
+  public void setPx(int px) {
+    Px = px;
+  }
+
+  public double getRx() {
+    return Rx;
+  }
+
+  public void setRx(double rx) {
+    Rx = rx;
+  }
+
+  public double getRy() {
+    return Ry;
+  }
+
+  public void setRy(double ry) {
+    Ry = ry;
+  }
+
+  public int getPy() {
+    return Py;
+  }
+
+  public void setPy(int py) {
+    Py = py;
+  }
+
+  public Unit getDataUnit() {
+    return DataUnit;
+  }
+
+  public void setDataUnit(Unit dataUnit) {
+    DataUnit = dataUnit;
+  }
+
+  public String getProduct() {
+    return Product;
+  }
+
+  public void setProduct(String product) {
+    Product = product;
+  }
+
+  public ZonedDateTime getForecastTime() {
+    return ForecastTime;
+  }
+
+  public void setForecastTime(ZonedDateTime forecastTime) {
+    ForecastTime = forecastTime;
+  }
+
+  public Duration getInterval() {
+    return Interval;
+  }
+
+  public void setInterval(Duration interval) {
+    Interval = interval;
+  }
+
+  public boolean isHasProjection() {
+    return HasProjection;
+  }
+
+  public void setHasProjection(boolean hasProjection) {
+    HasProjection = hasProjection;
+  }
+
   /**
    * default constructor
    */
@@ -145,9 +233,9 @@ public class Composite {
    * @param dy
    */
   public Composite(String product, int dx, int dy) {
-    this.Product = product;
-    this.Dx = dx;
-    this.Dy = dy;
+    this.setProduct(product);
+    this.setDx(dx);
+    this.setDy(dy);
   }
   
   /**
@@ -218,7 +306,11 @@ public class Composite {
   public Encoding identifyEncoding() {
     return Data.getInstance().identifyEncoding(this);
   }
-
+  
+  public double rvp6Raw(int value) {
+    return Conversion.rvp6Raw(this, value);
+  }
+  
   /**
    * translate the given coordinates to a double precision point
    * 
@@ -228,6 +320,18 @@ public class Composite {
    */
   public DPoint translate(double lat, double lon) {
     return Translate.translate(this, lat, lon);
+  }
+
+  /**
+   * get the byte at the given x,y position in the binary data
+   * @param x
+   * @param y
+   * @return - the byte
+   */
+  public byte getByte(int x, int y) {
+    int ofs=header.length();
+    int pos=y*getDx()+x+ofs;
+    return bytes[pos];
   }
 
 }
