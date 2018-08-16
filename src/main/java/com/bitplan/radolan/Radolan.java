@@ -39,7 +39,6 @@ import com.bitplan.javafx.Main;
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.DPoint;
 import cs.fau.de.since.radolan.Translate;
-import gov.nasa.worldwind.geom.Angle;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -96,7 +95,6 @@ public class Radolan extends Main {
   public void showImage(Image image, String title, Composite composite) {
     ImageViewer.toolkitInit();
     ImageViewer.image = image;
-    String[] args = {};
     ImageViewer.title = title;
     ImageViewer imageViewer = new ImageViewer();
     imageViewer.limitShowTime(this.showTimeSecs);

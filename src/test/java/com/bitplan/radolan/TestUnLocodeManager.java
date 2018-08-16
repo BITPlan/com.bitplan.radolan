@@ -27,6 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.junit.Test;
 
@@ -35,34 +36,47 @@ import com.bitplan.geo.UnLocodeManager;
 
 /**
  * test the UnLocode Manager
+ * 
  * @author wf
  *
  */
 public class TestUnLocodeManager {
+  public static boolean debug = false;
 
   @Test
   public void testUnLocodeManager() throws IOException {
-    UnLocodeManager ulm=UnLocodeManager.getInstance();
+    UnLocodeManager ulm = UnLocodeManager.getInstance();
     assertNotNull(ulm);
-    //System.out.println(ulm.unLocodes.size());
-    assertEquals(9657,ulm.unLocodes.size());
-    UnLocodeManager nm=UnLocodeManager.getEmpty();
-    UnLocode code=new  UnLocode();
-    code.countryCode="DE";
+    // System.out.println(ulm.unLocodes.size());
+    assertEquals(9657, ulm.unLocodes.size());
+    UnLocodeManager nm = UnLocodeManager.getEmpty();
+    UnLocode code = new UnLocode();
+    code.countryCode = "DE";
     code.setCoords("4806N 00937E");
     nm.unLocodes.add(code);
-    assertEquals("{\n" + 
-        "  \"unLocodes\": [\n" + 
-        "    {\n" + 
-        "      \"coords\": \"4806N 00937E\",\n" + 
-        "      \"countryCode\": \"DE\"\n" + 
-        "    }\n" + 
-        "  ]\n" + 
-        "}",nm.asJson());
-    assertEquals(48.1,code.getLat(),0.001);
-    assertEquals(9.6167,code.getLon(),0.001);
+    assertEquals(
+        "{\n" + "  \"unLocodes\": [\n" + "    {\n"
+            + "      \"coords\": \"4806N 00937E\",\n"
+            + "      \"countryCode\": \"DE\"\n" + "    }\n" + "  ]\n" + "}",
+        nm.asJson());
+    assertEquals(48.1, code.getLat(), 0.001);
+    assertEquals(9.6167, code.getLon(), 0.001);
     // assertEquals("?",code.toString());
-    
+
   }
 
+  @Test
+  public void testLookup() throws IOException {
+    UnLocodeManager ulm = UnLocodeManager.getInstance();
+    assertNotNull(ulm);
+    // System.out.println(ulm.unLocodes.size());
+    assertEquals(9657, ulm.unLocodes.size());
+    // Bielefeld? - das gibts doch gar nicht!
+    Map<Double, UnLocode> closeCities = ulm.lookup(52.034, 8.529, 20);
+    if (debug)
+      for (UnLocode city : closeCities.values()) {
+        System.out.println(city.toString());
+      }
+    assertEquals(9, closeCities.size());
+  }
 }

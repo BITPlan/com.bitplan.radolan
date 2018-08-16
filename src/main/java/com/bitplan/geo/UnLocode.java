@@ -23,11 +23,22 @@
  */
 package com.bitplan.geo;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import com.bitplan.json.JsonAble;
 
 import gov.nasa.worldwind.geom.Angle;
 
+/**
+ * United nations location code
+ * @author wf
+ *
+ */
 public class UnLocode implements JsonAble {
+  // prepare a LOGGER
+  protected static Logger LOGGER = Logger.getLogger("com.bitplan.geo");
+  
   String coords;
   public String countryCode;
   String locode;
@@ -93,37 +104,49 @@ public class UnLocode implements JsonAble {
     }
     this.initLatLon();
     if (latAngle.getDegrees() != 0.0)
-      result += " at " + latAngle.toFormattedDMSString()+" "+lonAngle.toFormattedDMSString();
+      result += " at " + latAngle.toFormattedDMSString() + " "
+          + lonAngle.toFormattedDMSString();
     return result;
   }
-  
+
   Angle latAngle;
   Angle lonAngle;
+
   public double getLat() {
-    if (latAngle==null) {
+    if (latAngle == null) {
       initLatLon();
     }
     return latAngle.degrees;
   }
 
   public double getLon() {
-    if (lonAngle==null) {
+    if (lonAngle == null) {
       initLatLon();
     }
     return lonAngle.degrees;
   }
-  
+
+  /**
+   * initialize the lat and lon values
+   */
   private void initLatLon() {
     // 4806N 00937E
-    if (coords!=null && coords.length()==12) {
-      String latStr=coords.substring(0,2)+" "+coords.substring(2,4)+" "+coords.substring(4,5);
-      String lonStr=coords.substring(6,9)+" "+coords.substring(9,11)+" "+coords.substring(11,12);
-      latAngle=Angle.fromDMS(latStr);
-      lonAngle=Angle.fromDMS(lonStr);
-    } else {
-      lonAngle=Angle.fromDegrees(0);
-      latAngle=Angle.fromDegrees(0);
+    if (coords != null && coords.length() == 12) {
+      String latStr = coords.substring(0, 2) + "." + coords.substring(2, 4);
+      String ns=coords.substring(4, 5); // N
+      String lonStr = coords.substring(6, 9) + "." + coords.substring(9, 11);
+      String ew=coords.substring(11, 12); // E
+      try {
+        latAngle = Angle.fromDegrees(Double.parseDouble(latStr)*("N".equals(ns)?1:-1));
+        lonAngle = Angle.fromDegrees(Double.parseDouble(lonStr)*("E".equals(ew)?1:-1));
+      } catch (IllegalArgumentException iae) {
+        LOGGER.log(Level.INFO, "Invalid lat/lon for "+this.name+" at "+coords);
+      }
+    } 
+    if (latAngle==null || lonAngle==null) {
+      lonAngle = Angle.fromDegrees(0);
+      latAngle = Angle.fromDegrees(0);
     }
-    
+
   }
 }

@@ -26,6 +26,8 @@ package com.bitplan.geo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -34,6 +36,13 @@ import org.apache.commons.io.IOUtils;
 import com.bitplan.json.JsonAble;
 import com.bitplan.json.JsonManagerImpl;
 
+import cs.fau.de.since.radolan.Translate;
+
+/**
+ * manage a list of united nations location codes
+ * @author wf
+ *
+ */
 public class UnLocodeManager implements JsonAble {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.geo");
@@ -61,11 +70,38 @@ public class UnLocodeManager implements JsonAble {
   }
   
   public void reinit() {
-    
+    for (UnLocode code:this.unLocodes) {
+      if (code.coords!=null) {
+        
+      }
+    }
   }
   
   public static UnLocodeManager getEmpty() {
     return new UnLocodeManager();
+  }
+  
+  /**
+   * find locations close to the given latitude and longitude
+   * as a sorted map by distance in km
+   * @param lat
+   * @param lon
+   * @return the map of cities
+   */
+  public Map<Double,UnLocode> lookup(double lat, double lon, double maxDist) {
+    Map<Double,UnLocode> cities=new TreeMap<Double,UnLocode>();
+    // https://stackoverflow.com/questions/1260572/fastest-way-to-find-the-locationzip-city-state-given-latitude-longitude
+    for (UnLocode city:this.unLocodes) {
+      if (city.coords!=null) {
+        double citylat = city.getLat();
+        double citylon = city.getLon();
+        double dist=Translate.haversine(lat, lon, citylat, citylon);
+        if (dist<=maxDist) {
+          cities.put(dist, city);
+        }
+      }
+    }
+    return cities;  
   }
 
 }
