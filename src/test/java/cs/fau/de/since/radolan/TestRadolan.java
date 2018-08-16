@@ -38,6 +38,15 @@ import com.bitplan.radolan.Radolan;
  *
  */
 public class TestRadolan {
+  /**
+   * check if we are in the Travis-CI environment
+   * 
+   * @return true if Travis user was detected
+   */
+  public boolean isTravis() {
+    String user = System.getProperty("user.name");
+    return user.equals("travis");
+  }
 
   String tmpDir = System.getProperty("java.io.tmpdir");
 
@@ -51,7 +60,8 @@ public class TestRadolan {
     String outputPath = "";
     if (output != null)
       outputPath = tmpDir + "/" + output;
-    String args[] = { "-d","-i", url, "-t", "" + viewTimeSecs, "-o", outputPath };
+    String args[] = { "-d", "-i", url, "-t", "" + viewTimeSecs, "-o",
+        outputPath };
     Radolan.testMode = true;
     Radolan.main(args);
     if (output != null) {
@@ -68,14 +78,16 @@ public class TestRadolan {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 4, product+".png");
+      testRadolan(url, 4, product + ".png");
     }
   }
-  
+
   @Test
   public void testHistory() {
-    String url="ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
-    testRadolan(url,5,"sf-2018-05-30_1650.png");
+    if (!isTravis()) {
+      String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
+      testRadolan(url, 45, "sf-2018-05-30_1650.png");
+    }
   }
 
   @Test

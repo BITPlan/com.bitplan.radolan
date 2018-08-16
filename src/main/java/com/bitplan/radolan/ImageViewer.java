@@ -23,12 +23,8 @@
  */
 package com.bitplan.radolan;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.bitplan.javafx.WaitableApp;
 
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
@@ -73,7 +69,7 @@ public class ImageViewer extends WaitableApp {
     box.getChildren().add(imageView);
     root.getChildren().add(box);
     imageView.fitWidthProperty().bind(stage.widthProperty());
-    imageView.fitHeightProperty().bind(stage.heightProperty().subtract(20));
+    imageView.fitHeightProperty().bind(stage.heightProperty());
     
     stage.setTitle(title);
     stage.setWidth(900);
