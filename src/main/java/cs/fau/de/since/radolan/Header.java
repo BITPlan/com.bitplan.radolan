@@ -181,7 +181,7 @@ public class Header {
     // Parse Precision - Example: "PR E-01" or "PR E+00"
     String prec = section.get("E");
     if (prec != null) {
-      c.precision = Integer.parseInt(prec);
+      c.setPrecision(Integer.parseInt(prec));
     }
 
     // Parse Level - Example "LV 6 1.0 19.0 28.0 37.0 46.0 55.0"

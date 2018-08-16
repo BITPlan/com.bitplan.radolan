@@ -174,9 +174,9 @@ public class TestHeader extends Testing {
     }
 
     // precision
-    if (dummy.precision != ht.expPrecision) {
+    if (dummy.getPrecision() != ht.expPrecision) {
       Errorf("%s.parseHeader(): precision: %#v; expected: %#v", ht.expProduct,
-          dummy.precision, ht.expPrecision);
+          dummy.getPrecision(), ht.expPrecision);
     }
     // level
     for (int i = 0; i < ht.expLevel.length; i++) {

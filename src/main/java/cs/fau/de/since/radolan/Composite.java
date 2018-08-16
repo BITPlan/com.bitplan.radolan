@@ -105,8 +105,8 @@ public class Composite {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
 
-  public static boolean debug=false;
-  
+  public static boolean debug = false;
+
   private String Product; // composite product label
 
   ZonedDateTime CaptureTime;
@@ -130,7 +130,8 @@ public class Composite {
 
   int dataLength; // length of binary section in bytes
 
-  int precision; // multiplicator 10^precision for each raw value
+  private int precision; // multiplicator 10^precision for each raw value
+  double precisionFactor;
   float[] level; // maps data value to corresponding index value in runlength
                  // based formats
 
@@ -142,7 +143,7 @@ public class Composite {
   // for lambda error handling
   public Throwable error;
   protected String url;
-  
+
   // CallBacks
   private static Consumer<Composite> postInit;
 
@@ -192,6 +193,15 @@ public class Composite {
 
   public void setPy(int py) {
     Py = py;
+  }
+
+  public int getPrecision() {
+    return precision;
+  }
+
+  public void setPrecision(int precision) {
+    this.precision = precision;
+    precisionFactor=Math.pow(precision,10);
   }
 
   public Unit getDataUnit() {
@@ -284,7 +294,7 @@ public class Composite {
     arrangeData();
     calibrateProjection();
     // is there a callback installed?
-    if (postInit!=null) {
+    if (postInit != null) {
       postInit.accept(this);
     }
   }
@@ -405,12 +415,23 @@ public class Composite {
    * @return - the value
    */
   public float getValue(int x, int y) {
-    float value = PlainData[y][x];
+    float value = Float.NaN;
+    if (y >= 0 && y < PlainData.length)
+      if (x >= 0 && x < PlainData[y].length)
+        value = PlainData[y][x];
     return value;
   }
 
+  /**
+   * set a data value
+   * @param x
+   * @param y
+   * @param value
+   */
   public void setValue(int x, int y, float value) {
-    PlainData[y][x]=value;
+    if (y >= 0 && y < PlainData.length)
+      if (x >= 0 && x < PlainData[y].length)
+        PlainData[y][x] = value;
   }
 
 }

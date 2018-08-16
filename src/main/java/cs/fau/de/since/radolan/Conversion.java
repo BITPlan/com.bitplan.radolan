@@ -92,7 +92,8 @@ public class Conversion {
   // rvp6Raw converts the raw value to radar video processor values (rvp-6) by applying the
   // products precision field.
   public static double rvp6Raw(Composite c, int value)  {
-    return value * Math.pow(c.precision,10);
+    double rvalue=value * c.precisionFactor;
+    return rvalue;
   }
 
 }

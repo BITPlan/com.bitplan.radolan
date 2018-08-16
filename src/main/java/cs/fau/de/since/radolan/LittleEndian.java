@@ -89,7 +89,7 @@ public class LittleEndian {
   // no-data flag is set.
   public static float rvp6LittleEndian(Composite c, byte... tuple) {
     int value = 0x0F & tuple[1];
-    value = (value << 8) + tuple[0];
+    value = (value << 8) | (tuple[0]&0x0f);
 
     if ((tuple[1] & (1 << 5)) != 0) { // error code: no-data
       return Float.NaN;
