@@ -43,11 +43,25 @@ import javafx.stage.Stage;
  */
 @SuppressWarnings("restriction")
 public class ImageViewer extends WaitableApp {
-  public static Image image;
-  public static String title="Image Viewer";
-  private static double rotate=0.0;
+  private Image image;
+  private String title="Image Viewer";
   public ImageView imageView;
   public Tooltip toolTip;
+  private DisplayContext displayContext;
+
+  /**
+   * construct me from a DisplayContext
+   * @param displayContext
+   */
+  public ImageViewer(DisplayContext displayContext) {
+    this.displayContext=displayContext;
+    this.title=displayContext.title;
+    this.image=displayContext.image;
+  }
+
+  public ImageViewer() {
+    
+  }
 
   @Override
   public void start(Stage stage) {
@@ -59,7 +73,6 @@ public class ImageViewer extends WaitableApp {
     // simple displays ImageView the image as is
     imageView = new ImageView();
     imageView.setImage(image);
-    imageView.setRotate(getRotate());
     toolTip = new Tooltip("no info");
     Tooltip.install(imageView, toolTip);
     Group root = new Group();
@@ -81,16 +94,8 @@ public class ImageViewer extends WaitableApp {
   
   public void close() {
     super.close();
-    if (!testMode)
-      System.exit(0);
-  }
-   
-  public static double getRotate() {
-    return rotate;
-  }
-
-  public static void setRotate(double rotate) {
-    ImageViewer.rotate = rotate;
+    //if (!testMode)
+    //  System.exit(0);
   }
   
   @Override

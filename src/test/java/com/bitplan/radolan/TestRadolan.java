@@ -47,7 +47,6 @@ import javafx.scene.paint.Color;
  * @author wf
  *
  */
-@SuppressWarnings("restriction")
 public class TestRadolan extends BaseTest {
 
   String tmpDir = System.getProperty("java.io.tmpdir");
@@ -57,8 +56,10 @@ public class TestRadolan extends BaseTest {
    * 
    * @param url
    * @param viewTimeSecs
+   * @param fakeGradient2 
    */
-  public void testRadolan(String url, int viewTimeSecs, String output) {
+  public void testRadolan(String url, int viewTimeSecs, String output, Consumer<Composite> postInit) {
+    Composite.setPostInit(postInit);
     String outputPath = "";
     if (output != null)
       outputPath = tmpDir + "/" + output;
@@ -80,7 +81,7 @@ public class TestRadolan extends BaseTest {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 4, product + ".png");
+      testRadolan(url, 4, product + ".png",null);
     }
   }
 
@@ -97,7 +98,7 @@ public class TestRadolan extends BaseTest {
         if (!Composite.cacheForUrl(url, knownUrl).exists() || date.isEqual(end))
           break;
         testRadolan(url, 2, String.format("sf-%04d-%02d-%02d_1650.png",
-            date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+            date.getYear(), date.getMonthValue(), date.getDayOfMonth()),null);
         date = date.plus(Period.ofDays(1));
       } while (true);
     }
@@ -116,12 +117,11 @@ public class TestRadolan extends BaseTest {
 
   @Test
   public void testHistoryLocalWithFakeValueGradient() throws Exception {
-    Composite.setPostInit(fakeGradient);
     File sfHistoryFile = new File(
         "src/test/data/history/raa01-sf_10000-1805301650-dwd---bin.gz");
     assertTrue(sfHistoryFile.exists());
     String url = sfHistoryFile.toURI().toURL().toExternalForm();
-    testRadolan(url, 5, "sf-ColorGradient.png");
+    testRadolan(url, 5, "sf-ColorGradient.png",fakeGradient);
   }
 
   @Test
@@ -145,12 +145,12 @@ public class TestRadolan extends BaseTest {
   @Test
   public void testRadarPicture() {
     String url = "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
-    testRadolan(url, 3, "rad_brd_akt.png");
+    testRadolan(url, 3, "rad_brd_akt.png",null);
   }
 
   @Test
   public void testRadarfilm() {
     String url = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
-    testRadolan(url, 12, null);
+    testRadolan(url, 12, null,null);
   }
 }

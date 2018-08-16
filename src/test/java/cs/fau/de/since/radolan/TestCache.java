@@ -54,7 +54,7 @@ public class TestCache extends BaseTest {
   public void testCache() throws Exception {
     if (!isTravis()) {
       LocalDate start = LocalDate.of(2018, 1, 1);
-      LocalDate end = LocalDate.of(2018, 1, 3);
+      LocalDate end = LocalDate.of(2018, 8, 15);
       String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
       for (LocalDate date = start; date
           .isBefore(end); date = date.plus(Period.ofDays(1))) {

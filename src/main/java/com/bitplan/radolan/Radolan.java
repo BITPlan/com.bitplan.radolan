@@ -45,7 +45,6 @@ import javafx.scene.image.Image;
  * @author wf
  *
  */
-@SuppressWarnings("restriction")
 public class Radolan extends Main {
 
   @Option(name = "-s", aliases = {
@@ -54,7 +53,8 @@ public class Radolan extends Main {
 
   @Option(name = "-cp", aliases = {
       "--cachePath" }, usage = "path to Cache\nthe path to the Cache")
-  protected String cachePath=System.getProperty("user.home")+java.io.File.separator+".radolan";;
+  protected String cachePath = System.getProperty("user.home")
+      + java.io.File.separator + ".radolan";;
 
   @Option(name = "-nc", aliases = {
       "--noCache" }, usage = "noCache\ndo not use local cache")
@@ -72,7 +72,7 @@ public class Radolan extends Main {
       "--output" }, usage = "output/e.g. path of png/jpg/gif file")
   protected String output;
 
-  private Image image;
+  private DisplayContext displayContext;
 
   /**
    * stop the application with the given exit Code
@@ -104,18 +104,17 @@ public class Radolan extends Main {
    * @param title
    * @param composite
    */
-  public void showImage(Image image, String title, Composite composite) {
+  public void showImage(DisplayContext displayContext) {
     prepareImageViewer();
-    ImageViewer.image = image;
-    ImageViewer.title = title;
-    ImageViewer imageViewer = new ImageViewer();
+    ImageViewer imageViewer = new ImageViewer(displayContext);
     imageViewer.limitShowTime(this.showTimeSecs);
     imageViewer.show();
     imageViewer.waitOpen();
     // do we show a radolan image?
-    if (composite != null) {
-      Radolan2Image.activateToolTipOnShowEvent(composite, imageViewer.imageView,
-          imageViewer.toolTip);
+    if (displayContext.composite != null) {
+      displayContext.view = imageViewer.imageView;
+      displayContext.toolTip = imageViewer.toolTip;
+      Radolan2Image.activateToolTipOnShowEvent(displayContext);
     }
     imageViewer.waitClose();
   }
@@ -125,11 +124,13 @@ public class Radolan extends Main {
    * 
    * @param input
    */
-  public Image showImage(String input) {
+  public void showImage(String input) {
     prepareImageViewer();
     Image image = new Image(input);
-    showImage(image, input, null);
-    return image;
+    displayContext = new DisplayContext(null, null);
+    displayContext.image = image;
+    displayContext.title = input;
+    showImage(displayContext);
   }
 
   /**
@@ -143,7 +144,7 @@ public class Radolan extends Main {
     if (noCache) {
       Composite.useCache = false;
     } else {
-      Composite.cacheRootPath=cachePath;
+      Composite.cacheRootPath = cachePath;
     }
     if (showVersion)
       this.showVersion();
@@ -154,30 +155,32 @@ public class Radolan extends Main {
       if (input.contains(".png") || input.contains(".jpg")
           || input.contains(".gif")) {
         if (this.showImage)
-          image = showImage(input);
+          showImage(input);
         else {
           // silently fail here?
         }
       } else {
         try {
           Composite composite = new Composite(input);
-          String msg = String.format("%s-image (%s) showing %s",
+          displayContext = new DisplayContext(composite,
+              "2_bundeslaender/2_hoch.geojson");
+          displayContext.title = String.format("%s-image (%s) showing %s",
               composite.getProduct(), composite.getDataUnit(),
               composite.getForecastTime());
           if (debug)
-            LOGGER.log(Level.INFO, msg);
-          image = Radolan2Image.getImage(composite);
+            LOGGER.log(Level.INFO, displayContext.title);
+          Radolan2Image.getImage(displayContext);
           if (this.showImage)
-            showImage(image, msg, composite);
+            showImage(displayContext);
         } catch (Throwable th) {
           ErrorHandler.handle(th);
         }
       }
       // shall we save the image
-      if (image != null && output != null && !output.isEmpty()) {
+      if (displayContext.image != null && output != null && !output.isEmpty()) {
         String ext = FilenameUtils.getExtension(output);
         File outputFile = new File(output);
-        BufferedImage bImage = ImageViewer.fromFXImage(image, null);
+        BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image, null);
         String formatName = ext;
         try {
           ImageIO.write(bImage, formatName, outputFile);
@@ -196,6 +199,8 @@ public class Radolan extends Main {
   public static void main(String[] args) {
     Radolan radolan = new Radolan();
     radolan.maininstance(args);
+    if (!testMode)
+      System.exit(exitCode);
   }
 
   @Override

@@ -41,8 +41,6 @@ import cs.fau.de.since.radolan.Translate;
 import cs.fau.de.since.radolan.vis.Vis;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Tooltip;
-import javafx.scene.image.Image;
 import javafx.scene.Node;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -64,16 +62,20 @@ public class Radolan2Image {
    * @return - the image
    * @throws Exception
    */
-  public static Image getImage(Composite comp) throws Exception {
+  public static void getImage(DisplayContext displayContext) throws Exception {
+    Composite comp=displayContext.composite;
     float max = 400f;
+    // default heatMap - DWD style
     FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
     Duration interval = comp.getInterval();
     switch (comp.getDataUnit()) {
     case Unit_mm:
       /**
        * http://www.wetter-eggerszell.de/besondere-wetterereignisse/wetter-und-klima/wetterrekorde-deutschland--und-weltweit/index.html
-       * Höchste 24-Stunden-Menge (07-07 MEZ): 312mm am 12./13.08.02 in Zinnwald-Georgenfeld (Erzgebirge)
-       * Größte Tagesniederschlagsmenge: 260mm am 06.07.1954 in Stein (Kreis Rosenheim)
+       * Höchste 24-Stunden-Menge (07-07 MEZ): 312mm am 12./13.08.02 in
+       * Zinnwald-Georgenfeld (Erzgebirge)
+       * Größte Tagesniederschlagsmenge: 260mm am 06.07.1954 in Stein (Kreis
+       * Rosenheim)
        */
       max = 200.0f;
       if (interval.compareTo(Duration.ofHours(1)) < 0) {
@@ -95,13 +97,13 @@ public class Radolan2Image {
     default:
       break;
     }
-    WritableImage image = getImage(comp, heatmap);
+    displayContext.image = getImage(comp, heatmap);
     // draw borders
     if (comp.isHasProjection()) {
-      drawBorders(comp, "2_bundeslaender/2_hoch.geojson", image);
-      drawMesh(comp, image);
+      drawBorders(displayContext);
+      drawMesh(displayContext);
     }
-    return image;
+   
   }
 
   /**
@@ -111,13 +113,14 @@ public class Radolan2Image {
    * @param image
    * @throws Exception
    */
-  protected static void drawBorders(Composite comp, String borderName,
-      WritableImage image) throws Exception {
-    String msg=String.format("detected grid: %.1f km * %.1f km\n",
+  protected static void drawBorders(DisplayContext displayContext) throws Exception {
+    Composite comp=displayContext.composite;
+    WritableImage image=displayContext.getWriteableImage();
+    String msg = String.format("detected grid: %.1f km * %.1f km\n",
         comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy());
     if (debug)
       LOGGER.log(Level.INFO, msg);
-    Borders borders = new Borders(borderName); // "1_deutschland/3_mittel.geojson"
+    Borders borders = new Borders(displayContext.borderName); // "1_deutschland/3_mittel.geojson"
     for (DPoint point : borders.getPoints()) {
       DPoint dp = comp.translate(point.x, point.y);
       IPoint ip = new IPoint(dp);
@@ -134,7 +137,9 @@ public class Radolan2Image {
    *          - the composite to draw the mesh for
    * @param image
    */
-  protected static void drawMesh(Composite comp, WritableImage image) {
+  protected static void drawMesh(DisplayContext displayContext) {
+    Composite comp=displayContext.composite;
+    WritableImage image=displayContext.getWriteableImage();
     // draw mesh
     // loop over east and north
     for (double e = 1.0; e < 16.0; e += 0.1) {
@@ -183,8 +188,9 @@ public class Radolan2Image {
    * @param composite
    * @param toolTip
    */
-  public static void activateToolTipOnShowEvent(Composite composite, Node view,
-      Tooltip toolTip) {
+  public static void activateToolTipOnShowEvent(DisplayContext displayContext) {
+    Node view=displayContext.view;
+    Composite composite=displayContext.composite;
     Bounds viewBounds = view.getBoundsInParent();
     String imsg = String.format(
         "ToolTip onShowEvent installed in a view with size %.0f x %.0f for composite %d x %d",
@@ -197,7 +203,7 @@ public class Radolan2Image {
       LOGGER.log(Level.WARNING, imsg);
     }
     // https://stackoverflow.com/a/39712217/1497139
-    toolTip.setOnShowing(ev -> {
+    displayContext.toolTip.setOnShowing(ev -> {
       // called just prior to the toolTip being shown
       // get the mouse location
       Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
@@ -211,23 +217,28 @@ public class Radolan2Image {
           new DPoint(local.getX(), local.getY()));
       // find the closest cities:
       long startTime = System.nanoTime();
-      Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance().lookup(p.x, p.y, 20);
+      Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance()
+          .lookup(p.x, p.y, 20);
       long endTime = System.nanoTime();
-      long duration = (endTime - startTime)/100000;
+      long duration = (endTime - startTime) / 100000;
       if (debug)
-        LOGGER.log(Level.INFO,String.format("city lookup took %d msecs and returned %d results",duration,closestCities.size()));
-      String cityInfo="";
-      if (closestCities.size()>0) {
-        Entry<Double, UnLocode> cityEntry = closestCities.entrySet().iterator().next();
-        cityInfo=String.format(" near %s (%.1f km)", cityEntry.getValue().getName(),cityEntry.getKey());
+        LOGGER.log(Level.INFO,
+            String.format("city lookup took %d msecs and returned %d results",
+                duration, closestCities.size()));
+      String cityInfo = "";
+      if (closestCities.size() > 0) {
+        Entry<Double, UnLocode> cityEntry = closestCities.entrySet().iterator()
+            .next();
+        cityInfo = String.format(" near %s (%.1f km)",
+            cityEntry.getValue().getName(), cityEntry.getKey());
       }
       String displayMsg = String.format("%.1f %s%s %s", value,
-          composite.getDataUnit(),cityInfo, p.toFormattedDMSString());
+          composite.getDataUnit(), cityInfo, p.toFormattedDMSString());
       String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),
           displayMsg);
       if (debug)
         LOGGER.log(Level.INFO, msg);
-      toolTip.setText(displayMsg);
+      displayContext.toolTip.setText(displayMsg);
     });
 
   }
