@@ -93,7 +93,7 @@ public class TestRadolan {
   public void testHistory() {
     if (!isTravis()) {
       String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
-      testRadolan(url, 45, "sf-2018-05-30_1650.png");
+      testRadolan(url, 75, "sf-2018-05-30_1650.png");
     }
   }
 

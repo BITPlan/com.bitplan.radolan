@@ -25,8 +25,13 @@ package com.bitplan.radolan;
 
 import java.awt.Point;
 import java.time.Duration;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.bitplan.geo.UnLocode;
+import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.DPoint;
@@ -199,11 +204,25 @@ public class Radolan2Image {
       // convert it to the view (we assume the views size is the composite's
       // grid size)
       Point2D local = view.screenToLocal(mouse.x, mouse.y);
+      // get the precipitation value for this point
       float value = composite.getValue((int) local.getX(), (int) local.getY());
+      // get the location of the point as lat/lon
       DPoint p = Translate.translateXYtoLatLon(composite,
           new DPoint(local.getX(), local.getY()));
-      String displayMsg = String.format("%.1f %s %s", value,
-          composite.getDataUnit(), p.toFormattedDMSString());
+      // find the closest cities:
+      long startTime = System.nanoTime();
+      Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance().lookup(p.x, p.y, 20);
+      long endTime = System.nanoTime();
+      long duration = (endTime - startTime)/100000;
+      if (debug)
+        LOGGER.log(Level.INFO,String.format("city lookup took %d msecs and returned %d results",duration,closestCities.size()));
+      String cityInfo="";
+      if (closestCities.size()>0) {
+        Entry<Double, UnLocode> cityEntry = closestCities.entrySet().iterator().next();
+        cityInfo=String.format(" near %s (%.1f km)", cityEntry.getValue().getName(),cityEntry.getKey());
+      }
+      String displayMsg = String.format("%.1f %s%s %s", value,
+          composite.getDataUnit(),cityInfo, p.toFormattedDMSString());
       String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),
           displayMsg);
       if (debug)
