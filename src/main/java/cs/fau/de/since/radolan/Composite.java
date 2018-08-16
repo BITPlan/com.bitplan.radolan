@@ -24,10 +24,14 @@
 package cs.fau.de.since.radolan;
 //Package radolan parses the DWD RADOLAN / RADVOR radar composite format. This data
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.IOUtils;
 
@@ -97,19 +101,24 @@ import cs.fau.de.since.radolan.Data.Encoding;
  *
  */
 public class Composite {
-  private String Product; // composite product label
+  // prepare a LOGGER
+  protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
+
+  public static boolean debug=true;
   
+  private String Product; // composite product label
+
   ZonedDateTime CaptureTime;
   private ZonedDateTime ForecastTime;
   Duration Interval;
-  
+
   private Unit DataUnit;
-  
+
   public float[][] PlainData; // data for parsed plain data element [y][x]
-  
-  private int Px;  // plain data width
-  private int Py;  // plain data height
-  
+
+  private int Px; // plain data width
+  private int Py; // plain data height
+
   private int Dx; // data width
   private int Dy;// data height
 
@@ -117,11 +126,12 @@ public class Composite {
   private double Ry; // vertical resolution in km/px
 
   private boolean HasProjection; // coordinate translation available
-  
+
   int dataLength; // length of binary section in bytes
 
-  int precision;       // multiplicator 10^precision for each raw value
-  float[] level; // maps data value to corresponding index value in runlength based formats
+  int precision; // multiplicator 10^precision for each raw value
+  float[] level; // maps data value to corresponding index value in runlength
+                 // based formats
 
   double offx; // horizontal projection offset
   double offy; // vertical projection offset
@@ -139,7 +149,7 @@ public class Composite {
   public void setDx(int dx) {
     Dx = dx;
   }
-  
+
   public int getDy() {
     return Dy;
   }
@@ -223,7 +233,8 @@ public class Composite {
   /**
    * default constructor
    */
-  public Composite() {}
+  public Composite() {
+  }
 
   /**
    * construct me from the given parameters
@@ -237,19 +248,25 @@ public class Composite {
     this.setDx(dx);
     this.setDy(dy);
   }
-  
+
   /**
    * construct me from an url;
+   * 
    * @param url
-   * @throws Throwable 
+   * @throws Throwable
    */
   public Composite(String url) throws Throwable {
-    this.url=url;
+    this.url = url;
     InputStream inputStream = new URL(url).openStream();
     read(inputStream);
     init();
   }
-  
+
+  /**
+   * initialize me
+   * 
+   * @throws Throwable
+   */
   public void init() throws Throwable {
     parseData();
     arrangeData();
@@ -264,9 +281,10 @@ public class Composite {
     comp.calibrateProjection();
     return comp;
   }
-  
+
   /**
-   * read all bytes from the given InpuStream
+   * read all bytes from the given InpuStream - autodetect zipped input
+   * 
    * @param inputStream
    * @throws Exception
    */
@@ -274,32 +292,45 @@ public class Composite {
     bytes = IOUtils.toByteArray(inputStream);
     // https://tools.ietf.org/html/rfc1952
     // check for gzip header
-    if ((bytes[0]==0x1f) && (bytes[1]==0x86b)) {
-      throw new Exception("Zipped input not supported yet");
+    if (bytes.length < 2) {
+      throw new Exception("input is empty");
     }
-    StringBuffer headerBuffer=new StringBuffer();
-    int pos=0;
-    // read until 0x03 is found or we are way into the binary 2 x typical width 900 should suffice to terminate ...
-    while (bytes[pos]!=0x03 && pos<=1800) {
-      headerBuffer.append((char)bytes[pos]);
+    int magic = ((bytes[0] & 0xff) << 8) | (bytes[1] & 0xff);
+    if (magic == 0x1f8b) {
+      int zippedLength = bytes.length;
+      InputStream gzStream = new GZIPInputStream(
+          new ByteArrayInputStream(bytes));
+      byte[] unzipped = IOUtils.toByteArray(gzStream);
+      bytes = unzipped;
+      String msg = String.format("unzipped %d to %d bytes", zippedLength,
+          bytes.length);
+      if (debug)
+        LOGGER.log(Level.INFO, msg);
+    }
+    StringBuffer headerBuffer = new StringBuffer();
+    int pos = 0;
+    // read until 0x03 is found or we are way into the binary 2 x typical width
+    // 900 should suffice to terminate ...
+    while (bytes[pos] != 0x03 && pos <= 1800) {
+      headerBuffer.append((char) bytes[pos]);
       pos++;
     }
-    headerBuffer.append((char)bytes[pos]);
-    if (pos>1799 ||pos<21) {
-      throw new Exception("header length "+pos+" out of valid range");
+    headerBuffer.append((char) bytes[pos]);
+    if (pos > 1799 || pos < 21) {
+      throw new Exception("header length " + pos + " out of valid range");
     }
-    header=headerBuffer.toString();
+    header = headerBuffer.toString();
     this.parseHeader();
   }
-  
+
   public void parseHeader() throws Exception {
     Header.parseHeader(this);
   }
-  
+
   public void parseData() throws Throwable {
     Data.getInstance().parseData(this);
   }
-  
+
   public void arrangeData() throws Throwable {
     Data.getInstance().parseData(this);
   }
@@ -307,15 +338,15 @@ public class Composite {
   public void calibrateProjection() {
     Translate.calibrateProjection(this);
   }
-  
+
   public Encoding identifyEncoding() {
     return Data.getInstance().identifyEncoding(this);
   }
-  
+
   public double rvp6Raw(int value) {
     return Conversion.rvp6Raw(this, value);
   }
-  
+
   /**
    * translate the given coordinates to a double precision point
    * 
@@ -326,37 +357,39 @@ public class Composite {
   public DPoint translate(double lat, double lon) {
     return Translate.translate(this, lat, lon);
   }
-  
+
   /**
    * translate a coordinate to lat/lon
+   * 
    * @param p
    * @return the lat/lon point
    */
   public DPoint translateXYtoLatLon(DPoint p) {
-    return Translate.translateXYtoLatLon(this,p);
+    return Translate.translateXYtoLatLon(this, p);
   }
-
 
   /**
    * get the byte at the given x,y position in the binary data
+   * 
    * @param x
    * @param y
    * @return - the byte
    */
   public byte getByte(int x, int y) {
-    int ofs=header.length();
-    int pos=y*getDx()*2+x+ofs;
+    int ofs = header.length();
+    int pos = y * getDx() * 2 + x + ofs;
     return bytes[pos];
   }
 
   /**
    * get the value at the given x,y coordinate
+   * 
    * @param x
    * @param y
    * @return - the value
    */
   public float getValue(int x, int y) {
-    float value=PlainData[y][x];
+    float value = PlainData[y][x];
     return value;
   }
 
