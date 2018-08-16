@@ -313,6 +313,8 @@ public class Composite {
   public static String checkCache(String url) throws Exception {
     if (!useCache)
       return url;
+    if (url.contains("-latest-"))
+      return url;
     for (String knownUrl : knownUrls) {
       if (url.startsWith(knownUrl)) {
         return useCache(url, knownUrl);

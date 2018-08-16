@@ -23,6 +23,8 @@
  */
 package cs.fau.de.since.radolan;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -66,5 +68,15 @@ public class TestCache extends BaseTest {
         assertTrue(".file:", Composite.checkCache(url).startsWith("file:"));
       }
     }
+  }
+  
+  @Test
+  public void testNoCacheForLatest() throws Exception {
+    String url="https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
+    String knownUrl="https://opendata.dwd.de/weather/radar/radolan";
+    String cacheUrl=Composite.checkCache(url);
+    File cacheFile = Composite.cacheForUrl(url, knownUrl);
+    assertFalse(cacheFile.exists());
+    assertEquals(url,cacheUrl);
   }
 }
