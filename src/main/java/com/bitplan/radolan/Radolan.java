@@ -80,7 +80,15 @@ public class Radolan extends Main {
       System.exit(pExitCode);
     }
   }
-
+  
+  /**
+   * prepare the ImageViewer
+   */
+  protected void prepareImageViewer() {
+    ImageViewer.testMode=testMode;
+    ImageViewer.toolkitInit();
+  }
+  
   /**
    * show the given image
    * 
@@ -89,7 +97,7 @@ public class Radolan extends Main {
    * @param composite
    */
   public void showImage(Image image, String title, Composite composite) {
-    ImageViewer.toolkitInit();
+    prepareImageViewer();
     ImageViewer.image = image;
     ImageViewer.title = title;
     ImageViewer imageViewer = new ImageViewer();
@@ -110,7 +118,7 @@ public class Radolan extends Main {
    * @param input
    */
   public Image showImage(String input) {
-    ImageViewer.toolkitInit();
+    prepareImageViewer();
     Image image = new Image(input);
     showImage(image, input, null);
     return image;
