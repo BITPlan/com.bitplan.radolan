@@ -43,23 +43,8 @@ public class TestTranslate extends Testing {
   public boolean absequal(double a, double b, double epsilon) {
     return Math.abs(a - b) < epsilon;
   }
-
-  /**
-   * calculate the distance of two cartesian coordinates
-   * https://en.wikipedia.org/wiki/Pythagorean_theorem
-   * 
-   * @param x1
-   * @param y1
-   * @param x2
-   * @param y2
-   * @return
-   */
-  public double dist(double x1, double y1, double x2, double y2) {
-    double x = x1 - x2;
-    double y = y1 - y2;
-    return Math.sqrt(x * x + y * y);
-  }
-
+  
+  
   @Test
   public void testResolution() {
 
@@ -79,7 +64,7 @@ public class TestTranslate extends Testing {
       DPoint src = comp.translate(srcLat, srcLon);
       DPoint dst = comp.translate(dstLat, dstLon);
 
-      double resDist = dist(src.x * comp.getRx(), src.y * comp.getRy(),
+      double resDist = Translate.dist(src.x * comp.getRx(), src.y * comp.getRy(),
           dst.x * comp.getRx(), dst.y * comp.getRy());
 
       if (!absequal(resDist, expDist, 0.000001)) { // inaccuracy by 1mm
@@ -142,7 +127,7 @@ public class TestTranslate extends Testing {
           test.comp.getRx(), test.comp.getRy());
       Logf("dummy%s: offx = %f; offy = %f\n", test.comp.getProduct(),
           test.comp.offx, test.comp.offy);
-      debug=true;
+      //debug=true;
       for (double[] edge : test.edge) {
         DPoint latlon=new DPoint(edge[0], edge[1]);
         // result
@@ -151,14 +136,15 @@ public class TestTranslate extends Testing {
         DPoint e = new DPoint(edge[2], edge[3]);
 
         // allowed inaccuracy by 100 meters
-        if (dist(r.x, r.y, e.x, e.y) > 0.1) {
+        if (Translate.dist(r.x, r.y, e.x, e.y) > 0.1) {
           Errorf(
               "dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
               test.comp.getProduct(), edge[0], edge[1], r.x, r.y, e.x, e.y);
         }
+        // inverse Polarsterographic projection
         DPoint latlon2 = test.comp.translateXYtoLatLon(e);
-        if (dist(latlon2.x, latlon2.y, latlon.x, latlon.y) > 0.1) {
-          Logf(
+        if (Translate.haversine(latlon2.x, latlon2.y, latlon.x, latlon.y) > 0.1) {
+          Errorf(
               "dummy%s.TranslateXYtoLatLon(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
               test.comp.getProduct(), e.x,e.y, latlon2.x, latlon2.y, latlon.x, latlon.y);
         }
@@ -167,35 +153,59 @@ public class TestTranslate extends Testing {
     }
   }
 
-  // PolarStereo Projection
-  class PSP {
+  /**
+   * PolarStereo Projection
+   * test data for conversion from lat - north / lon - east to cartesian coordinate
+   * see description and pointer to PDF file in Translate.java
+   * @author wf
+   *
+   */
+  class PolarStereoProjection {
     double north;
     double east;
     double x;
     double y;
 
-    public PSP(double east, double north, double x, double y) {
+    /**
+     * construct me
+     * @param east
+     * @param north
+     * @param x
+     * @param y
+     */
+    public PolarStereoProjection(double east, double north, double x, double y) {
       this.east = east;
       this.north = north;
       this.x = x;
       this.y = y;
     }
-
   }
 
   @Test
   public void testFormulas() {
-    PSP[] pspTable = { new PSP(3.5889, 46.9526, -523.4622, -4658.645),
-        new PSP(14.6209, 47.0705, 376.5378, -4658.645),
-        new PSP(15.7208, 54.7405, 376.5378, -3758.645),
-        new PSP(2.0715, 54.5877, -523.4622, -3758.645)};
-    for (PSP psp : pspTable) {
+    assertEquals(Translate.rad(180),Math.toRadians(180),0.0001);
+    // Data from Table on page 13 of 
+    // https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf?__blob=publicationFile&v=10
+    PolarStereoProjection[] pspTable = { 
+        new PolarStereoProjection(Translate.junctionEast, Translate.junctionNorth, 0, -3185.02),
+        // 1.3
+        new PolarStereoProjection(3.5889, 46.9526, -523.4622, -4658.645),
+        new PolarStereoProjection(14.6209, 47.0705, 376.5378, -4658.645),
+        new PolarStereoProjection(15.7208, 54.7405, 376.5378, -3758.645),
+        new PolarStereoProjection(2.0715, 54.5877, -523.4622, -3758.645),
+        // 3.2 Middle European Grid
+        new PolarStereoProjection(2.3419, 43.9336, -673.4656656, -5008.642536),
+        new PolarStereoProjection(18.2536, 43.8736, 726.5343344, -5008.642536),
+        new PolarStereoProjection(21.6989, 56.4505, 726.5343344, -3508.642536),
+        new PolarStereoProjection(-0.8654, 56.5423, -673.4656656, -3508.642536)
+        };
+    for (PolarStereoProjection psp : pspTable) {
       DPoint p = Translate.polarStereoProjection(psp.north, psp.east);
-      assertEquals(psp.x, p.x, 0.005);
-      assertEquals(psp.y, -p.y, 0.005);
-      DPoint ne=Translate.inversePolarStereoProjection(psp.x, psp.y);
-      assertEquals(psp.north,ne.x,0.005);
-      assertEquals(psp.east,ne.y,0.005);
+      assertEquals("x",psp.x, p.x, 0.007);
+      assertEquals("y",psp.y, -p.y, 0.005);
+      DPoint ne=Translate.inversePolarStereoProjection(psp.x, -psp.y);
+      assertEquals("north",psp.north,ne.x,0.005);
+      assertEquals("east",psp.east,ne.y,0.005);
     }
   }
 
@@ -300,7 +310,7 @@ public class TestTranslate extends Testing {
           DPoint t = comp.translate(phi, lamda);
           DPoint e = new DPoint(x + offx, y + offy);
 
-          if (dist(t.x, t.y, e.x, e.y) > 0.01) { // 10m
+          if (Translate.dist(t.x, t.y, e.x, e.y) > 0.01) { // 10m
             Errorf(
                 "dummy%s.Translate(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
                 comp.getProduct(), phi, lamda, t.x, t.y, e.x, e.y);

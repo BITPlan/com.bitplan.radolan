@@ -31,11 +31,10 @@ package cs.fau.de.since.radolan;
  *
  */
 public class Translate {
-  public static final double earthRadius = 6370.04; // km
-
   // Polarstereographische Projektion
-  public static final double junctionNorth = 60.0; // N
-  public static final double junctionEast = 10.0; // E
+  public static final double earthRadius = 6370.04; // R (km)
+  public static final double junctionNorth = 60.0; // phi0 60.0° N
+  public static final double junctionEast = 10.0; // lamda0 10.0° E
 
   public static final double lambda0 = rad(junctionEast);
   public static final double phi0 = rad(junctionNorth);
@@ -168,11 +167,52 @@ public class Translate {
   }
 
   public static double square(double n) {
-    return n*n;
+    return n * n;
   }
-  
+
+  /**
+   * same as Math.toRadians
+   * 
+   * @param deg
+   * @return - the radiant
+   */
   public static double rad(double deg) {
-    return deg * Math.PI / 180.0;
+    // return deg * Math.PI / 180.0;
+    return Math.toRadians(deg);
+  }
+
+  /**
+   * Calculates the distance in km between two lat/long points using the
+   * haversine formula https://en.wikipedia.org/wiki/Haversine_formula see
+   * http://stackoverflow.com/a/18862550/1497139
+   */
+  public static double haversine(double lat1, double lng1, double lat2,
+      double lng2) {
+    int r = 6371; // average radius of the earth in km
+    double dLat = Math.toRadians(lat2 - lat1);
+    double dLon = Math.toRadians(lng2 - lng1);
+    double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+        + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+            * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    double d = r * c;
+    return d;
+  }
+
+  /**
+   * calculate the distance of two cartesian coordinates
+   * https://en.wikipedia.org/wiki/Pythagorean_theorem
+   * 
+   * @param x1
+   * @param y1
+   * @param x2
+   * @param y2
+   * @return
+   */
+  public static double dist(double x1, double y1, double x2, double y2) {
+    double x = x1 - x2;
+    double y = y1 - y2;
+    return Math.sqrt(x * x + y * y);
   }
 
   // Translate translates geographical coordinates
@@ -202,7 +242,7 @@ public class Translate {
    * 
    * @param north
    * @param east
-   * @return
+   * @return the x/y cartesian coordinate
    */
   public static DPoint polarStereoProjection(double north, double east) {
     double lambda = rad(east);
@@ -214,6 +254,7 @@ public class Translate {
     double m = (1.0 + Math.sin(phi0)) / (1.0 + Math.sin(phi));
     double x = (earthRadius * m * Math.cos(phi) * Math.sin(lambda - lambda0));
     double y = (earthRadius * m * Math.cos(phi) * Math.cos(lambda - lambda0));
+    // will give negated y - why?
     return new DPoint(x, y);
   }
 
@@ -230,13 +271,13 @@ public class Translate {
     // scaling
     p.x *= c.getRx();
     p.y *= c.getRy();
-    
+
     // offset correction
     p.x += c.offx;
     p.y += c.offy;
- 
-    DPoint latlon = inversePolarStereoProjection(p.x,p.y);
-   
+
+    DPoint latlon = inversePolarStereoProjection(p.x, p.y);
+
     return latlon;
   }
 
@@ -251,9 +292,11 @@ public class Translate {
    * @return
    */
   public static DPoint inversePolarStereoProjection(double x, double y) {
+    y = -y; // negation of y component necessary - why?
     double lambda = Math.atan(-x / y) + lambda0;
-    double term=square(earthRadius)*square((1+Math.sin(phi0)));
-    double phi=Math.asin((term-(square(x)+square(y)))/(term+(square(x)+square(y))));
-    return new DPoint(Math.toDegrees(phi),Math.toDegrees(lambda));
+    double term = square(earthRadius) * square((1 + Math.sin(phi0)));
+    double phi = Math.asin(
+        (term - (square(x) + square(y))) / (term + (square(x) + square(y))));
+    return new DPoint(Math.toDegrees(phi), Math.toDegrees(lambda));
   }
 }
