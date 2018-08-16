@@ -81,7 +81,8 @@ public class ImageViewer extends WaitableApp {
   
   public void close() {
     super.close();
-    System.exit(0);
+    if (!testMode)
+      System.exit(0);
   }
    
   public static double getRotate() {
