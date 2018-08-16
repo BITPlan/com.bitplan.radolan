@@ -37,6 +37,9 @@ import org.kohsuke.args4j.Option;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
+import cs.fau.de.since.radolan.DPoint;
+import cs.fau.de.since.radolan.Translate;
+import gov.nasa.worldwind.geom.Angle;
 import javafx.application.Platform;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
@@ -106,9 +109,11 @@ public class Radolan extends Main {
                                               // shown
         Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
         Point2D local = imageViewer.imageView.screenToLocal(mouse.x, mouse.y);
-        String msg = String.format("%f,%f", local.getX(), local.getY());
+        DPoint p=Translate.translateXYtoLatLon(composite, new DPoint(local.getX(),local.getY()));
+        String displayMsg=String.format("%s",p.toFormattedDMSString());
+        String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),displayMsg);
         LOGGER.log(Level.INFO, msg);
-        imageViewer.toolTip.setText(msg);
+        imageViewer.toolTip.setText(displayMsg);
       });
     }
     imageViewer.waitClose();

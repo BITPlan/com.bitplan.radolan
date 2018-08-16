@@ -23,6 +23,8 @@
  */
 package cs.fau.de.since.radolan;
 
+import gov.nasa.worldwind.geom.Angle;
+
 /**
  * double precision Point Helper class
  * @author wf
@@ -31,8 +33,51 @@ package cs.fau.de.since.radolan;
 public class DPoint {
   public double x;
   public double y;
+  /**
+   * construct me
+   * @param x
+   * @param y
+   */
   public DPoint(double x, double y) {
     this.x=x;
     this.y=y;
+  }
+  
+  public Angle getLat() {
+    return Angle.fromDegrees(x);
+  }
+  
+  public Angle getLon() {
+    return Angle.fromDegrees(y);
+  }
+  
+  public String toDMSString() {
+    String lat=getLat().toDMSString();
+    String lon=getLon().toDMSString();
+    return lat+" "+lon;
+  }
+  
+  public String getLatDMS() {
+    String latDMS = String.format("%s %s", getLat().toFormattedDMSString().substring(0, 11),
+        getLat().degrees >= 0.0 ? "N" : "S");
+    return latDMS;
+  }
+
+  public String getLonDMS() {
+    String lonDMS = String.format("%s %s", getLon().toFormattedDMSString().substring(0, 11),
+        getLon().degrees >= 0.0 ? "E" : "W");
+    return lonDMS;
+  }
+  
+  /**
+   * format lat/lon to Degree minutes 
+   * @return a short formatted display version
+   */
+  public String toFormattedDMSString() {
+    String lat=getLatDMS();
+    String lon=getLonDMS();
+    String dms=(lat+" "+lon);
+    dms=dms.replaceAll("\\s+"," ").trim();
+    return dms;
   }
 }

@@ -208,6 +208,14 @@ public class TestTranslate extends Testing {
       assertEquals("east",psp.east,ne.y,0.005);
     }
   }
+  
+  @Test
+  public void testLatLon() {
+    DPoint center=new DPoint(Translate.junctionNorth,Translate.junctionEast);
+    assertEquals("60° 0’ 0” 10° 0’ 0”",center.toDMSString());
+    //System.out.println(center.toFormattedDMSString());
+    assertEquals("60° 0’ N 10° 0’ E",center.toFormattedDMSString());
+  }
 
   enum GridMode {
     bottom, center
