@@ -78,6 +78,11 @@ public class ImageViewer extends WaitableApp {
     stage.sizeToScene();
     stage.show();
   }
+  
+  public void close() {
+    super.close();
+    System.exit(0);
+  }
    
   public static double getRotate() {
     return rotate;

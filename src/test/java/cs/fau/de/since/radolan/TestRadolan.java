@@ -73,7 +73,7 @@ public class TestRadolan {
     Radolan.main(args);
     if (output != null) {
       File outputFile = new File(outputPath);
-      assertTrue(outputFile.exists());
+      assertTrue(outputFile.getPath(),outputFile.exists());
       System.out.println(outputFile.getAbsolutePath());
     }
   }
@@ -92,8 +92,15 @@ public class TestRadolan {
   @Test
   public void testHistory() {
     if (!isTravis()) {
-      String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
-      testRadolan(url, 75, "sf-2018-05-30_1650.png");
+      for (int month = 1; month <= 7; month++) {
+        for (int day = 1; day <=28; day++) {
+          String url = String.format(
+              "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-18%02d%02d1650-dwd---bin.gz",
+              month, day);
+          testRadolan(url, 4,
+              String.format("sf-2018-%02d-%02d_1650.png", month, day));
+        }
+      }
     }
   }
 
@@ -121,9 +128,10 @@ public class TestRadolan {
   @Test
   public void testColors() {
     FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
-    // taken from https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102
-   
-    for (ColorRange colorRange:Vis.DWD_Style_Colors) {
+    // taken from
+    // https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102
+
+    for (ColorRange colorRange : Vis.DWD_Style_Colors) {
       // check upper and lower bound of color and a value in the middle
       // all three should have the same color
       float testValues[] = { colorRange.getFromValue(), colorRange.getToValue(),
