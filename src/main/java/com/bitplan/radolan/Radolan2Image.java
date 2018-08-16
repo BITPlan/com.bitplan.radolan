@@ -136,7 +136,7 @@ public class Radolan2Image {
     PixelWriter pw = img.getPixelWriter();
     for (int y=0;y<height;y++) {
       for (int x=0;x<width;x++) {
-        float value = c.PlainData[y][x];
+        float value = c.getValue(x,y);
         Color color = colorMap.apply(value);
         pw.setColor(x, y, color);
       }

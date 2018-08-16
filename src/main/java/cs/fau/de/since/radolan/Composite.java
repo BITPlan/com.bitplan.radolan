@@ -344,5 +344,15 @@ public class Composite {
     return bytes[pos];
   }
 
-  
+  /**
+   * get the value at the given x,y coordinate
+   * @param x
+   * @param y
+   * @return - the value
+   */
+  public float getValue(int x, int y) {
+    float value=PlainData[y][x];
+    return value;
+  }
+
 }

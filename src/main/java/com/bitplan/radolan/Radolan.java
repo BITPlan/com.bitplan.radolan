@@ -109,8 +109,9 @@ public class Radolan extends Main {
                                               // shown
         Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
         Point2D local = imageViewer.imageView.screenToLocal(mouse.x, mouse.y);
+        float value = composite.getValue((int)local.getX(),(int)local.getY());
         DPoint p=Translate.translateXYtoLatLon(composite, new DPoint(local.getX(),local.getY()));
-        String displayMsg=String.format("%s",p.toFormattedDMSString());
+        String displayMsg=String.format("%.1f %s %s",value,composite.getDataUnit(),p.toFormattedDMSString());
         String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),displayMsg);
         LOGGER.log(Level.INFO, msg);
         imageViewer.toolTip.setText(displayMsg);
