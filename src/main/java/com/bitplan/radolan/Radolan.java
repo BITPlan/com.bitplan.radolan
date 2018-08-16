@@ -23,7 +23,6 @@
  */
 package com.bitplan.radolan;
 
-import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -37,10 +36,7 @@ import org.kohsuke.args4j.Option;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
-import cs.fau.de.since.radolan.DPoint;
-import cs.fau.de.since.radolan.Translate;
 import javafx.application.Platform;
-import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
 /**
@@ -102,18 +98,7 @@ public class Radolan extends Main {
     imageViewer.waitOpen();
     // do we show a radolan image?
     if (composite != null) {
-      // https://stackoverflow.com/a/39712217/1497139
-      imageViewer.toolTip.setOnShowing(ev -> {// called just prior to being
-                                              // shown
-        Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
-        Point2D local = imageViewer.imageView.screenToLocal(mouse.x, mouse.y);
-        float value = composite.getValue((int)local.getX(),(int)local.getY());
-        DPoint p=Translate.translateXYtoLatLon(composite, new DPoint(local.getX(),local.getY()));
-        String displayMsg=String.format("%.1f %s %s",value,composite.getDataUnit(),p.toFormattedDMSString());
-        String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),displayMsg);
-        LOGGER.log(Level.INFO, msg);
-        imageViewer.toolTip.setText(displayMsg);
-      });
+      Radolan2Image.activateToolTipOnShowEvent(composite,imageViewer.imageView,imageViewer.toolTip);
     }
     imageViewer.waitClose();
   }
@@ -134,6 +119,10 @@ public class Radolan extends Main {
    * do the required work
    */
   public void work() {
+    if (debug) {
+      Composite.debug=true;
+      Radolan2Image.debug=true;
+    }
     if (showVersion)
       this.showVersion();
     if (showHelp)

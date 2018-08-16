@@ -184,6 +184,8 @@ public class Vis {
     return radialmap;
   }
 
+  public static final Color COLOR_INVALID=Color.rgb(0xF0,0xF0,0xF0,0.95);
+  
   // Heatmap returns a colour gradient between min and max. A compression
   // function is used to
   // make logarithmic scales possible.
@@ -201,7 +203,7 @@ public class Vis {
         return Color.PURPLE; 
       }
       if (Float.isNaN(val)) {
-        return Color.rgb(0xF0,0xF0,0xF0,0.95); // 95% opaque
+        return COLOR_INVALID; // 95% opaque
       }
 
       double p = (val - min) / (max - min);

@@ -23,42 +23,55 @@
  */
 package com.bitplan.radolan;
 
+import java.awt.Point;
 import java.time.Duration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.DPoint;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.IPoint;
+import cs.fau.de.since.radolan.Translate;
 import cs.fau.de.since.radolan.vis.Vis;
+import javafx.geometry.Point2D;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
+import javafx.scene.Node;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 @SuppressWarnings("restriction")
 public class Radolan2Image {
-  
+  // prepare a LOGGER
+  protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
+  public static boolean debug=false;
+
   public static Color borderColor = Color.BROWN;
-  public static Color meshColor   = Color.BLACK;
-  
+  public static Color meshColor = Color.BLACK;
+
   /**
    * get the Image for the given composite
    * https://www.dwd.de/DE/leistungen/radarniederschlag/rn_info/download_niederschlagsbestimmung.pdf?__blob=publicationFile&v=4
    * 
    * @return - the image
-   * @throws Exception 
+   * @throws Exception
    */
   public static Image getImage(Composite comp) throws Exception {
-    float max=400f;
-    FloatFunction<Color> heatmap=(val)->{int l=(int) Math.round(val);return Color.rgb(l, l, l);};
+    float max = 400f;
+    FloatFunction<Color> heatmap = (val) -> {
+      int l = (int) Math.round(val);
+      return Color.rgb(l, l, l);
+    };
     Duration interval = comp.getInterval();
     switch (comp.getDataUnit()) {
     case Unit_mm:
       max = 200.0f;
-      if (interval.compareTo(Duration.ofHours(1))<0)  {
+      if (interval.compareTo(Duration.ofHours(1)) < 0) {
         max = 100.0f;
       }
-      if (interval.compareTo(Duration.ofDays(7))>0) {
+      if (interval.compareTo(Duration.ofDays(7)) > 0) {
         max = 400.0f;
       }
       heatmap = Vis.Heatmap(0.1f, max, Vis.Log);
@@ -75,72 +88,110 @@ public class Radolan2Image {
     default:
       break;
     }
-    WritableImage image = getImage(comp,heatmap);
+    WritableImage image = getImage(comp, heatmap);
     // draw borders
     if (comp.isHasProjection()) {
-      drawBorders(comp,"2_bundeslaender/2_hoch.geojson",image);
-      drawMesh(comp,image);
+      drawBorders(comp, "2_bundeslaender/2_hoch.geojson", image);
+      drawMesh(comp, image);
     }
     return image;
   }
-  
+
   /**
    * draw Borders
+   * 
    * @param comp
    * @param image
    * @throws Exception
    */
-  protected static void drawBorders(Composite comp, String borderName,WritableImage image) throws Exception {
-    System.out.println(String.format("detected grid: %.1f km * %.1f km\n", comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
-    Borders borders=new Borders(borderName); //"1_deutschland/3_mittel.geojson"
-    for (DPoint point:borders.getPoints()) {
+  protected static void drawBorders(Composite comp, String borderName,
+      WritableImage image) throws Exception {
+    System.out.println(String.format("detected grid: %.1f km * %.1f km\n",
+        comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
+    Borders borders = new Borders(borderName); // "1_deutschland/3_mittel.geojson"
+    for (DPoint point : borders.getPoints()) {
       DPoint dp = comp.translate(point.x, point.y);
       IPoint ip = new IPoint(dp);
-      if (ip.x>0 && ip.y>0) {
+      if (ip.x > 0 && ip.y > 0) {
         image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
       }
     }
   }
+
   /**
    * draw a coordinate mesh
-   * @param comp - the composite to draw the mesh for
+   * 
+   * @param comp
+   *          - the composite to draw the mesh for
    * @param image
    */
-  protected static void drawMesh(Composite comp,WritableImage image) {
+  protected static void drawMesh(Composite comp, WritableImage image) {
     // draw mesh
-    // loop over east and north 
+    // loop over east and north
     for (double e = 1.0; e < 16.0; e += 0.1) {
       for (double n = 46.0; n < 55.0; n += 0.1) {
-        double edist = Math.abs(e-Math.round(e));
-        double ndist=Math.abs(n-Math.round(n));
+        double edist = Math.abs(e - Math.round(e));
+        double ndist = Math.abs(n - Math.round(n));
         if ((edist < 0.01) || (ndist < 0.01)) {
           DPoint dp = comp.translate(n, e);
-          IPoint ip=new IPoint(dp);
-          if (ip.x>=0 && ip.y>=0 && ip.x<comp.getPx() && ip.y<comp.getPy())
-            image.getPixelWriter().setColor(ip.x,ip.y, meshColor);
+          IPoint ip = new IPoint(dp);
+          if (ip.x >= 0 && ip.y >= 0 && ip.x < comp.getPx()
+              && ip.y < comp.getPy())
+            image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
         }
       }
     }
-    
+
   }
+
   /**
    * get the Image for the given composite and color map
-   * @param c - the composite Radolan input
+   * 
+   * @param c
+   *          - the composite Radolan input
    * @param colorMap
    * @return - the image
    */
-  public static WritableImage getImage(Composite c,FloatFunction<Color> colorMap) {
-    int width=c.getPx();
-    int height=c.getPy();
-    WritableImage img = new WritableImage(width,height);
+  public static WritableImage getImage(Composite c,
+      FloatFunction<Color> colorMap) {
+    int width = c.getPx();
+    int height = c.getPy();
+    WritableImage img = new WritableImage(width, height);
     PixelWriter pw = img.getPixelWriter();
-    for (int y=0;y<height;y++) {
-      for (int x=0;x<width;x++) {
-        float value = c.getValue(x,y);
+    for (int y = 0; y < height; y++) {
+      for (int x = 0; x < width; x++) {
+        float value = c.getValue(x, y);
         Color color = colorMap.apply(value);
         pw.setColor(x, y, color);
       }
     }
     return img;
+  }
+
+  /**
+   * activate the onShow Event of the given tooltip
+   * 
+   * @param composite
+   * @param toolTip
+   */
+  public static void activateToolTipOnShowEvent(Composite composite, Node view,
+      Tooltip toolTip) {
+    // https://stackoverflow.com/a/39712217/1497139
+    toolTip.setOnShowing(ev -> {// called just prior to being
+                                // shown
+      Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
+      Point2D local = view.screenToLocal(mouse.x, mouse.y);
+      float value = composite.getValue((int) local.getX(), (int) local.getY());
+      DPoint p = Translate.translateXYtoLatLon(composite,
+          new DPoint(local.getX(), local.getY()));
+      String displayMsg = String.format("%.1f %s %s", value,
+          composite.getDataUnit(), p.toFormattedDMSString());
+      String msg = String.format("%.0f,%.0f -> %s", local.getX(), local.getY(),
+          displayMsg);
+      if (debug)
+        LOGGER.log(Level.INFO, msg);
+      toolTip.setText(displayMsg);
+    });
+
   }
 }

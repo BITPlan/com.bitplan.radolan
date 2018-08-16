@@ -75,7 +75,7 @@ public class TestRadolan {
   @Test
   public void testHistory() {
     String url="ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
-    testRadolan(url,15,"sf-2018-05-30_1650.png");
+    testRadolan(url,45,"sf-2018-05-30_1650.png");
   }
 
   @Test

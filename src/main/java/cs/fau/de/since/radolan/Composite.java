@@ -104,7 +104,7 @@ public class Composite {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
 
-  public static boolean debug=true;
+  public static boolean debug=false;
   
   private String Product; // composite product label
 
