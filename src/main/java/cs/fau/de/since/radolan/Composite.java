@@ -29,6 +29,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
@@ -141,6 +142,9 @@ public class Composite {
   // for lambda error handling
   public Throwable error;
   protected String url;
+  
+  // CallBacks
+  private static Consumer<Composite> postInit;
 
   public int getDx() {
     return Dx;
@@ -230,6 +234,14 @@ public class Composite {
     HasProjection = hasProjection;
   }
 
+  public static Consumer<Composite> getPostInit() {
+    return postInit;
+  }
+
+  public static void setPostInit(Consumer<Composite> pPostInit) {
+    postInit = pPostInit;
+  }
+
   /**
    * default constructor
    */
@@ -271,6 +283,10 @@ public class Composite {
     parseData();
     arrangeData();
     calibrateProjection();
+    // is there a callback installed?
+    if (postInit!=null) {
+      postInit.accept(this);
+    }
   }
 
   // NewDummy creates a blank dummy composite with the given product label and
@@ -391,6 +407,10 @@ public class Composite {
   public float getValue(int x, int y) {
     float value = PlainData[y][x];
     return value;
+  }
+
+  public void setValue(int x, int y, float value) {
+    PlainData[y][x]=value;
   }
 
 }

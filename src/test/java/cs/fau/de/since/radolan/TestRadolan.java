@@ -23,13 +23,19 @@
  */
 package cs.fau.de.since.radolan;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.function.Consumer;
 
 import org.junit.Test;
 
 import com.bitplan.radolan.Radolan;
+
+import cs.fau.de.since.radolan.vis.Vis;
+import cs.fau.de.since.radolan.vis.Vis.ColorRange;
+import javafx.scene.paint.Color;
 
 /**
  * test the main application
@@ -37,6 +43,7 @@ import com.bitplan.radolan.Radolan;
  * @author wf
  *
  */
+@SuppressWarnings("restriction")
 public class TestRadolan {
   /**
    * check if we are in the Travis-CI environment
@@ -87,6 +94,44 @@ public class TestRadolan {
     if (!isTravis()) {
       String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
       testRadolan(url, 45, "sf-2018-05-30_1650.png");
+    }
+  }
+
+  /**
+   * create a fake gradient of values
+   */
+  public static Consumer<Composite> fakeGradient = composite -> {
+    for (int y = 0; y < composite.PlainData.length; y++) {
+      for (int x = 0; x < composite.PlainData[y].length; x++) {
+        composite.setValue(x, y, (float) (y / 900.0 * 250.0));
+      }
+    }
+  };
+
+  @Test
+  public void testHistoryLocalWithFakeValueGradient() throws Exception {
+    Composite.setPostInit(fakeGradient);
+    File sfHistoryFile = new File(
+        "src/test/data/history/raa01-sf_10000-1805301650-dwd---bin.gz");
+    assertTrue(sfHistoryFile.exists());
+    String url = sfHistoryFile.toURI().toURL().toExternalForm();
+    testRadolan(url, 5, "sf-ColorGradient.png");
+  }
+
+  @Test
+  public void testColors() {
+    FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
+    // taken from https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102
+   
+    for (ColorRange colorRange:Vis.DWD_Style_Colors) {
+      // check upper and lower bound of color and a value in the middle
+      // all three should have the same color
+      float testValues[] = { colorRange.getFromValue(), colorRange.getToValue(),
+          (colorRange.getFromValue() + colorRange.getToValue()) / 2.0f };
+      for (float value : testValues) {
+        Color rColor = heatmap.apply(value);
+        assertEquals(colorRange.getColor(), rColor);
+      }
     }
   }
 

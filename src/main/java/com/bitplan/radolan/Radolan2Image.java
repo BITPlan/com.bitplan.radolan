@@ -61,13 +61,15 @@ public class Radolan2Image {
    */
   public static Image getImage(Composite comp) throws Exception {
     float max = 400f;
-    FloatFunction<Color> heatmap = (val) -> {
-      int l = (int) Math.round(val);
-      return Color.rgb(l, l, l);
-    };
+    FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
     Duration interval = comp.getInterval();
     switch (comp.getDataUnit()) {
     case Unit_mm:
+      /**
+       * http://www.wetter-eggerszell.de/besondere-wetterereignisse/wetter-und-klima/wetterrekorde-deutschland--und-weltweit/index.html
+       * Höchste 24-Stunden-Menge (07-07 MEZ): 312mm am 12./13.08.02 in Zinnwald-Georgenfeld (Erzgebirge)
+       * Größte Tagesniederschlagsmenge: 260mm am 06.07.1954 in Stein (Kreis Rosenheim)
+       */
       max = 200.0f;
       if (interval.compareTo(Duration.ofHours(1)) < 0) {
         max = 100.0f;
@@ -75,7 +77,6 @@ public class Radolan2Image {
       if (interval.compareTo(Duration.ofDays(7)) > 0) {
         max = 400.0f;
       }
-      heatmap = Vis.Heatmap(0.1f, max, Vis.Log);
       break;
     case Unit_dBZ:
       heatmap = Vis.HeatmapReflectivity;

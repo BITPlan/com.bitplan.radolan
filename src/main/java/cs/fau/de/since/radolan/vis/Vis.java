@@ -23,6 +23,8 @@
  */
 package cs.fau.de.since.radolan.vis;
 
+import java.util.logging.Logger;
+
 import cs.fau.de.since.radolan.FloatFunction;
 import javafx.scene.paint.Color;
 
@@ -35,6 +37,9 @@ import javafx.scene.paint.Color;
  */
 @SuppressWarnings("restriction")
 public class Vis {
+  // prepare a LOGGER
+  protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan.vis");
+
   // Id is the identity (no compression)
   public static FloatFunction<Float> Id = (x) -> x;
 
@@ -108,22 +113,15 @@ public class Vis {
   // Image creates an image by evaluating the color function fn for each data
   // value in the given z-layer.
   /*
-   * func Image(fn ColorFunc, c *radolan.Composite, layer int) *image.RGBA {
-   * rec := image.Rect(0, 0, c.Dx, c.Dy)
-   * img := image.NewRGBA(rec)
+   * func Image(fn ColorFunc, c *radolan.Composite, layer int) *image.RGBA { rec
+   * := image.Rect(0, 0, c.Dx, c.Dy) img := image.NewRGBA(rec)
    * 
-   * if layer < 0 || layer >= c.Dz {
-   * return img
-   * }
+   * if layer < 0 || layer >= c.Dz { return img }
    * 
-   * for y := 0; y < c.Dy; y++ {
-   * for x := 0; x < c.Dx; x++ {
-   * img.Set(x, y, fn(float64(c.DataZ[layer][y][x])))
-   * }
-   * }
+   * for y := 0; y < c.Dy; y++ { for x := 0; x < c.Dx; x++ { img.Set(x, y,
+   * fn(float64(c.DataZ[layer][y][x]))) } }
    * 
-   * return img
-   * }
+   * return img }
    */
 
   // Graymap returns a grayscale gradient function between min and max. A
@@ -138,7 +136,7 @@ public class Vis {
       val = compression.apply(val);
 
       if (val < min) {
-        return Color.BLACK; // black 
+        return Color.BLACK; // black
       }
 
       double p = (val - min) / (max - min);
@@ -184,23 +182,108 @@ public class Vis {
     return radialmap;
   }
 
-  public static final Color COLOR_INVALID=Color.rgb(0xF0,0xF0,0xF0,0.95);
-  
-  // Heatmap returns a colour gradient between min and max. A compression
-  // function is used to
-  // make logarithmic scales possible.
+  public static final Color COLOR_INVALID = Color.rgb(0xF0, 0xF0, 0xF0, 0.95);
+  public static class ColorRange {
+    private float fromValue;
+    private float toValue;
+    private Color color;
+
+    public float getToValue() {
+      return toValue;
+    }
+
+    public void setToValue(float toValue) {
+      this.toValue = toValue;
+    }
+
+    public float getFromValue() {
+      return fromValue;
+    }
+
+    public void setFromValue(float fromValue) {
+      this.fromValue = fromValue;
+    }
+
+    public Color getColor() {
+      return color;
+    }
+
+    public void setColor(Color color) {
+      this.color = color;
+    }
+
+    /**
+     * construct me from the given range and color
+     * 
+     * @param from
+     * @param to
+     * @param rgb
+     */
+    public ColorRange(float from, float to, Color rgb) {
+      this.setFromValue(from);
+      this.setToValue(to);
+      this.setColor(rgb);
+    }
+
+  }
+  // see
+  // https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102
+  public static final ColorRange[] DWD_Style_Colors= {
+      new ColorRange(250.0001f,400.0f,Color.rgb( 79, 14, 13)),
+      new ColorRange(150.0f,250.0000f,Color.rgb(136, 14, 13)),
+      new ColorRange(100.0f,149.9999f,Color.rgb(231, 13, 12)),
+      new ColorRange( 80.0f, 99.9999f,Color.rgb(218, 40,198)),
+      new ColorRange( 50.0f, 79.9999f,Color.rgb(146, 50,183)),
+      new ColorRange( 30.0f, 49.9999f,Color.rgb(  7,  2,252)),
+      new ColorRange( 20.0f, 29.9999f,Color.rgb( 17,161,214)),
+      new ColorRange( 15.0f, 19.9999f,Color.rgb(  0,214,216)),
+      new ColorRange( 10.0f, 14.9999f,Color.rgb( 69,195,121)),
+      new ColorRange(  5.0f,  9.9999f,Color.rgb(160,214, 38)),
+      new ColorRange(  2.0f,  4.9999f,Color.rgb(223,252, 38)),
+      new ColorRange(  1.0f,  1.9999f,Color.rgb(251,255, 92)),
+      new ColorRange(  0.1f,  0.9999f,Color.rgb(252,255,193))
+  };
+
+  /**
+   * get a Color Function based on a list of colorRanges
+   * @param colorRanges
+   * @return the RangeMap
+   */
+  public static FloatFunction<Color> RangeMap(ColorRange[] colorRanges) {
+    FloatFunction<Color> dwdStyleMap = (val) -> { 
+      for (ColorRange colorRange:colorRanges) {
+        if (val>=colorRange.getFromValue() && val<=colorRange.getToValue()) {
+          return colorRange.getColor();
+        }
+      }
+      return Color.rgb(0xE8, 0xE8, 0xE8, 0.75); // gray 3/4 opaque
+    };
+    return dwdStyleMap;
+  }
+  /**
+   * Heatmap returns a color gradient between pMin and pMax. A compression
+   * function is used to make logarithmic scales possible.
+   * 
+   * @param pMin
+   * @param pMax
+   * @param compression
+   * @return
+   */
   public static FloatFunction<Color> Heatmap(float pMin, float pMax,
       FloatFunction<Float> compression) {
     final float min = compression.apply(pMin);
     final float max = compression.apply(pMax);
 
-    FloatFunction<Color> heatMap = (val) -> {
+    FloatFunction<Color> heatMap = (val) -> {   
       val = compression.apply(val);
-      if (val < min) {
-        return Color.rgb(0xE8,0xE8, 0xE8,0.75); // gray 3/4 opaque
+      float cmin=min;
+      float cmax=max;
+   
+      if (val < cmin) {
+        return Color.rgb(0xE8, 0xE8, 0xE8, 0.75); // gray 3/4 opaque
       }
-      if (val>max) {
-        return Color.PURPLE; 
+      if (val > cmax) {
+        return Color.PURPLE;
       }
       if (Float.isNaN(val)) {
         return COLOR_INVALID; // 95% opaque
@@ -262,7 +345,7 @@ public class Vis {
       int g = (int) (0xFF * (gg + m));
       int b = (int) (0xFF * (bb + m));
 
-      if (r>=0 && g>=0 && b>=0) {
+      if (r >= 0 && g >= 0 && b >= 0) {
         return Color.rgb(r, g, b, 1);
       } else {
         return Color.ORANGE;
