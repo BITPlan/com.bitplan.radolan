@@ -79,8 +79,7 @@ public class Header {
   }
 
   // parseHeader parses and the composite header and writes the related fields
-  // as
-  // described in [1] and [3].
+  // as described in [1] and [3].
   public static void parseHeader(Composite c) throws Exception {
     // Split header segments
     Map<String, String> section = splitHeader(c.header); // without delimiter
@@ -96,7 +95,7 @@ public class Header {
     }
 
     // Parse DataLength - Example: "BY 405160"
-    String dataLengthStr = section.get("BY").trim();
+    String dataLengthStr = section.get("BY");
     if (dataLengthStr == null) {
       throw new Exception("parseHeader: missing dataLength/BY ######");
     }

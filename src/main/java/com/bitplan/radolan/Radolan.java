@@ -52,6 +52,14 @@ public class Radolan extends Main {
       "--show" }, usage = "show\nshow resulting image")
   protected boolean showImage = true;
 
+  @Option(name = "-cp", aliases = {
+      "--cachePath" }, usage = "path to Cache\nthe path to the Cache")
+  protected String cachePath=System.getProperty("user.home")+java.io.File.separator+".radolan";;
+
+  @Option(name = "-nc", aliases = {
+      "--noCache" }, usage = "noCache\ndo not use local cache")
+  protected boolean noCache = false;
+
   @Option(name = "-t", aliases = {
       "--showTime" }, usage = "showTime\nshow result for the given time in seconds")
   protected int showTimeSecs = Integer.MAX_VALUE / 1100; // over 20 years
@@ -80,15 +88,15 @@ public class Radolan extends Main {
       System.exit(pExitCode);
     }
   }
-  
+
   /**
    * prepare the ImageViewer
    */
   protected void prepareImageViewer() {
-    ImageViewer.testMode=testMode;
+    ImageViewer.testMode = testMode;
     ImageViewer.toolkitInit();
   }
-  
+
   /**
    * show the given image
    * 
@@ -131,6 +139,11 @@ public class Radolan extends Main {
     if (debug) {
       Composite.debug = true;
       Radolan2Image.debug = true;
+    }
+    if (noCache) {
+      Composite.useCache = false;
+    } else {
+      Composite.cacheRootPath=cachePath;
     }
     if (showVersion)
       this.showVersion();

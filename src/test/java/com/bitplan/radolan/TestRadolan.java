@@ -21,18 +21,22 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.function.Consumer;
 
 import org.junit.Test;
 
 import com.bitplan.radolan.Radolan;
 
+import cs.fau.de.since.radolan.Composite;
+import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.vis.Vis;
 import cs.fau.de.since.radolan.vis.Vis.ColorRange;
 import javafx.scene.paint.Color;
@@ -44,16 +48,7 @@ import javafx.scene.paint.Color;
  *
  */
 @SuppressWarnings("restriction")
-public class TestRadolan {
-  /**
-   * check if we are in the Travis-CI environment
-   * 
-   * @return true if Travis user was detected
-   */
-  public boolean isTravis() {
-    String user = System.getProperty("user.name");
-    return user.equals("travis");
-  }
+public class TestRadolan extends BaseTest {
 
   String tmpDir = System.getProperty("java.io.tmpdir");
 
@@ -73,7 +68,7 @@ public class TestRadolan {
     Radolan.main(args);
     if (output != null) {
       File outputFile = new File(outputPath);
-      assertTrue(outputFile.getPath(),outputFile.exists());
+      assertTrue(outputFile.getPath(), outputFile.exists());
       System.out.println(outputFile.getAbsolutePath());
     }
   }
@@ -92,15 +87,19 @@ public class TestRadolan {
   @Test
   public void testHistory() {
     if (!isTravis()) {
-      for (int month = 1; month <= 7; month++) {
-        for (int day = 1; day <=28; day++) {
-          String url = String.format(
-              "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-18%02d%02d1650-dwd---bin.gz",
-              month, day);
-          testRadolan(url, 4,
-              String.format("sf-2018-%02d-%02d_1650.png", month, day));
-        }
-      }
+      LocalDate date = LocalDate.of(2018, 1, 1);
+      LocalDate end = LocalDate.of(2018, 1, 5); // actually one day before this ...
+      String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
+      do {
+        String url = String.format(
+            knownUrl + "recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz",
+            date.getYear() % 2000, date.getMonthValue(), date.getDayOfMonth());
+        if (!Composite.cacheForUrl(url, knownUrl).exists() || date.isEqual(end))
+          break;
+        testRadolan(url, 2, String.format("sf-%04d-%02d-%02d_1650.png",
+            date.getYear(), date.getMonthValue(), date.getDayOfMonth()));
+        date = date.plus(Period.ofDays(1));
+      } while (true);
     }
   }
 

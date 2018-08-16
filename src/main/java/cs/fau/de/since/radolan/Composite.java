@@ -25,6 +25,7 @@ package cs.fau.de.since.radolan;
 //Package radolan parses the DWD RADOLAN / RADVOR radar composite format. This data
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.Duration;
@@ -34,6 +35,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
@@ -105,8 +107,19 @@ public class Composite {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
 
+  // switch on for debugging
   public static boolean debug = false;
 
+  // by default files from known URL are cached locally
+  // see https://github.com/BITPlan/com.bitplan.radolan/issues/3
+  public static boolean useCache = true;
+
+  // if not set the default $HOME/.radolan will be used
+  public static String cacheRootPath=null;
+
+  public static String knownUrls[] = {
+      "https://opendata.dwd.de/weather/radar/radolan/",
+      "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan" };
   private String Product; // composite product label
 
   ZonedDateTime CaptureTime;
@@ -146,7 +159,7 @@ public class Composite {
 
   // CallBacks
   private static Consumer<Composite> postInit;
-
+  
   public int getDx() {
     return Dx;
   }
@@ -201,7 +214,7 @@ public class Composite {
 
   public void setPrecision(int precision) {
     this.precision = precision;
-    precisionFactor=Math.pow(precision,10);
+    precisionFactor = Math.pow(precision, 10);
   }
 
   public Unit getDataUnit() {
@@ -272,16 +285,82 @@ public class Composite {
   }
 
   /**
-   * construct me from an url;
+   * construct me from an url - read the data immediately from url or if the
+   * cache is active and the content is available from the cache
    * 
    * @param url
    * @throws Throwable
    */
   public Composite(String url) throws Throwable {
-    this.url = url;
+    this.url = checkCache(url);
+
     InputStream inputStream = new URL(url).openStream();
     read(inputStream);
     init();
+  }
+
+  /**
+   * if the cache is not active or the url is not starting with a known url then
+   * return the url as is when the local cache is active then check if the url
+   * content is not available locally and if needed then read the url content to
+   * the cache after having made sure the file is available locally return the
+   * url for the file
+   * 
+   * @param url
+   * @return the (potentially replaced)
+   * @throws Exception 
+   */
+  public static String checkCache(String url) throws Exception {
+    if (!useCache)
+      return url;
+    for (String knownUrl : knownUrls) {
+      if (url.startsWith(knownUrl)) {
+        return useCache(url, knownUrl);
+      }
+    }
+    return url;
+  }
+
+  /**
+   * use the cache for the given URL
+   * @param url
+   * @param knownUrl
+   * @return - the URL of the cached file
+   * @throws Exception - if the URL is malformed
+   */
+  protected static String useCache(String url, String knownUrl) throws Exception {
+    File cacheFile=cacheForUrl(url,knownUrl);
+    if (!cacheFile.exists()) {
+      URL uri=new URL(url);
+      if (debug)
+        LOGGER.log(Level.INFO,"caching to "+cacheFile.getPath());
+      // cache the URL content
+      FileUtils.copyURLToFile(uri, cacheFile);
+    } else {
+      if (debug)
+        LOGGER.log(Level.INFO,"getting cached file from "+cacheFile.getPath());
+    }
+    return cacheFile.toURI().toURL().toExternalForm();
+  }
+  
+  /**
+   * get the cache File for the given url in reference to the given knownUrl
+   * @param url
+   * @param knownUrl
+   * @return - the cacheFile
+   */
+  public static File cacheForUrl(String url,String knownUrl) {
+    String filePath=url.substring(knownUrl.length(), url.length());
+    if (cacheRootPath==null)
+      cacheRootPath=System.getProperty("user.home")+java.io.File.separator+".radolan";
+    File cacheRoot=new File(cacheRootPath);
+    if (!cacheRoot.exists()) {
+      if (debug)
+        LOGGER.log(Level.INFO, "Creating radolan data cache directory "+cacheRoot.getPath());
+      cacheRoot.mkdirs();
+    }
+    File cacheFile=new File(cacheRoot,filePath); 
+    return cacheFile;
   }
 
   /**
@@ -424,6 +503,7 @@ public class Composite {
 
   /**
    * set a data value
+   * 
    * @param x
    * @param y
    * @param value

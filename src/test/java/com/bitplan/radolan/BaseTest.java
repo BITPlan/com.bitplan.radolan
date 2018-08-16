@@ -21,54 +21,27 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
-import static org.junit.Assert.fail;
-
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.bitplan.radolan.BaseTest;
-
 /**
- * go migration Testing helper class
- * 
+ * Base class for tests
  * @author wf
- *         see e.g. https://golang.org/pkg/fmt/
+ *
  */
-public class Testing extends BaseTest {
+public class BaseTest {
+  public static boolean debug = false;
 
-
-  /**
-   * testing.T.Errorf surrogate
-   * 
-   * @param format
-   * @param params
-   */
-  public void Errorf(String format, Object... params) {
-    String msg = String.format(format, params);
-    fail(msg);
-  }
+  protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
   
   /**
-   * testing.T.Fatalf surrogate
-   * @param format
-   * @param params
-   */
-  public void Fatalf(String format, Object... params) {
-    Errorf(format,params);
-  }
-
-  /**
-   * testing.T.Log surrogate
+   * check if we are in the Travis-CI environment
    * 
-   * @param format
-   * @param params
+   * @return true if Travis user was detected
    */
-  public void Logf(String format, Object... params) {
-    String msg = String.format(format, params);
-    if (debug)
-      LOGGER.log(Level.INFO, msg);
+  public boolean isTravis() {
+    String user = System.getProperty("user.name");
+    return user.equals("travis");
   }
-
 }
