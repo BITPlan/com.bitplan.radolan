@@ -34,6 +34,7 @@ import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.IPoint;
 import cs.fau.de.since.radolan.Translate;
 import cs.fau.de.since.radolan.vis.Vis;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
@@ -46,7 +47,7 @@ import javafx.scene.paint.Color;
 public class Radolan2Image {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  public static boolean debug=false;
+  public static boolean debug = false;
 
   public static Color borderColor = Color.BROWN;
   public static Color meshColor = Color.BLACK;
@@ -106,8 +107,10 @@ public class Radolan2Image {
    */
   protected static void drawBorders(Composite comp, String borderName,
       WritableImage image) throws Exception {
-    System.out.println(String.format("detected grid: %.1f km * %.1f km\n",
-        comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy()));
+    String msg=String.format("detected grid: %.1f km * %.1f km\n",
+        comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy());
+    if (debug)
+      LOGGER.log(Level.INFO, msg);
     Borders borders = new Borders(borderName); // "1_deutschland/3_mittel.geojson"
     for (DPoint point : borders.getPoints()) {
       DPoint dp = comp.translate(point.x, point.y);
@@ -176,10 +179,24 @@ public class Radolan2Image {
    */
   public static void activateToolTipOnShowEvent(Composite composite, Node view,
       Tooltip toolTip) {
+    Bounds viewBounds = view.getBoundsInParent();
+    String imsg = String.format(
+        "ToolTip onShowEvent installed in a view with size %.0f x %.0f for composite %d x %d",
+        viewBounds.getWidth(), viewBounds.getHeight(), composite.getPx(),
+        composite.getPy());
+    if (debug)
+      LOGGER.log(Level.INFO, imsg);
+    else if (viewBounds.getWidth() != composite.getPx()
+        || viewBounds.getHeight() != composite.getPy()) {
+      LOGGER.log(Level.WARNING, imsg);
+    }
     // https://stackoverflow.com/a/39712217/1497139
-    toolTip.setOnShowing(ev -> {// called just prior to being
-                                // shown
+    toolTip.setOnShowing(ev -> {
+      // called just prior to the toolTip being shown
+      // get the mouse location
       Point mouse = java.awt.MouseInfo.getPointerInfo().getLocation();
+      // convert it to the view (we assume the views size is the composite's
+      // grid size)
       Point2D local = view.screenToLocal(mouse.x, mouse.y);
       float value = composite.getValue((int) local.getX(), (int) local.getY());
       DPoint p = Translate.translateXYtoLatLon(composite,

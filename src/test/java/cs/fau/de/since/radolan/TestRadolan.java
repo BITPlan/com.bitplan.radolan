@@ -51,7 +51,7 @@ public class TestRadolan {
     String outputPath = "";
     if (output != null)
       outputPath = tmpDir + "/" + output;
-    String args[] = { "-i", url, "-t", "" + viewTimeSecs, "-o", outputPath };
+    String args[] = { "-d","-i", url, "-t", "" + viewTimeSecs, "-o", outputPath };
     Radolan.testMode = true;
     Radolan.main(args);
     if (output != null) {
@@ -75,7 +75,7 @@ public class TestRadolan {
   @Test
   public void testHistory() {
     String url="ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1805301650-dwd---bin.gz";
-    testRadolan(url,45,"sf-2018-05-30_1650.png");
+    testRadolan(url,5,"sf-2018-05-30_1650.png");
   }
 
   @Test

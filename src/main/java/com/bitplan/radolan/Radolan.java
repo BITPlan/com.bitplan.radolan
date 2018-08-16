@@ -98,7 +98,8 @@ public class Radolan extends Main {
     imageViewer.waitOpen();
     // do we show a radolan image?
     if (composite != null) {
-      Radolan2Image.activateToolTipOnShowEvent(composite,imageViewer.imageView,imageViewer.toolTip);
+      Radolan2Image.activateToolTipOnShowEvent(composite, imageViewer.imageView,
+          imageViewer.toolTip);
     }
     imageViewer.waitClose();
   }
@@ -120,8 +121,8 @@ public class Radolan extends Main {
    */
   public void work() {
     if (debug) {
-      Composite.debug=true;
-      Radolan2Image.debug=true;
+      Composite.debug = true;
+      Radolan2Image.debug = true;
     }
     if (showVersion)
       this.showVersion();
@@ -142,7 +143,8 @@ public class Radolan extends Main {
           String msg = String.format("%s-image (%s) showing %s",
               composite.getProduct(), composite.getDataUnit(),
               composite.getForecastTime());
-          LOGGER.log(Level.INFO, msg);
+          if (debug)
+            LOGGER.log(Level.INFO, msg);
           image = Radolan2Image.getImage(composite);
           if (this.showImage)
             showImage(image, msg, composite);
