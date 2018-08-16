@@ -59,8 +59,8 @@ public class TestUnLocodeManager {
             + "      \"coords\": \"4806N 00937E\",\n"
             + "      \"countryCode\": \"DE\"\n" + "    }\n" + "  ]\n" + "}",
         nm.asJson());
-    assertEquals(48.1, code.getLat(), 0.001);
-    assertEquals(9.6167, code.getLon(), 0.001);
+    assertEquals(48.06, code.getLat(), 0.001);
+    assertEquals(9.37, code.getLon(), 0.001);
     // assertEquals("?",code.toString());
 
   }

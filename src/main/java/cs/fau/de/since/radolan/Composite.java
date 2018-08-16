@@ -272,6 +272,11 @@ public class Composite {
    */
   public void read(InputStream inputStream) throws Exception {
     bytes = IOUtils.toByteArray(inputStream);
+    // https://tools.ietf.org/html/rfc1952
+    // check for gzip header
+    if ((bytes[0]==0x1f) && (bytes[1]==0x86b)) {
+      throw new Exception("Zipped input not supported yet");
+    }
     StringBuffer headerBuffer=new StringBuffer();
     int pos=0;
     // read until 0x03 is found or we are way into the binary 2 x typical width 900 should suffice to terminate ...
