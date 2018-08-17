@@ -25,6 +25,7 @@ package com.bitplan.radolan;
 
 import com.bitplan.javafx.WaitableApp;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -53,6 +54,7 @@ public class ImageViewer extends WaitableApp {
   private DisplayContext displayContext;
   private Pane drawPane;
   private Scene scene;
+  private Pane borderPane;
 
   /**
    * construct me from a DisplayContext
@@ -65,9 +67,7 @@ public class ImageViewer extends WaitableApp {
     this.image = displayContext.image;
   }
 
-  public ImageViewer() {
-
-  }
+  public ImageViewer() {}
 
   @Override
   public void start(Stage stage) {
@@ -87,11 +87,15 @@ public class ImageViewer extends WaitableApp {
 
     drawPane = new Pane();
     drawPane.setStyle(
-        "-fx-background-color: rgba(0, 100, 100, 0.5); -fx-background-radius: 10;");
-
+        "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");
+    
+    borderPane =new Pane();
+    borderPane.setStyle(
+        "-fx-background-color: rgba(255, 128, 0, 0.05); -fx-background-radius: 10;");
+ 
     StackPane stackPane = new StackPane();
     StackPane.setAlignment(imageView, Pos.CENTER);
-    stackPane.getChildren().addAll(imageView, drawPane);
+    stackPane.getChildren().addAll(imageView, borderPane, drawPane);
 
     toolTip = new Tooltip("no info");
     Tooltip.install(stackPane, toolTip);
@@ -102,9 +106,10 @@ public class ImageViewer extends WaitableApp {
 
     // inform the display context
     if (displayContext != null) {
-      displayContext.view = imageView;
+      displayContext.imageView = imageView;
       displayContext.toolTip = toolTip;
       displayContext.drawPane = drawPane;
+      displayContext.borderPane=borderPane;
     }
     stage.setTitle(title);
     stage.setScene(scene);
@@ -138,6 +143,8 @@ public class ImageViewer extends WaitableApp {
     showSize(stage, stage.getWidth(), stage.getHeight());
     showSize(scene, scene.getWidth(), scene.getHeight());
     showSize(imageView, imageView.getFitWidth(), imageView.getFitHeight());
+    showSize(borderPane,borderPane.getWidth(),borderPane.getHeight());
+    showSize(drawPane,drawPane.getWidth(),drawPane.getHeight());
     showSize(image, image.getHeight(), image.getWidth());
   }
 

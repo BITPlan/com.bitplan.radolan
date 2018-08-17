@@ -45,5 +45,19 @@ public class IPoint {
     this.x=(int) Math.round(dp.x);
     this.y=(int) Math.round(dp.y);
   }
+  
+  /**
+   * get the distance to another point
+   * @param ip
+   * @return - the distance
+   */
+  public double dist(IPoint ip) {
+    if (ip==null)
+      return Double.NaN;
+    double xd = x - ip.x;
+    double yd = y - ip.y;
+    double dist=Math.sqrt(xd * xd + yd * yd);
+    return dist;
+  }
 
 }

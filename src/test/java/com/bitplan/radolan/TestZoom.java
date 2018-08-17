@@ -47,7 +47,6 @@ public class TestZoom extends BaseTest {
     assertEquals(200.0,pt.y,0.0001);
   }
   
-
   @Test
   public void testZoom() {
     String products[] = { "sf", "rw", };

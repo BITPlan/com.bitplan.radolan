@@ -24,7 +24,6 @@
 package com.bitplan.radolan;
 
 import java.awt.Point;
-import java.time.Duration;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -36,7 +35,7 @@ import com.bitplan.geo.UnLocodeManager;
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.Translate;
-import cs.fau.de.since.radolan.vis.Vis;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -49,6 +48,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+/**
+ * transfer RADOLAN composite data to an image
+ * 
+ * @author wf
+ *
+ */
 public class Radolan2Image {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
@@ -66,42 +71,10 @@ public class Radolan2Image {
    * @throws Exception
    */
   public static void getImage(DisplayContext displayContext) throws Exception {
-    Composite comp = displayContext.composite;
-    float max = 400f;
-    // default heatMap - DWD style
-    FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
-    Duration interval = comp.getInterval();
-    switch (comp.getDataUnit()) {
-    case Unit_mm:
-      /**
-       * http://www.wetter-eggerszell.de/besondere-wetterereignisse/wetter-und-klima/wetterrekorde-deutschland--und-weltweit/index.html
-       * Höchste 24-Stunden-Menge (07-07 MEZ): 312mm am 12./13.08.02 in
-       * Zinnwald-Georgenfeld (Erzgebirge) Größte Tagesniederschlagsmenge: 260mm
-       * am 06.07.1954 in Stein (Kreis Rosenheim)
-       */
-      max = 200.0f;
-      if (interval.compareTo(Duration.ofHours(1)) < 0) {
-        max = 100.0f;
-      }
-      if (interval.compareTo(Duration.ofDays(7)) > 0) {
-        max = 400.0f;
-      }
-      break;
-    case Unit_dBZ:
-      heatmap = Vis.HeatmapReflectivity;
-      break;
-    case Unit_km:
-      heatmap = Vis.Graymap(0, 15, Vis.Id);
-      break;
-    case Unit_mps:
-      heatmap = Vis.HeatmapRadialVelocity;
-      break;
-    default:
-      break;
-    }
-    displayContext.image = getImage(comp, heatmap);
-    // draw borders
-    if (comp.isHasProjection()) {
+    // get the Image for the displayContext
+    getImageContent(displayContext);
+    // draw borders and mesh if asked for
+    if (displayContext.composite.isHasProjection()) {
       drawBorders(displayContext);
       drawMesh(displayContext);
     }
@@ -112,23 +85,40 @@ public class Radolan2Image {
    * 
    * @param displayContext
    *          - the image and it's details
-   * @throws Exception
    */
-  protected static void drawBorders(DisplayContext displayContext)
-      throws Exception {
+  protected static void drawBorders(DisplayContext displayContext) {
+    /* Pane borderPane = displayContext.borderPane;
+    if (borderPane == null)
+      return;
+    Platform.runLater(() -> {
+      borderPane.getChildren().clear();
+      if (debug) {
+        drawCross(borderPane, 2, Color.rgb(0xff, 0x00, 0x00, 0.5));
+      }
+    });*/
     Composite comp = displayContext.composite;
     WritableImage image = displayContext.getWriteableImage();
     String msg = String.format("detected grid: %.1f km * %.1f km\n",
         comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy());
     if (debug)
       LOGGER.log(Level.INFO, msg);
-    Borders borders = new Borders(displayContext.borderName); // "1_deutschland/3_mittel.geojson"
-    for (DPoint point : borders.getPoints()) {
-      DPoint dp = comp.translate(point.x, point.y);
-      IPoint ip = new IPoint(dp);
-      if (ip.x > 0 && ip.y > 0) {
+    Borders borders = new Borders(displayContext.borderName); 
+    IPoint prevIp = null;
+    for (DPoint latlon : borders.getPoints()) {
+      DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
+      IPoint ip=new IPoint(p);
+          // getScreenPointForLatLon(displayContext,borderPane,point);
+      double dist = ip.dist(prevIp);
+      if ((ip.x > 0 && ip.y > 0) && ( dist < 30)) {
+        /*Line line = new Line(prevIp.x, prevIp.y, ip.x, ip.y);
+        line.setStrokeWidth(2);
+        line.setStroke(borderColor);
+        Platform.runLater(() -> {
+          borderPane.getChildren().add(line);
+        });*/
         image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
       }
+      prevIp = ip;
     }
   }
 
@@ -156,19 +146,16 @@ public class Radolan2Image {
         }
       }
     }
-
   }
 
   /**
    * get the Image for the given composite and color map
    * 
-   * @param c
-   *          - the composite Radolan input
-   * @param colorMap
-   * @return - the image
+   * @param displayContext
    */
-  public static WritableImage getImage(Composite c,
-      FloatFunction<Color> colorMap) {
+  public static void getImageContent(DisplayContext displayContext) {
+    Composite c = displayContext.composite;
+    FloatFunction<Color> colorMap = displayContext.heatmap;
     int width = c.getPx();
     int height = c.getPy();
     WritableImage img = new WritableImage(width, height);
@@ -180,7 +167,8 @@ public class Radolan2Image {
         pw.setColor(x, y, color);
       }
     }
-    return img;
+    displayContext.image = img;
+    displayContext.replaceImage(img);
   }
 
   /**
@@ -190,7 +178,7 @@ public class Radolan2Image {
    *          - details of the image e.g. view and tooltip
    */
   public static void activateEvents(DisplayContext displayContext) {
-    Node view = displayContext.view;
+    Node view = displayContext.imageView;
     Composite composite = displayContext.composite;
     Bounds viewBounds = view.getBoundsInParent();
     String imsg = String.format(
@@ -237,10 +225,14 @@ public class Radolan2Image {
     Pane drawOnGlass = displayContext.drawPane;
 
     ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
+      // too slow
+      // drawBorders(displayContext);
       addLocation(displayContext);
     };
     drawOnGlass.widthProperty().addListener(sizeListener);
     drawOnGlass.heightProperty().addListener(sizeListener);
+    displayContext.borderPane.widthProperty().addListener(sizeListener);
+    displayContext.borderPane.heightProperty().addListener(sizeListener);
   }
 
   /**
@@ -255,22 +247,37 @@ public class Radolan2Image {
     Pane drawOnGlass = displayContext.drawPane;
     // clear the drawPane
     drawOnGlass.getChildren().clear();
-    if (debug) {
-      drawCross(drawOnGlass, 2, Color.rgb(0xff, 0x80, 0x00, 0.5));
-    }
     UnLocode loc = displayContext.location;
     DPoint latlon = new DPoint(loc.getLat(), loc.getLon());
     DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
     // Position now needs to be adapted to screen size
-    p=displayContext.composite.translate(p,drawOnGlass.getWidth(),drawOnGlass.getHeight());
+    p = displayContext.composite.translate(p, drawOnGlass.getWidth(),
+        drawOnGlass.getHeight());
     IPoint ip = new IPoint(p);
-    double value=displayContext.composite.getValue(ip.x, ip.y);
-    String text=String.format("%s - %.1f mm", loc.getName(),value);
-    drawCircleWithText(displayContext.drawPane,text,4,Color.WHITE,p.x,p.y);
+    double value = displayContext.composite.getValue(ip.x, ip.y);
+    String text = String.format("%s - %.1f mm", loc.getName(), value);
+    drawCircleWithText(displayContext.drawPane, text, 4, Color.WHITE, p.x, p.y);
   }
-    
+  
+  /**
+   * get the screen point for a given lat/lon
+   * @param displayContext
+   * @param pane - the pane to draw into
+   * @param latlon
+   * @return - the position
+   */
+  public static IPoint getScreenPointForLatLon(DisplayContext displayContext,Pane pane,DPoint latlon) {
+    DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
+    // Position now needs to be adapted to screen size
+    p = displayContext.composite.translate(p, pane.getWidth(),
+        pane.getHeight());
+    IPoint ip = new IPoint(p);
+    return ip;
+  }
+
   /**
    * draw a circle with given text on the given pane
+   * 
    * @param pane
    * @param text
    * @param radius
@@ -278,18 +285,19 @@ public class Radolan2Image {
    * @param x
    * @param y
    */
-  public static void drawCircleWithText(Pane pane,String text,double radius, Color color,double x, double y) {  
+  public static void drawCircleWithText(Pane pane, String text, double radius,
+      Color color, double x, double y) {
     Circle circle = new Circle();
     circle.setRadius(radius);
     circle.setFill(color);
     circle.setTranslateX(x);
     circle.setTranslateY(y);
-   
+
     Label label = new Label(text);
     label.setTranslateX(x + radius);
     label.setTranslateY(y + radius);
     label.setTextFill(color);
-    pane.getChildren().addAll(circle,label);
+    pane.getChildren().addAll(circle, label);
   }
 
   /**

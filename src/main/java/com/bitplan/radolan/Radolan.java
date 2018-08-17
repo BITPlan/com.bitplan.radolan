@@ -25,7 +25,6 @@ package com.bitplan.radolan;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
@@ -109,9 +108,11 @@ public class Radolan extends Main {
   /**
    * show the given image
    * 
-   * @param displayContext - the image andit's details
+   * @param displayContext
+   *          - the image andit's details
+   * @throws Exception
    */
-  public void showImage(DisplayContext displayContext) {
+  public void showImage(DisplayContext displayContext) throws Exception {
     prepareImageViewer();
     ImageViewer imageViewer = new ImageViewer(displayContext);
     imageViewer.limitShowTime(this.showTimeSecs);
@@ -119,6 +120,7 @@ public class Radolan extends Main {
     imageViewer.waitOpen();
     // do we show a radolan image?
     if (displayContext.composite != null) {
+      Radolan2Image.getImage(displayContext);
       Radolan2Image.activateEvents(displayContext);
     }
     imageViewer.waitClose();
@@ -128,11 +130,12 @@ public class Radolan extends Main {
    * show the image from the given input
    * 
    * @param input
+   * @throws Exception
    */
-  public void showImage(String input) {
+  public void showImage(String input) throws Exception {
     prepareImageViewer();
     Image image = new Image(input);
-    displayContext = new DisplayContext(null, null,zoomKm,null);
+    displayContext = new DisplayContext(null, null, zoomKm, null);
     displayContext.image = image;
     displayContext.title = input;
     showImage(displayContext);
@@ -142,61 +145,59 @@ public class Radolan extends Main {
    * do the required work
    */
   public void work() {
-    if (debug) {
-      Composite.debug = true;
-      Radolan2Image.debug = true;
-      DisplayContext.debug=true;
-      UnLocodeManager.debug=true;
-    }
-    if (noCache) {
-      Composite.useCache = false;
-    } else {
-      Composite.cacheRootPath = cachePath;
-    }
-    if (showVersion)
-      this.showVersion();
-    if (showHelp)
-      this.showHelp();
-    else {
-      // is the input a showable image?
-      if (input.contains(".png") || input.contains(".jpg")
-          || input.contains(".gif")) {
-        if (this.showImage)
-          showImage(input);
-        else {
-          // silently fail here?
-        }
+    try {
+
+      if (debug) {
+        Composite.debug = true;
+        ImageViewer.debug = true;
+        Radolan2Image.debug = true;
+        DisplayContext.debug = true;
+        UnLocodeManager.debug = true;
+      }
+      if (noCache) {
+        Composite.useCache = false;
       } else {
-        try {
+        Composite.cacheRootPath = cachePath;
+      }
+      if (showVersion)
+        this.showVersion();
+      if (showHelp)
+        this.showHelp();
+      else {
+        // is the input a showable image?
+        if (input.contains(".png") || input.contains(".jpg")
+            || input.contains(".gif")) {
+          if (this.showImage)
+            showImage(input);
+          else {
+            // silently fail here?
+          }
+        } else {
           Composite composite = new Composite(input);
           displayContext = new DisplayContext(composite,
-              "2_bundeslaender/2_hoch.geojson",zoomKm,location);
+              "2_bundeslaender/2_hoch.geojson", zoomKm, location);
           displayContext.title = String.format("%s-image (%s) showing %s",
               composite.getProduct(), composite.getDataUnit(),
               composite.getForecastTime());
           if (debug)
             LOGGER.log(Level.INFO, displayContext.title);
-          Radolan2Image.getImage(displayContext);
           if (this.showImage)
             showImage(displayContext);
-        } catch (Throwable th) {
-          ErrorHandler.handle(th);
+
         }
-      }
-      // shall we save the image
-      if (displayContext != null && displayContext.image != null
-          && output != null && !output.isEmpty()) {
-        String ext = FilenameUtils.getExtension(output);
-        File outputFile = new File(output);
-        BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image,
-            null);
-        String formatName = ext;
-        try {
+        // shall we save the image
+        if (displayContext != null && displayContext.image != null
+            && output != null && !output.isEmpty()) {
+          String ext = FilenameUtils.getExtension(output);
+          File outputFile = new File(output);
+          BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image,
+              null);
+          String formatName = ext;
           ImageIO.write(bImage, formatName, outputFile);
-        } catch (IOException e) {
-          ErrorHandler.handle(e);
         }
       }
+    } catch (Throwable th) {
+      ErrorHandler.handle(th);
     }
   }
 
