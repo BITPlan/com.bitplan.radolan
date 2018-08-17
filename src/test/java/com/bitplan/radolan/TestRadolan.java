@@ -124,10 +124,12 @@ public class TestRadolan extends BaseTest {
   
   @Test
   public void testOpenDataRecent() {
-    int rwminutes=60*2;
-    int ryminutes=10;
-    this.testOpenDataRecent("rw",rwminutes,80,50,60);  
-    this.testOpenDataRecent("ry",ryminutes,5,5,5);
+    if (isTravis()) {
+      int rwminutes=60*2;
+      int ryminutes=10;
+      this.testOpenDataRecent("rw",rwminutes,80,50,60);  
+      this.testOpenDataRecent("ry",ryminutes,5,5,5);
+    }
   }
 
   @Test
