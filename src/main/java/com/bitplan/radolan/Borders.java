@@ -41,8 +41,6 @@ import com.github.filosganga.geogson.model.Polygon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import cs.fau.de.since.radolan.DPoint;
-
 /**
  * @author wf
  *

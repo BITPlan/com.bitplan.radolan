@@ -25,13 +25,17 @@ package com.bitplan.radolan;
 
 import com.bitplan.javafx.WaitableApp;
 
-import javafx.scene.Group;
+import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
@@ -47,6 +51,8 @@ public class ImageViewer extends WaitableApp {
   private ImageView imageView;
   private Tooltip toolTip;
   private DisplayContext displayContext;
+  private Pane drawPane;
+  private Scene scene;
 
   /**
    * construct me from a DisplayContext
@@ -73,28 +79,71 @@ public class ImageViewer extends WaitableApp {
     // simple displays ImageView the image as is
     imageView = new ImageView();
     imageView.setImage(image);
-    toolTip = new Tooltip("no info");
-    Tooltip.install(imageView, toolTip);
-    
-    // inform the display context
-    displayContext.view = imageView;
-    displayContext.toolTip = toolTip;
-    
-    Group root = new Group();
-    Scene scene = new Scene(root);
-    scene.setFill(Color.BLACK);
-    HBox box = new HBox();
-    box.getChildren().add(imageView);
-    root.getChildren().add(box);
+    imageView.setSmooth(true);
+    imageView.setCache(true);
     imageView.fitWidthProperty().bind(stage.widthProperty());
     imageView.fitHeightProperty().bind(stage.heightProperty());
+    // imageView.setPreserveRatio(true);
 
+    drawPane = new Pane();
+    drawPane.setStyle(
+        "-fx-background-color: rgba(0, 100, 100, 0.5); -fx-background-radius: 10;");
+
+    StackPane stackPane = new StackPane();
+    StackPane.setAlignment(imageView, Pos.CENTER);
+    stackPane.getChildren().addAll(imageView, drawPane);
+
+    toolTip = new Tooltip("no info");
+    Tooltip.install(stackPane, toolTip);
+
+    // container with a fill property
+    scene = new Scene(stackPane);
+    scene.setFill(Color.WHITE);
+
+    // inform the display context
+    if (displayContext != null) {
+      displayContext.view = imageView;
+      displayContext.toolTip = toolTip;
+      displayContext.drawPane = drawPane;
+    }
     stage.setTitle(title);
-    stage.setWidth(900);
-    stage.setHeight(900);
     stage.setScene(scene);
     stage.sizeToScene();
     stage.show();
+    if (debug)
+      stackPane.setOnMouseClicked(event -> {
+        showSizes();
+      });
+    // JavaFX: stage's minHeight considering titlebar's height
+    // https://stackoverflow.com/a/43346746/1497139
+    // stage.setMinHeight(stage.getHeight());
+    // stage.setMinWidth(stage.getWidth());
+    // How to make javafx.scene.Scene resize while maintaining an aspect ratio?
+    // https://stackoverflow.com/a/18638505/1497139
+    // stage.minWidthProperty().bind(scene.heightProperty());
+    // stage.minHeightProperty().bind(scene.widthProperty());
+  }
+
+  /**
+   * show the sizes of stage, scene, imageView and Image
+   */
+  public void showSizes() {
+    System.out.println("Sizes: ");
+    ObservableList<Screen> screens = Screen.getScreensForRectangle(stage.getX(),
+        stage.getY(), stage.getWidth(), stage.getHeight());
+    for (Screen screen : screens) {
+      Rectangle2D s = screen.getVisualBounds();
+      showSize(screen, s.getWidth(), s.getHeight());
+    }
+    showSize(stage, stage.getWidth(), stage.getHeight());
+    showSize(scene, scene.getWidth(), scene.getHeight());
+    showSize(imageView, imageView.getFitWidth(), imageView.getFitHeight());
+    showSize(image, image.getHeight(), image.getWidth());
+  }
+
+  public void showSize(Object o, double width, double height) {
+    System.out.println(String.format("%s %.0f x %.0f",
+        o.getClass().getSimpleName(), width, height));
   }
 
   public void close() {

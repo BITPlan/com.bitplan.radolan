@@ -34,6 +34,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 
 /**
  * Display context
@@ -53,6 +54,7 @@ public class DisplayContext {
   Node view;
   String title;
   String borderName;
+  Pane drawPane;
   double zoomKm;
   UnLocode location;
 

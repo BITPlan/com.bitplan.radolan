@@ -23,6 +23,9 @@
  */
 package cs.fau.de.since.radolan;
 
+import com.bitplan.radolan.DPoint;
+import com.bitplan.radolan.IPoint;
+
 /**
  * migrated to Java from
  * https://gitlab.cs.fau.de/since/radolan/blob/master/translate.go
@@ -268,15 +271,16 @@ public class Translate {
     if (!c.isHasProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
+    DPoint pt=new DPoint(p.x,p.y);
     // scaling
-    p.x *= c.getRx();
-    p.y *= c.getRy();
+    pt.x *= c.getRx();
+    pt.y *= c.getRy();
 
     // offset correction
-    p.x += c.offx;
-    p.y += c.offy;
+    pt.x += c.offx;
+    pt.y += c.offy;
 
-    DPoint latlon = inversePolarStereoProjection(p.x, p.y);
+    DPoint latlon = inversePolarStereoProjection(pt.x, pt.y);
 
     return latlon;
   }

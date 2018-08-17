@@ -38,6 +38,8 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.bitplan.radolan.DPoint;
+
 import cs.fau.de.since.radolan.Catalog.Unit;
 import cs.fau.de.since.radolan.Data.Encoding;
 
@@ -516,6 +518,20 @@ public class Composite {
     if (y >= 0 && y < PlainData.length)
       if (x >= 0 && x < PlainData[y].length)
         PlainData[y][x] = value;
+  }
+
+  /**
+   * translate the given x,y coordinate to a view with the given width and height
+   * @param p - the original cartesian coordinate
+   * @param width
+   * @param height
+   * @return - the translated point
+   */
+  public DPoint translate(DPoint p, double width, double height) {
+    DPoint pt=new DPoint(p.x,p.y);
+    pt.x=p.x*width/this.Px;
+    pt.y=p.y*height/this.Py;
+    return pt;
   }
 
 }

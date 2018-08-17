@@ -34,19 +34,21 @@ import com.bitplan.geo.UnLocode;
 import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
-import cs.fau.de.since.radolan.DPoint;
 import cs.fau.de.since.radolan.FloatFunction;
-import cs.fau.de.since.radolan.IPoint;
 import cs.fau.de.since.radolan.Translate;
 import cs.fau.de.since.radolan.vis.Vis;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 
-@SuppressWarnings("restriction")
 public class Radolan2Image {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
@@ -59,11 +61,12 @@ public class Radolan2Image {
    * get the Image for the given composite
    * https://www.dwd.de/DE/leistungen/radarniederschlag/rn_info/download_niederschlagsbestimmung.pdf?__blob=publicationFile&v=4
    * 
-   * @param displayContext - the container for the image and it's details
+   * @param displayContext
+   *          - the container for the image and it's details
    * @throws Exception
    */
   public static void getImage(DisplayContext displayContext) throws Exception {
-    Composite comp=displayContext.composite;
+    Composite comp = displayContext.composite;
     float max = 400f;
     // default heatMap - DWD style
     FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
@@ -73,9 +76,8 @@ public class Radolan2Image {
       /**
        * http://www.wetter-eggerszell.de/besondere-wetterereignisse/wetter-und-klima/wetterrekorde-deutschland--und-weltweit/index.html
        * Höchste 24-Stunden-Menge (07-07 MEZ): 312mm am 12./13.08.02 in
-       * Zinnwald-Georgenfeld (Erzgebirge)
-       * Größte Tagesniederschlagsmenge: 260mm am 06.07.1954 in Stein (Kreis
-       * Rosenheim)
+       * Zinnwald-Georgenfeld (Erzgebirge) Größte Tagesniederschlagsmenge: 260mm
+       * am 06.07.1954 in Stein (Kreis Rosenheim)
        */
       max = 200.0f;
       if (interval.compareTo(Duration.ofHours(1)) < 0) {
@@ -107,12 +109,15 @@ public class Radolan2Image {
 
   /**
    * draw Borders
-   * @param displayContext - the image and it's details
+   * 
+   * @param displayContext
+   *          - the image and it's details
    * @throws Exception
    */
-  protected static void drawBorders(DisplayContext displayContext) throws Exception {
-    Composite comp=displayContext.composite;
-    WritableImage image=displayContext.getWriteableImage();
+  protected static void drawBorders(DisplayContext displayContext)
+      throws Exception {
+    Composite comp = displayContext.composite;
+    WritableImage image = displayContext.getWriteableImage();
     String msg = String.format("detected grid: %.1f km * %.1f km\n",
         comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy());
     if (debug)
@@ -130,11 +135,12 @@ public class Radolan2Image {
   /**
    * draw a coordinate mesh
    * 
-   * @param displayContext - the image and it's details
+   * @param displayContext
+   *          - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
-    Composite comp=displayContext.composite;
-    WritableImage image=displayContext.getWriteableImage();
+    Composite comp = displayContext.composite;
+    WritableImage image = displayContext.getWriteableImage();
     // draw mesh
     // loop over east and north
     for (double e = 1.0; e < 16.0; e += 0.1) {
@@ -180,11 +186,12 @@ public class Radolan2Image {
   /**
    * activate the onShow Event of the given tooltip
    * 
-   * @param displayContext - details of the image e.g. view and tooltip
+   * @param displayContext
+   *          - details of the image e.g. view and tooltip
    */
-  public static void activateToolTipOnShowEvent(DisplayContext displayContext) {
-    Node view=displayContext.view;
-    Composite composite=displayContext.composite;
+  public static void activateEvents(DisplayContext displayContext) {
+    Node view = displayContext.view;
+    Composite composite = displayContext.composite;
     Bounds viewBounds = view.getBoundsInParent();
     String imsg = String.format(
         "ToolTip onShowEvent installed in a view with size %.0f x %.0f for composite %d x %d",
@@ -227,6 +234,80 @@ public class Radolan2Image {
         LOGGER.log(Level.INFO, msg);
       displayContext.toolTip.setText(displayMsg);
     });
+    Pane drawOnGlass = displayContext.drawPane;
 
+    ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
+      addLocation(displayContext);
+    };
+    drawOnGlass.widthProperty().addListener(sizeListener);
+    drawOnGlass.heightProperty().addListener(sizeListener);
+  }
+
+  /**
+   * add a location if there is one
+   * 
+   * @param displayContext
+   */
+  public static void addLocation(DisplayContext displayContext) {
+    // make sure the necessary prerequisites are there
+    if (displayContext.location == null || displayContext.composite == null)
+      return;
+    Pane drawOnGlass = displayContext.drawPane;
+    // clear the drawPane
+    drawOnGlass.getChildren().clear();
+    if (debug) {
+      drawCross(drawOnGlass, 2, Color.rgb(0xff, 0x80, 0x00, 0.5));
+    }
+    UnLocode loc = displayContext.location;
+    DPoint latlon = new DPoint(loc.getLat(), loc.getLon());
+    DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
+    // Position now needs to be adapted to screen size
+    p=displayContext.composite.translate(p,drawOnGlass.getWidth(),drawOnGlass.getHeight());
+    IPoint ip = new IPoint(p);
+    double value=displayContext.composite.getValue(ip.x, ip.y);
+    String text=String.format("%s - %.1f mm", loc.getName(),value);
+    drawCircleWithText(displayContext.drawPane,text,4,Color.WHITE,p.x,p.y);
+  }
+    
+  /**
+   * draw a circle with given text on the given pane
+   * @param pane
+   * @param text
+   * @param radius
+   * @param color
+   * @param x
+   * @param y
+   */
+  public static void drawCircleWithText(Pane pane,String text,double radius, Color color,double x, double y) {  
+    Circle circle = new Circle();
+    circle.setRadius(radius);
+    circle.setFill(color);
+    circle.setTranslateX(x);
+    circle.setTranslateY(y);
+   
+    Label label = new Label(text);
+    label.setTranslateX(x + radius);
+    label.setTranslateY(y + radius);
+    label.setTextFill(color);
+    pane.getChildren().addAll(circle,label);
+  }
+
+  /**
+   * draw a cross on the given pane with the given stroke width and color
+   * 
+   * @param pane
+   * @param strokeWidth
+   * @param color
+   */
+  public static void drawCross(Pane pane, double strokeWidth, Color color) {
+    double w = pane.getWidth();
+    double h = pane.getHeight();
+    Line line = new Line(0, 0, w, h);
+    line.setStrokeWidth(strokeWidth);
+    line.setStroke(color);
+    Line line2 = new Line(w, 0, 0, h);
+    line2.setStrokeWidth(strokeWidth);
+    line2.setStroke(color);
+    pane.getChildren().addAll(line, line2);
   }
 }

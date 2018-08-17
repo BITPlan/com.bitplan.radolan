@@ -119,7 +119,7 @@ public class Radolan extends Main {
     imageViewer.waitOpen();
     // do we show a radolan image?
     if (displayContext.composite != null) {
-      Radolan2Image.activateToolTipOnShowEvent(displayContext);
+      Radolan2Image.activateEvents(displayContext);
     }
     imageViewer.waitClose();
   }

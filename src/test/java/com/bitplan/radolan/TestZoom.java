@@ -23,7 +23,11 @@
  */
 package com.bitplan.radolan;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
+import cs.fau.de.since.radolan.Composite;
 
 /**
  * test Zoom functionality
@@ -31,6 +35,18 @@ import org.junit.Test;
  *
  */
 public class TestZoom extends BaseTest {
+  
+  @Test
+  public void testScreenTranslate() {
+    Composite comp=new Composite();
+    comp.setPx(900);
+    comp.setPy(900);
+    DPoint p=new DPoint(400,400);
+    DPoint pt = comp.translate(p, 450, 450);
+    assertEquals(200.0,pt.x,0.0001);
+    assertEquals(200.0,pt.y,0.0001);
+  }
+  
 
   @Test
   public void testZoom() {
@@ -39,7 +55,7 @@ public class TestZoom extends BaseTest {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 4, product + ".png", null, "-l", "Willich","-z","30");
+      testRadolan(url, 15, product + ".png", null, "-l", "Willich","-z","30");
     }
 
   }
