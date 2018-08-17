@@ -31,6 +31,8 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
+import com.bitplan.radolan.Testing;
+
 /**
  * migrated to Java from
  * https://gitlab.cs.fau.de/since/radolan/blob/master/translate_test.go

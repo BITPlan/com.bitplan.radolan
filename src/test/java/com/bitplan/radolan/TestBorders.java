@@ -23,25 +23,32 @@
  */
 package com.bitplan.radolan;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.logging.Level;
+import org.junit.Test;
+import com.bitplan.radolan.Borders;
 
-import cs.fau.de.since.radolan.TestCache;
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestData;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class,TestUnLocodeManager.class, TestTranslate.class,
-    TestConversion.class, TestData.class,TestCache.class, TestHeader.class, TestRadolan.class })
 /**
- * TestSuite
+ * test the border files
  * 
  * @author wf
  *
- *         no content necessary - annotation has info
  */
-public class TestSuite {
-  public static boolean debug = false;
+public class TestBorders extends BaseTest {
+  @Test
+  public void testBorders() throws Exception {
+    String names[] = { "1_deutschland/3_mittel.geojson",
+        "1_deutschland/4_niedrig.geojson", "2_bundeslaender/2_hoch.geojson",
+        "2_bundeslaender/3_mittel.geojson", "2_bundeslaender/4_niedrig.geojson",
+        "3_regierungsbezirke/2_hoch.geojson",
+        "3_regierungsbezirke/3_mittel.geojson",
+        "3_regierungsbezirke/4_niedrig.geojson", "4_kreise/2_hoch.geojson",
+        "4_kreise/3_mittel.geojson", "4_kreise/4_niedrig.geojson" };
+    for (String name : names) {
+      Borders borders = new Borders(name);
+      if (debug)
+        LOGGER.log(Level.INFO, String.format("border %s has %d points", name,
+            borders.getPoints().size()));
+    }
+  }
+
 }

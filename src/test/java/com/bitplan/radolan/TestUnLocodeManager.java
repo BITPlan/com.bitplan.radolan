@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.junit.Test;
 
@@ -40,8 +41,7 @@ import com.bitplan.geo.UnLocodeManager;
  * @author wf
  *
  */
-public class TestUnLocodeManager {
-  public static boolean debug = false;
+public class TestUnLocodeManager extends BaseTest {
 
   @Test
   public void testUnLocodeManager() throws IOException {
@@ -75,7 +75,7 @@ public class TestUnLocodeManager {
     Map<Double, UnLocode> closeCities = ulm.lookup(52.034, 8.529, 20);
     if (debug)
       for (UnLocode city : closeCities.values()) {
-        System.out.println(city.toString());
+        LOGGER.log(Level.INFO,city.toString());
       }
     assertEquals(9, closeCities.size());
   }

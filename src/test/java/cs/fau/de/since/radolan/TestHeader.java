@@ -34,6 +34,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
+import com.bitplan.radolan.Testing;
+
 /**
  * migrated to Java from
  * https://gitlab.cs.fau.de/since/radolan/blob/master/header_test.go

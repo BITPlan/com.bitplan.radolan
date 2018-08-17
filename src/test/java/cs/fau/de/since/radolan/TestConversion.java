@@ -24,6 +24,9 @@
 package cs.fau.de.since.radolan;
 
 import org.junit.Test;
+
+import com.bitplan.radolan.Testing;
+
 import static cs.fau.de.since.radolan.Conversion.*;
 /**
  * migrated to java from https://gitlab.cs.fau.de/since/radolan/blob/master/conversion_test.go

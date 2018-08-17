@@ -21,14 +21,11 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import static org.junit.Assert.fail;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.bitplan.radolan.BaseTest;
 
 /**
  * go migration Testing helper class

@@ -35,7 +35,9 @@ import java.time.Period;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Consumer;
+import java.util.logging.Level;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import cs.fau.de.since.radolan.Composite;
@@ -73,8 +75,9 @@ public class TestRadolan extends BaseTest {
     Radolan.main(args);
     if (output != null) {
       File outputFile = new File(outputPath);
+      if (debug)
+        LOGGER.log(Level.INFO,"created output file: "+outputFile.getAbsolutePath());
       assertTrue(outputFile.getPath(), outputFile.exists());
-      System.out.println(outputFile.getAbsolutePath());
     }
   }
 
@@ -129,7 +132,7 @@ public class TestRadolan extends BaseTest {
     }
   }
 
-  @Test
+  @Ignore
   public void testOpenDataRecent() {
     int rwminutes = 60 * 2;
     int ryminutes = 10;
@@ -141,7 +144,8 @@ public class TestRadolan extends BaseTest {
   public void testHistory() {
     if (!isTravis()) {
       LocalDate date = LocalDate.of(2018, 8, 13);
-      LocalDate end = LocalDate.of(2018, 8, 15); // actually one day before this ...
+      LocalDate end = LocalDate.of(2018, 8, 15); // actually one day before this
+                                                 // ...
       String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
       do {
         String url = String.format(

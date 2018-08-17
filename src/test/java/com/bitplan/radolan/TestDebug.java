@@ -21,33 +21,24 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import org.junit.Test;
 
-import com.bitplan.radolan.Borders;
+import cs.fau.de.since.radolan.Composite;
 
-public class TestBorders {
+/**
+ * allow for coverage tests in debug moe
+ * @author wf
+ *
+ */
+public class TestDebug {
+
   @Test
-  public void testBorders() throws Exception {
-   String names[]= {
-       "1_deutschland/3_mittel.geojson",
-       "1_deutschland/4_niedrig.geojson",
-       "2_bundeslaender/2_hoch.geojson",
-       "2_bundeslaender/3_mittel.geojson",
-       "2_bundeslaender/4_niedrig.geojson",
-       "3_regierungsbezirke/2_hoch.geojson",
-       "3_regierungsbezirke/3_mittel.geojson",
-       "3_regierungsbezirke/4_niedrig.geojson",
-       "4_kreise/2_hoch.geojson",
-       "4_kreise/3_mittel.geojson",
-       "4_kreise/4_niedrig.geojson"};
-   for (String name:names) {
-     Borders borders=new Borders(name);
-     System.out.println(borders.getPoints().size());
-   }
-     
-    
+  public void testDebug() {
+    TestSuite.debug=true;
+    BaseTest.debug=true;
+    Composite.debug=true;
   }
 
 }
