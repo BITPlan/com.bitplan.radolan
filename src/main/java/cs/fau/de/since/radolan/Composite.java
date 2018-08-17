@@ -39,6 +39,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.bitplan.radolan.DPoint;
+import com.bitplan.radolan.IPoint;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 import cs.fau.de.since.radolan.Data.Encoding;
@@ -522,16 +523,31 @@ public class Composite {
 
   /**
    * translate the given x,y coordinate to a view with the given width and height
-   * @param p - the original cartesian coordinate
+   * @param p - the original cartesian grid coordinate
    * @param width
    * @param height
    * @return - the translated point
    */
-  public DPoint translate(DPoint p, double width, double height) {
+  public DPoint translateGridToView(IPoint p, double width, double height) {
     DPoint pt=new DPoint(p.x,p.y);
     pt.x=p.x*width/this.Px;
     pt.y=p.y*height/this.Py;
     return pt;
+  }
+
+  /**
+   * translate a given x,y coordinate of the composite grid to a coordinate in a system
+   * with the given width and height
+   * @param p
+   * @param width
+   * @param height
+   * @return the Grid Point
+   */
+  public IPoint translateViewToGrid(DPoint p, double width, double height) {
+    DPoint pt=new DPoint(p.x,p.y);
+    pt.x=p.x*this.Px/width;
+    pt.y=p.y*this.Py/height;
+    return new IPoint(pt);
   }
 
 }

@@ -25,14 +25,18 @@ package com.bitplan.radolan;
 
 import com.bitplan.javafx.WaitableApp;
 
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -50,11 +54,11 @@ public class ImageViewer extends WaitableApp {
   private Image image;
   private String title = "Image Viewer";
   private ImageView imageView;
-  private Tooltip toolTip;
   private DisplayContext displayContext;
   private Pane drawPane;
   private Scene scene;
-  private Pane borderPane;
+  private Label infoLabel;
+  // private Pane borderPane;
 
   /**
    * construct me from a DisplayContext
@@ -67,7 +71,8 @@ public class ImageViewer extends WaitableApp {
     this.image = displayContext.image;
   }
 
-  public ImageViewer() {}
+  public ImageViewer() {
+  }
 
   @Override
   public void start(Stage stage) {
@@ -88,17 +93,23 @@ public class ImageViewer extends WaitableApp {
     drawPane = new Pane();
     drawPane.setStyle(
         "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");
-    
-    borderPane =new Pane();
-    borderPane.setStyle(
-        "-fx-background-color: rgba(255, 128, 0, 0.05); -fx-background-radius: 10;");
- 
+
+    infoLabel = new Label("");
+    infoLabel.setTextFill(Color.BLUE);
+    infoLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    // https://stackoverflow.com/a/29029875/1497139
+    HBox glass = new HBox();
+    glass.setBackground(Background.EMPTY);
+    glass.getChildren().add(infoLabel);
+
+    /*
+     * borderPane =new Pane(); borderPane.setStyle(
+     * "-fx-background-color: rgba(255, 128, 0, 0.05); -fx-background-radius: 10;"
+     * );
+     */
     StackPane stackPane = new StackPane();
     StackPane.setAlignment(imageView, Pos.CENTER);
-    stackPane.getChildren().addAll(imageView, borderPane, drawPane);
-
-    toolTip = new Tooltip("no info");
-    Tooltip.install(stackPane, toolTip);
+    stackPane.getChildren().addAll(imageView, glass,drawPane);
 
     // container with a fill property
     scene = new Scene(stackPane);
@@ -107,9 +118,9 @@ public class ImageViewer extends WaitableApp {
     // inform the display context
     if (displayContext != null) {
       displayContext.imageView = imageView;
-      displayContext.toolTip = toolTip;
       displayContext.drawPane = drawPane;
-      displayContext.borderPane=borderPane;
+      displayContext.infoLabel = infoLabel;
+      // displayContext.borderPane=borderPane;
     }
     stage.setTitle(title);
     stage.setScene(scene);
@@ -143,8 +154,8 @@ public class ImageViewer extends WaitableApp {
     showSize(stage, stage.getWidth(), stage.getHeight());
     showSize(scene, scene.getWidth(), scene.getHeight());
     showSize(imageView, imageView.getFitWidth(), imageView.getFitHeight());
-    showSize(borderPane,borderPane.getWidth(),borderPane.getHeight());
-    showSize(drawPane,drawPane.getWidth(),drawPane.getHeight());
+    // showSize(borderPane,borderPane.getWidth(),borderPane.getHeight());
+    showSize(drawPane, drawPane.getWidth(), drawPane.getHeight());
     showSize(image, image.getHeight(), image.getWidth());
   }
 

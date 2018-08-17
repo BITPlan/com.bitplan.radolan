@@ -41,10 +41,13 @@ public class TestZoom extends BaseTest {
     Composite comp=new Composite();
     comp.setPx(900);
     comp.setPy(900);
-    DPoint p=new DPoint(400,400);
-    DPoint pt = comp.translate(p, 450, 450);
+    IPoint p=new IPoint(400,400);
+    DPoint pt = comp.translateGridToView(p, 450, 450);
     assertEquals(200.0,pt.x,0.0001);
     assertEquals(200.0,pt.y,0.0001);
+    IPoint p2=comp.translateViewToGrid(pt,450,450);
+    assertEquals(p.x,p2.x);
+    assertEquals(p.y,p2.y);
   }
   
   @Test

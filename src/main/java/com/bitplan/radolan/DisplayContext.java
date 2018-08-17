@@ -33,8 +33,7 @@ import com.bitplan.geo.UnLocodeManager;
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.vis.Vis;
-import javafx.scene.Node;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -65,11 +64,6 @@ public class DisplayContext {
   Image image;
   
   /**
-   * dynamic toolTip that might react on mouse movement
-   */
-  Tooltip toolTip;
-  
-  /**
    * the view in which the image is contained
    */
   ImageView imageView;
@@ -80,14 +74,19 @@ public class DisplayContext {
   String title;
   
   /**
+   * label to display infos
+   */
+  Label infoLabel;
+  
+  /**
    * the name of the border to use - will be read from a json file
    */
   String borderName;
   
   /**
-   * the pane on which the bordes and mesh might be shown
+   * the pane on which the borders and mesh might be shown
    */
-  Pane borderPane;
+  // Pane borderPane;
   
   /**
    * the pane on which we might draw extra information
