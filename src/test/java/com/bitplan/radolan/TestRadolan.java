@@ -27,13 +27,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
+import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.function.Consumer;
 
 import org.junit.Test;
-
-import com.bitplan.radolan.Radolan;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
@@ -56,9 +59,10 @@ public class TestRadolan extends BaseTest {
    * 
    * @param url
    * @param viewTimeSecs
-   * @param fakeGradient2 
+   * @param fakeGradient2
    */
-  public void testRadolan(String url, int viewTimeSecs, String output, Consumer<Composite> postInit) {
+  public void testRadolan(String url, int viewTimeSecs, String output,
+      Consumer<Composite> postInit) {
     Composite.setPostInit(postInit);
     String outputPath = "";
     if (output != null)
@@ -81,7 +85,33 @@ public class TestRadolan extends BaseTest {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 4, product + ".png",null);
+      testRadolan(url, 4, product + ".png", null);
+    }
+  }
+
+  @Test
+  public void testOpenDataRecent() {
+    LocalDateTime starttime = LocalDateTime
+        .ofInstant(Instant.now(), ZoneOffset.UTC)
+        .truncatedTo(ChronoUnit.MINUTES);
+    while (starttime.getMinute() % 5 != 0) {
+      starttime = starttime.minus(Duration.ofMinutes(1));
+    }
+    // safety marging
+    LocalDateTime datetime = starttime.minus(Duration.ofMinutes(5));
+    // uncomment to cache the latest 24 hours
+    //LocalDateTime endtime = starttime.minus(Duration.ofHours(24));
+    LocalDateTime endtime = starttime.minus(Duration.ofMinutes(10));
+    for (; datetime
+        .isAfter(endtime); datetime = datetime.minus(Duration.ofMinutes(5))) {
+      String url = (String.format(
+          "https://opendata.dwd.de/weather/radar/radolan/ry/raa01-ry_10000-%02d%02d%02d%02d%02d-dwd---bin",
+          datetime.getYear() % 2000, datetime.getMonthValue(),
+          datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute()));
+      String picture = String.format("ry-%04d-%02d-%02d_%02d%02d.png",
+          datetime.getYear(), datetime.getMonthValue(),
+          datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute());
+      testRadolan(url, 4, picture, null);
     }
   }
 
@@ -89,7 +119,8 @@ public class TestRadolan extends BaseTest {
   public void testHistory() {
     if (!isTravis()) {
       LocalDate date = LocalDate.of(2018, 1, 1);
-      LocalDate end = LocalDate.of(2018, 1, 5); // actually one day before this ...
+      LocalDate end = LocalDate.of(2018, 1, 5); // actually one day before this
+                                                // ...
       String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
       do {
         String url = String.format(
@@ -98,7 +129,7 @@ public class TestRadolan extends BaseTest {
         if (!Composite.cacheForUrl(url, knownUrl).exists() || date.isEqual(end))
           break;
         testRadolan(url, 2, String.format("sf-%04d-%02d-%02d_1650.png",
-            date.getYear(), date.getMonthValue(), date.getDayOfMonth()),null);
+            date.getYear(), date.getMonthValue(), date.getDayOfMonth()), null);
         date = date.plus(Period.ofDays(1));
       } while (true);
     }
@@ -121,7 +152,7 @@ public class TestRadolan extends BaseTest {
         "src/test/data/history/raa01-sf_10000-1805301650-dwd---bin.gz");
     assertTrue(sfHistoryFile.exists());
     String url = sfHistoryFile.toURI().toURL().toExternalForm();
-    testRadolan(url, 5, "sf-ColorGradient.png",fakeGradient);
+    testRadolan(url, 5, "sf-ColorGradient.png", fakeGradient);
   }
 
   @Test
@@ -145,12 +176,12 @@ public class TestRadolan extends BaseTest {
   @Test
   public void testRadarPicture() {
     String url = "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
-    testRadolan(url, 3, "rad_brd_akt.png",null);
+    testRadolan(url, 3, "rad_brd_akt.png", null);
   }
 
   @Test
   public void testRadarfilm() {
     String url = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
-    testRadolan(url, 12, null,null);
+    testRadolan(url, 12, null, null);
   }
 }
