@@ -106,16 +106,21 @@ public class TestRadolan extends BaseTest {
    *          - the start Minute e.g. 50 for rw 5 for ry
    * @param minRaster
    *          - the raster of this product e.g. 60 for rw 5 for ry
+   * @throws Exception 
    */
   public void testOpenDataRecent(String product, int minutes, int minDelay,
-      int startMin, int startRest, int minRaster) {
+      int startMin, int startRest, int minRaster) throws Exception {
     LocalDateTime starttime = LocalDateTime
         .ofInstant(Instant.now(), ZoneOffset.UTC)
         .truncatedTo(ChronoUnit.MINUTES);
     // safety marging
     starttime = starttime.minus(Duration.ofMinutes(minDelay));
-    while (starttime.getMinute() % startMin != startRest) {
+    int count=0;
+    while ((starttime.getMinute() % startMin) != startRest) {
       starttime = starttime.minus(Duration.ofMinutes(1));
+      if (count++ >20*365*24*60) {
+        throw new Exception("'endless' loop detected in finding recent data start");
+      }
     }
     LocalDateTime datetime = starttime;
     LocalDateTime endtime = datetime.minus(Duration.ofMinutes(minutes));
@@ -132,12 +137,12 @@ public class TestRadolan extends BaseTest {
     }
   }
 
-  @Ignore
-  public void testOpenDataRecent() {
+  @Test
+  public void testOpenDataRecent() throws Exception {
     int rwminutes = 60 * 2;
     int ryminutes = 10;
     this.testOpenDataRecent("rw", rwminutes, 30, 60, 50, 60);
-    this.testOpenDataRecent("ry", ryminutes, 5, 5, 5, 5);
+    this.testOpenDataRecent("ry", ryminutes, 5, 5, 0, 5);
   }
 
   @Test
