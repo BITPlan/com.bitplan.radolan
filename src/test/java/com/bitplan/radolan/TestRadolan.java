@@ -89,30 +89,45 @@ public class TestRadolan extends BaseTest {
     }
   }
 
-  @Test
-  public void testOpenDataRecent() {
+  /**
+   * test the OpenData for the given product ry/rw for the past minutes taken into
+   * account the given delay in minutes
+   * @param product - the product ry/rw
+   * @param minutes - how many minutes of the previous period to cover
+   * @param minDelay - the delay of this product
+   * @param startMin - the start Minute e.g. 50 for rw 5 for ry
+   * @param minRaster - the raster of this product e.g. 60 for rw 5 for ry
+   */
+  public void testOpenDataRecent(String product,int minutes, int minDelay,int startMin, int minRaster) {
     LocalDateTime starttime = LocalDateTime
         .ofInstant(Instant.now(), ZoneOffset.UTC)
         .truncatedTo(ChronoUnit.MINUTES);
-    while (starttime.getMinute() % 5 != 0) {
+    // safety marging
+    starttime = starttime.minus(Duration.ofMinutes(minDelay));
+    while (starttime.getMinute() % startMin != 0) {
       starttime = starttime.minus(Duration.ofMinutes(1));
     }
-    // safety marging
-    LocalDateTime datetime = starttime.minus(Duration.ofMinutes(5));
-    // uncomment to cache the latest 24 hours
-    //LocalDateTime endtime = starttime.minus(Duration.ofHours(24));
-    LocalDateTime endtime = starttime.minus(Duration.ofMinutes(10));
+    LocalDateTime datetime=starttime;
+    LocalDateTime endtime = datetime.minus(Duration.ofMinutes(minutes));
     for (; datetime
-        .isAfter(endtime); datetime = datetime.minus(Duration.ofMinutes(5))) {
+        .isAfter(endtime); datetime = datetime.minus(Duration.ofMinutes(minRaster))) {
       String url = (String.format(
-          "https://opendata.dwd.de/weather/radar/radolan/ry/raa01-ry_10000-%02d%02d%02d%02d%02d-dwd---bin",
-          datetime.getYear() % 2000, datetime.getMonthValue(),
+          "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-%02d%02d%02d%02d%02d-dwd---bin",
+          product,product,datetime.getYear() % 2000, datetime.getMonthValue(),
           datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute()));
-      String picture = String.format("ry-%04d-%02d-%02d_%02d%02d.png",
-          datetime.getYear(), datetime.getMonthValue(),
+      String picture = String.format("%s-%04d-%02d-%02d_%02d%02d.png",
+          product,datetime.getYear(), datetime.getMonthValue(),
           datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute());
       testRadolan(url, 4, picture, null);
     }
+  }
+  
+  @Test
+  public void testOpenDataRecent() {
+    int rwminutes=60*2;
+    int ryminutes=10;
+    this.testOpenDataRecent("rw",rwminutes,80,50,60);  
+    this.testOpenDataRecent("ry",ryminutes,5,5,5);
   }
 
   @Test
