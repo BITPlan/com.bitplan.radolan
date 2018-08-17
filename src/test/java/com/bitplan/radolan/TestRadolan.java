@@ -88,8 +88,8 @@ public class TestRadolan extends BaseTest {
   @Test
   public void testHistory() {
     if (!isTravis()) {
-      LocalDate date = LocalDate.of(2018, 1, 1);
-      LocalDate end = LocalDate.of(2018, 1, 5); // actually one day before this ...
+      LocalDate date = LocalDate.of(2018, 8, 13);
+      LocalDate end = LocalDate.of(2018, 8, 15); // actually one day before this ...
       String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
       do {
         String url = String.format(

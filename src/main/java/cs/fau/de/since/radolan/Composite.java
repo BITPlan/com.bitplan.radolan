@@ -75,10 +75,10 @@ import cs.fau.de.since.radolan.Data.Encoding;
 //
 //Product label            | values represent         | unit
 //-------------------------+--------------------------+------------------------
-//PG, PC, PX*, ...        | cloud reflectivity       | dBZ
-//RX, WX, EX, FZ, FX, ... | cloud reflectivity     | dBZ
-//RW, SF,  ...            | aggregated precipitation | mm/interval
-//PR*, ...                | doppler radial velocity  | m/s
+//PG, PC, PX*, ...         | cloud reflectivity       | dBZ
+//RX, WX, EX, FZ, FX, ...  | cloud reflectivity       | dBZ
+//RW, SF,  ...             | aggregated precipitation | mm/interval
+//PR*, ...                 | doppler radial velocity  | m/s
 //
 //The cloud reflectivity (in dBZ) can be converted to rainfall rate (in mm/h)
 //via PrecipitationRate().
@@ -292,6 +292,8 @@ public class Composite {
    * @throws Throwable
    */
   public Composite(String url) throws Throwable {
+    if (debug)
+      LOGGER.log(Level.INFO,"getting composite for url "+url);
     this.url = checkCache(url);
 
     InputStream inputStream = new URL(url).openStream();
