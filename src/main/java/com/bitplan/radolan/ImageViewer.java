@@ -41,7 +41,6 @@ import javafx.stage.Stage;
  * @author wf
  *
  */
-@SuppressWarnings("restriction")
 public class ImageViewer extends WaitableApp {
   private Image image;
   private String title = "Image Viewer";

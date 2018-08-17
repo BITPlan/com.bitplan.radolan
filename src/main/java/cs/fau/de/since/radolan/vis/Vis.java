@@ -35,7 +35,6 @@ import javafx.scene.paint.Color;
  * @author wf
  *
  */
-@SuppressWarnings("restriction")
 public class Vis {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan.vis");

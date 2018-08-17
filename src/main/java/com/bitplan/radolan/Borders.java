@@ -23,14 +23,9 @@
  */
 package com.bitplan.radolan;
 
-import java.io.File;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
 import com.github.filosganga.geogson.gson.GeometryAdapterFactory;
@@ -43,7 +38,6 @@ import com.github.filosganga.geogson.model.LinearRing;
 import com.github.filosganga.geogson.model.MultiPolygon;
 import com.github.filosganga.geogson.model.Point;
 import com.github.filosganga.geogson.model.Polygon;
-import com.google.common.io.Resources;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
