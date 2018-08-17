@@ -23,7 +23,16 @@
  */
 package com.bitplan.radolan;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.function.Consumer;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+
+import cs.fau.de.since.radolan.Composite;
 
 /**
  * Base class for tests
@@ -43,5 +52,36 @@ public class BaseTest {
   public boolean isTravis() {
     String user = System.getProperty("user.name");
     return user.equals("travis");
+  }
+  
+  String tmpDir = System.getProperty("java.io.tmpdir");
+
+  /**
+   * test radolan display
+   * 
+   * @param url
+   * @param viewTimeSecs
+   * @param fakeGradient2
+   */
+  public void testRadolan(String url, int viewTimeSecs, String output,
+      Consumer<Composite> postInit, String ... args) {
+    Composite.setPostInit(postInit);
+    String outputPath = "";
+    if (output != null)
+      outputPath = tmpDir + "/" + output;  
+    String defaultargs[] = { "-d", "-i", url, "-t", "" + viewTimeSecs, "-o",
+        outputPath };
+    // https://stackoverflow.com/a/23188881/1497139
+    // add args to defaultargs
+    String[] finalargs = Stream.concat(Arrays.stream(defaultargs), Arrays.stream(args))
+        .toArray(String[]::new);
+    Radolan.testMode = true;
+    Radolan.main(finalargs);
+    if (output != null) {
+      File outputFile = new File(outputPath);
+      if (debug)
+        LOGGER.log(Level.INFO,"created output file: "+outputFile.getAbsolutePath());
+      assertTrue(outputFile.getPath(), outputFile.exists());
+    }
   }
 }

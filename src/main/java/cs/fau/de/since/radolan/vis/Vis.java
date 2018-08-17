@@ -267,7 +267,7 @@ public class Vis {
    * @param pMin
    * @param pMax
    * @param compression
-   * @return
+   * @return the gradient heatmap
    */
   public static FloatFunction<Color> Heatmap(float pMin, float pMax,
       FloatFunction<Float> compression) {

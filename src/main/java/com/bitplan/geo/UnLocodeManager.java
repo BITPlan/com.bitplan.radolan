@@ -58,7 +58,7 @@ public class UnLocodeManager implements JsonAble {
   private UnLocodeManager() {};
   /**
    * singleton access
-   * @return
+   * @return my instance
    */
   public static UnLocodeManager getInstance() {
     if (instance==null) {

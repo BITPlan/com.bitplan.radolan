@@ -44,23 +44,24 @@ import javafx.stage.Stage;
 @SuppressWarnings("restriction")
 public class ImageViewer extends WaitableApp {
   private Image image;
-  private String title="Image Viewer";
-  public ImageView imageView;
-  public Tooltip toolTip;
+  private String title = "Image Viewer";
+  private ImageView imageView;
+  private Tooltip toolTip;
   private DisplayContext displayContext;
 
   /**
    * construct me from a DisplayContext
+   * 
    * @param displayContext
    */
   public ImageViewer(DisplayContext displayContext) {
-    this.displayContext=displayContext;
-    this.title=displayContext.title;
-    this.image=displayContext.image;
+    this.displayContext = displayContext;
+    this.title = displayContext.title;
+    this.image = displayContext.image;
   }
 
   public ImageViewer() {
-    
+
   }
 
   @Override
@@ -75,6 +76,11 @@ public class ImageViewer extends WaitableApp {
     imageView.setImage(image);
     toolTip = new Tooltip("no info");
     Tooltip.install(imageView, toolTip);
+    
+    // inform the display context
+    displayContext.view = imageView;
+    displayContext.toolTip = toolTip;
+    
     Group root = new Group();
     Scene scene = new Scene(root);
     scene.setFill(Color.BLACK);
@@ -83,7 +89,7 @@ public class ImageViewer extends WaitableApp {
     root.getChildren().add(box);
     imageView.fitWidthProperty().bind(stage.widthProperty());
     imageView.fitHeightProperty().bind(stage.heightProperty());
-    
+
     stage.setTitle(title);
     stage.setWidth(900);
     stage.setHeight(900);
@@ -91,13 +97,13 @@ public class ImageViewer extends WaitableApp {
     stage.sizeToScene();
     stage.show();
   }
-  
+
   public void close() {
     super.close();
-    //if (!testMode)
-    //  System.exit(0);
+    // if (!testMode)
+    // System.exit(0);
   }
-  
+
   @Override
   public void stop() {
     // https://docs.oracle.com/javase/8/javafx/api/javafx/application/Application.html
@@ -111,22 +117,22 @@ public class ImageViewer extends WaitableApp {
    */
   public void maininstance(String[] args) {
     toolkitInit();
-    //System.err.println("imageViewer created - now showing");
+    // System.err.println("imageViewer created - now showing");
     show();
-    //System.err.println("imageViewer showed - now waiting to open");
+    // System.err.println("imageViewer showed - now waiting to open");
     waitOpen();
-    //System.err.println("imageViewer opened - now waiting to close");
-    waitClose(); 
-    //System.err.println("imageViewer closed");
+    // System.err.println("imageViewer opened - now waiting to close");
+    waitClose();
+    // System.err.println("imageViewer closed");
   }
-  
+
   /**
    * launch me with the given arguments
    * 
    * @param args
    */
   public static void main(String[] args) {
-    ImageViewer imageViewer=new ImageViewer();
+    ImageViewer imageViewer = new ImageViewer();
     imageViewer.maininstance(args);
   }
 

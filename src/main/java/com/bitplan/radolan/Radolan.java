@@ -109,20 +109,16 @@ public class Radolan extends Main {
   /**
    * show the given image
    * 
-   * @param image
-   * @param title
-   * @param composite
+   * @param displayContext - the image andit's details
    */
   public void showImage(DisplayContext displayContext) {
     prepareImageViewer();
     ImageViewer imageViewer = new ImageViewer(displayContext);
     imageViewer.limitShowTime(this.showTimeSecs);
-    imageViewer.show();
+    imageViewer.show(); // will set view and toolTip
     imageViewer.waitOpen();
     // do we show a radolan image?
     if (displayContext.composite != null) {
-      displayContext.view = imageViewer.imageView;
-      displayContext.toolTip = imageViewer.toolTip;
       Radolan2Image.activateToolTipOnShowEvent(displayContext);
     }
     imageViewer.waitClose();

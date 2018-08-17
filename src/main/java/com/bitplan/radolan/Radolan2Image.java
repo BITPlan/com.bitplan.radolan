@@ -59,7 +59,7 @@ public class Radolan2Image {
    * get the Image for the given composite
    * https://www.dwd.de/DE/leistungen/radarniederschlag/rn_info/download_niederschlagsbestimmung.pdf?__blob=publicationFile&v=4
    * 
-   * @return - the image
+   * @param displayContext - the container for the image and it's details
    * @throws Exception
    */
   public static void getImage(DisplayContext displayContext) throws Exception {
@@ -103,14 +103,11 @@ public class Radolan2Image {
       drawBorders(displayContext);
       drawMesh(displayContext);
     }
-   
   }
 
   /**
    * draw Borders
-   * 
-   * @param comp
-   * @param image
+   * @param displayContext - the image and it's details
    * @throws Exception
    */
   protected static void drawBorders(DisplayContext displayContext) throws Exception {
@@ -133,9 +130,7 @@ public class Radolan2Image {
   /**
    * draw a coordinate mesh
    * 
-   * @param comp
-   *          - the composite to draw the mesh for
-   * @param image
+   * @param displayContext - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
     Composite comp=displayContext.composite;
@@ -185,8 +180,7 @@ public class Radolan2Image {
   /**
    * activate the onShow Event of the given tooltip
    * 
-   * @param composite
-   * @param toolTip
+   * @param displayContext - details of the image e.g. view and tooltip
    */
   public static void activateToolTipOnShowEvent(DisplayContext displayContext) {
     Node view=displayContext.view;

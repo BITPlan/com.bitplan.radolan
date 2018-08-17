@@ -35,9 +35,7 @@ import java.time.Period;
 import java.time.ZoneOffset;
 import java.time.temporal.ChronoUnit;
 import java.util.function.Consumer;
-import java.util.logging.Level;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import cs.fau.de.since.radolan.Composite;
@@ -53,33 +51,6 @@ import javafx.scene.paint.Color;
  *
  */
 public class TestRadolan extends BaseTest {
-
-  String tmpDir = System.getProperty("java.io.tmpdir");
-
-  /**
-   * test radolan display
-   * 
-   * @param url
-   * @param viewTimeSecs
-   * @param fakeGradient2
-   */
-  public void testRadolan(String url, int viewTimeSecs, String output,
-      Consumer<Composite> postInit) {
-    Composite.setPostInit(postInit);
-    String outputPath = "";
-    if (output != null)
-      outputPath = tmpDir + "/" + output;
-    String args[] = { "-d", "-i", url, "-t", "" + viewTimeSecs, "-o",
-        outputPath };
-    Radolan.testMode = true;
-    Radolan.main(args);
-    if (output != null) {
-      File outputFile = new File(outputPath);
-      if (debug)
-        LOGGER.log(Level.INFO,"created output file: "+outputFile.getAbsolutePath());
-      assertTrue(outputFile.getPath(), outputFile.exists());
-    }
-  }
 
   @Test
   public void testOpenData() {

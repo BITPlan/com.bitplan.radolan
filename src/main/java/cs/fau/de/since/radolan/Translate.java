@@ -207,7 +207,7 @@ public class Translate {
    * @param y1
    * @param x2
    * @param y2
-   * @return
+   * @return the distance
    */
   public static double dist(double x1, double y1, double x2, double y2) {
     double x = x1 - x2;
@@ -289,7 +289,7 @@ public class Translate {
    * 
    * @param x
    * @param y
-   * @return
+   * @return the lat/lon result
    */
   public static DPoint inversePolarStereoProjection(double x, double y) {
     y = -y; // negation of y component necessary - why?

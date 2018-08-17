@@ -88,7 +88,7 @@ public class TestUnLocodeManager extends BaseTest {
   public void testLookupByName() throws Exception {
     UnLocodeManager ulm = UnLocodeManager.getInstance();
     assertNotNull(ulm);
-    debug=true;
+    // debug=true;
     String[] names= {"Neuss","Köln","Düsseldorf","Mönchengladbach","Krefeld","Willich","Münster"};
     for (String name:names) {
       UnLocode city = ulm.lookup(name);
@@ -101,9 +101,10 @@ public class TestUnLocodeManager extends BaseTest {
   @Test
   public void testLookupByLatLonPerformance() {
     UnLocodeManager ulm = UnLocodeManager.getInstance();
-    UnLocodeManager.debug=true;
+    // UnLocodeManager.debug=true;
     assertNotNull(ulm);
-    for (int i=1;i<=320;i++) {
+    // approx 1 second for 320 lookups
+    for (int i=1;i<=9;i++) {
       UnLocode cityToFind = ulm.unLocodes.get(ulm.unLocodes.size()-i);
       ulm.lookup(cityToFind.getLat(), cityToFind.getLon(), 20.0);
     }
