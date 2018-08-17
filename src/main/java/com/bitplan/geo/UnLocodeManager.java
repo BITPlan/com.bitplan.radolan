@@ -46,8 +46,13 @@ import cs.fau.de.since.radolan.Translate;
 public class UnLocodeManager implements JsonAble {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.geo");
+  
+  public static boolean debug=false;
+  
   public static final transient String RESOURCE_NAME="unlocode_de.json";
   public List<UnLocode> unLocodes=new ArrayList<UnLocode>();
+  public transient Map<String,UnLocode> unLocodeByName=new TreeMap<String,UnLocode>();
+  public transient Map<Integer,UnLocode> unLocodesByGridNumber=new TreeMap<Integer,UnLocode>();
   
   private static UnLocodeManager instance;
   private UnLocodeManager() {};
@@ -69,10 +74,13 @@ public class UnLocodeManager implements JsonAble {
     return instance;
   }
   
+  /**
+   * reinit me
+   */
   public void reinit() {
     for (UnLocode code:this.unLocodes) {
       if (code.coords!=null) {
-        
+        unLocodeByName.put(code.name, code);
       }
     }
   }
@@ -90,6 +98,8 @@ public class UnLocodeManager implements JsonAble {
    */
   public Map<Double,UnLocode> lookup(double lat, double lon, double maxDist) {
     Map<Double,UnLocode> cities=new TreeMap<Double,UnLocode>();
+    long startTime = System.nanoTime();
+ 
     // https://stackoverflow.com/questions/1260572/fastest-way-to-find-the-locationzip-city-state-given-latitude-longitude
     for (UnLocode city:this.unLocodes) {
       if (city.coords!=null) {
@@ -101,7 +111,23 @@ public class UnLocodeManager implements JsonAble {
         }
       }
     }
+    long endTime = System.nanoTime();
+    long duration = (endTime - startTime) / 100000;
+    if (debug)
+      LOGGER.log(Level.INFO,
+          String.format("city lookup took %d msecs and returned %d results",
+              duration, cities.size()));
     return cities;  
+  }
+  
+  /**
+   * lookup the given location
+   * @param name
+   * @return the location
+   */
+  public UnLocode lookup(String name) {
+    UnLocode code=this.unLocodeByName.get(name);
+    return code;
   }
 
 }

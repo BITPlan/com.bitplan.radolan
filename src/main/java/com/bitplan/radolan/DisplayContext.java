@@ -23,6 +23,12 @@
  */
 package com.bitplan.radolan;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import com.bitplan.geo.UnLocode;
+import com.bitplan.geo.UnLocodeManager;
+
 import cs.fau.de.since.radolan.Composite;
 import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
@@ -36,22 +42,39 @@ import javafx.scene.image.WritableImage;
  *
  */
 public class DisplayContext {
+  // prepare a LOGGER
+  protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
+  
+  public static boolean debug=false;
+  
   Composite composite;
   Image image;
   Tooltip toolTip;
   Node view;
   String title;
   String borderName;
+  double zoomKm;
+  UnLocode location;
 
   /**
    * create a DisplayContext
    * 
    * @param composite
    * @param borderName
+   * @param zoomKm
+   * @param locationName
    */
-  public DisplayContext(Composite composite, String borderName) {
+  public DisplayContext(Composite composite, String borderName, double zoomKm, String locationName) {
     this.composite = composite;
     this.borderName = borderName;
+    this.zoomKm=zoomKm;
+    if (locationName!=null) {
+      UnLocodeManager ulm=UnLocodeManager.getInstance();
+      this.location=ulm.lookup(locationName);
+      if (location==null) {
+        LOGGER.log(Level.WARNING,"could not find location "+locationName);
+      }
+    }
   }
 
   /**

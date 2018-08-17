@@ -216,15 +216,8 @@ public class Radolan2Image {
       DPoint p = Translate.translateXYtoLatLon(composite,
           new DPoint(local.getX(), local.getY()));
       // find the closest cities:
-      long startTime = System.nanoTime();
       Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance()
           .lookup(p.x, p.y, 20);
-      long endTime = System.nanoTime();
-      long duration = (endTime - startTime) / 100000;
-      if (debug)
-        LOGGER.log(Level.INFO,
-            String.format("city lookup took %d msecs and returned %d results",
-                duration, closestCities.size()));
       String cityInfo = "";
       if (closestCities.size() > 0) {
         Entry<Double, UnLocode> cityEntry = closestCities.entrySet().iterator()

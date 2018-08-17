@@ -66,7 +66,7 @@ public class TestUnLocodeManager extends BaseTest {
   }
 
   @Test
-  public void testLookup() throws IOException {
+  public void testLookupByLatLon() throws IOException {
     UnLocodeManager ulm = UnLocodeManager.getInstance();
     assertNotNull(ulm);
     // System.out.println(ulm.unLocodes.size());
@@ -78,5 +78,34 @@ public class TestUnLocodeManager extends BaseTest {
         LOGGER.log(Level.INFO,city.toString());
       }
     assertEquals(9, closeCities.size());
+  }
+  
+  /**
+   * test looking up by Name
+   * @throws Exception
+   */
+  @Test
+  public void testLookupByName() throws Exception {
+    UnLocodeManager ulm = UnLocodeManager.getInstance();
+    assertNotNull(ulm);
+    debug=true;
+    String[] names= {"Neuss","Köln","Düsseldorf","Mönchengladbach","Krefeld","Willich","Münster"};
+    for (String name:names) {
+      UnLocode city = ulm.lookup(name);
+      if (debug) {
+        LOGGER.log(Level.INFO,String.format("lookup of city %s -> %s",name,city.toString()));
+      }
+    }
+  }
+  
+  @Test
+  public void testLookupByLatLonPerformance() {
+    UnLocodeManager ulm = UnLocodeManager.getInstance();
+    UnLocodeManager.debug=true;
+    assertNotNull(ulm);
+    for (int i=1;i<=320;i++) {
+      UnLocode cityToFind = ulm.unLocodes.get(ulm.unLocodes.size()-i);
+      ulm.lookup(cityToFind.getLat(), cityToFind.getLon(), 20.0);
+    }
   }
 }

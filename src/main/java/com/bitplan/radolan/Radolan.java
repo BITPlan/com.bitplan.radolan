@@ -33,6 +33,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.io.FilenameUtils;
 import org.kohsuke.args4j.Option;
 
+import com.bitplan.geo.UnLocodeManager;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
@@ -47,30 +48,38 @@ import javafx.scene.image.Image;
  */
 public class Radolan extends Main {
 
-  @Option(name = "-s", aliases = {
-      "--show" }, usage = "show\nshow resulting image")
-  protected boolean showImage = true;
-
   @Option(name = "-cp", aliases = {
       "--cachePath" }, usage = "path to Cache\nthe path to the Cache")
   protected String cachePath = System.getProperty("user.home")
       + java.io.File.separator + ".radolan";;
 
+  @Option(name = "-i", aliases = {
+      "--input" }, usage = "input\nurl/file of the input")
+  protected String input = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif"; // "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
+
   @Option(name = "-nc", aliases = {
       "--noCache" }, usage = "noCache\ndo not use local cache")
   protected boolean noCache = false;
+
+  @Option(name = "-l", aliases = {
+      "--location" }, usage = "location/show data at the given location")
+  protected String location;
+
+  @Option(name = "-o", aliases = {
+      "--output" }, usage = "output/e.g. path of png/jpg/gif file")
+  protected String output;
+
+  @Option(name = "-s", aliases = {
+      "--show" }, usage = "show\nshow resulting image")
+  protected boolean showImage = true;
 
   @Option(name = "-t", aliases = {
       "--showTime" }, usage = "showTime\nshow result for the given time in seconds")
   protected int showTimeSecs = Integer.MAX_VALUE / 1100; // over 20 years
 
-  @Option(name = "-i", aliases = {
-      "--input" }, usage = "input\nurl/file of the input")
-  protected String input = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif"; // "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
-
-  @Option(name = "-o", aliases = {
-      "--output" }, usage = "output/e.g. path of png/jpg/gif file")
-  protected String output;
+  @Option(name = "-z", aliases = {
+      "--zoom" }, usage = "zoom/zoom to a grid size of zxz km")
+  protected double zoomKm = 1.0;
 
   private DisplayContext displayContext;
 
@@ -127,7 +136,7 @@ public class Radolan extends Main {
   public void showImage(String input) {
     prepareImageViewer();
     Image image = new Image(input);
-    displayContext = new DisplayContext(null, null);
+    displayContext = new DisplayContext(null, null,zoomKm,null);
     displayContext.image = image;
     displayContext.title = input;
     showImage(displayContext);
@@ -140,6 +149,8 @@ public class Radolan extends Main {
     if (debug) {
       Composite.debug = true;
       Radolan2Image.debug = true;
+      DisplayContext.debug=true;
+      UnLocodeManager.debug=true;
     }
     if (noCache) {
       Composite.useCache = false;
@@ -163,7 +174,7 @@ public class Radolan extends Main {
         try {
           Composite composite = new Composite(input);
           displayContext = new DisplayContext(composite,
-              "2_bundeslaender/2_hoch.geojson");
+              "2_bundeslaender/2_hoch.geojson",zoomKm,location);
           displayContext.title = String.format("%s-image (%s) showing %s",
               composite.getProduct(), composite.getDataUnit(),
               composite.getForecastTime());
@@ -177,10 +188,12 @@ public class Radolan extends Main {
         }
       }
       // shall we save the image
-      if (displayContext!=null && displayContext.image != null && output != null && !output.isEmpty()) {
+      if (displayContext != null && displayContext.image != null
+          && output != null && !output.isEmpty()) {
         String ext = FilenameUtils.getExtension(output);
         File outputFile = new File(output);
-        BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image, null);
+        BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image,
+            null);
         String formatName = ext;
         try {
           ImageIO.write(bImage, formatName, outputFile);
