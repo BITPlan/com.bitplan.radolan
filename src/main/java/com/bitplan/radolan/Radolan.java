@@ -177,7 +177,7 @@ public class Radolan extends Main {
         }
       }
       // shall we save the image
-      if (displayContext.image != null && output != null && !output.isEmpty()) {
+      if (displayContext!=null && displayContext.image != null && output != null && !output.isEmpty()) {
         String ext = FilenameUtils.getExtension(output);
         File outputFile = new File(output);
         BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image, null);
