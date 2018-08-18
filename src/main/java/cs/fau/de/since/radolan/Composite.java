@@ -45,6 +45,7 @@ import com.bitplan.radolan.IPoint;
 import com.bitplan.radolan.ImageViewer;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Radolan2Image;
+import com.bitplan.radolan.Statistics;
 import com.bitplan.radolan.Zoom;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
@@ -153,7 +154,7 @@ public class Composite implements RadarImage {
   private int dataLength; // length of binary section in bytes
 
   private int precision; // multiplicator 10^precision for each raw value
-  double precisionFactor;
+  private double precisionFactor;
   float[] level; // maps data value to corresponding index value in runlength
                  // based formats
 
@@ -161,6 +162,8 @@ public class Composite implements RadarImage {
   double offy; // vertical projection offset
   public byte bytes[];
   public String header;
+  
+  private Statistics statistics;
 
   // for lambda error handling
   public Throwable error;
@@ -231,7 +234,15 @@ public class Composite implements RadarImage {
 
   public void setPrecision(int precision) {
     this.precision = precision;
-    precisionFactor = Math.pow(precision, 10);
+    setPrecisionFactor(Math.pow(10,precision));
+  }
+
+  public double getPrecisionFactor() {
+    return precisionFactor;
+  }
+
+  public void setPrecisionFactor(double precisionFactor) {
+    this.precisionFactor = precisionFactor;
   }
 
   public Unit getDataUnit() {
@@ -248,6 +259,14 @@ public class Composite implements RadarImage {
 
   public void setProduct(String product) {
     Product = product;
+  }
+
+  public Statistics getStatistics() {
+    return statistics;
+  }
+
+  public void setStatistics(Statistics statistics) {
+    this.statistics = statistics;
   }
 
   public ZonedDateTime getForecastTime() {
@@ -286,6 +305,7 @@ public class Composite implements RadarImage {
    * default constructor
    */
   public Composite() {
+    setStatistics(new Statistics());
   }
 
   /**
@@ -296,6 +316,7 @@ public class Composite implements RadarImage {
    * @param dy
    */
   public Composite(String product, int dx, int dy) {
+    this();
     this.setProduct(product);
     this.setDx(dx);
     this.setDy(dy);
@@ -309,6 +330,7 @@ public class Composite implements RadarImage {
    * @throws Throwable
    */
   public Composite(String url) throws Throwable {
+    this();
     if (debug)
       LOGGER.log(Level.INFO, "getting composite for url " + url);
     this.url = checkCache(url);
@@ -537,8 +559,10 @@ public class Composite implements RadarImage {
    */
   public void setValue(int x, int y, float value) {
     if (y >= 0 && y < PlainData.length)
-      if (x >= 0 && x < PlainData[y].length)
+      if (x >= 0 && x < PlainData[y].length) {
         PlainData[y][x] = value;
+        getStatistics().add(value);
+      }
   }
 
   /**

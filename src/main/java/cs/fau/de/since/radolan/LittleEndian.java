@@ -41,11 +41,11 @@ public class LittleEndian {
   public static void parseLittleEndian(Composite c) {
     int last = c.PlainData.length - 1;
     for (int y = 0; y < c.PlainData.length; y++) {
-      byte[] line = readRowLittleEndian(c,y);
+      byte[] yline = readRowLittleEndian(c,y);
       try {
-        decodeLittleEndian(c, c.PlainData[last - y], line); // write
-                                                            // vertically
-                                                            // flipped
+        int yt=last-y;  // write vertically flipped
+        int yw=c.PlainData[last - y].length;
+        decodeYLineLittleEndian(c, yt,yw, yline); 
       } catch (Exception e) {
         c.error = e;
         break;
@@ -53,7 +53,6 @@ public class LittleEndian {
     }
   }
 
- 
   /**
    * readLineLittleEndian reads a row at the given y position
    * This method is used to get a y-row of little endian encoded data.
@@ -71,15 +70,16 @@ public class LittleEndian {
 
   // decodeLittleEndian decodes the source line and writes to the given
   // destination.
-  public static void decodeLittleEndian(Composite c, float[] dst, byte[] line)
+  public static void decodeYLineLittleEndian(Composite c, int y, int xw, byte[] line)
       throws Exception {
-    if ((line.length % 2 != 0) || (dst.length * 2 != line.length)) {
+    if ((line.length % 2 != 0) || (xw * 2 != line.length)) {
       throw new Exception(String.format(
           "decodeLittleEndian destination size %d and source size %d are not even or equal",
-          dst.length, line.length));
+          xw, line.length));
     }
-    for (int i = 0; i < dst.length; i++) {
-      dst[i] = rvp6LittleEndian(c, line[2 * i], line[2 * i + 1]);
+    for (int x = 0; x < xw; x++) {
+      float value=rvp6LittleEndian(c, line[2 * x], line[2 * x + 1]);
+      c.setValue(x, y, value);
     }
   }
 

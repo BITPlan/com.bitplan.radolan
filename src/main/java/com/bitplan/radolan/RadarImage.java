@@ -115,7 +115,7 @@ public interface RadarImage {
   
   /**
    * return true if this is a projection
-   * @return
+   * @return true if a projection is active
    */
   public boolean isProjection();
   

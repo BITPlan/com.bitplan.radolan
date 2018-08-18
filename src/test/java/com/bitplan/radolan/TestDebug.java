@@ -25,9 +25,6 @@ package com.bitplan.radolan;
 
 import org.junit.Test;
 
-import com.bitplan.geo.UnLocodeManager;
-import com.bitplan.json.JsonAble;
-
 import cs.fau.de.since.radolan.Composite;
 
 /**

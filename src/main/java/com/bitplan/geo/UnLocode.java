@@ -111,7 +111,7 @@ public class UnLocode implements JsonAble {
 
   /**
    * get my DMS representation
-   * @return
+   * @return the Degrees Minutes Second representation
    */
   public String getDMS() {
     String dms = "?";
