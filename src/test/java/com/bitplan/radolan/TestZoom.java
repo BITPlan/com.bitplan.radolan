@@ -57,7 +57,7 @@ public class TestZoom extends BaseTest {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 50, product + ".png", null, "-l", "Willich","-z","30");
+      testRadolan(url, 4, product + ".png", null, "-l", "Willich","-z","30");
     }
   }
 
