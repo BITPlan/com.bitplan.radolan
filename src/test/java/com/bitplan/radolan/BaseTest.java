@@ -69,7 +69,9 @@ public class BaseTest {
     String outputPath = "";
     if (output != null)
       outputPath = tmpDir + "/" + output;  
-    String defaultargs[] = { "-d", "-i", url, "-t", "" + viewTimeSecs, "-o",
+    String defaultargs[] = { 
+        //"-d",
+        "-i", url, "-t", "" + viewTimeSecs, "-o",
         outputPath };
     // https://stackoverflow.com/a/23188881/1497139
     // add args to defaultargs

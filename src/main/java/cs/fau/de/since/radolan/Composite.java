@@ -162,7 +162,7 @@ public class Composite implements RadarImage {
   double offy; // vertical projection offset
   public byte bytes[];
   public String header;
-  
+
   private Statistics statistics;
 
   // for lambda error handling
@@ -234,7 +234,7 @@ public class Composite implements RadarImage {
 
   public void setPrecision(int precision) {
     this.precision = precision;
-    setPrecisionFactor(Math.pow(10,precision));
+    setPrecisionFactor(Math.pow(10, precision));
   }
 
   public double getPrecisionFactor() {
@@ -420,6 +420,11 @@ public class Composite implements RadarImage {
   public void init() throws Throwable {
     parseData();
     arrangeData();
+    if (debug)
+      LOGGER.log(Level.INFO,
+          String.format("parsed %7d grid values for %3d x %3d grid",
+              statistics.getTotal(),
+              this.getGridWidth(), this.getGridHeight()));
     calibrateProjection();
     // is there a callback installed?
     if (postInit != null) {
@@ -481,12 +486,22 @@ public class Composite implements RadarImage {
     Header.parseHeader(this);
   }
 
+  /**
+   * parse the data
+   * 
+   * @throws Throwable
+   */
   public void parseData() throws Throwable {
     Data.getInstance().parseData(this);
   }
 
+  /**
+   * arrange the data
+   * 
+   * @throws Throwable
+   */
   public void arrangeData() throws Throwable {
-    Data.getInstance().parseData(this);
+    Data.getInstance().arrangeData(this);
   }
 
   public void calibrateProjection() {
@@ -498,7 +513,8 @@ public class Composite implements RadarImage {
   }
 
   public double rvp6Raw(int value) {
-    return Conversion.rvp6Raw(this, value);
+    double conv=Conversion.rvp6Raw(this, value);
+    return conv;
   }
 
   /**
@@ -560,6 +576,11 @@ public class Composite implements RadarImage {
   public void setValue(int x, int y, float value) {
     if (y >= 0 && y < PlainData.length)
       if (x >= 0 && x < PlainData[y].length) {
+        /*float oldvalue = PlainData[y][x];
+        if (oldvalue != 0f && value == oldvalue) {
+          throw new RuntimeException(
+              "" + x + "," + y + " already set to " + oldvalue);
+        }*/
         PlainData[y][x] = value;
         getStatistics().add(value);
       }

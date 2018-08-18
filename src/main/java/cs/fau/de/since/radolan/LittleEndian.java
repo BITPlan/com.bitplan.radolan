@@ -23,6 +23,8 @@
  */
 package cs.fau.de.since.radolan;
 
+import com.sun.media.jfxmedia.logging.Logger;
+
 import cs.fau.de.since.radolan.Catalog.Unit;
 
 /**
@@ -41,11 +43,11 @@ public class LittleEndian {
   public static void parseLittleEndian(Composite c) {
     int last = c.PlainData.length - 1;
     for (int y = 0; y < c.PlainData.length; y++) {
-      byte[] yline = readRowLittleEndian(c,y);
+      byte[] yline = readRowLittleEndian(c, y);
       try {
-        int yt=last-y;  // write vertically flipped
-        int yw=c.PlainData[last - y].length;
-        decodeYLineLittleEndian(c, yt,yw, yline); 
+        int yt = last - y; // write vertically flipped
+        int yw = c.PlainData[last - y].length;
+        decodeYLineLittleEndian(c, yt, yw, yline);
       } catch (Exception e) {
         c.error = e;
         break;
@@ -54,31 +56,34 @@ public class LittleEndian {
   }
 
   /**
-   * readLineLittleEndian reads a row at the given y position
-   * This method is used to get a y-row of little endian encoded data.
-   * @param c - the composite to read from
-   * @param y - the y position at which to read
+   * readLineLittleEndian reads a row at the given y position This method is
+   * used to get a y-row of little endian encoded data.
+   * 
+   * @param c
+   *          - the composite to read from
+   * @param y
+   *          - the y position at which to read
    * @return - a byte row of data with the with c.Dx*2
    */
   public static byte[] readRowLittleEndian(Composite c, int y) {
     byte[] yrow = new byte[c.getDx() * 2];
-    for (int x=0;x<c.getDx()*2;x++)  {
-      yrow[x]=c.getByte(x,y);
+    for (int x = 0; x < c.getDx() * 2; x++) {
+      yrow[x] = c.getByte(x, y);
     }
     return yrow;
   }
 
   // decodeLittleEndian decodes the source line and writes to the given
   // destination.
-  public static void decodeYLineLittleEndian(Composite c, int y, int xw, byte[] line)
-      throws Exception {
+  public static void decodeYLineLittleEndian(Composite c, int y, int xw,
+      byte[] line) throws Exception {
     if ((line.length % 2 != 0) || (xw * 2 != line.length)) {
       throw new Exception(String.format(
           "decodeLittleEndian destination size %d and source size %d are not even or equal",
           xw, line.length));
     }
     for (int x = 0; x < xw; x++) {
-      float value=rvp6LittleEndian(c, line[2 * x], line[2 * x + 1]);
+      float value = rvp6LittleEndian(c, line[2 * x ], line[2 * x+1]);
       c.setValue(x, y, value);
     }
   }
@@ -88,8 +93,10 @@ public class LittleEndian {
   // to radar video processor values (rvp-6). NaN may be returned when the
   // no-data flag is set.
   public static float rvp6LittleEndian(Composite c, byte... tuple) {
+    // https://stackoverflow.com/questions/3842828/converting-little-endian-to-big-endian
+
     int value = 0x0F & tuple[1];
-    value = (value << 8) | (tuple[0]&0x0f);
+    value = (value << 8) | (tuple[0] & 0xFF);
 
     if ((tuple[1] & (1 << 5)) != 0) { // error code: no-data
       return Float.NaN;

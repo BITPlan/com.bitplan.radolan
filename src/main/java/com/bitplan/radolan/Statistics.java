@@ -38,6 +38,15 @@ public class Statistics {
   double sum;
   int count;
   int countNaN;
+  private int total;
+
+  public int getTotal() {
+    return total;
+  }
+
+  public void setTotal(int total) {
+    this.total = total;
+  }
 
   public Statistics() {
     clear();
@@ -50,6 +59,7 @@ public class Statistics {
     sum = 0;
     count = 0;
     countNaN=0;
+    setTotal(0);
     min = Float.MAX_VALUE;
     max = Float.MIN_VALUE;
   }
@@ -69,6 +79,7 @@ public class Statistics {
    * @param value
    */
   public void add(float value) {
+    setTotal(getTotal() + 1);
     if (Float.isNaN(value)) {
       countNaN++;
       return;

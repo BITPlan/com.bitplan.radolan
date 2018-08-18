@@ -81,8 +81,8 @@ public class TestData extends BaseTest {
 
   @Test
   public void testSF1805301650() throws Throwable {
-    debug = true;
     String history = "src/test/data/history/";
+    debug=true;
     if (debug)
       Composite.activateDebug();
     File sfHistoryFile = new File(
@@ -108,7 +108,7 @@ public class TestData extends BaseTest {
     Composite.setPostInit(readCsv);
     Composite cr = new Composite(url);
     int errCount = 0;
-    int limit = 50;
+    int limit = 2000;
     // check the whole grid
 
     for (int y = 0; y < cr.getGridHeight(); y++) {
@@ -117,14 +117,15 @@ public class TestData extends BaseTest {
         float crval = cr.getValue(x, y);
         if (Math.abs(crval - cval) > 0.001) {
           errCount++;
-          if (errCount < limit)
+          if (errCount < limit) {
+            float d10 = (crval-cval)*10;
             System.out.println(
-                String.format("%3d,%3d: %.1f != %.1f", x, y, cval, crval));
+                String.format("%3d,%3d: %5.1f != %5.1f d*10=%5.1f", x, y, cval, crval,d10));
+          }
         }
       }
     }
-    // FIXME - should be 0
-    assertEquals(254603, errCount);
+    assertEquals(0, errCount);
   }
 
   /**

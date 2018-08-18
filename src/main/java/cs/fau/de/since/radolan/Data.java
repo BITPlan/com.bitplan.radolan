@@ -77,7 +77,7 @@ public class Data {
     Encoding encoding = identifyEncoding(c);
     Consumer<Composite> parser = parseMap.get(encoding);
     if (parser != null) {
-      parser.accept(c);
+      parser.accept(c); // parse with the given encoding
       if (c.error!=null)
         throw c.error;
     } else
@@ -87,6 +87,7 @@ public class Data {
   // arrangeData slices plain data into its data layers or strips preceeding
   // vertical projection
   public void arrangeData(Composite c) {
+    // FIXME - needs to be implemented
     /*
      * if c.Py%c.Dy == 0 { // multiple layers are linked downwards
      * c.DataZ = make([][][]float32, c.Py/c.Dy)
