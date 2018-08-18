@@ -5,6 +5,7 @@ Dual Licensed: MIT/Apache
 
 ### Project
 [![Build Status](https://travis-ci.org/BITPlan/com.bitplan.radolan.svg?branch=master)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.bitplan.radolan/com.bitplan.radolan/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.bitplan.radolan/com.bitplan.radolan)
 
 The Precipitation Information of Deutscher Wetterdienst DWD is based on RADOLAN data which is publicly available via the OpenData Services of DWD
 
@@ -23,3 +24,5 @@ This is a library to help analyze and visualize the RADOLAN files
 # History
 * 0.0.1 2018-08-14 Migration of classes and tests (not working yet)
 * 0.0.1 2018-08-16 working display and input/output handling
+* 0.0.1 2018-08-18 fixed data issues and implemented zoom 
+                   first release to maven central and last 0.0.1 commit
