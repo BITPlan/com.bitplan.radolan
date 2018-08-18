@@ -95,14 +95,16 @@ public class ImageViewer extends WaitableApp {
 
     ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
       imageView.setFitWidth((double) newValue);
-      LOGGER.log(Level.INFO,
-          String.format("width %.0f->%.0f", oldValue, newValue));
+      if (debug)
+        LOGGER.log(Level.INFO,
+            String.format("width %.0f->%.0f", oldValue, newValue));
     };
     ChangeListener<Number> heightListener = (observable, oldValue,
         newValue) -> {
       imageView.setFitHeight((double) newValue);
-      LOGGER.log(Level.INFO,
-          String.format("height %.0f->%.0f", oldValue, newValue));
+      if (debug)
+        LOGGER.log(Level.INFO,
+            String.format("height %.0f->%.0f", oldValue, newValue));
     };
     stage.widthProperty().addListener(widthListener);
     stage.heightProperty().addListener(heightListener);

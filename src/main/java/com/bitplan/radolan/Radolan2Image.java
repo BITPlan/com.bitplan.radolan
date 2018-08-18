@@ -255,7 +255,7 @@ public class Radolan2Image {
     p = displayContext.composite.translateGridToView(ip, drawOnGlass.getWidth(),
         drawOnGlass.getHeight());
     String text = String.format("%s - %.1f mm", loc.getName(), value);
-    drawCircleWithText(displayContext.drawPane, text, 4, Color.WHITE, p.x, p.y);
+    drawCircleWithText(displayContext.drawPane, text, 4, Color.BLUE, p.x, p.y);
   }
 
   /**
