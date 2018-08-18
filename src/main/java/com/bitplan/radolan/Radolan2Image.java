@@ -69,12 +69,14 @@ public class Radolan2Image {
    */
   public static void getImage(DisplayContext displayContext) throws Exception {
     // get the Image for the displayContext
-    getImageContent(displayContext);
-    // draw borders and mesh if asked for
-    if (displayContext.composite.isProjection()) {
-      drawBorders(displayContext);
-      drawMesh(displayContext);
-    }
+    Platform.runLater(() -> {
+      getImageContent(displayContext);
+      // draw borders and mesh if asked for
+      if (displayContext.composite.isProjection()) {
+        drawBorders(displayContext);
+        drawMesh(displayContext);
+      }
+    });
   }
 
   /**
@@ -194,11 +196,12 @@ public class Radolan2Image {
       float value = composite.getValue(ip.x, ip.y);
       // get the location of the point as lat/lon
       DPoint latlon = composite.translateGridToLatLon(new DPoint(ip.x, ip.y));
-      LOGGER.log(Level.INFO, String.format(
-          "scene %.0f,%.0f %.0fx%.0f -> grid %d,%d %dx%d -> latlon %.2f,%.2f -> value %.0f mm",
-          p.x, p.y, viewBounds.getWidth(), viewBounds.getHeight(), ip.x, ip.y,
-          composite.getGridWidth(), composite.getGridHeight(), latlon.x,
-          latlon.y, value));
+      if (debug)
+        LOGGER.log(Level.INFO, String.format(
+            "scene %.0f,%.0f %.0fx%.0f -> grid %d,%d %dx%d -> latlon %.2f,%.2f -> value %.0f mm",
+            p.x, p.y, viewBounds.getWidth(), viewBounds.getHeight(), ip.x, ip.y,
+            composite.getGridWidth(), composite.getGridHeight(), latlon.x,
+            latlon.y, value));
       // find the closest cities:
       Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance()
           .lookup(latlon.x, latlon.y, 20);
@@ -210,7 +213,7 @@ public class Radolan2Image {
             cityEntry.getValue().getName(), cityEntry.getKey());
       }
       String displayMsg = String.format("%.1f %s%s %s", value,
-          composite.getDataUnit(), cityInfo, p.toFormattedDMSString());
+          composite.getDataUnit(), cityInfo, latlon.toFormattedDMSString());
       String msg = String.format("%.0f,%.0f -> %s", event.getSceneX(),
           event.getSceneY(), displayMsg);
       if (debug)

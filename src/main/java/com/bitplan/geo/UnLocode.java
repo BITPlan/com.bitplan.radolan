@@ -110,7 +110,7 @@ public class UnLocode implements JsonAble {
   }
 
   /**
-   * get my DMS represnetation
+   * get my DMS representation
    * @return
    */
   public String getDMS() {
@@ -145,15 +145,17 @@ public class UnLocode implements JsonAble {
   private void initLatLon() {
     // 4806N 00937E
     if (coords != null && coords.length() == 12) {
-      String latStr = coords.substring(0, 2) + "." + coords.substring(2, 4);
+      String latDegreeStr = coords.substring(0, 2);
+      String latMinStr=coords.substring(2, 4);
       String ns = coords.substring(4, 5); // N
-      String lonStr = coords.substring(6, 9) + "." + coords.substring(9, 11);
+      String lonDegreeStr = coords.substring(6, 9);
+      String lonMinStr=coords.substring(9, 11);
       String ew = coords.substring(11, 12); // E
       try {
         latAngle = Angle.fromDegrees(
-            Double.parseDouble(latStr) * ("N".equals(ns) ? 1 : -1));
+            (Double.parseDouble(latDegreeStr)+Double.parseDouble(latMinStr)/60.0) * ("N".equals(ns) ? 1 : -1));
         lonAngle = Angle.fromDegrees(
-            Double.parseDouble(lonStr) * ("E".equals(ew) ? 1 : -1));
+            (Double.parseDouble(lonDegreeStr)+Double.parseDouble(lonMinStr)/60.0) * ("E".equals(ew) ? 1 : -1));
       } catch (IllegalArgumentException iae) {
         LOGGER.log(Level.INFO,
             "Invalid lat/lon for " + this.name + " at " + coords);

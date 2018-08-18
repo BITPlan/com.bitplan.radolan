@@ -144,8 +144,8 @@ public class ImageViewer extends WaitableApp {
       displayContext.drawPane = drawPane;
       displayContext.infoLabel = infoLabel;
       // displayContext.borderPane=borderPane;
-      stage.setWidth(displayContext.composite.getGridWidth());
-      stage.setHeight(displayContext.composite.getGridHeight());
+      stage.setWidth(displayContext.image.getWidth());
+      stage.setHeight(displayContext.image.getHeight());
     }
     stage.setTitle(title);
     stage.setScene(scene);

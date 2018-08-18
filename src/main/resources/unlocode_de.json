@@ -1,7 +1,7 @@
 {
       "unLocodes" : [ 
         {
-            "coords" : "5355N 00854W",
+            "coords" : "5355N 00854E",
             "countryCode" : "DE",
             "locode" : "DEBRV",
             "name" : "Bremerhaven",
@@ -438,7 +438,7 @@
          }, {
             "coords" : "5144N 01310E",
             "countryCode" : "DE",
-            "locode" : "DE2AW",
+            "locode" : "DE2AE",
             "name" : "Arnsnesta",
             "nameWoDiacritics" : "Arnsnesta",
             "usage" : 0
@@ -669,7 +669,7 @@
          }, {
             "coords" : "4838N 01038E",
             "countryCode" : "DE",
-            "locode" : "DE2BW",
+            "locode" : "DE2BE",
             "name" : "Blindheim/Dillingen",
             "nameWoDiacritics" : "Blindheim/Dillingen",
             "usage" : 0
@@ -1040,7 +1040,7 @@
          }, {
             "coords" : "5141N 01130E",
             "countryCode" : "DE",
-            "locode" : "DE3AW",
+            "locode" : "DE3AE",
             "name" : "Arnstedt",
             "nameWoDiacritics" : "Arnstedt",
             "usage" : 0
@@ -1243,7 +1243,7 @@
          }, {
             "coords" : "5322N 01353E",
             "countryCode" : "DE",
-            "locode" : "DE3BW",
+            "locode" : "DE3BE",
             "name" : "Blindow",
             "nameWoDiacritics" : "Blindow",
             "usage" : 0
@@ -1544,7 +1544,7 @@
          }, {
             "coords" : "5402N 00952E",
             "countryCode" : "DE",
-            "locode" : "DE4AW",
+            "locode" : "DE4AE",
             "name" : "Arpsdorf",
             "nameWoDiacritics" : "Arpsdorf",
             "usage" : 0
@@ -1775,7 +1775,7 @@
          }, {
             "coords" : "5121N 01341E",
             "countryCode" : "DE",
-            "locode" : "DE4BW",
+            "locode" : "DE4BE",
             "name" : "Blochwitz",
             "nameWoDiacritics" : "Blochwitz",
             "usage" : 0
@@ -2020,7 +2020,7 @@
          }, {
             "coords" : "5328N 01034E",
             "countryCode" : "DE",
-            "locode" : "DE53W",
+            "locode" : "DE53E",
             "name" : "Schulendorf",
             "nameWoDiacritics" : "Schulendorf",
             "usage" : 0
@@ -2202,7 +2202,7 @@
          }, {
             "coords" : "5341N 01053E",
             "countryCode" : "DE",
-            "locode" : "DE54W",
+            "locode" : "DE54E",
             "name" : "Mustin",
             "nameWoDiacritics" : "Mustin",
             "usage" : 0
@@ -2384,7 +2384,7 @@
          }, {
             "coords" : "5340N 01035E",
             "countryCode" : "DE",
-            "locode" : "DE55W",
+            "locode" : "DE55E",
             "name" : "Nusse",
             "nameWoDiacritics" : "Nusse",
             "usage" : 0
@@ -2566,7 +2566,7 @@
          }, {
             "coords" : "5347N 01017E",
             "countryCode" : "DE",
-            "locode" : "DE56W",
+            "locode" : "DE56E",
             "name" : "Neritz",
             "nameWoDiacritics" : "Neritz",
             "usage" : 0
@@ -2902,7 +2902,7 @@
          }, {
             "coords" : "5403N 01010E",
             "countryCode" : "DE",
-            "locode" : "DE58W",
+            "locode" : "DE58E",
             "name" : "Gönnebek",
             "nameWoDiacritics" : "Gonnebek",
             "usage" : 0
@@ -3084,7 +3084,7 @@
          }, {
             "coords" : "5355N 01017E",
             "countryCode" : "DE",
-            "locode" : "DE59W",
+            "locode" : "DE59E",
             "name" : "Högersdorf",
             "nameWoDiacritics" : "Hogersdorf",
             "usage" : 0
@@ -3259,7 +3259,7 @@
          }, {
             "coords" : "5358N 01109E",
             "countryCode" : "DE",
-            "locode" : "DE5AW",
+            "locode" : "DE5AE",
             "name" : "Arpshagen",
             "nameWoDiacritics" : "Arpshagen",
             "usage" : 0
@@ -3462,7 +3462,7 @@
          }, {
             "coords" : "5136N 01429E",
             "countryCode" : "DE",
-            "locode" : "DE5BW",
+            "locode" : "DE5BE",
             "name" : "Bloischdorf",
             "nameWoDiacritics" : "Bloischdorf",
             "usage" : 0
@@ -3819,7 +3819,7 @@
          }, {
             "coords" : "5400N 01025E",
             "countryCode" : "DE",
-            "locode" : "DE62W",
+            "locode" : "DE62E",
             "name" : "Garbek",
             "nameWoDiacritics" : "Garbek",
             "usage" : 0
@@ -3987,7 +3987,7 @@
          }, {
             "coords" : "5415N 01050E",
             "countryCode" : "DE",
-            "locode" : "DE63W",
+            "locode" : "DE63E",
             "name" : "Harmsdorf",
             "nameWoDiacritics" : "Harmsdorf",
             "usage" : 0
@@ -4162,7 +4162,7 @@
          }, {
             "coords" : "5402N 01040E",
             "countryCode" : "DE",
-            "locode" : "DE64W",
+            "locode" : "DE64E",
             "name" : "Gleschendorf",
             "nameWoDiacritics" : "Gleschendorf",
             "usage" : 0
@@ -4344,7 +4344,7 @@
          }, {
             "coords" : "5413N 01025E",
             "countryCode" : "DE",
-            "locode" : "DE65W",
+            "locode" : "DE65E",
             "name" : "Lebrade",
             "nameWoDiacritics" : "Lebrade",
             "usage" : 0
@@ -4512,7 +4512,7 @@
          }, {
             "coords" : "5423N 01024E",
             "countryCode" : "DE",
-            "locode" : "DE66W",
+            "locode" : "DE66E",
             "name" : "Krummbek",
             "nameWoDiacritics" : "Krummbek",
             "usage" : 0
@@ -4694,7 +4694,7 @@
          }, {
             "coords" : "5357N 00940E",
             "countryCode" : "DE",
-            "locode" : "DE67W",
+            "locode" : "DE67E",
             "name" : "Mühlenbarbek",
             "nameWoDiacritics" : "Muhlenbarbek",
             "usage" : 0
@@ -4876,7 +4876,7 @@
          }, {
             "coords" : "5426N 01001E",
             "countryCode" : "DE",
-            "locode" : "DE68W",
+            "locode" : "DE68E",
             "name" : "Osdorf",
             "nameWoDiacritics" : "Osdorf",
             "usage" : 0
@@ -5044,7 +5044,7 @@
          }, {
             "coords" : "5428N 00906E",
             "countryCode" : "DE",
-            "locode" : "DE69W",
+            "locode" : "DE69E",
             "name" : "Mildstedt",
             "nameWoDiacritics" : "Mildstedt",
             "usage" : 0
@@ -5219,7 +5219,7 @@
          }, {
             "coords" : "4912N 01300E",
             "countryCode" : "DE",
-            "locode" : "DE6AW",
+            "locode" : "DE6AE",
             "name" : "Arrach/Bayerischer Wald",
             "nameWoDiacritics" : "Arrach/Bayerischer Wald",
             "usage" : 0
@@ -5443,7 +5443,7 @@
          }, {
             "coords" : "5348N 00925E",
             "countryCode" : "DE",
-            "locode" : "DE6BW",
+            "locode" : "DE6BE",
             "name" : "Blomesche Wildnis",
             "nameWoDiacritics" : "Blomesche Wildnis",
             "usage" : 0
@@ -5513,7 +5513,7 @@
          }, {
             "coords" : "5355N 00903E",
             "countryCode" : "DE",
-            "locode" : "DE6SW",
+            "locode" : "DE6SE",
             "name" : "Schmedeswurth",
             "nameWoDiacritics" : "Schmedeswurth",
             "usage" : 0
@@ -5667,7 +5667,7 @@
          }, {
             "coords" : "5442N 00931E",
             "countryCode" : "DE",
-            "locode" : "DE72W",
+            "locode" : "DE72E",
             "name" : "Grosssolt",
             "nameWoDiacritics" : "Grosssolt",
             "usage" : 0
@@ -5849,7 +5849,7 @@
          }, {
             "coords" : "5139N 00950E",
             "countryCode" : "DE",
-            "locode" : "DE73W",
+            "locode" : "DE73E",
             "name" : "Hardegsen",
             "nameWoDiacritics" : "Hardegsen",
             "usage" : 0
@@ -6031,7 +6031,7 @@
          }, {
             "coords" : "5239N 00923E",
             "countryCode" : "DE",
-            "locode" : "DE74W",
+            "locode" : "DE74E",
             "name" : "Steimbke",
             "nameWoDiacritics" : "Steimbke",
             "usage" : 0
@@ -6199,7 +6199,7 @@
          }, {
             "coords" : "5302N 01128E",
             "countryCode" : "DE",
-            "locode" : "DE75W",
+            "locode" : "DE75E",
             "name" : "Gartow",
             "nameWoDiacritics" : "Gartow",
             "usage" : 0
@@ -6381,7 +6381,7 @@
          }, {
             "coords" : "5320N 00811E",
             "countryCode" : "DE",
-            "locode" : "DE76W",
+            "locode" : "DE76E",
             "name" : "Jaderberg",
             "nameWoDiacritics" : "Jaderberg",
             "usage" : 0
@@ -6542,7 +6542,7 @@
          }, {
             "coords" : "4806N 00812E",
             "countryCode" : "DE",
-            "locode" : "DE77W",
+            "locode" : "DE77E",
             "name" : "Schönwald",
             "nameWoDiacritics" : "Schonwald",
             "usage" : 0
@@ -6703,7 +6703,7 @@
          }, {
             "coords" : "4922N 00848E",
             "countryCode" : "DE",
-            "locode" : "DE78W",
+            "locode" : "DE78E",
             "name" : "Wiesenbach",
             "nameWoDiacritics" : "Wiesenbach",
             "usage" : 0
@@ -7053,7 +7053,7 @@
          }, {
             "coords" : "5104N 01254E",
             "countryCode" : "DE",
-            "locode" : "DE7AW",
+            "locode" : "DE7AE",
             "name" : "Arras",
             "nameWoDiacritics" : "Arras",
             "usage" : 0
@@ -7263,7 +7263,7 @@
          }, {
             "coords" : "5157N 01253E",
             "countryCode" : "DE",
-            "locode" : "DE7BW",
+            "locode" : "DE7BE",
             "name" : "Blönsdorf",
             "nameWoDiacritics" : "Blonsdorf",
             "usage" : 0
@@ -7473,7 +7473,7 @@
          }, {
             "coords" : "5025N 00733E",
             "countryCode" : "DE",
-            "locode" : "DE82W",
+            "locode" : "DE82E",
             "name" : "Kaltenengers",
             "nameWoDiacritics" : "Kaltenengers",
             "usage" : 0
@@ -7634,7 +7634,7 @@
          }, {
             "coords" : "4938N 00813E",
             "countryCode" : "DE",
-            "locode" : "DE83W",
+            "locode" : "DE83E",
             "name" : "Monsheim",
             "nameWoDiacritics" : "Monsheim",
             "usage" : 0
@@ -7935,7 +7935,7 @@
          }, {
             "coords" : "5322N 01030E",
             "countryCode" : "DE",
-            "locode" : "DE8AW",
+            "locode" : "DE8AE",
             "name" : "Artlenburg",
             "nameWoDiacritics" : "Artlenburg",
             "usage" : 0
@@ -8166,7 +8166,7 @@
          }, {
             "coords" : "5359N 01132E",
             "countryCode" : "DE",
-            "locode" : "DE8BW",
+            "locode" : "DE8BE",
             "name" : "Blowatz",
             "nameWoDiacritics" : "Blowatz",
             "usage" : 0
@@ -8453,7 +8453,7 @@
          }, {
             "coords" : "5022N 00745E",
             "countryCode" : "DE",
-            "locode" : "DE9AW",
+            "locode" : "DE9AE",
             "name" : "Arzbach",
             "nameWoDiacritics" : "Arzbach",
             "usage" : 0
@@ -9395,7 +9395,7 @@
          }, {
             "coords" : "4943N 01210E",
             "countryCode" : "DE",
-            "locode" : "DEAAW",
+            "locode" : "DEAAE",
             "name" : "Altenstadt an der Waldnaab",
             "nameWoDiacritics" : "Altenstadt an der Waldnaab",
             "usage" : 0
@@ -9683,7 +9683,7 @@
          }, {
             "coords" : "5204N 01036E",
             "countryCode" : "DE",
-            "locode" : "DEACW",
+            "locode" : "DEACE",
             "name" : "Achim",
             "nameWoDiacritics" : "Achim",
             "usage" : 0
@@ -9885,7 +9885,7 @@
          }, {
             "coords" : "5407N 01159E",
             "countryCode" : "DE",
-            "locode" : "DEADW",
+            "locode" : "DEADE",
             "name" : "Admannshagen-Bargeshagen",
             "nameWoDiacritics" : "Admannshagen-Bargeshagen",
             "usage" : 0
@@ -10370,7 +10370,7 @@
          }, {
             "coords" : "4930N 00931E",
             "countryCode" : "DE",
-            "locode" : "DEAHW",
+            "locode" : "DEAHE",
             "name" : "Ahorn",
             "nameWoDiacritics" : "Ahorn",
             "usage" : 0
@@ -11019,7 +11019,7 @@
          }, {
             "coords" : "5054N 00617E",
             "countryCode" : "DE",
-            "locode" : "DEANW",
+            "locode" : "DEANE",
             "name" : "Aldenhoven",
             "nameWoDiacritics" : "Aldenhoven",
             "usage" : 0
@@ -11141,7 +11141,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEAPW",
+            "locode" : "DEAPE",
             "name" : "Appenweier",
             "nameWoDiacritics" : "Appenweier",
             "usage" : 0
@@ -11211,7 +11211,7 @@
          }, {
             "coords" : "5341N 01315E",
             "countryCode" : "DE",
-            "locode" : "DEAQW",
+            "locode" : "DEAQE",
             "name" : "Altentreptow",
             "nameWoDiacritics" : "Altentreptow",
             "usage" : 0
@@ -11680,7 +11680,7 @@
          }, {
             "coords" : "5054N 01255E",
             "countryCode" : "DE",
-            "locode" : "DEAUW",
+            "locode" : "DEAUE",
             "name" : "Auerswalde",
             "nameWoDiacritics" : "Auerswalde",
             "usage" : 0
@@ -11701,7 +11701,7 @@
          }, {
             "coords" : "4841N 01318E",
             "countryCode" : "DE",
-            "locode" : "DEAVW",
+            "locode" : "DEAVE",
             "name" : "Aicha vorm Wald",
             "nameWoDiacritics" : "Aicha vorm Wald",
             "usage" : 0
@@ -12012,7 +12012,7 @@
          }, {
             "coords" : "5347N 01316E",
             "countryCode" : "DE",
-            "locode" : "DEB2W",
+            "locode" : "DEB2E",
             "name" : "Burow bei Altentreptow",
             "nameWoDiacritics" : "Burow bei Altentreptow",
             "usage" : 0
@@ -12222,7 +12222,7 @@
          }, {
             "coords" : "5045N 00959E",
             "countryCode" : "DE",
-            "locode" : "DEB3W",
+            "locode" : "DEB3E",
             "name" : "Bermbach",
             "nameWoDiacritics" : "Bermbach",
             "usage" : 0
@@ -12446,7 +12446,7 @@
          }, {
             "coords" : "5041N 01037E",
             "countryCode" : "DE",
-            "locode" : "DEB4W",
+            "locode" : "DEB4E",
             "name" : "Bermbach bei Schmalkalden",
             "nameWoDiacritics" : "Bermbach bei Schmalkalden",
             "usage" : 0
@@ -12670,7 +12670,7 @@
          }, {
             "coords" : "5017N 00705E",
             "countryCode" : "DE",
-            "locode" : "DEB5W",
+            "locode" : "DEB5E",
             "name" : "Bermel",
             "nameWoDiacritics" : "Bermel",
             "usage" : 0
@@ -12894,7 +12894,7 @@
          }, {
             "coords" : "4744N 01047E",
             "countryCode" : "DE",
-            "locode" : "DEB6W",
+            "locode" : "DEB6E",
             "name" : "Bernbeuren",
             "nameWoDiacritics" : "Bernbeuren",
             "usage" : 0
@@ -13125,7 +13125,7 @@
          }, {
             "coords" : "5235N 01238E",
             "countryCode" : "DE",
-            "locode" : "DEB7W",
+            "locode" : "DEB7E",
             "name" : "Buschow",
             "nameWoDiacritics" : "Buschow",
             "usage" : 0
@@ -13342,7 +13342,7 @@
          }, {
             "coords" : "5018N 00642E",
             "countryCode" : "DE",
-            "locode" : "DEB8W",
+            "locode" : "DEB8E",
             "name" : "Berndorf",
             "nameWoDiacritics" : "Berndorf",
             "usage" : 0
@@ -13573,7 +13573,7 @@
          }, {
             "coords" : "5014N 00758E",
             "countryCode" : "DE",
-            "locode" : "DEB9W",
+            "locode" : "DEB9E",
             "name" : "Berndroth",
             "nameWoDiacritics" : "Berndroth",
             "usage" : 0
@@ -13795,7 +13795,7 @@
          }, {
             "coords" : "4800N 01035E",
             "countryCode" : "DE",
-            "locode" : "DEBAW",
+            "locode" : "DEBAE",
             "name" : "Bad Wörishofen",
             "nameWoDiacritics" : "Bad Worishofen",
             "usage" : 0
@@ -14025,7 +14025,7 @@
          }, {
             "coords" : "5006N 00631E",
             "countryCode" : "DE",
-            "locode" : "DEBBW",
+            "locode" : "DEBBE",
             "name" : "Burbach",
             "nameWoDiacritics" : "Burbach",
             "usage" : 0
@@ -14230,7 +14230,7 @@
          }, {
             "coords" : "5132N 01152E",
             "countryCode" : "DE",
-            "locode" : "DEBCW",
+            "locode" : "DEBCE",
             "name" : "Brachwitz",
             "nameWoDiacritics" : "Brachwitz",
             "usage" : 0
@@ -14425,7 +14425,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEBDW",
+            "locode" : "DEBDE",
             "name" : "Bad Windsheim",
             "nameWoDiacritics" : "Bad Windsheim",
             "usage" : 0
@@ -14626,7 +14626,7 @@
          }, {
             "coords" : "5056N 01004E",
             "countryCode" : "DE",
-            "locode" : "DEBEW",
+            "locode" : "DEBEE",
             "name" : "Berka/Werra",
             "nameWoDiacritics" : "Berka/Werra",
             "usage" : 0
@@ -14810,7 +14810,7 @@
          }, {
             "coords" : "4958N 00642E",
             "countryCode" : "DE",
-            "locode" : "DEBFW",
+            "locode" : "DEBFE",
             "name" : "Binsfeld bei Wittlich",
             "nameWoDiacritics" : "Binsfeld bei Wittlich",
             "usage" : 0
@@ -15037,7 +15037,7 @@
          }, {
             "coords" : "5100N 00845E",
             "countryCode" : "DE",
-            "locode" : "DEBGW",
+            "locode" : "DEBGE",
             "name" : "Burgwald",
             "nameWoDiacritics" : "Burgwald",
             "usage" : 0
@@ -15260,7 +15260,7 @@
          }, {
             "coords" : "4948N 00714E",
             "countryCode" : "DE",
-            "locode" : "DEBHW",
+            "locode" : "DEBHE",
             "name" : "Bruchweiler",
             "nameWoDiacritics" : "Bruchweiler",
             "usage" : 0
@@ -15456,7 +15456,7 @@
          }, {
             "coords" : "5217N 01345E",
             "countryCode" : "DE",
-            "locode" : "DEBIW",
+            "locode" : "DEBIE",
             "name" : "Bindow",
             "nameWoDiacritics" : "Bindow",
             "usage" : 0
@@ -15835,7 +15835,7 @@
          }, {
             "coords" : "5210N 01414E",
             "countryCode" : "DE",
-            "locode" : "DEBKW",
+            "locode" : "DEBKE",
             "name" : "Beeskow",
             "nameWoDiacritics" : "Beeskow",
             "usage" : 0
@@ -16044,7 +16044,7 @@
          }, {
             "coords" : "4748N 00858E",
             "countryCode" : "DE",
-            "locode" : "DEBLW",
+            "locode" : "DEBLE",
             "name" : "Bodman",
             "nameWoDiacritics" : "Bodman",
             "usage" : 0
@@ -16452,7 +16452,7 @@
          }, {
             "coords" : "4836N 01043E",
             "countryCode" : "DE",
-            "locode" : "DEBNW",
+            "locode" : "DEBNE",
             "name" : "Buttenwiesen",
             "nameWoDiacritics" : "Buttenwiesen",
             "usage" : 0
@@ -16672,7 +16672,7 @@
          }, {
             "coords" : "5406N 01139E",
             "countryCode" : "DE",
-            "locode" : "DEBOW",
+            "locode" : "DEBOE",
             "name" : "Blengow",
             "nameWoDiacritics" : "Blengow",
             "usage" : 0
@@ -16823,7 +16823,7 @@
          }, {
             "coords" : "4926N 00716E",
             "countryCode" : "DE",
-            "locode" : "DEBPW",
+            "locode" : "DEBPE",
             "name" : "Breitenbach/Pfalz",
             "nameWoDiacritics" : "Breitenbach/Pfalz",
             "usage" : 0
@@ -17033,7 +17033,7 @@
          }, {
             "coords" : "5002N 00826E",
             "countryCode" : "DE",
-            "locode" : "DEBQW",
+            "locode" : "DEBQE",
             "name" : "Bad Weilbach",
             "nameWoDiacritics" : "Bad Weilbach",
             "usage" : 0
@@ -17231,7 +17231,7 @@
          }, {
             "coords" : "5117N 00612E",
             "countryCode" : "DE",
-            "locode" : "DEBRW",
+            "locode" : "DEBRE",
             "name" : "Bracht",
             "nameWoDiacritics" : "Bracht",
             "usage" : 0
@@ -17453,7 +17453,7 @@
          }, {
             "coords" : "5054N 00611E",
             "countryCode" : "DE",
-            "locode" : "DEBSW",
+            "locode" : "DEBSE",
             "name" : "Baesweiler",
             "nameWoDiacritics" : "Baesweiler",
             "usage" : 0
@@ -17679,7 +17679,7 @@
          }, {
             "coords" : "5406N 01212E",
             "countryCode" : "DE",
-            "locode" : "DEBTW",
+            "locode" : "DEBTE",
             "name" : "Bentwisch",
             "nameWoDiacritics" : "Bentwisch",
             "usage" : 0
@@ -17906,7 +17906,7 @@
          }, {
             "coords" : "5146N 01354E",
             "countryCode" : "DE",
-            "locode" : "DEBUW",
+            "locode" : "DEBUE",
             "name" : "Buckow",
             "nameWoDiacritics" : "Buckow",
             "usage" : 0
@@ -18265,7 +18265,7 @@
          }, {
             "coords" : "5337N 00916E",
             "countryCode" : "DE",
-            "locode" : "DEBWW",
+            "locode" : "DEBWE",
             "name" : "Burweg",
             "nameWoDiacritics" : "Burweg",
             "usage" : 0
@@ -18647,7 +18647,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEBYW",
+            "locode" : "DEBYE",
             "name" : "Weissenbrunn",
             "nameWoDiacritics" : "Weissenbrunn",
             "usage" : 0
@@ -18877,7 +18877,7 @@
          }, {
             "coords" : "4822N 00829E",
             "countryCode" : "DE",
-            "locode" : "DEBZW",
+            "locode" : "DEBZE",
             "name" : "Betzweiler",
             "nameWoDiacritics" : "Betzweiler",
             "usage" : 0
@@ -18945,7 +18945,7 @@
          }, {
             "coords" : "5057N 01200E",
             "countryCode" : "DE",
-            "locode" : "DECAW",
+            "locode" : "DECAE",
             "name" : "Caaschwitz",
             "nameWoDiacritics" : "Caaschwitz",
             "usage" : 0
@@ -19007,7 +19007,7 @@
          }, {
             "coords" : "5237N 01308E",
             "countryCode" : "DE",
-            "locode" : "DECCW",
+            "locode" : "DECCE",
             "name" : "Schönwalde (Havelland)",
             "nameWoDiacritics" : "Schonwalde (Havelland)",
             "usage" : 0
@@ -19091,7 +19091,7 @@
          }, {
             "coords" : "5335N 01254E",
             "countryCode" : "DE",
-            "locode" : "DECFW",
+            "locode" : "DECFE",
             "name" : "Carolinenhof bei Waren",
             "nameWoDiacritics" : "Carolinenhof bei Waren",
             "usage" : 0
@@ -19262,7 +19262,7 @@
          }, {
             "coords" : "4924N 00858E",
             "countryCode" : "DE",
-            "locode" : "DECHW",
+            "locode" : "DECHE",
             "name" : "Schwanheim",
             "nameWoDiacritics" : "Schwanheim",
             "usage" : 0
@@ -19415,7 +19415,7 @@
          }, {
             "coords" : "5346N 01056E",
             "countryCode" : "DE",
-            "locode" : "DECLW",
+            "locode" : "DECLE",
             "name" : "Carlow",
             "nameWoDiacritics" : "Carlow",
             "usage" : 0
@@ -19657,7 +19657,7 @@
          }, {
             "coords" : "5313N 01413E",
             "countryCode" : "DE",
-            "locode" : "DECOW",
+            "locode" : "DECOE",
             "name" : "Casekow",
             "nameWoDiacritics" : "Casekow",
             "usage" : 0
@@ -19852,7 +19852,7 @@
          }, {
             "coords" : "5047N 01047E",
             "countryCode" : "DE",
-            "locode" : "DECRW",
+            "locode" : "DECRE",
             "name" : "Crawinkel",
             "nameWoDiacritics" : "Crawinkel",
             "usage" : 0
@@ -19936,7 +19936,7 @@
          }, {
             "coords" : "5153N 01227E",
             "countryCode" : "DE",
-            "locode" : "DECSW",
+            "locode" : "DECSE",
             "name" : "Coswig",
             "nameWoDiacritics" : "Coswig",
             "usage" : 0
@@ -20264,7 +20264,7 @@
          }, {
             "coords" : "5314N 01129E",
             "countryCode" : "DE",
-            "locode" : "DEDAW",
+            "locode" : "DEDAE",
             "name" : "Dadow",
             "nameWoDiacritics" : "Dadow",
             "usage" : 0
@@ -20374,7 +20374,7 @@
          }, {
             "coords" : "4747N 00924E",
             "countryCode" : "DE",
-            "locode" : "DEDBW",
+            "locode" : "DEDBE",
             "name" : "Deggenhausertal",
             "nameWoDiacritics" : "Deggenhausertal",
             "usage" : 0
@@ -20430,7 +20430,7 @@
          }, {
             "coords" : "5134N 01356E",
             "countryCode" : "DE",
-            "locode" : "DEDCW",
+            "locode" : "DEDCE",
             "name" : "Drochow",
             "nameWoDiacritics" : "Drochow",
             "usage" : 0
@@ -20620,7 +20620,7 @@
          }, {
             "coords" : "5336N 00949E",
             "countryCode" : "DE",
-            "locode" : "DEDEW",
+            "locode" : "DEDEE",
             "name" : "Schenefeld (Pinneberg)",
             "nameWoDiacritics" : "Schenefeld (Pinneberg)",
             "usage" : 0
@@ -20701,7 +20701,7 @@
          }, {
             "coords" : "5214N 01359E",
             "countryCode" : "DE",
-            "locode" : "DEDFW",
+            "locode" : "DEDFE",
             "name" : "Dahmsdorf/Reichenwalde",
             "nameWoDiacritics" : "Dahmsdorf/Reichenwalde",
             "usage" : 0
@@ -20798,7 +20798,7 @@
          }, {
             "coords" : "5344N 01117E",
             "countryCode" : "DE",
-            "locode" : "DEDGW",
+            "locode" : "DEDGE",
             "name" : "Dalberg",
             "nameWoDiacritics" : "Dalberg",
             "usage" : 0
@@ -20943,7 +20943,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEDHW",
+            "locode" : "DEDHE",
             "name" : "Wattenscheid",
             "nameWoDiacritics" : "Wattenscheid",
             "usage" : 0
@@ -21291,7 +21291,7 @@
          }, {
             "coords" : "5232N 01305E",
             "countryCode" : "DE",
-            "locode" : "DEDLW",
+            "locode" : "DEDLE",
             "name" : "Dallgow",
             "nameWoDiacritics" : "Dallgow",
             "usage" : 0
@@ -21417,7 +21417,7 @@
          }, {
             "coords" : "5347N 01122E",
             "countryCode" : "DE",
-            "locode" : "DEDMW",
+            "locode" : "DEDME",
             "name" : "Dambeck bei Wismar",
             "nameWoDiacritics" : "Dambeck bei Wismar",
             "usage" : 0
@@ -21563,7 +21563,7 @@
          }, {
             "coords" : "4821N 00830E",
             "countryCode" : "DE",
-            "locode" : "DEDNW",
+            "locode" : "DEDNE",
             "name" : "Dornhan",
             "nameWoDiacritics" : "Dornhan",
             "usage" : 0
@@ -21692,7 +21692,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEDOW",
+            "locode" : "DEDOE",
             "name" : "Donauwörth",
             "nameWoDiacritics" : "Donauworth",
             "usage" : 0
@@ -21753,7 +21753,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEDPW",
+            "locode" : "DEDPE",
             "name" : "Dippoldiswalde",
             "nameWoDiacritics" : "Dippoldiswalde",
             "usage" : 0
@@ -21938,7 +21938,7 @@
          }, {
             "coords" : "5220N 00731E",
             "countryCode" : "DE",
-            "locode" : "DEDRW",
+            "locode" : "DEDRE",
             "name" : "Dreierwalde",
             "nameWoDiacritics" : "Dreierwalde",
             "usage" : 0
@@ -22191,7 +22191,7 @@
          }, {
             "coords" : "5244N 00834E",
             "countryCode" : "DE",
-            "locode" : "DEDTW",
+            "locode" : "DEDTE",
             "name" : "Drentwede",
             "nameWoDiacritics" : "Drentwede",
             "usage" : 0
@@ -22763,7 +22763,7 @@
          }, {
             "coords" : "5250N 01350E",
             "countryCode" : "DE",
-            "locode" : "DEEBW",
+            "locode" : "DEEBE",
             "name" : "Eberswalde",
             "nameWoDiacritics" : "Eberswalde",
             "usage" : 0
@@ -23194,7 +23194,7 @@
          }, {
             "coords" : "5416N 00931E",
             "countryCode" : "DE",
-            "locode" : "DEEFW",
+            "locode" : "DEEFE",
             "name" : "Elsdorf-Westermühlen",
             "nameWoDiacritics" : "Elsdorf-Westermuhlen",
             "usage" : 0
@@ -23518,7 +23518,7 @@
          }, {
             "coords" : "5207N 01407E",
             "countryCode" : "DE",
-            "locode" : "DEEHW",
+            "locode" : "DEEHE",
             "name" : "Briescht",
             "nameWoDiacritics" : "Briescht",
             "usage" : 0
@@ -23670,7 +23670,7 @@
          }, {
             "coords" : "5331N 00831E",
             "countryCode" : "DE",
-            "locode" : "DEEIW",
+            "locode" : "DEEIE",
             "name" : "Einswarden",
             "nameWoDiacritics" : "Einswarden",
             "usage" : 0
@@ -23772,7 +23772,7 @@
          }, {
             "coords" : "5321N 01118E",
             "countryCode" : "DE",
-            "locode" : "DEEKW",
+            "locode" : "DEEKE",
             "name" : "Bresegard bei Hagenow",
             "nameWoDiacritics" : "Bresegard bei Hagenow",
             "usage" : 0
@@ -23929,7 +23929,7 @@
          }, {
             "coords" : "4858N 01008E",
             "countryCode" : "DE",
-            "locode" : "DEELW",
+            "locode" : "DEELE",
             "name" : "Ellwangen",
             "nameWoDiacritics" : "Ellwangen",
             "usage" : 0
@@ -24507,7 +24507,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEERW",
+            "locode" : "DEERE",
             "name" : "Erwitte",
             "nameWoDiacritics" : "Erwitte",
             "usage" : 0
@@ -24675,7 +24675,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEESW",
+            "locode" : "DEESE",
             "name" : "Eschwege",
             "nameWoDiacritics" : "Eschwege",
             "usage" : 0
@@ -24936,7 +24936,7 @@
          }, {
             "coords" : "5315N 01122E",
             "countryCode" : "DE",
-            "locode" : "DEEUW",
+            "locode" : "DEEUE",
             "name" : "Bresegard bei Ludwigslust",
             "nameWoDiacritics" : "Bresegard bei Ludwigslust",
             "usage" : 0
@@ -25012,7 +25012,7 @@
          }, {
             "coords" : "5040N 00804E",
             "countryCode" : "DE",
-            "locode" : "DEEWW",
+            "locode" : "DEEWE",
             "name" : "Bretthausen/Westerwald",
             "nameWoDiacritics" : "Bretthausen/Westerwald",
             "usage" : 0
@@ -25187,7 +25187,7 @@
          }, {
             "coords" : "4802N 00853E",
             "countryCode" : "DE",
-            "locode" : "DEF7W",
+            "locode" : "DEF7E",
             "name" : "Mühlheim an der Donau",
             "nameWoDiacritics" : "Muhlheim an der Donau",
             "usage" : 0
@@ -25277,7 +25277,7 @@
          }, {
             "coords" : "4925N 00811E",
             "countryCode" : "DE",
-            "locode" : "DEFAW",
+            "locode" : "DEFAE",
             "name" : "Forst an der Weinstrasse",
             "nameWoDiacritics" : "Forst an der Weinstrasse",
             "usage" : 0
@@ -25344,7 +25344,7 @@
             "nameWoDiacritics" : "Flugplatz Borkenberge",
             "usage" : 0
          }, {
-            "coords" : "5134N 13013W",
+            "coords" : "5134N 13013E",
             "countryCode" : "DE",
             "locode" : "DEFBR",
             "name" : "Falkenberg",
@@ -25353,7 +25353,7 @@
          }, {
             "coords" : "4818N 00829E",
             "countryCode" : "DE",
-            "locode" : "DEFBW",
+            "locode" : "DEFBE",
             "name" : "Fluorn",
             "nameWoDiacritics" : "Fluorn",
             "usage" : 0
@@ -25477,7 +25477,7 @@
          }, {
             "coords" : "5053N 00952E",
             "countryCode" : "DE",
-            "locode" : "DEFDW",
+            "locode" : "DEFDE",
             "name" : "Friedewald",
             "nameWoDiacritics" : "Friedewald",
             "usage" : 0
@@ -25565,7 +25565,7 @@
          }, {
             "coords" : "4910N 01020E",
             "countryCode" : "DE",
-            "locode" : "DEFEW",
+            "locode" : "DEFEE",
             "name" : "Feuchtwangen",
             "nameWoDiacritics" : "Feuchtwangen",
             "usage" : 0
@@ -25835,7 +25835,7 @@
          }, {
             "coords" : "5138N 01343E",
             "countryCode" : "DE",
-            "locode" : "DEFIW",
+            "locode" : "DEFIE",
             "name" : "Finsterwalde/Niederlausitz",
             "nameWoDiacritics" : "Finsterwalde/Niederlausitz",
             "usage" : 0
@@ -26105,7 +26105,7 @@
          }, {
             "coords" : "5036N 00706E",
             "countryCode" : "DE",
-            "locode" : "DEFNW",
+            "locode" : "DEFNE",
             "name" : "Fritzdorf",
             "nameWoDiacritics" : "Fritzdorf",
             "usage" : 0
@@ -26328,7 +26328,7 @@
          }, {
             "coords" : "5034N 00846E",
             "countryCode" : "DE",
-            "locode" : "DEFRW",
+            "locode" : "DEFRE",
             "name" : "Fernwald",
             "nameWoDiacritics" : "Fernwald",
             "usage" : 0
@@ -26573,7 +26573,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEFUW",
+            "locode" : "DEFUE",
             "name" : "Furth im Wald",
             "nameWoDiacritics" : "Furth im Wald",
             "usage" : 0
@@ -26636,7 +26636,7 @@
          }, {
             "coords" : "5043N 00758E",
             "countryCode" : "DE",
-            "locode" : "DEFWW",
+            "locode" : "DEFWE",
             "name" : "Friedewald",
             "nameWoDiacritics" : "Friedewald",
             "usage" : 0
@@ -26999,7 +26999,7 @@
          }, {
             "coords" : "4900N 00917E",
             "countryCode" : "DE",
-            "locode" : "DEGBW",
+            "locode" : "DEGBE",
             "name" : "Grossbottwar",
             "nameWoDiacritics" : "Grossbottwar",
             "usage" : 0
@@ -27060,7 +27060,7 @@
          }, {
             "coords" : "5216N 01328E",
             "countryCode" : "DE",
-            "locode" : "DEGCW",
+            "locode" : "DEGCE",
             "name" : "Grossmachnow",
             "nameWoDiacritics" : "Grossmachnow",
             "usage" : 0
@@ -27199,7 +27199,7 @@
          }, {
             "coords" : "5222N 01255E",
             "countryCode" : "DE",
-            "locode" : "DEGDW",
+            "locode" : "DEGDE",
             "name" : "Glindow",
             "nameWoDiacritics" : "Glindow",
             "usage" : 0
@@ -27354,7 +27354,7 @@
          }, {
             "coords" : "5033N 00801E",
             "countryCode" : "DE",
-            "locode" : "DEGEW",
+            "locode" : "DEGEE",
             "name" : "Gemünden",
             "nameWoDiacritics" : "Gemunden",
             "usage" : 0
@@ -27616,7 +27616,7 @@
          }, {
             "coords" : "5337N 01259E",
             "countryCode" : "DE",
-            "locode" : "DEGGW",
+            "locode" : "DEGGE",
             "name" : "Briggow",
             "nameWoDiacritics" : "Briggow",
             "usage" : 0
@@ -27788,7 +27788,7 @@
          }, {
             "coords" : "5128N 01421E",
             "countryCode" : "DE",
-            "locode" : "DEGHW",
+            "locode" : "DEGHE",
             "name" : "Burg bei Hoyerswerda",
             "nameWoDiacritics" : "Burg bei Hoyerswerda",
             "usage" : 0
@@ -27920,7 +27920,7 @@
             "nameWoDiacritics" : "Gossnitz",
             "usage" : 0
          }, {
-            "coords" : "4843N 12260W",
+            "coords" : "4843N 12260E",
             "countryCode" : "DE",
             "locode" : "DEGJ9",
             "name" : "Mengkofen",
@@ -28148,7 +28148,7 @@
          }, {
             "coords" : "5323N 01416E",
             "countryCode" : "DE",
-            "locode" : "DEGLW",
+            "locode" : "DEGLE",
             "name" : "Glasow",
             "nameWoDiacritics" : "Glasow",
             "usage" : 0
@@ -28444,7 +28444,7 @@
          }, {
             "coords" : "5058N 00858E",
             "countryCode" : "DE",
-            "locode" : "DEGNW",
+            "locode" : "DEGNE",
             "name" : "Gemünden (Wohra)",
             "nameWoDiacritics" : "Gemunden (Wohra)",
             "usage" : 0
@@ -28613,7 +28613,7 @@
          }, {
             "coords" : "5357N 01325E",
             "countryCode" : "DE",
-            "locode" : "DEGOW",
+            "locode" : "DEGOE",
             "name" : "Gützkow",
             "nameWoDiacritics" : "Gutzkow",
             "usage" : 0
@@ -28689,7 +28689,7 @@
          }, {
             "coords" : "5123N 01003E",
             "countryCode" : "DE",
-            "locode" : "DEGPW",
+            "locode" : "DEGPE",
             "name" : "Burgwalde",
             "nameWoDiacritics" : "Burgwalde",
             "usage" : 0
@@ -28931,7 +28931,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEGRW",
+            "locode" : "DEGRE",
             "name" : "Grönwohld",
             "nameWoDiacritics" : "Gronwohld",
             "usage" : 0
@@ -29119,7 +29119,7 @@
          }, {
             "coords" : "5037N 01307E",
             "countryCode" : "DE",
-            "locode" : "DEGSW",
+            "locode" : "DEGSE",
             "name" : "Grossrückerswalde",
             "nameWoDiacritics" : "Grossruckerswalde",
             "usage" : 0
@@ -29446,7 +29446,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEGUW",
+            "locode" : "DEGUE",
             "name" : "Güstrow",
             "nameWoDiacritics" : "Gustrow",
             "usage" : 0
@@ -29715,7 +29715,7 @@
             "nameWoDiacritics" : "Grossheirath",
             "usage" : 0
          }, {
-            "coords" : "5040N 00844W",
+            "coords" : "5040N 00844E",
             "countryCode" : "DE",
             "locode" : "DEGYM",
             "name" : "Mainzlar",
@@ -29856,7 +29856,7 @@
          }, {
             "coords" : "5313N 01400E",
             "countryCode" : "DE",
-            "locode" : "DEGZW",
+            "locode" : "DEGZE",
             "name" : "Gramzow",
             "nameWoDiacritics" : "Gramzow",
             "usage" : 0
@@ -30061,7 +30061,7 @@
          }, {
             "coords" : "5326N 01111E",
             "countryCode" : "DE",
-            "locode" : "DEHAW",
+            "locode" : "DEHAE",
             "name" : "Hagenow",
             "nameWoDiacritics" : "Hagenow",
             "usage" : 0
@@ -30226,7 +30226,7 @@
          }, {
             "coords" : "4935N 00838E",
             "countryCode" : "DE",
-            "locode" : "DEHBW",
+            "locode" : "DEHBE",
             "name" : "Hemsbach",
             "nameWoDiacritics" : "Hemsbach",
             "usage" : 0
@@ -30507,7 +30507,7 @@
          }, {
             "coords" : "5446N 00920E",
             "countryCode" : "DE",
-            "locode" : "DEHDW",
+            "locode" : "DEHDE",
             "name" : "Handewitt",
             "nameWoDiacritics" : "Handewitt",
             "usage" : 0
@@ -30672,7 +30672,7 @@
          }, {
             "coords" : "4906N 00805E",
             "countryCode" : "DE",
-            "locode" : "DEHEW",
+            "locode" : "DEHEE",
             "name" : "Hergersweiler",
             "nameWoDiacritics" : "Hergersweiler",
             "usage" : 0
@@ -30825,7 +30825,7 @@
          }, {
             "coords" : "5028N 00742E",
             "countryCode" : "DE",
-            "locode" : "DEHFW",
+            "locode" : "DEHFE",
             "name" : "Hundsdorf",
             "nameWoDiacritics" : "Hundsdorf",
             "usage" : 0
@@ -30954,7 +30954,7 @@
          }, {
             "coords" : "5042N 00622E",
             "countryCode" : "DE",
-            "locode" : "DEHGW",
+            "locode" : "DEHGE",
             "name" : "Hürtgenwald",
             "nameWoDiacritics" : "Hurtgenwald",
             "usage" : 0
@@ -31142,7 +31142,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEHHW",
+            "locode" : "DEHHE",
             "name" : "Hohenwestedt",
             "nameWoDiacritics" : "Hohenwestedt",
             "usage" : 0
@@ -31292,7 +31292,7 @@
          }, {
             "coords" : "5055N 01442E",
             "countryCode" : "DE",
-            "locode" : "DEHIW",
+            "locode" : "DEHIE",
             "name" : "Hainewalde",
             "nameWoDiacritics" : "Hainewalde",
             "usage" : 0
@@ -31541,7 +31541,7 @@
          }, {
             "coords" : "5330N 01336E",
             "countryCode" : "DE",
-            "locode" : "DEHLW",
+            "locode" : "DEHLE",
             "name" : "Helpt",
             "nameWoDiacritics" : "Helpt",
             "usage" : 0
@@ -31848,7 +31848,7 @@
          }, {
             "coords" : "5233N 01339E",
             "countryCode" : "DE",
-            "locode" : "DEHNW",
+            "locode" : "DEHNE",
             "name" : "Hönow",
             "nameWoDiacritics" : "Honow",
             "usage" : 0
@@ -32012,7 +32012,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEHOW",
+            "locode" : "DEHOE",
             "name" : "Hoppstädten-Weiersbach",
             "nameWoDiacritics" : "Hoppstadten-Weiersbach",
             "usage" : 0
@@ -32285,7 +32285,7 @@
          }, {
             "coords" : "4954N 00758E",
             "countryCode" : "DE",
-            "locode" : "DEHRW",
+            "locode" : "DEHRE",
             "name" : "Horrweiler",
             "nameWoDiacritics" : "Horrweiler",
             "usage" : 0
@@ -32483,7 +32483,7 @@
          }, {
             "coords" : "4920N 00655E",
             "countryCode" : "DE",
-            "locode" : "DEHSW",
+            "locode" : "DEHSE",
             "name" : "Heusweiler",
             "nameWoDiacritics" : "Heusweiler",
             "usage" : 0
@@ -32653,7 +32653,7 @@
          }, {
             "coords" : "5212N 00759E",
             "countryCode" : "DE",
-            "locode" : "DEHTW",
+            "locode" : "DEHTE",
             "name" : "Hagen am Teutoburger Wald",
             "nameWoDiacritics" : "Hagen am Teutoburger Wald",
             "usage" : 0
@@ -32828,7 +32828,7 @@
          }, {
             "coords" : "5027N 01301E",
             "countryCode" : "DE",
-            "locode" : "DEHUW",
+            "locode" : "DEHUE",
             "name" : "Hammerunterwiesenthal",
             "nameWoDiacritics" : "Hammerunterwiesenthal",
             "usage" : 0
@@ -33243,7 +33243,7 @@
          }, {
             "coords" : "5311N 00924E",
             "countryCode" : "DE",
-            "locode" : "DEHZW",
+            "locode" : "DEHZE",
             "name" : "Hetzwege",
             "nameWoDiacritics" : "Hetzwege",
             "usage" : 0
@@ -33500,7 +33500,7 @@
          }, {
             "coords" : "5220N 01258E",
             "countryCode" : "DE",
-            "locode" : "DEIEW",
+            "locode" : "DEIEE",
             "name" : "Schwielowsee",
             "nameWoDiacritics" : "Schwielowsee",
             "usage" : 0
@@ -33623,7 +33623,7 @@
          }, {
             "coords" : "5344N 00855E",
             "countryCode" : "DE",
-            "locode" : "DEIHW",
+            "locode" : "DEIHE",
             "name" : "Ihlienworth",
             "nameWoDiacritics" : "Ihlienworth",
             "usage" : 0
@@ -33823,7 +33823,7 @@
          }, {
             "coords" : "5228N 01233E",
             "countryCode" : "DE",
-            "locode" : "DEIOW",
+            "locode" : "DEIOE",
             "name" : "Brielow",
             "nameWoDiacritics" : "Brielow",
             "usage" : 0
@@ -33945,7 +33945,7 @@
          }, {
             "coords" : "4833N 01038E",
             "countryCode" : "DE",
-            "locode" : "DEISW",
+            "locode" : "DEISE",
             "name" : "Binswangen",
             "nameWoDiacritics" : "Binswangen",
             "usage" : 0
@@ -34081,7 +34081,7 @@
          }, {
             "coords" : "4853N 01028E",
             "countryCode" : "DE",
-            "locode" : "DEJAW",
+            "locode" : "DEJAE",
             "name" : "Wallerstein",
             "nameWoDiacritics" : "Wallerstein",
             "usage" : 0
@@ -34130,7 +34130,7 @@
          }, {
             "coords" : "5230N 01202E",
             "countryCode" : "DE",
-            "locode" : "DEJCW",
+            "locode" : "DEJCE",
             "name" : "Jerichow",
             "nameWoDiacritics" : "Jerichow",
             "usage" : 0
@@ -34313,7 +34313,7 @@
             "nameWoDiacritics" : "Jarplund",
             "usage" : 0
          }, {
-            "coords" : "4904N 00943W",
+            "coords" : "4904N 00943E",
             "countryCode" : "DE",
             "locode" : "DEJRG",
             "name" : "Rosengarten",
@@ -34634,7 +34634,7 @@
          }, {
             "coords" : "4932N 00810E",
             "countryCode" : "DE",
-            "locode" : "DEKAW",
+            "locode" : "DEKAE",
             "name" : "Kirchheim",
             "nameWoDiacritics" : "Kirchheim",
             "usage" : 0
@@ -34834,7 +34834,7 @@
          }, {
             "coords" : "4950N 00653E",
             "countryCode" : "DE",
-            "locode" : "DEKCW",
+            "locode" : "DEKCE",
             "name" : "Kowerich",
             "nameWoDiacritics" : "Kowerich",
             "usage" : 0
@@ -34936,7 +34936,7 @@
          }, {
             "coords" : "4906N 00802E",
             "countryCode" : "DE",
-            "locode" : "DEKDW",
+            "locode" : "DEKDE",
             "name" : "Kapellen-Drusweiler",
             "nameWoDiacritics" : "Kapellen-Drusweiler",
             "usage" : 0
@@ -35221,7 +35221,7 @@
          }, {
             "coords" : "5143N 01417E",
             "countryCode" : "DE",
-            "locode" : "DEKGW",
+            "locode" : "DEKGE",
             "name" : "Klein Gaglow",
             "nameWoDiacritics" : "Klein Gaglow",
             "usage" : 0
@@ -35379,7 +35379,7 @@
          }, {
             "coords" : "5022N 00709E",
             "countryCode" : "DE",
-            "locode" : "DEKHW",
+            "locode" : "DEKHE",
             "name" : "Kirchwald",
             "nameWoDiacritics" : "Kirchwald",
             "usage" : 0
@@ -35739,7 +35739,7 @@
          }, {
             "coords" : "5224N 01315E",
             "countryCode" : "DE",
-            "locode" : "DEKLW",
+            "locode" : "DEKLE",
             "name" : "Kleinmachnow",
             "nameWoDiacritics" : "Kleinmachnow",
             "usage" : 0
@@ -35869,7 +35869,7 @@
          }, {
             "coords" : "5403N 01203E",
             "countryCode" : "DE",
-            "locode" : "DEKMW",
+            "locode" : "DEKME",
             "name" : "Kritzmow",
             "nameWoDiacritics" : "Kritzmow",
             "usage" : 0
@@ -36001,7 +36001,7 @@
          }, {
             "coords" : "5107N 01347E",
             "countryCode" : "DE",
-            "locode" : "DEKNW",
+            "locode" : "DEKNE",
             "name" : "Königswald",
             "nameWoDiacritics" : "Konigswald",
             "usage" : 0
@@ -36118,7 +36118,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEKOW",
+            "locode" : "DEKOE",
             "name" : "Königswinter",
             "nameWoDiacritics" : "Konigswinter",
             "usage" : 0
@@ -36385,7 +36385,7 @@
          }, {
             "coords" : "5353N 01133E",
             "countryCode" : "DE",
-            "locode" : "DEKRW",
+            "locode" : "DEKRE",
             "name" : "Kritzow",
             "nameWoDiacritics" : "Kritzow",
             "usage" : 0
@@ -36639,7 +36639,7 @@
          }, {
             "coords" : "5015N 00655E",
             "countryCode" : "DE",
-            "locode" : "DEKTW",
+            "locode" : "DEKTE",
             "name" : "Katzwinkel",
             "nameWoDiacritics" : "Katzwinkel",
             "usage" : 0
@@ -36766,7 +36766,7 @@
          }, {
             "coords" : "5035N 00726E",
             "countryCode" : "DE",
-            "locode" : "DEKUW",
+            "locode" : "DEKUE",
             "name" : "Breitscheid/Kreis Neuwied",
             "nameWoDiacritics" : "Breitscheid/Kreis Neuwied",
             "usage" : 0
@@ -37206,7 +37206,7 @@
          }, {
             "coords" : "5040N 01059E",
             "countryCode" : "DE",
-            "locode" : "DELAW",
+            "locode" : "DELAE",
             "name" : "Langewiesen",
             "nameWoDiacritics" : "Langewiesen",
             "usage" : 0
@@ -37363,7 +37363,7 @@
          }, {
             "coords" : "5252N 01324E",
             "countryCode" : "DE",
-            "locode" : "DELBW",
+            "locode" : "DELBE",
             "name" : "Liebenwalde",
             "nameWoDiacritics" : "Liebenwalde",
             "usage" : 0
@@ -37459,7 +37459,7 @@
          }, {
             "coords" : "5103N 01349E",
             "countryCode" : "DE",
-            "locode" : "DELCW",
+            "locode" : "DELCE",
             "name" : "Loschwitz",
             "nameWoDiacritics" : "Loschwitz",
             "usage" : 0
@@ -37576,7 +37576,7 @@
          }, {
             "coords" : "5119N 00957E",
             "countryCode" : "DE",
-            "locode" : "DELDW",
+            "locode" : "DELDE",
             "name" : "Lindewerra",
             "nameWoDiacritics" : "Lindewerra",
             "usage" : 0
@@ -37757,7 +37757,7 @@
          }, {
             "coords" : "5310N 00837E",
             "countryCode" : "DE",
-            "locode" : "DELEW",
+            "locode" : "DELEE",
             "name" : "Lemwerder",
             "nameWoDiacritics" : "Lemwerder",
             "usage" : 0
@@ -37991,7 +37991,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DELGW",
+            "locode" : "DELGE",
             "name" : "Lengenwang",
             "nameWoDiacritics" : "Lengenwang",
             "usage" : 0
@@ -38383,7 +38383,7 @@
          }, {
             "coords" : "5256N 01103E",
             "countryCode" : "DE",
-            "locode" : "DELKW",
+            "locode" : "DELKE",
             "name" : "Luckau (Wendland)",
             "nameWoDiacritics" : "Luckau (Wendland)",
             "usage" : 0
@@ -38521,7 +38521,7 @@
          }, {
             "coords" : "4854N 01311E",
             "countryCode" : "DE",
-            "locode" : "DELLW",
+            "locode" : "DELLE",
             "name" : "Zell (Kirchberg im Wald)",
             "nameWoDiacritics" : "Zell (Kirchberg im Wald)",
             "usage" : 0
@@ -38860,7 +38860,7 @@
          }, {
             "coords" : "5255N 01407E",
             "countryCode" : "DE",
-            "locode" : "DELOW",
+            "locode" : "DELOE",
             "name" : "Lunow",
             "nameWoDiacritics" : "Lunow",
             "usage" : 0
@@ -38957,7 +38957,7 @@
          }, {
             "coords" : "5118N 01340E",
             "countryCode" : "DE",
-            "locode" : "DELPW",
+            "locode" : "DELPE",
             "name" : "Lampertswalde",
             "nameWoDiacritics" : "Lampertswalde",
             "usage" : 0
@@ -39116,7 +39116,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DELRW",
+            "locode" : "DELRE",
             "name" : "Lorsch",
             "nameWoDiacritics" : "Lorsch",
             "usage" : 0
@@ -39256,7 +39256,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DELSW",
+            "locode" : "DELSE",
             "name" : "Lensahn",
             "nameWoDiacritics" : "Lensahn",
             "usage" : 0
@@ -39394,7 +39394,7 @@
          }, {
             "coords" : "5331N 01053E",
             "countryCode" : "DE",
-            "locode" : "DELTW",
+            "locode" : "DELTE",
             "name" : "Lüttow",
             "nameWoDiacritics" : "Luttow",
             "usage" : 0
@@ -39534,7 +39534,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DELUW",
+            "locode" : "DELUE",
             "name" : "Lüchow",
             "nameWoDiacritics" : "Luchow",
             "usage" : 0
@@ -39638,7 +39638,7 @@
          }, {
             "coords" : "4911N 00801E",
             "countryCode" : "DE",
-            "locode" : "DELWW",
+            "locode" : "DELWE",
             "name" : "Leinsweiler",
             "nameWoDiacritics" : "Leinsweiler",
             "usage" : 0
@@ -39955,7 +39955,7 @@
          }, {
             "coords" : "5003N 00633E",
             "countryCode" : "DE",
-            "locode" : "DEMAW",
+            "locode" : "DEMAE",
             "name" : "Malbergweich",
             "nameWoDiacritics" : "Malbergweich",
             "usage" : 0
@@ -40102,7 +40102,7 @@
          }, {
             "coords" : "4929N 01038E",
             "countryCode" : "DE",
-            "locode" : "DEMBW",
+            "locode" : "DEMBE",
             "name" : "Markt Erlbach",
             "nameWoDiacritics" : "Markt Erlbach",
             "usage" : 0
@@ -40323,7 +40323,7 @@
          }, {
             "coords" : "5330N 01100E",
             "countryCode" : "DE",
-            "locode" : "DEMDW",
+            "locode" : "DEMDE",
             "name" : "Dodow",
             "nameWoDiacritics" : "Dodow",
             "usage" : 0
@@ -40606,7 +40606,7 @@
          }, {
             "coords" : "4849N 00958E",
             "countryCode" : "DE",
-            "locode" : "DEMGW",
+            "locode" : "DEMGE",
             "name" : "Mögglingen",
             "nameWoDiacritics" : "Mogglingen",
             "usage" : 0
@@ -40735,7 +40735,7 @@
          }, {
             "coords" : "5222N 01324E",
             "countryCode" : "DE",
-            "locode" : "DEMHW",
+            "locode" : "DEMHE",
             "name" : "Mahlow",
             "nameWoDiacritics" : "Mahlow",
             "usage" : 0
@@ -40969,7 +40969,7 @@
          }, {
             "coords" : "5234N 01405E",
             "countryCode" : "DE",
-            "locode" : "DEMKW",
+            "locode" : "DEMKE",
             "name" : "Buckow",
             "nameWoDiacritics" : "Buckow",
             "usage" : 0
@@ -41115,7 +41115,7 @@
          }, {
             "coords" : "5328N 01225E",
             "countryCode" : "DE",
-            "locode" : "DEMLW",
+            "locode" : "DEMLE",
             "name" : "Malchow",
             "nameWoDiacritics" : "Malchow",
             "usage" : 0
@@ -41361,7 +41361,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEMNW",
+            "locode" : "DEMNE",
             "name" : "Mallnow",
             "nameWoDiacritics" : "Mallnow",
             "usage" : 0
@@ -41500,7 +41500,7 @@
          }, {
             "coords" : "5233N 01433E",
             "countryCode" : "DE",
-            "locode" : "DEMOW",
+            "locode" : "DEMOE",
             "name" : "Manschnow",
             "nameWoDiacritics" : "Manschnow",
             "usage" : 0
@@ -41718,7 +41718,7 @@
          }, {
             "coords" : "4857N 00915E",
             "countryCode" : "DE",
-            "locode" : "DEMRW",
+            "locode" : "DEMRE",
             "name" : "Murr",
             "nameWoDiacritics" : "Murr",
             "usage" : 0
@@ -42002,7 +42002,7 @@
          }, {
             "coords" : "5059N 01259E",
             "countryCode" : "DE",
-            "locode" : "DEMTW",
+            "locode" : "DEMTE",
             "name" : "Mittweida",
             "nameWoDiacritics" : "Mittweida",
             "usage" : 0
@@ -42151,7 +42151,7 @@
          }, {
             "coords" : "4913N 00742E",
             "countryCode" : "DE",
-            "locode" : "DEMUW",
+            "locode" : "DEMUE",
             "name" : "Münchweiler an der Rodalbe",
             "nameWoDiacritics" : "Munchweiler an der Rodalbe",
             "usage" : 0
@@ -42227,7 +42227,7 @@
          }, {
             "coords" : "4806N 00826E",
             "countryCode" : "DE",
-            "locode" : "DEMWW",
+            "locode" : "DEMWE",
             "name" : "Monchweiler",
             "nameWoDiacritics" : "Monchweiler",
             "usage" : 0
@@ -42450,7 +42450,7 @@
          }, {
             "coords" : "5411N 01311E",
             "countryCode" : "DE",
-            "locode" : "DEMZW",
+            "locode" : "DEMZE",
             "name" : "Miltzow",
             "nameWoDiacritics" : "Miltzow",
             "usage" : 0
@@ -42677,7 +42677,7 @@
             "nameWoDiacritics" : "Bissendorf",
             "usage" : 0
          }, {
-            "coords" : "5116N 01410W",
+            "coords" : "5116N 01410E",
             "countryCode" : "DE",
             "locode" : "DENBT",
             "name" : "Nebelschütz",
@@ -42693,7 +42693,7 @@
          }, {
             "coords" : "4920N 01223E",
             "countryCode" : "DE",
-            "locode" : "DENBW",
+            "locode" : "DENBE",
             "name" : "Neunburg vorm Wald",
             "nameWoDiacritics" : "Neunburg vorm Wald",
             "usage" : 0
@@ -42903,7 +42903,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DENDW",
+            "locode" : "DENDE",
             "name" : "Nieder-Werbe",
             "nameWoDiacritics" : "Nieder-Werbe",
             "usage" : 0
@@ -43075,7 +43075,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DENEW",
+            "locode" : "DENEE",
             "name" : "Neustadt (Wied)",
             "nameWoDiacritics" : "Neustadt (Wied)",
             "usage" : 0
@@ -43162,7 +43162,7 @@
          }, {
             "coords" : "5053N 00636E",
             "countryCode" : "DE",
-            "locode" : "DENFW",
+            "locode" : "DENFE",
             "name" : "Manheim",
             "nameWoDiacritics" : "Manheim",
             "usage" : 0
@@ -43494,7 +43494,7 @@
          }, {
             "coords" : "5250N 01356E",
             "countryCode" : "DE",
-            "locode" : "DENIW",
+            "locode" : "DENIE",
             "name" : "Niederfinow",
             "nameWoDiacritics" : "Niederfinow",
             "usage" : 0
@@ -43513,7 +43513,7 @@
             "nameWoDiacritics" : "Nunkirchen",
             "usage" : 0
          }, {
-            "coords" : "4918N 00858W",
+            "coords" : "4918N 00858E",
             "countryCode" : "DE",
             "locode" : "DENKB",
             "name" : "Neckarbischofsheim",
@@ -43604,7 +43604,7 @@
          }, {
             "coords" : "4903N 00911E",
             "countryCode" : "DE",
-            "locode" : "DENKW",
+            "locode" : "DENKE",
             "name" : "Neckarwestheim",
             "nameWoDiacritics" : "Neckarwestheim",
             "usage" : 0
@@ -43741,7 +43741,7 @@
          }, {
             "coords" : "5328N 01314E",
             "countryCode" : "DE",
-            "locode" : "DENMW",
+            "locode" : "DENME",
             "name" : "Gross Nemerow",
             "nameWoDiacritics" : "Gross Nemerow",
             "usage" : 0
@@ -43866,7 +43866,7 @@
          }, {
             "coords" : "4936N 00658E",
             "countryCode" : "DE",
-            "locode" : "DENNW",
+            "locode" : "DENNE",
             "name" : "Nonnweiler",
             "nameWoDiacritics" : "Nonnweiler",
             "usage" : 0
@@ -43986,7 +43986,7 @@
          }, {
             "coords" : "5348N 01345E",
             "countryCode" : "DE",
-            "locode" : "DENOW",
+            "locode" : "DENOE",
             "name" : "Neu Kosenow",
             "nameWoDiacritics" : "Neu Kosenow",
             "usage" : 0
@@ -44164,7 +44164,7 @@
          }, {
             "coords" : "4843N 00811E",
             "countryCode" : "DE",
-            "locode" : "DENRW",
+            "locode" : "DENRE",
             "name" : "Neuweier",
             "nameWoDiacritics" : "Neuweier",
             "usage" : 0
@@ -44292,7 +44292,7 @@
          }, {
             "coords" : "4921N 00808E",
             "countryCode" : "DE",
-            "locode" : "DENSW",
+            "locode" : "DENSE",
             "name" : "Neustadt/Weinstrasse",
             "nameWoDiacritics" : "Neustadt/Weinstrasse",
             "usage" : 0
@@ -44422,7 +44422,7 @@
          }, {
             "coords" : "5119N 00739E",
             "countryCode" : "DE",
-            "locode" : "DENTW",
+            "locode" : "DENTE",
             "name" : "Nachrodt-Wiblingwerde",
             "nameWoDiacritics" : "Nachrodt-Wiblingwerde",
             "usage" : 0
@@ -44616,7 +44616,7 @@
          }, {
             "coords" : "4841N 01323E",
             "countryCode" : "DE",
-            "locode" : "DENVW",
+            "locode" : "DENVE",
             "name" : "Neukirchen vorm Wald",
             "nameWoDiacritics" : "Neukirchen vorm Wald",
             "usage" : 0
@@ -45049,7 +45049,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEOBW",
+            "locode" : "DEOBE",
             "name" : "Oberweser",
             "nameWoDiacritics" : "Oberweser",
             "usage" : 0
@@ -45268,7 +45268,7 @@
          }, {
             "coords" : "5032N 01225E",
             "countryCode" : "DE",
-            "locode" : "DEODW",
+            "locode" : "DEODE",
             "name" : "Rodewisch",
             "nameWoDiacritics" : "Rodewisch",
             "usage" : 0
@@ -45776,7 +45776,7 @@
          }, {
             "coords" : "5119N 01338E",
             "countryCode" : "DE",
-            "locode" : "DEOKW",
+            "locode" : "DEOKE",
             "name" : "Brockwitz",
             "nameWoDiacritics" : "Brockwitz",
             "usage" : 0
@@ -45924,7 +45924,7 @@
          }, {
             "coords" : "5142N 00724E",
             "countryCode" : "DE",
-            "locode" : "DEOLW",
+            "locode" : "DEOLE",
             "name" : "Olfen",
             "nameWoDiacritics" : "Olfen",
             "usage" : 0
@@ -46140,7 +46140,7 @@
          }, {
             "coords" : "5140N 01355E",
             "countryCode" : "DE",
-            "locode" : "DEOOW",
+            "locode" : "DEOOE",
             "name" : "Bronkow",
             "nameWoDiacritics" : "Bronkow",
             "usage" : 0
@@ -46332,7 +46332,7 @@
          }, {
             "coords" : "5037N 00739E",
             "countryCode" : "DE",
-            "locode" : "DEORW",
+            "locode" : "DEORE",
             "name" : "Weroth",
             "nameWoDiacritics" : "Weroth",
             "usage" : 0
@@ -46481,7 +46481,7 @@
          }, {
             "coords" : "5000N 00800E",
             "countryCode" : "DE",
-            "locode" : "DEOSW",
+            "locode" : "DEOSE",
             "name" : "Oestrich-Winkel",
             "nameWoDiacritics" : "Oestrich-Winkel",
             "usage" : 0
@@ -46625,7 +46625,7 @@
          }, {
             "coords" : "4840N 00806E",
             "countryCode" : "DE",
-            "locode" : "DEOTW",
+            "locode" : "DEOTE",
             "name" : "Ottersweier",
             "nameWoDiacritics" : "Ottersweier",
             "usage" : 0
@@ -47418,7 +47418,7 @@
          }, {
             "coords" : "5026N 01145E",
             "countryCode" : "DE",
-            "locode" : "DEPIW",
+            "locode" : "DEPIE",
             "name" : "Pirk",
             "nameWoDiacritics" : "Pirk",
             "usage" : 0
@@ -47662,7 +47662,7 @@
          }, {
             "coords" : "5313N 01348E",
             "countryCode" : "DE",
-            "locode" : "DEPNW",
+            "locode" : "DEPNE",
             "name" : "Pinnow",
             "nameWoDiacritics" : "Pinnow",
             "usage" : 0
@@ -47782,7 +47782,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEPOW",
+            "locode" : "DEPOE",
             "name" : "Porta Westfalica",
             "nameWoDiacritics" : "Porta Westfalica",
             "usage" : 0
@@ -47844,7 +47844,7 @@
          }, {
             "coords" : "5334N 01122E",
             "countryCode" : "DE",
-            "locode" : "DEPPW",
+            "locode" : "DEPPE",
             "name" : "Pampow",
             "nameWoDiacritics" : "Pampow",
             "usage" : 0
@@ -47971,7 +47971,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEPRW",
+            "locode" : "DEPRE",
             "name" : "Prerow",
             "nameWoDiacritics" : "Prerow",
             "usage" : 0
@@ -48087,7 +48087,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEPSW",
+            "locode" : "DEPSE",
             "name" : "Petershagen/Weser",
             "nameWoDiacritics" : "Petershagen/Weser",
             "usage" : 0
@@ -49028,7 +49028,7 @@
          }, {
             "coords" : "4851N 01027E",
             "countryCode" : "DE",
-            "locode" : "DERBW",
+            "locode" : "DERBE",
             "name" : "Riesbürg",
             "nameWoDiacritics" : "Riesburg",
             "usage" : 0
@@ -49262,7 +49262,7 @@
          }, {
             "coords" : "5225N 01329E",
             "countryCode" : "DE",
-            "locode" : "DERDW",
+            "locode" : "DERDE",
             "name" : "Rudow",
             "nameWoDiacritics" : "Rudow",
             "usage" : 0
@@ -49647,7 +49647,7 @@
          }, {
             "coords" : "5114N 01251E",
             "countryCode" : "DE",
-            "locode" : "DERGW",
+            "locode" : "DERGE",
             "name" : "Ragewitz",
             "nameWoDiacritics" : "Ragewitz",
             "usage" : 0
@@ -49792,7 +49792,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DERHW",
+            "locode" : "DERHE",
             "name" : "Rheda-Wiedenbrück",
             "nameWoDiacritics" : "Rheda-Wiedenbruck",
             "usage" : 0
@@ -49952,7 +49952,7 @@
          }, {
             "coords" : "4741N 01228E",
             "countryCode" : "DE",
-            "locode" : "DERIW",
+            "locode" : "DERIE",
             "name" : "Reit im Winkl",
             "nameWoDiacritics" : "Reit im Winkl",
             "usage" : 0
@@ -50071,7 +50071,7 @@
          }, {
             "coords" : "5126N 01222E",
             "countryCode" : "DE",
-            "locode" : "DERKW",
+            "locode" : "DERKE",
             "name" : "Rackwitz",
             "nameWoDiacritics" : "Rackwitz",
             "usage" : 0
@@ -50410,7 +50410,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DERNW",
+            "locode" : "DERNE",
             "name" : "Rathenow",
             "nameWoDiacritics" : "Rathenow",
             "usage" : 0
@@ -50569,7 +50569,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEROW",
+            "locode" : "DEROE",
             "name" : "Rotenburg/Wümme",
             "nameWoDiacritics" : "Rotenburg/Wumme",
             "usage" : 0
@@ -50673,7 +50673,7 @@
          }, {
             "coords" : "5039N 08050E",
             "countryCode" : "DE",
-            "locode" : "DERPW",
+            "locode" : "DERPE",
             "name" : "Waigandshain",
             "nameWoDiacritics" : "Waigandshain",
             "usage" : 0
@@ -50947,7 +50947,7 @@
          }, {
             "coords" : "4930N 01122E",
             "countryCode" : "DE",
-            "locode" : "DERSW",
+            "locode" : "DERSE",
             "name" : "Reichenschwand",
             "nameWoDiacritics" : "Reichenschwand",
             "usage" : 0
@@ -51119,7 +51119,7 @@
          }, {
             "coords" : "5327N 01126E",
             "countryCode" : "DE",
-            "locode" : "DERTW",
+            "locode" : "DERTE",
             "name" : "Rastow",
             "nameWoDiacritics" : "Rastow",
             "usage" : 0
@@ -51253,7 +51253,7 @@
          }, {
             "coords" : "4822N 00848E",
             "countryCode" : "DE",
-            "locode" : "DERUW",
+            "locode" : "DERUE",
             "name" : "Haigerloch",
             "nameWoDiacritics" : "Haigerloch",
             "usage" : 0
@@ -51335,7 +51335,7 @@
             "nameWoDiacritics" : "Hergensweiler",
             "usage" : 0
          }, {
-            "coords" : "4801N 00846W",
+            "coords" : "4801N 00846E",
             "countryCode" : "DE",
             "locode" : "DERWM",
             "name" : "Rietheim-Weilheim",
@@ -51358,7 +51358,7 @@
          }, {
             "coords" : "5321N 00932E",
             "countryCode" : "DE",
-            "locode" : "DERWW",
+            "locode" : "DERWE",
             "name" : "Wohnste",
             "nameWoDiacritics" : "Wohnste",
             "usage" : 0
@@ -51503,7 +51503,7 @@
          }, {
             "coords" : "4914N 01253E",
             "countryCode" : "DE",
-            "locode" : "DERZW",
+            "locode" : "DERZE",
             "name" : "Rimbach",
             "nameWoDiacritics" : "Rimbach",
             "usage" : 0
@@ -51515,7 +51515,7 @@
             "nameWoDiacritics" : "Rotz",
             "usage" : 0
          }, {
-            "coords" : "5124N 01252W",
+            "coords" : "5124N 01252E",
             "countryCode" : "DE",
             "locode" : "DES2L",
             "name" : "Lossatal",
@@ -51594,7 +51594,7 @@
          }, {
             "coords" : "5444N 00903E",
             "countryCode" : "DE",
-            "locode" : "DES9W",
+            "locode" : "DES9E",
             "name" : "Stadum",
             "nameWoDiacritics" : "Stadum",
             "usage" : 0
@@ -51755,7 +51755,7 @@
          }, {
             "coords" : "5026N 01122E",
             "countryCode" : "DE",
-            "locode" : "DESAW",
+            "locode" : "DESAE",
             "name" : "Steinbach am Wald",
             "nameWoDiacritics" : "Steinbach am Wald",
             "usage" : 0
@@ -51949,7 +51949,7 @@
          }, {
             "coords" : "5402N 01201E",
             "countryCode" : "DE",
-            "locode" : "DESBW",
+            "locode" : "DESBE",
             "name" : "Stäbelow",
             "nameWoDiacritics" : "Stabelow",
             "usage" : 0
@@ -52177,7 +52177,7 @@
          }, {
             "coords" : "5003N 01013E",
             "countryCode" : "DE",
-            "locode" : "DESCW",
+            "locode" : "DESCE",
             "name" : "Schweinfurt",
             "nameWoDiacritics" : "Schweinfurt",
             "usage" : 0
@@ -52346,7 +52346,7 @@
          }, {
             "coords" : "5001N 01028E",
             "countryCode" : "DE",
-            "locode" : "DESDW",
+            "locode" : "DESDE",
             "name" : "Steinsfeld (Wonfurt)",
             "nameWoDiacritics" : "Steinsfeld (Wonfurt)",
             "usage" : 0
@@ -52523,7 +52523,7 @@
          }, {
             "coords" : "5119N 01122E",
             "countryCode" : "DE",
-            "locode" : "DESEW",
+            "locode" : "DESEE",
             "name" : "Schönewerda",
             "nameWoDiacritics" : "Schonewerda",
             "usage" : 0
@@ -52660,7 +52660,7 @@
          }, {
             "coords" : "4922N 00708E",
             "countryCode" : "DE",
-            "locode" : "DESFW",
+            "locode" : "DESFE",
             "name" : "Schiffweiler",
             "nameWoDiacritics" : "Schiffweiler",
             "usage" : 0
@@ -52810,7 +52810,7 @@
          }, {
             "coords" : "5130N 00644E",
             "countryCode" : "DE",
-            "locode" : "DESGW",
+            "locode" : "DESGE",
             "name" : "Schwelgern",
             "nameWoDiacritics" : "Schwelgern",
             "usage" : 0
@@ -53017,7 +53017,7 @@
          }, {
             "coords" : "5008N 00804E",
             "countryCode" : "DE",
-            "locode" : "DESHW",
+            "locode" : "DESHE",
             "name" : "Bad Schwalbach",
             "nameWoDiacritics" : "Bad Schwalbach",
             "usage" : 0
@@ -53188,7 +53188,7 @@
          }, {
             "coords" : "4952N 01042E",
             "countryCode" : "DE",
-            "locode" : "DESIW",
+            "locode" : "DESIE",
             "name" : "Schönbrunn im Steigerwald",
             "nameWoDiacritics" : "Schonbrunn im Steigerwald",
             "usage" : 0
@@ -53230,7 +53230,7 @@
          }, {
             "coords" : "5301N 01414E",
             "countryCode" : "DE",
-            "locode" : "DESJW",
+            "locode" : "DESJE",
             "name" : "Schwedt/Oder-Criewen",
             "nameWoDiacritics" : "Schwedt/Oder-Criewen",
             "usage" : 0
@@ -53389,7 +53389,7 @@
          }, {
             "coords" : "5216N 01435E",
             "countryCode" : "DE",
-            "locode" : "DESKW",
+            "locode" : "DESKE",
             "name" : "Brieskow-Finkenheerd",
             "nameWoDiacritics" : "Brieskow-Finkenheerd",
             "usage" : 0
@@ -53563,7 +53563,7 @@
          }, {
             "coords" : "5232N 01423E",
             "countryCode" : "DE",
-            "locode" : "DESLW",
+            "locode" : "DESLE",
             "name" : "Seelow",
             "nameWoDiacritics" : "Seelow",
             "usage" : 0
@@ -53684,7 +53684,7 @@
             "nameWoDiacritics" : "Schwabmunchen",
             "usage" : 0
          }, {
-            "coords" : "5411N 01239W",
+            "coords" : "5411N 01239E",
             "countryCode" : "DE",
             "locode" : "DESMO",
             "name" : "Semlow",
@@ -53734,7 +53734,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DESMW",
+            "locode" : "DESME",
             "name" : "Stemwede",
             "nameWoDiacritics" : "Stemwede",
             "usage" : 0
@@ -53902,7 +53902,7 @@
          }, {
             "coords" : "4927N 00732E",
             "countryCode" : "DE",
-            "locode" : "DESNW",
+            "locode" : "DESNE",
             "name" : "Steinwenden",
             "nameWoDiacritics" : "Steinwenden",
             "usage" : 0
@@ -53995,7 +53995,7 @@
             "nameWoDiacritics" : "Sohren",
             "usage" : 0
          }, {
-            "coords" : "5030N 01232W",
+            "coords" : "5030N 01232E",
             "countryCode" : "DE",
             "locode" : "DESOI",
             "name" : "Schönheide",
@@ -54069,7 +54069,7 @@
          }, {
             "coords" : "5349N 01139E",
             "countryCode" : "DE",
-            "locode" : "DESOW",
+            "locode" : "DESOE",
             "name" : "Büschow",
             "nameWoDiacritics" : "Buschow",
             "usage" : 0
@@ -54244,7 +54244,7 @@
          }, {
             "coords" : "5131N 01424E",
             "countryCode" : "DE",
-            "locode" : "DESPW",
+            "locode" : "DESPE",
             "name" : "Spreewitz",
             "nameWoDiacritics" : "Spreewitz",
             "usage" : 0
@@ -54455,7 +54455,7 @@
          }, {
             "coords" : "4827N 00753E",
             "countryCode" : "DE",
-            "locode" : "DESRW",
+            "locode" : "DESRE",
             "name" : "Schutterwald",
             "nameWoDiacritics" : "Schutterwald",
             "usage" : 0
@@ -54640,7 +54640,7 @@
          }, {
             "coords" : "4806N 00804E",
             "countryCode" : "DE",
-            "locode" : "DESSW",
+            "locode" : "DESSE",
             "name" : "Simonswald",
             "nameWoDiacritics" : "Simonswald",
             "usage" : 0
@@ -54861,7 +54861,7 @@
          }, {
             "coords" : "4844N 01016E",
             "countryCode" : "DE",
-            "locode" : "DESTW",
+            "locode" : "DESTE",
             "name" : "Steinweiler",
             "nameWoDiacritics" : "Steinweiler",
             "usage" : 0
@@ -55012,7 +55012,7 @@
          }, {
             "coords" : "5452N 00855E",
             "countryCode" : "DE",
-            "locode" : "DESUW",
+            "locode" : "DESUE",
             "name" : "Süderlügum",
             "nameWoDiacritics" : "Suderlugum",
             "usage" : 0
@@ -55228,7 +55228,7 @@
          }, {
             "coords" : "5216N 01025E",
             "countryCode" : "DE",
-            "locode" : "DESWW",
+            "locode" : "DESWE",
             "name" : "Wedtlenstedt",
             "nameWoDiacritics" : "Wedtlenstedt",
             "usage" : 0
@@ -55567,7 +55567,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DESZW",
+            "locode" : "DESZE",
             "name" : "Salzwedel",
             "nameWoDiacritics" : "Salzwedel",
             "usage" : 0
@@ -55690,7 +55690,7 @@
          }, {
             "coords" : "4940N 00631E",
             "countryCode" : "DE",
-            "locode" : "DETAW",
+            "locode" : "DETAE",
             "name" : "Tawern",
             "nameWoDiacritics" : "Tawern",
             "usage" : 0
@@ -56057,7 +56057,7 @@
          }, {
             "coords" : "5338N 01401E",
             "countryCode" : "DE",
-            "locode" : "DETGW",
+            "locode" : "DETGE",
             "name" : "Torgelow",
             "nameWoDiacritics" : "Torgelow",
             "usage" : 0
@@ -56179,7 +56179,7 @@
          }, {
             "coords" : "5037N 01303E",
             "countryCode" : "DE",
-            "locode" : "DETHW",
+            "locode" : "DETHE",
             "name" : "Thermalbad Wiesenbad",
             "nameWoDiacritics" : "Thermalbad Wiesenbad",
             "usage" : 0
@@ -56359,7 +56359,7 @@
          }, {
             "coords" : "5117N 01206E",
             "countryCode" : "DE",
-            "locode" : "DETLW",
+            "locode" : "DETLE",
             "name" : "Tollwitz",
             "nameWoDiacritics" : "Tollwitz",
             "usage" : 0
@@ -56571,7 +56571,7 @@
          }, {
             "coords" : "5245N 01249E",
             "countryCode" : "DE",
-            "locode" : "DETOW",
+            "locode" : "DETOE",
             "name" : "Dechtow",
             "nameWoDiacritics" : "Dechtow",
             "usage" : 0
@@ -56969,7 +56969,7 @@
          }, {
             "coords" : "5346N 01234E",
             "countryCode" : "DE",
-            "locode" : "DETTW",
+            "locode" : "DETTE",
             "name" : "Teterow",
             "nameWoDiacritics" : "Teterow",
             "usage" : 0
@@ -57379,7 +57379,7 @@
          }, {
             "coords" : "4910N 00837E",
             "countryCode" : "DE",
-            "locode" : "DEUBW",
+            "locode" : "DEUBE",
             "name" : "Ubstadt-Weiher",
             "nameWoDiacritics" : "Ubstadt-Weiher",
             "usage" : 0
@@ -57449,7 +57449,7 @@
          }, {
             "coords" : "4909N 00958E",
             "countryCode" : "DE",
-            "locode" : "DEUCW",
+            "locode" : "DEUCE",
             "name" : "Buch/Schwäbisch Hall",
             "nameWoDiacritics" : "Buch/Schwabisch Hall",
             "usage" : 0
@@ -57625,7 +57625,7 @@
          }, {
             "coords" : "5341N 01115E",
             "countryCode" : "DE",
-            "locode" : "DEUEW",
+            "locode" : "DEUEE",
             "name" : "Brüsewitz",
             "nameWoDiacritics" : "Brusewitz",
             "usage" : 0
@@ -57784,7 +57784,7 @@
          }, {
             "coords" : "5346N 01206E",
             "countryCode" : "DE",
-            "locode" : "DEUGW",
+            "locode" : "DEUGE",
             "name" : "Bülow bei Güstrow",
             "nameWoDiacritics" : "Bulow bei Gustrow",
             "usage" : 0
@@ -57922,7 +57922,7 @@
          }, {
             "coords" : "4957N 00647E",
             "countryCode" : "DE",
-            "locode" : "DEUHW",
+            "locode" : "DEUHE",
             "name" : "Bruch bei Wittlich",
             "nameWoDiacritics" : "Bruch bei Wittlich",
             "usage" : 0
@@ -58034,7 +58034,7 @@
          }, {
             "coords" : "4934N 00758E",
             "countryCode" : "DE",
-            "locode" : "DEUKW",
+            "locode" : "DEUKE",
             "name" : "Breunigweiler",
             "nameWoDiacritics" : "Breunigweiler",
             "usage" : 0
@@ -58290,7 +58290,7 @@
          }, {
             "coords" : "5209N 01150E",
             "countryCode" : "DE",
-            "locode" : "DEUNW",
+            "locode" : "DEUNE",
             "name" : "Büden",
             "nameWoDiacritics" : "Buden",
             "usage" : 0
@@ -58513,7 +58513,7 @@
          }, {
             "coords" : "4946N 01008E",
             "countryCode" : "DE",
-            "locode" : "DEURW",
+            "locode" : "DEURE",
             "name" : "Buchbrunn",
             "nameWoDiacritics" : "Buchbrunn",
             "usage" : 0
@@ -58637,7 +58637,7 @@
          }, {
             "coords" : "4815N 01111E",
             "countryCode" : "DE",
-            "locode" : "DEUSW",
+            "locode" : "DEUSE",
             "name" : "Unterschweinbach",
             "nameWoDiacritics" : "Unterschweinbach",
             "usage" : 0
@@ -58748,7 +58748,7 @@
          }, {
             "coords" : "4809N 00937E",
             "countryCode" : "DE",
-            "locode" : "DEUTW",
+            "locode" : "DEUTE",
             "name" : "Uttenweiler",
             "nameWoDiacritics" : "Uttenweiler",
             "usage" : 0
@@ -58902,7 +58902,7 @@
          }, {
             "coords" : "5406N 01334E",
             "countryCode" : "DE",
-            "locode" : "DEUZW",
+            "locode" : "DEUZE",
             "name" : "Brünzow",
             "nameWoDiacritics" : "Brunzow",
             "usage" : 0
@@ -59222,7 +59222,7 @@
          }, {
             "coords" : "5418N 01347E",
             "countryCode" : "DE",
-            "locode" : "DEVIW",
+            "locode" : "DEVIE",
             "name" : "Vierow",
             "nameWoDiacritics" : "Vierow",
             "usage" : 0
@@ -59317,7 +59317,7 @@
          }, {
             "coords" : "5320N 00855E",
             "countryCode" : "DE",
-            "locode" : "DEVLW",
+            "locode" : "DEVLE",
             "name" : "Vollersode",
             "nameWoDiacritics" : "Vollersode",
             "usage" : 0
@@ -59427,7 +59427,7 @@
          }, {
             "coords" : "5311N 00909E",
             "countryCode" : "DE",
-            "locode" : "DEVOW",
+            "locode" : "DEVOE",
             "name" : "Vorwerk",
             "nameWoDiacritics" : "Vorwerk",
             "usage" : 0
@@ -59480,7 +59480,7 @@
          }, {
             "coords" : "5407N 01335E",
             "countryCode" : "DE",
-            "locode" : "DEVRW",
+            "locode" : "DEVRE",
             "name" : "Viewrow",
             "nameWoDiacritics" : "Viewrow",
             "usage" : 0
@@ -59514,7 +59514,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEVSW",
+            "locode" : "DEVSE",
             "name" : "Volkenschwand",
             "nameWoDiacritics" : "Volkenschwand",
             "usage" : 0
@@ -59836,7 +59836,7 @@
          }, {
             "coords" : "5054N 01035E",
             "countryCode" : "DE",
-            "locode" : "DEWAW",
+            "locode" : "DEWAE",
             "name" : "Wahlwinkel",
             "nameWoDiacritics" : "Wahlwinkel",
             "usage" : 0
@@ -60021,7 +60021,7 @@
          }, {
             "coords" : "4911N 00938E",
             "countryCode" : "DE",
-            "locode" : "DEWBW",
+            "locode" : "DEWBE",
             "name" : "Waldenburg",
             "nameWoDiacritics" : "Waldenburg",
             "usage" : 0
@@ -60435,7 +60435,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEWEW",
+            "locode" : "DEWEE",
             "name" : "Wewelsfleth",
             "nameWoDiacritics" : "Wewelsfleth",
             "usage" : 0
@@ -60521,7 +60521,7 @@
             "nameWoDiacritics" : "Wolfegg",
             "usage" : 0
          }, {
-            "coords" : "4833N 01146W",
+            "coords" : "4833N 01146E",
             "countryCode" : "DE",
             "locode" : "DEWFF",
             "name" : "Wolfersdorf",
@@ -60797,7 +60797,7 @@
          }, {
             "coords" : "4749N 00845E",
             "countryCode" : "DE",
-            "locode" : "DEWGW",
+            "locode" : "DEWGE",
             "name" : "Welschingen",
             "nameWoDiacritics" : "Welschingen",
             "usage" : 0
@@ -60960,7 +60960,7 @@
          }, {
             "coords" : "4913N 01004E",
             "countryCode" : "DE",
-            "locode" : "DEWHW",
+            "locode" : "DEWHE",
             "name" : "Wallhausen",
             "nameWoDiacritics" : "Wallhausen",
             "usage" : 0
@@ -61138,7 +61138,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEWIW",
+            "locode" : "DEWIE",
             "name" : "Weidenberg",
             "nameWoDiacritics" : "Weidenberg",
             "usage" : 0
@@ -61445,7 +61445,7 @@
          }, {
             "coords" : "5325N 01228E",
             "countryCode" : "DE",
-            "locode" : "DEWLW",
+            "locode" : "DEWLE",
             "name" : "Walow",
             "nameWoDiacritics" : "Walow",
             "usage" : 0
@@ -61614,7 +61614,7 @@
          }, {
             "coords" : "5215N 00824E",
             "countryCode" : "DE",
-            "locode" : "DEWMW",
+            "locode" : "DEWME",
             "name" : "Wetter (Melle Wiehengeb)",
             "nameWoDiacritics" : "Wetter (Melle Wiehengeb)",
             "usage" : 0
@@ -61762,7 +61762,7 @@
             "nameWoDiacritics" : "Windesheim",
             "usage" : 0
          }, {
-            "coords" : "5215N 01024W",
+            "coords" : "5215N 01024E",
             "countryCode" : "DE",
             "locode" : "DEWNT",
             "name" : "Wedlenstedt",
@@ -61778,7 +61778,7 @@
          }, {
             "coords" : "5122N 01205E",
             "countryCode" : "DE",
-            "locode" : "DEWNW",
+            "locode" : "DEWNE",
             "name" : "Wallendorf",
             "nameWoDiacritics" : "Wallendorf",
             "usage" : 0
@@ -61919,7 +61919,7 @@
          }, {
             "coords" : "5331N 01101E",
             "countryCode" : "DE",
-            "locode" : "DEWOW",
+            "locode" : "DEWOE",
             "name" : "Waschow",
             "nameWoDiacritics" : "Waschow",
             "usage" : 0
@@ -61973,7 +61973,7 @@
          }, {
             "coords" : "4754N 00937E",
             "countryCode" : "DE",
-            "locode" : "DEWPW",
+            "locode" : "DEWPE",
             "name" : "Wolpertswende",
             "nameWoDiacritics" : "Wolpertswende",
             "usage" : 0
@@ -62195,7 +62195,7 @@
          }, {
             "coords" : "5028N 00757E",
             "countryCode" : "DE",
-            "locode" : "DEWRW",
+            "locode" : "DEWRE",
             "name" : "Weroth B Montabaur",
             "nameWoDiacritics" : "Weroth B Montabaur",
             "usage" : 0
@@ -62388,7 +62388,7 @@
          }, {
             "coords" : "5052N 01325E",
             "countryCode" : "DE",
-            "locode" : "DEWSW",
+            "locode" : "DEWSE",
             "name" : "Weissenborn/Erzgeb",
             "nameWoDiacritics" : "Weissenborn/Erzgeb",
             "usage" : 0
@@ -62583,7 +62583,7 @@
          }, {
             "coords" : "5308N 00759E",
             "countryCode" : "DE",
-            "locode" : "DEWTW",
+            "locode" : "DEWTE",
             "name" : "Wittenberge (Edewecht)",
             "nameWoDiacritics" : "Wittenberge (Edewecht)",
             "usage" : 0
@@ -62738,7 +62738,7 @@
          }, {
             "coords" : "4745N 00942E",
             "countryCode" : "DE",
-            "locode" : "DEWUW",
+            "locode" : "DEWUE",
             "name" : "Waldburg",
             "nameWoDiacritics" : "Waldburg",
             "usage" : 0
@@ -62864,7 +62864,7 @@
          }, {
             "coords" : "4818N 01010E",
             "countryCode" : "DE",
-            "locode" : "DEWWW",
+            "locode" : "DEWWE",
             "name" : "Weissenhorn",
             "nameWoDiacritics" : "Weissenhorn",
             "usage" : 0
@@ -62940,7 +62940,7 @@
          }, {
             "coords" : "5128N 01044E",
             "countryCode" : "DE",
-            "locode" : "DEWXW",
+            "locode" : "DEWXE",
             "name" : "Werther",
             "nameWoDiacritics" : "Werther",
             "usage" : 0
@@ -62952,7 +62952,7 @@
             "nameWoDiacritics" : "Wesendahl",
             "usage" : 0
          }, {
-            "coords" : "5121N 01151W",
+            "coords" : "5121N 01151E",
             "countryCode" : "DE",
             "locode" : "DEWXY",
             "name" : "Wunschendorf",
@@ -63160,7 +63160,7 @@
          }, {
             "coords" : "5134N 01411E",
             "countryCode" : "DE",
-            "locode" : "DEWZW",
+            "locode" : "DEWZE",
             "name" : "Welzow",
             "nameWoDiacritics" : "Welzow",
             "usage" : 0
@@ -63249,7 +63249,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEXFW",
+            "locode" : "DEXFE",
             "name" : "Finkenwerder",
             "nameWoDiacritics" : "Finkenwerder",
             "usage" : 0
@@ -63653,7 +63653,7 @@
          }, {
             "coords" : "5148N 01002E",
             "countryCode" : "DE",
-            "locode" : "DEYRW",
+            "locode" : "DEYRE",
             "name" : "Kalefeld",
             "nameWoDiacritics" : "Kalefeld",
             "usage" : 0
@@ -63855,7 +63855,7 @@
          }, {
             "coords" : "5418N 01018E",
             "countryCode" : "DE",
-            "locode" : "DEZAW",
+            "locode" : "DEZAE",
             "name" : "Lilienthal",
             "nameWoDiacritics" : "Lilienthal",
             "usage" : 0
@@ -64037,7 +64037,7 @@
          }, {
             "coords" : "5217N 01404E",
             "countryCode" : "DE",
-            "locode" : "DEZBW",
+            "locode" : "DEZBE",
             "name" : "Bad Saarow",
             "nameWoDiacritics" : "Bad Saarow",
             "usage" : 0
@@ -64184,7 +64184,7 @@
          }, {
             "coords" : "5213N 01303E",
             "countryCode" : "DE",
-            "locode" : "DEZCW",
+            "locode" : "DEZCE",
             "name" : "Zauchwitz",
             "nameWoDiacritics" : "Zauchwitz",
             "usage" : 0
@@ -64331,7 +64331,7 @@
          }, {
             "coords" : "4856N 01127E",
             "countryCode" : "DE",
-            "locode" : "DEZDW",
+            "locode" : "DEZDE",
             "name" : "Denkendorf",
             "nameWoDiacritics" : "Denkendorf",
             "usage" : 0
@@ -64488,7 +64488,7 @@
          }, {
             "coords" : "4742N 00751E",
             "countryCode" : "DE",
-            "locode" : "DEZEW",
+            "locode" : "DEZEE",
             "name" : "Zell im Wiesental",
             "nameWoDiacritics" : "Zell im Wiesental",
             "usage" : 0
@@ -64627,7 +64627,7 @@
          }, {
             "coords" : "4924N 00916E",
             "countryCode" : "DE",
-            "locode" : "DEZFW",
+            "locode" : "DEZFE",
             "name" : "Schefflenz",
             "nameWoDiacritics" : "Schefflenz",
             "usage" : 0
@@ -64774,7 +64774,7 @@
          }, {
             "coords" : "4759N 01233E",
             "countryCode" : "DE",
-            "locode" : "DEZGW",
+            "locode" : "DEZGE",
             "name" : "Stein an der Traun",
             "nameWoDiacritics" : "Stein an der Traun",
             "usage" : 0
@@ -64942,7 +64942,7 @@
          }, {
             "coords" : "4804N 01048E",
             "countryCode" : "DE",
-            "locode" : "DEZHW",
+            "locode" : "DEZHE",
             "name" : "Igling",
             "nameWoDiacritics" : "Igling",
             "usage" : 0
@@ -65095,7 +65095,7 @@
          }, {
             "coords" : "5043N 01021E",
             "countryCode" : "DE",
-            "locode" : "DEZIW",
+            "locode" : "DEZIE",
             "name" : "Wernshausen",
             "nameWoDiacritics" : "Wernshausen",
             "usage" : 0
@@ -65270,7 +65270,7 @@
          }, {
             "coords" : "4919N 00739E",
             "countryCode" : "DE",
-            "locode" : "DEZJW",
+            "locode" : "DEZJE",
             "name" : "Schwanenmühle",
             "nameWoDiacritics" : "Schwanenmuhle",
             "usage" : 0
@@ -65479,7 +65479,7 @@
          }, {
             "coords" : "4804N 01210E",
             "countryCode" : "DE",
-            "locode" : "DEZLW",
+            "locode" : "DEZLE",
             "name" : "Zeil/Edling bei Wasserburg am Inn",
             "nameWoDiacritics" : "Zeil/Edling bei Wasserburg am Inn",
             "usage" : 0
@@ -65617,7 +65617,7 @@
             "usage" : 0
          }, {
             "countryCode" : "DE",
-            "locode" : "DEZNW",
+            "locode" : "DEZNE",
             "name" : "Zinnwald-Georgenfeld",
             "nameWoDiacritics" : "Zinnwald-Georgenfeld",
             "usage" : 0
@@ -65713,7 +65713,7 @@
          }, {
             "coords" : "5321N 01154E",
             "countryCode" : "DE",
-            "locode" : "DEZOW",
+            "locode" : "DEZOE",
             "name" : "Zachow (Tessenow)",
             "nameWoDiacritics" : "Zachow (Tessenow)",
             "usage" : 0
@@ -65825,7 +65825,7 @@
          }, {
             "coords" : "4910N 01029E",
             "countryCode" : "DE",
-            "locode" : "DEZRW",
+            "locode" : "DEZRE",
             "name" : "Zirndorf (Wieseth)",
             "nameWoDiacritics" : "Zirndorf (Wieseth)",
             "usage" : 0
@@ -66190,7 +66190,7 @@
          }, {
             "coords" : "5317N 01141E",
             "countryCode" : "DE",
-            "locode" : "DEZZW",
+            "locode" : "DEZZE",
             "name" : "Zierzow",
             "nameWoDiacritics" : "Zierzow",
             "usage" : 0
