@@ -9,6 +9,17 @@
 	<description>parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan</description>
 
 	<url>https://github.com/BITPlan/com.bitplan.radolan</url>
+	<licenses>
+		<license>
+			<name>Apache 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+		<license>
+			<name>MIT License</name>
+			<url>https://opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 	<organization>
 		<name>BITPlan GmbH</name>
 		<url>http://www.bitplan.com</url>
@@ -21,6 +32,14 @@
 		<system>GitHub</system>
 		<url>https://github.com/BITPlan/com.bitplan.radolan/issues</url>
 	</issueManagement>
+	<developers>
+		<developer>
+			<id>wf</id>
+			<name>Wolfgang Fahl</name>
+			<organization>BITPlan GmbH</organization>
+			<organizationUrl>http://www.bitplan.com</organizationUrl>
+		</developer>
+	</developers>
 	<ciManagement>
 		<system>Travis</system>
 	</ciManagement>
