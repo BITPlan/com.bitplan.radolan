@@ -64,16 +64,16 @@ public class TestTranslate extends Testing {
         Composite.NewDummy("EX", 700, 750), };
 
     for (Composite comp : dummys) {
-      DPoint src = comp.translate(srcLat, srcLon);
-      DPoint dst = comp.translate(dstLat, dstLon);
+      DPoint src = comp.translateLatLonToGrid(srcLat, srcLon);
+      DPoint dst = comp.translateLatLonToGrid(dstLat, dstLon);
 
-      double resDist = Translate.dist(src.x * comp.getRx(), src.y * comp.getRy(),
-          dst.x * comp.getRx(), dst.y * comp.getRy());
+      double resDist = Translate.dist(src.x * comp.getResX(), src.y * comp.getResY(),
+          dst.x * comp.getResX(), dst.y * comp.getResY());
 
       if (!absequal(resDist, expDist, 0.000001)) { // inaccuracy by 1mm
         Errorf(
             "dummy.Rx = %.2f, dummy.Ry = %.2f; distance: %.3f km expected: %.3f km)",
-            comp.getRx(), comp.getRy(), resDist, expDist);
+            comp.getResX(), comp.getResY(), resDist, expDist);
       }
     }
   }
@@ -127,14 +127,14 @@ public class TestTranslate extends Testing {
 
     for (TranslateTestCase test : testcases) {
       Logf("dummy%s: Rx = %f; Ry = %f\n", test.comp.getProduct(),
-          test.comp.getRx(), test.comp.getRy());
+          test.comp.getResX(), test.comp.getResY());
       Logf("dummy%s: offx = %f; offy = %f\n", test.comp.getProduct(),
           test.comp.offx, test.comp.offy);
       //debug=true;
       for (double[] edge : test.edge) {
         DPoint latlon=new DPoint(edge[0], edge[1]);
         // result
-        DPoint r = test.comp.translate(latlon.x,latlon.y);
+        DPoint r = test.comp.translateLatLonToGrid(latlon.x,latlon.y);
         // expected
         DPoint e = new DPoint(edge[2], edge[3]);
 
@@ -145,7 +145,7 @@ public class TestTranslate extends Testing {
               test.comp.getProduct(), edge[0], edge[1], r.x, r.y, e.x, e.y);
         }
         // inverse Polarsterographic projection
-        DPoint latlon2 = test.comp.translateXYtoLatLon(e);
+        DPoint latlon2 = test.comp.translateGridToLatLon(e);
         if (Translate.haversine(latlon2.x, latlon2.y, latlon.x, latlon.y) > 0.1) {
           Errorf(
               "dummy%s.TranslateXYtoLatLon(%.2f, %.2f) = (%.2f, %.2f); expected: (%.2f, %.2f)",
@@ -318,7 +318,7 @@ public class TestTranslate extends Testing {
            */
           p += length;
 
-          DPoint t = comp.translate(phi, lamda);
+          DPoint t = comp.translateLatLonToGrid(phi, lamda);
           DPoint e = new DPoint(x + offx, y + offy);
 
           if (Translate.dist(t.x, t.y, e.x, e.y) > 0.01) { // 10m

@@ -23,8 +23,11 @@
  */
 package com.bitplan.radolan;
 
+import java.util.logging.Level;
+
 import com.bitplan.javafx.WaitableApp;
 
+import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -77,6 +80,9 @@ public class ImageViewer extends WaitableApp {
   @Override
   public void start(Stage stage) {
     super.start(stage);
+    if (displayContext != null) {
+      image = displayContext.image;
+    }
     // load the image
     if (image == null)
       image = new Image("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
@@ -86,8 +92,22 @@ public class ImageViewer extends WaitableApp {
     imageView.setImage(image);
     imageView.setSmooth(true);
     imageView.setCache(true);
-    imageView.fitWidthProperty().bind(stage.widthProperty());
-    imageView.fitHeightProperty().bind(stage.heightProperty());
+
+    ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
+      imageView.setFitWidth((double) newValue);
+      LOGGER.log(Level.INFO,
+          String.format("width %.0f->%.0f", oldValue, newValue));
+    };
+    ChangeListener<Number> heightListener = (observable, oldValue,
+        newValue) -> {
+      imageView.setFitHeight((double) newValue);
+      LOGGER.log(Level.INFO,
+          String.format("height %.0f->%.0f", oldValue, newValue));
+    };
+    stage.widthProperty().addListener(widthListener);
+    stage.heightProperty().addListener(heightListener);
+    // imageView.fitWidthProperty().bind(stage.widthProperty());
+    // imageView.fitHeightProperty().bind(stage.heightProperty());
     // imageView.setPreserveRatio(true);
 
     drawPane = new Pane();
@@ -96,7 +116,8 @@ public class ImageViewer extends WaitableApp {
 
     infoLabel = new Label("");
     infoLabel.setTextFill(Color.BLUE);
-    infoLabel.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    infoLabel.setBackground(new Background(
+        new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     // https://stackoverflow.com/a/29029875/1497139
     HBox glass = new HBox();
     glass.setBackground(Background.EMPTY);
@@ -109,7 +130,7 @@ public class ImageViewer extends WaitableApp {
      */
     StackPane stackPane = new StackPane();
     StackPane.setAlignment(imageView, Pos.CENTER);
-    stackPane.getChildren().addAll(imageView, glass,drawPane);
+    stackPane.getChildren().addAll(imageView, glass, drawPane);
 
     // container with a fill property
     scene = new Scene(stackPane);
@@ -121,6 +142,8 @@ public class ImageViewer extends WaitableApp {
       displayContext.drawPane = drawPane;
       displayContext.infoLabel = infoLabel;
       // displayContext.borderPane=borderPane;
+      stage.setWidth(displayContext.composite.getGridWidth());
+      stage.setHeight(displayContext.composite.getGridHeight());
     }
     stage.setTitle(title);
     stage.setScene(scene);

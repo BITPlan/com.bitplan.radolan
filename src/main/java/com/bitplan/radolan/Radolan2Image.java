@@ -23,7 +23,6 @@
  */
 package com.bitplan.radolan;
 
-import java.awt.Point;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -32,12 +31,11 @@ import java.util.logging.Logger;
 import com.bitplan.geo.UnLocode;
 import com.bitplan.geo.UnLocodeManager;
 
-import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
-import cs.fau.de.since.radolan.Translate;
+import cs.fau.de.since.radolan.RadarImage;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
@@ -73,7 +71,7 @@ public class Radolan2Image {
     // get the Image for the displayContext
     getImageContent(displayContext);
     // draw borders and mesh if asked for
-    if (displayContext.composite.isHasProjection()) {
+    if (displayContext.composite.isProjection()) {
       drawBorders(displayContext);
       drawMesh(displayContext);
     }
@@ -92,16 +90,18 @@ public class Radolan2Image {
      * (debug) { drawCross(borderPane, 2, Color.rgb(0xff, 0x00, 0x00, 0.5)); }
      * });
      */
-    Composite comp = displayContext.composite;
+    RadarImage comp = displayContext.composite;
     WritableImage image = displayContext.getWriteableImage();
     String msg = String.format("detected grid: %.1f km * %.1f km\n",
-        comp.getDx() * comp.getRx(), comp.getDy() * comp.getRy());
+        comp.getGridWidth() * comp.getResX(),
+        comp.getGridHeight() * comp.getResY());
     if (debug)
       LOGGER.log(Level.INFO, msg);
     Borders borders = new Borders(displayContext.borderName);
     IPoint prevIp = null;
     for (DPoint latlon : borders.getPoints()) {
-      DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
+      DPoint p = displayContext.composite.translateLatLonToGrid(latlon.x,
+          latlon.y);
       IPoint ip = new IPoint(p);
       // getScreenPointForLatLon(displayContext,borderPane,point);
       double dist = ip.dist(prevIp);
@@ -124,7 +124,7 @@ public class Radolan2Image {
    *          - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
-    Composite comp = displayContext.composite;
+    RadarImage comp = displayContext.composite;
     WritableImage image = displayContext.getWriteableImage();
     // draw mesh
     // loop over east and north
@@ -133,10 +133,10 @@ public class Radolan2Image {
         double edist = Math.abs(e - Math.round(e));
         double ndist = Math.abs(n - Math.round(n));
         if ((edist < 0.01) || (ndist < 0.01)) {
-          DPoint dp = comp.translate(n, e);
+          DPoint dp = comp.translateLatLonToGrid(n, e);
           IPoint ip = new IPoint(dp);
-          if (ip.x >= 0 && ip.y >= 0 && ip.x < comp.getPx()
-              && ip.y < comp.getPy())
+          if (ip.x >= 0 && ip.y >= 0 && ip.x < comp.getGridWidth()
+              && ip.y < comp.getGridHeight())
             image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
         }
       }
@@ -149,11 +149,13 @@ public class Radolan2Image {
    * @param displayContext
    */
   public static void getImageContent(DisplayContext displayContext) {
-    Composite c = displayContext.composite;
+    RadarImage c = displayContext.composite;
     FloatFunction<Color> colorMap = displayContext.heatmap;
-    int width = c.getPx();
-    int height = c.getPy();
-    WritableImage img = new WritableImage(width, height);
+    int width = c.getGridWidth();
+    int height = c.getGridHeight();
+    WritableImage img = displayContext.getWriteableImage();
+    if (img == null)
+      return;
     PixelWriter pw = img.getPixelWriter();
     for (int y = 0; y < height; y++) {
       for (int x = 0; x < width; x++) {
@@ -162,8 +164,6 @@ public class Radolan2Image {
         pw.setColor(x, y, color);
       }
     }
-    displayContext.image = img;
-    displayContext.replaceImage(img);
   }
 
   /**
@@ -174,31 +174,31 @@ public class Radolan2Image {
    */
   public static void activateEvents(DisplayContext displayContext) {
     ImageView imageView = displayContext.imageView;
-    Composite composite = displayContext.composite;
+    RadarImage composite = displayContext.composite;
     Bounds viewBounds = imageView.getBoundsInParent();
     String imsg = String.format(
         "ToolTip onShowEvent installed in a view with size %.0f x %.0f for composite %d x %d",
-        viewBounds.getWidth(), viewBounds.getHeight(), composite.getPx(),
-        composite.getPy());
+        viewBounds.getWidth(), viewBounds.getHeight(), composite.getGridWidth(),
+        composite.getGridHeight());
     if (debug)
       LOGGER.log(Level.INFO, imsg);
-    else if (viewBounds.getWidth() != composite.getPx()
-        || viewBounds.getHeight() != composite.getPy()) {
-      LOGGER.log(Level.WARNING, imsg);
-    }
+
+    // initial addLocation
+    Platform.runLater(() -> addLocation(displayContext));
+
     displayContext.drawPane.setOnMouseClicked(event -> {
-      DPoint p = new DPoint(event.getSceneX(),event.getSceneY());
+      DPoint p = new DPoint(event.getSceneX(), event.getSceneY());
       IPoint ip = composite.translateViewToGrid(p, viewBounds.getWidth(),
           viewBounds.getHeight());
       // get the precipitation value for this point
       float value = composite.getValue(ip.x, ip.y);
       // get the location of the point as lat/lon
-      DPoint latlon = Translate.translateXYtoLatLon(composite,
-          new DPoint(ip.x, ip.y));
+      DPoint latlon = composite.translateGridToLatLon(new DPoint(ip.x, ip.y));
       LOGGER.log(Level.INFO, String.format(
           "scene %.0f,%.0f %.0fx%.0f -> grid %d,%d %dx%d -> latlon %.2f,%.2f -> value %.0f mm",
-          p.x, p.y, viewBounds.getWidth(),
-          viewBounds.getHeight(), ip.x, ip.y, composite.getPx(),composite.getPy(), latlon.x, latlon.y, value));
+          p.x, p.y, viewBounds.getWidth(), viewBounds.getHeight(), ip.x, ip.y,
+          composite.getGridWidth(), composite.getGridHeight(), latlon.x,
+          latlon.y, value));
       // find the closest cities:
       Map<Double, UnLocode> closestCities = UnLocodeManager.getInstance()
           .lookup(latlon.x, latlon.y, 20);
@@ -211,11 +211,11 @@ public class Radolan2Image {
       }
       String displayMsg = String.format("%.1f %s%s %s", value,
           composite.getDataUnit(), cityInfo, p.toFormattedDMSString());
-      String msg = String.format("%.0f,%.0f -> %s", event.getSceneX(),event.getSceneY(),
-          displayMsg);
+      String msg = String.format("%.0f,%.0f -> %s", event.getSceneX(),
+          event.getSceneY(), displayMsg);
       if (debug)
         LOGGER.log(Level.INFO, msg);
-      Label infoLabel=displayContext.infoLabel;
+      Label infoLabel = displayContext.infoLabel;
       infoLabel.setText(displayMsg);
       infoLabel.setTranslateX(event.getSceneX());
       infoLabel.setTranslateY(event.getSceneY());
@@ -247,10 +247,11 @@ public class Radolan2Image {
     drawOnGlass.getChildren().clear();
     UnLocode loc = displayContext.location;
     DPoint latlon = new DPoint(loc.getLat(), loc.getLon());
-    DPoint p = displayContext.composite.translate(latlon.x, latlon.y);
-    IPoint ip=new IPoint(p);
+    DPoint p = displayContext.composite.translateLatLonToGrid(latlon.x,
+        latlon.y);
+    IPoint ip = new IPoint(p);
     double value = displayContext.composite.getValue(ip.x, ip.y);
-       // Position now needs to be adapted to screen size
+    // Position now needs to be adapted to screen size
     p = displayContext.composite.translateGridToView(ip, drawOnGlass.getWidth(),
         drawOnGlass.getHeight());
     String text = String.format("%s - %.1f mm", loc.getName(), value);

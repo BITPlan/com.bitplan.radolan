@@ -144,19 +144,19 @@ public class Translate {
     CornerPoints cp = cornerPoints(c);
     if (cp == null) {
       double nan = Double.NaN;
-      c.setRx(nan);
-      c.setRy(nan);
+      c.setResX(nan);
+      c.setResY(nan);
       c.offx = nan;
       c.offy = nan;
       return;
     }
 
     // found matching projection rule
-    c.setHasProjection(true);
+    c.setProjection(true);
 
     // set resolution to 1 km for calibration
-    c.setRx(1.0);
-    c.setRy(1.0);
+    c.setResX(1.0);
+    c.setResY(1.0);
 
     // calibrate offset correction
     DPoint off = translate(c, cp.originTop, cp.originLeft);
@@ -165,8 +165,8 @@ public class Translate {
 
     // calibrate scaling
     DPoint res = translate(c, cp.edgeBottom, cp.edgeRight);
-    c.setRx((res.x) / c.getDx());
-    c.setRy((res.y) / c.getDy());
+    c.setResX((res.x) / c.getDx());
+    c.setResY((res.y) / c.getDy());
   }
 
   public static double square(double n) {
@@ -224,7 +224,7 @@ public class Translate {
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
   public static DPoint translate(Composite c, double north, double east) {
-    if (!c.isHasProjection()) {
+    if (!c.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
     DPoint p = polarStereoProjection(north, east);
@@ -234,8 +234,8 @@ public class Translate {
     p.y -= c.offy;
 
     // scaling
-    p.x /= c.getRx();
-    p.y /= c.getRy();
+    p.x /= c.getResX();
+    p.y /= c.getResY();
     return p;
   }
 
@@ -268,13 +268,13 @@ public class Translate {
    * @return the lat/lon point
    */
   public static DPoint translateXYtoLatLon(Composite c, DPoint p) {
-    if (!c.isHasProjection()) {
+    if (!c.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
     DPoint pt=new DPoint(p.x,p.y);
     // scaling
-    pt.x *= c.getRx();
-    pt.y *= c.getRy();
+    pt.x *= c.getResX();
+    pt.y *= c.getResY();
 
     // offset correction
     pt.x += c.offx;

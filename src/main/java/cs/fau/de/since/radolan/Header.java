@@ -172,8 +172,8 @@ public class Header {
         c.setPy(v.py); // plain data dimensions
         c.setDx(v.dx);
         c.setDy(v.dy); // data layer dimensions
-        c.setRx(v.rx);
-        c.setRy(v.ry); // data resolution
+        c.setResX(v.rx);
+        c.setResY(v.ry); // data resolution
       }
     }
 

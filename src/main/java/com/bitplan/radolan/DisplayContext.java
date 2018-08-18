@@ -32,6 +32,7 @@ import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
+import cs.fau.de.since.radolan.RadarImage;
 import cs.fau.de.since.radolan.vis.Vis;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -41,8 +42,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
- * Display context
- * has the details about displaying a RADOLAN composite image
+ * Display context has the details about displaying a RADOLAN composite image
  * 
  * @author wf
  *
@@ -50,61 +50,61 @@ import javafx.scene.paint.Color;
 public class DisplayContext {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  
-  public static boolean debug=false;
-  
+
+  public static boolean debug = false;
+
   /**
    * the composite RADOLAN data to be displayed
    */
-  Composite composite; 
-  
+  RadarImage composite;
+
   /**
    * the image (will be writable if processed from a composite)
    */
   Image image;
-  
+
   /**
    * the view in which the image is contained
    */
   ImageView imageView;
-  
+
   /**
    * the title to use for the display
    */
   String title;
-  
+
   /**
    * label to display infos
    */
   Label infoLabel;
-  
+
   /**
    * the name of the border to use - will be read from a json file
    */
   String borderName;
-  
+
   /**
    * the pane on which the borders and mesh might be shown
    */
   // Pane borderPane;
-  
+
   /**
-   * the pane on which we might draw extra information
-   * drawPane.clear() is allowed
+   * the pane on which we might draw extra information drawPane.clear() is
+   * allowed
    */
   Pane drawPane;
-  
+
   /**
-   * the visual transformation function of data to colors
-   * the default heatMap is DWD style - same colors as on DWD internet site
+   * the visual transformation function of data to colors the default heatMap is
+   * DWD style - same colors as on DWD internet site
    */
   FloatFunction<Color> heatmap = Vis.RangeMap(Vis.DWD_Style_Colors);
-  
+
   /**
    * the zoom area in km
    */
   double zoomKm;
-  
+
   /**
    * the location which is a the center of the zoom
    */
@@ -113,7 +113,7 @@ public class DisplayContext {
   /**
    * maximum expected value
    */
-  float max=400.0f;
+  float max = 400.0f;
 
   /**
    * create a DisplayContext
@@ -123,17 +123,21 @@ public class DisplayContext {
    * @param zoomKm
    * @param locationName
    */
-  public DisplayContext(Composite composite, String borderName, double zoomKm, String locationName) {
+  public DisplayContext(Composite composite, String borderName, double zoomKm,
+      String locationName) {
     this.composite = composite;
     this.borderName = borderName;
-    this.zoomKm=zoomKm;
-    setUpUnitsAndHeatMap();
+    this.zoomKm = zoomKm;
+    if (composite != null) {
+      setUpUnitsAndHeatMap();
+      image = new WritableImage(composite.getGridWidth(),composite.getGridHeight());
+    }
     // lookup location
-    if (locationName!=null) {
-      UnLocodeManager ulm=UnLocodeManager.getInstance();
-      this.location=ulm.lookup(locationName);
-      if (location==null) {
-        LOGGER.log(Level.WARNING,"could not find location "+locationName);
+    if (locationName != null) {
+      UnLocodeManager ulm = UnLocodeManager.getInstance();
+      this.location = ulm.lookup(locationName);
+      if (location == null) {
+        LOGGER.log(Level.WARNING, "could not find location " + locationName);
       }
     }
   }
@@ -171,11 +175,12 @@ public class DisplayContext {
     default:
       break;
     }
-    
+
   }
 
   /**
    * get the writeAbleImage (if available)
+   * 
    * @return the writeAbleImage or null if the image is not writeAble
    */
   public WritableImage getWriteableImage() {
@@ -185,9 +190,4 @@ public class DisplayContext {
       return null;
   }
 
-  public void replaceImage(WritableImage img) {
-    // imageView.fitHeightProperty().unbind();
-    // imageView.fitWidthProperty().unbind();
-    imageView.setImage(image);  
-  }
 }

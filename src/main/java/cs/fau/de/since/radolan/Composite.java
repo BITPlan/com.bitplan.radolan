@@ -106,7 +106,7 @@ import cs.fau.de.since.radolan.Data.Encoding;
  * @author wf
  *
  */
-public class Composite {
+public class Composite implements RadarImage {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
 
@@ -142,7 +142,7 @@ public class Composite {
   private double Rx; // horizontal resolution in km/px
   private double Ry; // vertical resolution in km/px
 
-  private boolean HasProjection; // coordinate translation available
+  private boolean projection; // coordinate translation available
 
   int dataLength; // length of binary section in bytes
 
@@ -187,19 +187,19 @@ public class Composite {
     Px = px;
   }
 
-  public double getRx() {
+  public double getResX() {
     return Rx;
   }
 
-  public void setRx(double rx) {
+  public void setResX(double rx) {
     Rx = rx;
   }
 
-  public double getRy() {
+  public double getResY() {
     return Ry;
   }
 
-  public void setRy(double ry) {
+  public void setResY(double ry) {
     Ry = ry;
   }
 
@@ -252,12 +252,12 @@ public class Composite {
     Interval = interval;
   }
 
-  public boolean isHasProjection() {
-    return HasProjection;
+  public boolean isProjection() {
+    return projection;
   }
 
-  public void setHasProjection(boolean hasProjection) {
-    HasProjection = hasProjection;
+  public void setProjection(boolean pProjection) {
+    projection = pProjection;
   }
 
   public static Consumer<Composite> getPostInit() {
@@ -466,7 +466,7 @@ public class Composite {
    * @param lon
    * @return the translation
    */
-  public DPoint translate(double lat, double lon) {
+  public DPoint translateLatLonToGrid(double lat, double lon) {
     return Translate.translate(this, lat, lon);
   }
 
@@ -476,7 +476,7 @@ public class Composite {
    * @param p
    * @return the lat/lon point
    */
-  public DPoint translateXYtoLatLon(DPoint p) {
+  public DPoint translateGridToLatLon(DPoint p) {
     return Translate.translateXYtoLatLon(this, p);
   }
 
@@ -548,6 +548,16 @@ public class Composite {
     pt.x=p.x*this.Px/width;
     pt.y=p.y*this.Py/height;
     return new IPoint(pt);
+  }
+
+  @Override
+  public int getGridWidth() {
+    return Px;
+  }
+
+  @Override
+  public int getGridHeight() {
+    return Py;
   }
 
 }
