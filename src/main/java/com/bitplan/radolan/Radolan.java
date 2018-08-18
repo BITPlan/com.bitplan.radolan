@@ -148,11 +148,7 @@ public class Radolan extends Main {
     try {
 
       if (debug) {
-        Composite.debug = true;
-        ImageViewer.debug = true;
-        Radolan2Image.debug = true;
-        DisplayContext.debug = true;
-        UnLocodeManager.debug = true;
+        Composite.activateDebug();
       }
       if (noCache) {
         Composite.useCache = false;

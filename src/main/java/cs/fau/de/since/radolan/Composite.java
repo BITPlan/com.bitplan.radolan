@@ -38,8 +38,14 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.bitplan.geo.UnLocodeManager;
 import com.bitplan.radolan.DPoint;
+import com.bitplan.radolan.DisplayContext;
 import com.bitplan.radolan.IPoint;
+import com.bitplan.radolan.ImageViewer;
+import com.bitplan.radolan.RadarImage;
+import com.bitplan.radolan.Radolan2Image;
+import com.bitplan.radolan.Zoom;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 import cs.fau.de.since.radolan.Data.Encoding;
@@ -118,7 +124,7 @@ public class Composite implements RadarImage {
   public static boolean useCache = true;
 
   // if not set the default $HOME/.radolan will be used
-  public static String cacheRootPath=null;
+  public static String cacheRootPath = null;
 
   public static String knownUrls[] = {
       "https://opendata.dwd.de/weather/radar/radolan/",
@@ -144,7 +150,7 @@ public class Composite implements RadarImage {
 
   private boolean projection; // coordinate translation available
 
-  int dataLength; // length of binary section in bytes
+  private int dataLength; // length of binary section in bytes
 
   private int precision; // multiplicator 10^precision for each raw value
   double precisionFactor;
@@ -162,7 +168,7 @@ public class Composite implements RadarImage {
 
   // CallBacks
   private static Consumer<Composite> postInit;
-  
+
   public int getDx() {
     return Dx;
   }
@@ -209,6 +215,14 @@ public class Composite implements RadarImage {
 
   public void setPy(int py) {
     Py = py;
+  }
+
+  public int getDataLength() {
+    return dataLength;
+  }
+
+  public void setDataLength(int dataLength) {
+    this.dataLength = dataLength;
   }
 
   public int getPrecision() {
@@ -296,7 +310,7 @@ public class Composite implements RadarImage {
    */
   public Composite(String url) throws Throwable {
     if (debug)
-      LOGGER.log(Level.INFO,"getting composite for url "+url);
+      LOGGER.log(Level.INFO, "getting composite for url " + url);
     this.url = checkCache(url);
 
     InputStream inputStream = new URL(url).openStream();
@@ -313,7 +327,7 @@ public class Composite implements RadarImage {
    * 
    * @param url
    * @return the (potentially replaced)
-   * @throws Exception 
+   * @throws Exception
    */
   public static String checkCache(String url) throws Exception {
     if (!useCache)
@@ -330,43 +344,49 @@ public class Composite implements RadarImage {
 
   /**
    * use the cache for the given URL
+   * 
    * @param url
    * @param knownUrl
    * @return - the URL of the cached file
-   * @throws Exception - if the URL is malformed
+   * @throws Exception
+   *           - if the URL is malformed
    */
-  protected static String useCache(String url, String knownUrl) throws Exception {
-    File cacheFile=cacheForUrl(url,knownUrl);
+  public static String useCache(String url, String knownUrl) throws Exception {
+    File cacheFile = cacheForUrl(url, knownUrl);
     if (!cacheFile.exists()) {
-      URL uri=new URL(url);
+      URL uri = new URL(url);
       if (debug)
-        LOGGER.log(Level.INFO,"caching to "+cacheFile.getPath());
+        LOGGER.log(Level.INFO, "caching to " + cacheFile.getPath());
       // cache the URL content
       FileUtils.copyURLToFile(uri, cacheFile);
     } else {
       if (debug)
-        LOGGER.log(Level.INFO,"getting cached file from "+cacheFile.getPath());
+        LOGGER.log(Level.INFO,
+            "getting cached file from " + cacheFile.getPath());
     }
     return cacheFile.toURI().toURL().toExternalForm();
   }
-  
+
   /**
    * get the cache File for the given url in reference to the given knownUrl
+   * 
    * @param url
    * @param knownUrl
    * @return - the cacheFile
    */
-  public static File cacheForUrl(String url,String knownUrl) {
-    String filePath=url.substring(knownUrl.length(), url.length());
-    if (cacheRootPath==null)
-      cacheRootPath=System.getProperty("user.home")+java.io.File.separator+".radolan";
-    File cacheRoot=new File(cacheRootPath);
+  public static File cacheForUrl(String url, String knownUrl) {
+    String filePath = url.substring(knownUrl.length(), url.length());
+    if (cacheRootPath == null)
+      cacheRootPath = System.getProperty("user.home") + java.io.File.separator
+          + ".radolan";
+    File cacheRoot = new File(cacheRootPath);
     if (!cacheRoot.exists()) {
       if (debug)
-        LOGGER.log(Level.INFO, "Creating radolan data cache directory "+cacheRoot.getPath());
+        LOGGER.log(Level.INFO,
+            "Creating radolan data cache directory " + cacheRoot.getPath());
       cacheRoot.mkdirs();
     }
-    File cacheFile=new File(cacheRoot,filePath); 
+    File cacheFile = new File(cacheRoot, filePath);
     return cacheFile;
   }
 
@@ -522,31 +542,35 @@ public class Composite implements RadarImage {
   }
 
   /**
-   * translate the given x,y coordinate to a view with the given width and height
-   * @param p - the original cartesian grid coordinate
+   * translate the given x,y coordinate to a view with the given width and
+   * height
+   * 
+   * @param p
+   *          - the original cartesian grid coordinate
    * @param width
    * @param height
    * @return - the translated point
    */
   public DPoint translateGridToView(IPoint p, double width, double height) {
-    DPoint pt=new DPoint(p.x,p.y);
-    pt.x=p.x*width/this.Px;
-    pt.y=p.y*height/this.Py;
+    DPoint pt = new DPoint(p.x, p.y);
+    pt.x = p.x * width / this.Px;
+    pt.y = p.y * height / this.Py;
     return pt;
   }
 
   /**
-   * translate a given x,y coordinate of the composite grid to a coordinate in a system
-   * with the given width and height
+   * translate a given x,y coordinate of the composite grid to a coordinate in a
+   * system with the given width and height
+   * 
    * @param p
    * @param width
    * @param height
    * @return the Grid Point
    */
   public IPoint translateViewToGrid(DPoint p, double width, double height) {
-    DPoint pt=new DPoint(p.x,p.y);
-    pt.x=p.x*this.Px/width;
-    pt.y=p.y*this.Py/height;
+    DPoint pt = new DPoint(p.x, p.y);
+    pt.x = p.x * this.Px / width;
+    pt.y = p.y * this.Py / height;
     return new IPoint(pt);
   }
 
@@ -558,6 +582,18 @@ public class Composite implements RadarImage {
   @Override
   public int getGridHeight() {
     return Py;
+  }
+
+  /**
+   * activate the static debug flags of components used
+   */
+  public static void activateDebug() {
+    Composite.debug = true;
+    ImageViewer.debug = true;
+    Radolan2Image.debug = true;
+    Zoom.debug = true;
+    DisplayContext.debug = true;
+    UnLocodeManager.debug = true;
   }
 
 }

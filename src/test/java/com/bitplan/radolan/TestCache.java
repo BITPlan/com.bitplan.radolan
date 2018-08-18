@@ -21,7 +21,7 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,8 +32,6 @@ import java.time.LocalDate;
 import java.time.Period;
 
 import org.junit.Test;
-
-import com.bitplan.radolan.BaseTest;
 
 import cs.fau.de.since.radolan.Composite;
 

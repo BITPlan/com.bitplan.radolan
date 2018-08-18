@@ -99,8 +99,8 @@ public class Header {
     if (dataLengthStr == null) {
       throw new Exception("parseHeader: missing dataLength/BY ######");
     }
-    c.dataLength = Integer.parseInt(dataLengthStr.trim());
-    c.dataLength -= c.header.length(); // remove header length including
+    c.setDataLength(Integer.parseInt(dataLengthStr.trim()));
+    c.setDataLength(c.getDataLength() - c.header.length()); // remove header length including
                                        // delimiter
     // Parse CaptureTime - Example: "PG262115100000616" or
     // "FZ211615100000716"

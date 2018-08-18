@@ -21,12 +21,9 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import java.time.Duration;
-
-import com.bitplan.radolan.DPoint;
-import com.bitplan.radolan.IPoint;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 

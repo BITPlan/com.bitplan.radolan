@@ -170,9 +170,9 @@ public class TestHeader extends Testing {
     }
 
     // dataLength
-    if (dummy.dataLength != ht.expDataLength) {
+    if (dummy.getDataLength() != ht.expDataLength) {
       Errorf("%s.parseHeader(): dataLength: %d; expected: %d", ht.expProduct,
-          dummy.dataLength, ht.expDataLength);
+          dummy.getDataLength(), ht.expDataLength);
     }
 
     // precision

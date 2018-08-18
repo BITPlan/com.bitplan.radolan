@@ -21,12 +21,16 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package cs.fau.de.since.radolan;
+package com.bitplan.radolan;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
 
 import org.junit.Test;
 
+import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.Data.Encoding;
 
 /**
@@ -35,7 +39,7 @@ import cs.fau.de.since.radolan.Data.Encoding;
  * @author wf
  *
  */
-public class TestData {
+public class TestData extends BaseTest {
 
   @Test
   public void testOpendata() throws Throwable {
@@ -48,6 +52,20 @@ public class TestData {
       checkLittleEndian(c, product.toUpperCase());
     }
   }
+  @Test
+  public void testSF1805301650() throws Throwable {
+    debug=true;
+    if (debug)
+      Composite.activateDebug();
+    File sfHistoryFile = new File(
+        "src/test/data/history/raa01-sf_10000-1805301650-dwd---bin.gz");
+    assertTrue(sfHistoryFile.exists());
+    String url = sfHistoryFile.toURI().toURL().toExternalForm();    Composite c=new Composite(url);
+    checkLittleEndian(c,"SF");
+    File zippedCsvFile=new File("/tmp/raa01-sf_10000-1805301650-dwd---bin.bz2");
+    assertTrue(zippedCsvFile.exists());
+  }
+  
 
   /**
    * check the given composite
@@ -60,8 +78,8 @@ public class TestData {
     assertEquals(product, c.getProduct());
     assertEquals(900, c.getDx());
     assertEquals(900, c.getDy());
-    assertEquals(c.getDx() * c.getDy() * 2, c.dataLength);
-    assertEquals(c.dataLength + c.header.length(), c.bytes.length);
+    assertEquals(c.getDx() * c.getDy() * 2, c.getDataLength());
+    assertEquals(c.getDataLength() + c.header.length(), c.bytes.length);
     assertEquals(c.PlainData.length,c.getDy());
     assertEquals(Encoding.littleEndian, c.identifyEncoding());
   }

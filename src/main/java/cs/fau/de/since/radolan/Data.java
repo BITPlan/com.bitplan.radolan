@@ -32,7 +32,7 @@ import java.util.function.Consumer;
  * https://gitlab.cs.fau.de/since/radolan/blob/master/data.go
  */
 public class Data {
-  enum Encoding {
+  public enum Encoding {
     runlength, littleEndian, singleByte, unknown
   };
 
@@ -52,9 +52,9 @@ public class Data {
     int values = c.getPx() * c.getPy();
     if (c.level != null) {
       return Encoding.runlength;
-    } else if (c.dataLength == values * 2) {
+    } else if (c.getDataLength() == values * 2) {
       return Encoding.littleEndian;
-    } else if (c.dataLength == values) {
+    } else if (c.getDataLength() == values) {
       return Encoding.singleByte;
     } else {
       return Encoding.unknown;

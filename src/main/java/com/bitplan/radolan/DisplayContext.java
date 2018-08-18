@@ -32,7 +32,6 @@ import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
-import cs.fau.de.since.radolan.RadarImage;
 import cs.fau.de.since.radolan.vis.Vis;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;

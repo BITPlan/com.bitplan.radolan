@@ -26,9 +26,7 @@ package com.bitplan.radolan;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import cs.fau.de.since.radolan.TestCache;
 import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestData;
 import cs.fau.de.since.radolan.TestHeader;
 import cs.fau.de.since.radolan.TestTranslate;
 
