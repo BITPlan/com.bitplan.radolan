@@ -54,23 +54,27 @@ public class Zoom {
   VBox vbox;
   Label infoLabel;
   private DisplayContext displayContext;
+  private int zoomFactor;
 
   /**
    * create a zoom for the given display Context
    * 
    * @param displayContext
    */
-  public Zoom (DisplayContext displayContext) {
+  public Zoom(DisplayContext displayContext, int zoomFactor) {
+    this.zoomFactor=zoomFactor;
     this.displayContext = displayContext;
     zoomView = new ImageView();
-    zoomImage = new WritableImage((int) displayContext.zoomKm * 10,
-        (int) displayContext.zoomKm * 10);
+    zoomImage = new WritableImage((int) displayContext.zoomKm * zoomFactor,
+        (int) displayContext.zoomKm * zoomFactor);
     zoomView.setImage(zoomImage);
+    //zoomView.setFitWidth(zoomImage.getWidth());
+    //zoomView.setFitHeight(zoomImage.getHeight());
     infoLabel = new Label("no info");
     infoLabel.setTextFill(Color.BLUE);
     infoLabel.setBackground(new Background(
         new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-    vbox = new VBox(infoLabel);
+    vbox = new VBox(infoLabel,zoomView);
     popOver = new PopOver(vbox);
   }
 
@@ -85,6 +89,7 @@ public class Zoom {
    */
   public String arm(IPoint gp, DPoint vp) {
     RadarImage composite = displayContext.composite;
+    copyZoomContent(displayContext, gp);
     // get the precipitation value for this point
     float value = composite.getValue(gp.x, gp.y);
     // get the location of the point as lat/lon
@@ -110,14 +115,33 @@ public class Zoom {
     if (debug)
       LOGGER.log(Level.INFO, msg);
     infoLabel.setText(displayMsg);
-    Label dinfoLabel = displayContext.infoLabel;
-    dinfoLabel.setTranslateX(vp.x);
-    dinfoLabel.setTranslateY(vp.y);
     return displayMsg;
+  }
+
+  private void copyZoomContent(DisplayContext displayContext, IPoint gp) {
+    int half = (int) (displayContext.zoomKm / 2);
+    for (int x = gp.x - half; x <= gp.x + half; x++) {
+      for (int y = gp.y - half; y <= gp.y + half; y++) {
+        if (y >= 0 && y < displayContext.composite.getGridHeight())
+          if (x >= 0 && x < displayContext.composite.getGridWidth()) {
+            Color color = displayContext.image.getPixelReader().getColor(x, y);
+            int tx0 = x - gp.x + half;
+            int ty0 = y - gp.y + half;
+
+            for (int tx = tx0*zoomFactor; tx < tx0*zoomFactor + zoomFactor; tx++) {
+              for (int ty = ty0*zoomFactor; ty < ty0*zoomFactor + zoomFactor; ty++) {
+                if (tx < zoomImage.getWidth() && ty < zoomImage.getHeight())
+                  zoomImage.getPixelWriter().setColor(tx, ty, color);
+              }
+            }
+          }
+      }
+    }
   }
 
   /**
    * trigger this zoom
+   * 
    * @param node
    */
   public void triggerOnMouseEntered(Node node) {

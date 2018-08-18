@@ -60,8 +60,6 @@ public class ImageViewer extends WaitableApp {
   private DisplayContext displayContext;
   private Pane drawPane;
   private Scene scene;
-  private Label infoLabel;
-  // private Pane borderPane;
 
   /**
    * construct me from a DisplayContext
@@ -116,15 +114,6 @@ public class ImageViewer extends WaitableApp {
     drawPane.setStyle(
         "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");
 
-    infoLabel = new Label("");
-    infoLabel.setTextFill(Color.BLUE);
-    infoLabel.setBackground(new Background(
-        new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-    // https://stackoverflow.com/a/29029875/1497139
-    HBox glass = new HBox();
-    glass.setBackground(Background.EMPTY);
-    glass.getChildren().add(infoLabel);
-
     /*
      * borderPane =new Pane(); borderPane.setStyle(
      * "-fx-background-color: rgba(255, 128, 0, 0.05); -fx-background-radius: 10;"
@@ -132,7 +121,7 @@ public class ImageViewer extends WaitableApp {
      */
     StackPane stackPane = new StackPane();
     StackPane.setAlignment(imageView, Pos.CENTER);
-    stackPane.getChildren().addAll(imageView, glass, drawPane);
+    stackPane.getChildren().addAll(imageView, drawPane);
 
     // container with a fill property
     scene = new Scene(stackPane);
@@ -142,8 +131,6 @@ public class ImageViewer extends WaitableApp {
     if (displayContext != null) {
       displayContext.imageView = imageView;
       displayContext.drawPane = drawPane;
-      displayContext.infoLabel = infoLabel;
-      // displayContext.borderPane=borderPane;
       stage.setWidth(displayContext.image.getWidth());
       stage.setHeight(displayContext.image.getHeight());
     }

@@ -58,13 +58,13 @@ public class DPoint {
   }
   
   public String getLatDMS() {
-    String latDMS = String.format("%s %s", getLat().toFormattedDMSString().substring(0, 11),
+    String latDMS = String.format("%s %s", getLat().toFormattedDMSString().substring(0, 9),
         getLat().degrees >= 0.0 ? "N" : "S");
     return latDMS;
   }
 
   public String getLonDMS() {
-    String lonDMS = String.format("%s %s", getLon().toFormattedDMSString().substring(0, 11),
+    String lonDMS = String.format("%s %s", getLon().toFormattedDMSString().substring(0, 9),
         getLon().degrees >= 0.0 ? "E" : "W");
     return lonDMS;
   }

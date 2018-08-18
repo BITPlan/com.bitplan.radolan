@@ -193,7 +193,7 @@ public class Radolan2Image {
       // grid point
       IPoint gp = composite.translateViewToGrid(vp, viewBounds.getWidth(),
           viewBounds.getHeight());
-      Zoom zoom=new Zoom(displayContext);
+      Zoom zoom=new Zoom(displayContext,12);
       String text=zoom.arm(gp,vp);
       Circle circle = drawCircleWithText(displayContext.drawPane, text, 4, Color.BLUE, vp.x, vp.y);
       zoom.popOver.show(circle);
@@ -231,7 +231,7 @@ public class Radolan2Image {
         drawOnGlass.getHeight());
     String text = String.format("%s - %.1f mm", loc.getName(), value);
     Circle circle = drawCircleWithText(displayContext.drawPane, text, 4, Color.BLUE, vp.x, vp.y);
-    Zoom zoom=new Zoom(displayContext);
+    Zoom zoom=new Zoom(displayContext,12);
     zoom.arm(gp, vp);
     zoom.triggerOnMouseEntered(circle);
   }

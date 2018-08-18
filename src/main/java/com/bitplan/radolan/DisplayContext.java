@@ -73,11 +73,6 @@ public class DisplayContext {
   String title;
 
   /**
-   * label to display infos
-   */
-  Label infoLabel;
-
-  /**
    * the name of the border to use - will be read from a json file
    */
   String borderName;
