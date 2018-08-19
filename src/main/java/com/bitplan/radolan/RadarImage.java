@@ -32,30 +32,7 @@ import cs.fau.de.since.radolan.Catalog.Unit;
  * @author wf
  *
  */
-public interface RadarImage {
-  /**
-   * get the gridWidth
-   * @return - the grid width
-   */
-  public int getGridWidth();
-  
-  /**
-   * get the grid Height
-   * @return - the grid height
-   */
-  public int getGridHeight();
-
-  /**
-   * get the x resolution km/per grid pixel
-   * @return - the x resolution
-   */
-  public double getResX();
-  
-  /**
-   * get the y resolution km/per grid pixel
-   * @return the y resolution
-   */
-  public double getResY();
+public interface RadarImage extends Projection {
   
   /**
    * get the value at the given grid position
@@ -65,41 +42,6 @@ public interface RadarImage {
    */
   public float getValue(int x, int y);
   
-  /**
-   * translate the given coordinates to a double precision point
-   * 
-   * @param lat
-   * @param lon
-   * @return the translation
-   */
-  public DPoint translateLatLonToGrid(double lat, double lon);
-
-  /**
-   * translate a coordinate to lat/lon
-   * 
-   * @param p
-   * @return the lat/lon point
-   */
-  public DPoint translateGridToLatLon(DPoint p);
-  
-  /**
-   * translate a Grid point to a view point
-   * @param p
-   * @param width - of the view
-   * @param height - of the view
-   * @return - coordinate in the view
-   */
-  public DPoint translateGridToView(IPoint p, double width, double height);
-  
-  /**
-   * translate a given x,y coordinate of the composite grid to a coordinate in a system
-   * with the given width and height
-   * @param p
-   * @param width
-   * @param height
-   * @return the Grid Point
-   */
-  public IPoint translateViewToGrid(DPoint p, double width, double height);
   
   /**
    * get the data unit of the image
@@ -113,10 +55,5 @@ public interface RadarImage {
    */
   public Duration getInterval();
   
-  /**
-   * return true if this is a projection
-   * @return true if a projection is active
-   */
-  public boolean isProjection();
   
 }

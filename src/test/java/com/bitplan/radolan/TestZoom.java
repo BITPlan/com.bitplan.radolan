@@ -38,14 +38,12 @@ public class TestZoom extends BaseTest {
   
   @Test
   public void testScreenTranslate() {
-    Composite comp=new Composite();
-    comp.setPx(900);
-    comp.setPy(900);
+    Projection proj=new ProjectionImpl(900,900);
     IPoint p=new IPoint(400,400);
-    DPoint pt = comp.translateGridToView(p, 450, 450);
+    DPoint pt = proj.translateGridToView(p, 450, 450);
     assertEquals(200.0,pt.x,0.0001);
     assertEquals(200.0,pt.y,0.0001);
-    IPoint p2=comp.translateViewToGrid(pt,450,450);
+    IPoint p2=proj.translateViewToGrid(pt,450,450);
     assertEquals(p.x,p2.x);
     assertEquals(p.y,p2.y);
   }
@@ -57,7 +55,7 @@ public class TestZoom extends BaseTest {
       String url = String.format(
           "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
           product, product);
-      testRadolan(url, 5, product + ".png", null, "-l", "Willich","-z","30");
+      testRadolan(url, 4, product + ".png", null, "-l", "Willich","-z","30");
     }
   }
 

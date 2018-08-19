@@ -32,7 +32,6 @@ import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.function.Consumer;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.FileUtils;
@@ -43,6 +42,8 @@ import com.bitplan.radolan.DPoint;
 import com.bitplan.radolan.DisplayContext;
 import com.bitplan.radolan.IPoint;
 import com.bitplan.radolan.ImageViewer;
+import com.bitplan.radolan.Projection;
+import com.bitplan.radolan.ProjectionImpl;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Radolan2Image;
 import com.bitplan.radolan.Statistics;
@@ -113,12 +114,7 @@ import cs.fau.de.since.radolan.Data.Encoding;
  * @author wf
  *
  */
-public class Composite implements RadarImage {
-  // prepare a LOGGER
-  protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
-
-  // switch on for debugging
-  public static boolean debug = false;
+public class Composite extends ProjectionImpl implements RadarImage,Projection  {
 
   // by default files from known URL are cached locally
   // see https://github.com/BITPlan/com.bitplan.radolan/issues/3
@@ -143,14 +139,6 @@ public class Composite implements RadarImage {
   private int Px; // plain data width
   private int Py; // plain data height
 
-  private int Dx; // data width
-  private int Dy;// data height
-
-  private double Rx; // horizontal resolution in km/px
-  private double Ry; // vertical resolution in km/px
-
-  private boolean projection; // coordinate translation available
-
   private int dataLength; // length of binary section in bytes
 
   private int precision; // multiplicator 10^precision for each raw value
@@ -158,8 +146,7 @@ public class Composite implements RadarImage {
   float[] level; // maps data value to corresponding index value in runlength
                  // based formats
 
-  double offx; // horizontal projection offset
-  double offy; // vertical projection offset
+
   public byte bytes[];
   public String header;
 
@@ -194,22 +181,6 @@ public class Composite implements RadarImage {
 
   public void setPx(int px) {
     Px = px;
-  }
-
-  public double getResX() {
-    return Rx;
-  }
-
-  public void setResX(double rx) {
-    Rx = rx;
-  }
-
-  public double getResY() {
-    return Ry;
-  }
-
-  public void setResY(double ry) {
-    Ry = ry;
   }
 
   public int getPy() {
@@ -283,14 +254,6 @@ public class Composite implements RadarImage {
 
   public void setInterval(Duration interval) {
     Interval = interval;
-  }
-
-  public boolean isProjection() {
-    return projection;
-  }
-
-  public void setProjection(boolean pProjection) {
-    projection = pProjection;
   }
 
   public static Consumer<Composite> getPostInit() {
@@ -517,27 +480,7 @@ public class Composite implements RadarImage {
     return conv;
   }
 
-  /**
-   * translate the given coordinates to a double precision point
-   * 
-   * @param lat
-   * @param lon
-   * @return the translation
-   */
-  public DPoint translateLatLonToGrid(double lat, double lon) {
-    return Translate.translate(this, lat, lon);
-  }
-
-  /**
-   * translate a coordinate to lat/lon
-   * 
-   * @param p
-   * @return the lat/lon point
-   */
-  public DPoint translateGridToLatLon(DPoint p) {
-    return Translate.translateXYtoLatLon(this, p);
-  }
-
+  
   /**
    * get the byte at the given x,y position in the binary data
    * 
@@ -584,49 +527,6 @@ public class Composite implements RadarImage {
         PlainData[y][x] = value;
         getStatistics().add(value);
       }
-  }
-
-  /**
-   * translate the given x,y coordinate to a view with the given width and
-   * height
-   * 
-   * @param p
-   *          - the original cartesian grid coordinate
-   * @param width
-   * @param height
-   * @return - the translated point
-   */
-  public DPoint translateGridToView(IPoint p, double width, double height) {
-    DPoint pt = new DPoint(p.x, p.y);
-    pt.x = p.x * width / this.Px;
-    pt.y = p.y * height / this.Py;
-    return pt;
-  }
-
-  /**
-   * translate a given x,y coordinate of the composite grid to a coordinate in a
-   * system with the given width and height
-   * 
-   * @param p
-   * @param width
-   * @param height
-   * @return the Grid Point
-   */
-  public IPoint translateViewToGrid(DPoint p, double width, double height) {
-    DPoint pt = new DPoint(p.x, p.y);
-    pt.x = p.x * this.Px / width;
-    pt.y = p.y * this.Py / height;
-    return new IPoint(pt);
-  }
-
-  @Override
-  public int getGridWidth() {
-    return Px;
-  }
-
-  @Override
-  public int getGridHeight() {
-    return Py;
   }
 
   /**

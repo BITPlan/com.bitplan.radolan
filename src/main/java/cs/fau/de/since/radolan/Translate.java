@@ -25,6 +25,7 @@ package cs.fau.de.since.radolan;
 
 import com.bitplan.radolan.DPoint;
 import com.bitplan.radolan.IPoint;
+import com.bitplan.radolan.Projection;
 
 /**
  * migrated to Java from
@@ -74,10 +75,15 @@ public class Translate {
     return rd;
   }
 
-  // detectGrid identifies the used projection grid based on the composite
-  // dimensions
-  public static GridType detectGrid(Composite c) {
-    IPoint d = minRes(new IPoint(c.getDx(), c.getDy()));
+  /**
+   * detectGrid identifies the used projection grid based on the projection
+   * dimensions
+   * 
+   * @param pro - the project
+   * @return - the projection
+   */
+  public static GridType detectGrid(Projection pro) {
+    IPoint d = minRes(new IPoint(pro.getGridWidth(), pro.getGridHeight()));
     if (d.x == nationalGrid.x && d.y == nationalGrid.y) {
       return GridType.nationalGrid;
     }
@@ -137,36 +143,47 @@ public class Translate {
     return null;
   }
 
-  // calibrateProjection initializes fields that are necessary for coordinate
-  // translation
-  public static void calibrateProjection(Composite c) {
+  /** calibrateProjection initializes fields that are necessary for coordinate
+   * translation
+   * @param comp
+   */
+  public static void calibrateProjection(Composite comp) {
     // get corner points
-    CornerPoints cp = cornerPoints(c);
+    CornerPoints cp = cornerPoints(comp);
+    calibrateProjection(comp,cp);
+  }
+  
+  /**
+   * calibrate the given Projection with the given CornerPoints
+   * @param pro the projection to calibrate
+   * @param cp - the corner points
+   */
+  public static void calibrateProjection(Composite pro, CornerPoints cp) {
     if (cp == null) {
       double nan = Double.NaN;
-      c.setResX(nan);
-      c.setResY(nan);
-      c.offx = nan;
-      c.offy = nan;
+      pro.setResX(nan);
+      pro.setResY(nan);
+      pro.setOffSetX(nan);
+      pro.setOffSetY(nan);
       return;
     }
 
     // found matching projection rule
-    c.setProjection(true);
+    pro.setProjection(true);
 
     // set resolution to 1 km for calibration
-    c.setResX(1.0);
-    c.setResY(1.0);
+    pro.setResX(1.0);
+    pro.setResY(1.0);
 
     // calibrate offset correction
-    DPoint off = translate(c, cp.originTop, cp.originLeft);
-    c.offx = off.x;
-    c.offy = off.y;
+    DPoint off = translate(pro, cp.originTop, cp.originLeft);
+    pro.setOffSetX(off.x);
+    pro.setOffSetY(off.y);
 
     // calibrate scaling
-    DPoint res = translate(c, cp.edgeBottom, cp.edgeRight);
-    c.setResX((res.x) / c.getDx());
-    c.setResY((res.y) / c.getDy());
+    DPoint res = translate(pro, cp.edgeBottom, cp.edgeRight);
+    pro.setResX((res.x) / pro.getDx());
+    pro.setResY((res.y) / pro.getDy());
   }
 
   public static double square(double n) {
@@ -223,19 +240,19 @@ public class Translate {
   // according data indices in the coordinate system of the composite.
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
-  public static DPoint translate(Composite c, double north, double east) {
-    if (!c.isProjection()) {
+  public static DPoint translate(Projection pro, double north, double east) {
+    if (!pro.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
     DPoint p = polarStereoProjection(north, east);
 
     // offset correction
-    p.x -= c.offx;
-    p.y -= c.offy;
+    p.x -= pro.getOffSetX();
+    p.y -= pro.getOffSetY();
 
     // scaling
-    p.x /= c.getResX();
-    p.y /= c.getResY();
+    p.x /= pro.getResX();
+    p.y /= pro.getResY();
     return p;
   }
 
@@ -263,22 +280,22 @@ public class Translate {
 
   /**
    * translate a coordinate to lat/lon
-   * 
+   * @param pro - the projection
    * @param p
    * @return the lat/lon point
    */
-  public static DPoint translateXYtoLatLon(Composite c, DPoint p) {
-    if (!c.isProjection()) {
+  public static DPoint translateXYtoLatLon(Projection pro, DPoint p) {
+    if (!pro.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
     DPoint pt=new DPoint(p.x,p.y);
     // scaling
-    pt.x *= c.getResX();
-    pt.y *= c.getResY();
+    pt.x *= pro.getResX();
+    pt.y *= pro.getResY();
 
     // offset correction
-    pt.x += c.offx;
-    pt.y += c.offy;
+    pt.x += pro.getOffSetX();
+    pt.y += pro.getOffSetY();
 
     DPoint latlon = inversePolarStereoProjection(pt.x, pt.y);
 

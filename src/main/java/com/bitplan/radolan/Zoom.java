@@ -118,6 +118,11 @@ public class Zoom {
     return displayMsg;
   }
 
+  /**
+   * copy the zoom content for the given grid point
+   * @param displayContext
+   * @param gp
+   */
   private void copyZoomContent(DisplayContext displayContext, IPoint gp) {
     int half = (int) (displayContext.zoomKm / 2);
     for (int x = gp.x - half; x <= gp.x + half; x++) {

@@ -129,7 +129,7 @@ public class TestTranslate extends Testing {
       Logf("dummy%s: Rx = %f; Ry = %f\n", test.comp.getProduct(),
           test.comp.getResX(), test.comp.getResY());
       Logf("dummy%s: offx = %f; offy = %f\n", test.comp.getProduct(),
-          test.comp.offx, test.comp.offy);
+          test.comp.getOffSetX(), test.comp.getOffSetY());
       //debug=true;
       for (double[] edge : test.edge) {
         DPoint latlon=new DPoint(edge[0], edge[1]);
