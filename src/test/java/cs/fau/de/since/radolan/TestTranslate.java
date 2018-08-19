@@ -31,7 +31,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
-import com.bitplan.radolan.DPoint;
+import com.bitplan.geo.DPoint;
 import com.bitplan.radolan.Testing;
 
 /**

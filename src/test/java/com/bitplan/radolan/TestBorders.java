@@ -28,6 +28,9 @@ import java.util.logging.Level;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.bitplan.geo.Borders;
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
 import com.bitplan.javafx.SampleApp;
 
 import cs.fau.de.since.radolan.Translate;

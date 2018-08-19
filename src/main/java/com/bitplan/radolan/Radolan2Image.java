@@ -26,6 +26,9 @@ package com.bitplan.radolan;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.bitplan.geo.Borders;
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
 import com.bitplan.geo.UnLocode;
 
 import cs.fau.de.since.radolan.FloatFunction;

@@ -25,6 +25,8 @@ package com.bitplan.radolan;
 
 import java.time.Duration;
 
+import com.bitplan.geo.Projection;
+
 import cs.fau.de.since.radolan.Catalog.Unit;
 
 /**

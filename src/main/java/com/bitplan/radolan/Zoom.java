@@ -30,6 +30,8 @@ import java.util.logging.Logger;
 
 import org.controlsfx.control.PopOver;
 
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
 import com.bitplan.geo.UnLocode;
 import com.bitplan.geo.UnLocodeManager;
 

@@ -23,9 +23,9 @@
  */
 package cs.fau.de.since.radolan;
 
-import com.bitplan.radolan.DPoint;
-import com.bitplan.radolan.IPoint;
-import com.bitplan.radolan.Projection;
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
+import com.bitplan.geo.Projection;
 
 /**
  * migrated to Java from

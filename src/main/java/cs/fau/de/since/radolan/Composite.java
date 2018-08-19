@@ -37,13 +37,13 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
+import com.bitplan.geo.Projection;
+import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.geo.UnLocodeManager;
-import com.bitplan.radolan.DPoint;
 import com.bitplan.radolan.DisplayContext;
-import com.bitplan.radolan.IPoint;
 import com.bitplan.radolan.ImageViewer;
-import com.bitplan.radolan.Projection;
-import com.bitplan.radolan.ProjectionImpl;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Radolan2Image;
 import com.bitplan.radolan.Statistics;

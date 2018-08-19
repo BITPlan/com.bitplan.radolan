@@ -21,7 +21,7 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package com.bitplan.radolan;
+package com.bitplan.geo;
 
 /**
  * abstraction of a projection

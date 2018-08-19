@@ -33,6 +33,7 @@ import java.util.logging.Level;
 
 import org.junit.Test;
 
+import com.bitplan.geo.DPoint;
 import com.bitplan.geo.UnLocode;
 import com.bitplan.geo.UnLocodeManager;
 
