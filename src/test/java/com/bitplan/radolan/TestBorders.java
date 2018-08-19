@@ -23,6 +23,9 @@
  */
 package com.bitplan.radolan;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.Ignore;
@@ -31,9 +34,12 @@ import org.junit.Test;
 import com.bitplan.geo.Borders;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
+import com.bitplan.geo.Projection;
+import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.javafx.SampleApp;
 
 import cs.fau.de.since.radolan.Translate;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
@@ -72,7 +78,7 @@ public class TestBorders extends BaseTest {
     }
   }
 
-  static int SHOW_TIME = 60 * 60 * 1000; // millisecs
+  static int SHOW_TIME = 4* 1000; // millisecs
 
   static class MapView {
     ImageView imageView;
@@ -157,31 +163,33 @@ public class TestBorders extends BaseTest {
       if (image instanceof WritableImage) {
         return (WritableImage) image;
       } else {
-        LOGGER.log(Level.INFO,"image is not writeable will create a writeable copy");
-        WritableImage copyImage=copyImage(image);
-        image=copyImage;
+        LOGGER.log(Level.INFO,
+            "image is not writeable will create a writeable copy");
+        WritableImage copyImage = copyImage(image);
+        image = copyImage;
         imageView.setImage(image);
         return copyImage;
       }
     }
-    
+
     /**
      * copy the given image to a writeable image
+     * 
      * @param image
      * @return a writeable image
      */
     public static WritableImage copyImage(Image image) {
-      int height=(int)image.getHeight();
-      int width=(int)image.getWidth();
-      PixelReader pixelReader=image.getPixelReader();
-      WritableImage writableImage = new WritableImage(width,height);
+      int height = (int) image.getHeight();
+      int width = (int) image.getWidth();
+      PixelReader pixelReader = image.getPixelReader();
+      WritableImage writableImage = new WritableImage(width, height);
       PixelWriter pixelWriter = writableImage.getPixelWriter();
-      
-      for (int y = 0; y < height; y++){
-          for (int x = 0; x < width; x++){
-              Color color = pixelReader.getColor(x, y);
-              pixelWriter.setColor(x, y, color);
-          }
+
+      for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+          Color color = pixelReader.getColor(x, y);
+          pixelWriter.setColor(x, y, color);
+        }
       }
       return writableImage;
     }
@@ -201,6 +209,7 @@ public class TestBorders extends BaseTest {
     private MapView mapView;
     private Borders borders;
     private Color borderColor;
+    private Projection projection;
 
     /**
      * construct me
@@ -208,8 +217,10 @@ public class TestBorders extends BaseTest {
      * @param mapView
      * @param borderName
      */
-    public BorderDraw(MapView mapView, String borderName, Color borderColor) {
+    public BorderDraw(MapView mapView, Projection projection, String borderName,
+        Color borderColor) {
       this.mapView = mapView;
+      this.projection = projection;
       borders = new Borders(borderName);
       this.borderColor = borderColor;
     }
@@ -219,13 +230,15 @@ public class TestBorders extends BaseTest {
      */
     public void drawBorders() {
       WritableImage image = mapView.getWriteableImage();
-      if (image==null) {
-        LOGGER.log(Level.WARNING,"can't draw Borders - image is null");
+      if (image == null) {
+        LOGGER.log(Level.WARNING, "can't draw Borders - image is null");
         return;
       }
       IPoint prevIp = null;
-      for (DPoint latlon : borders.getPoints()) {
-        DPoint p = Translate.polarStereoProjection(latlon.x, latlon.y);
+      List<DPoint> points = borders.getPoints();
+      LOGGER.log(Level.INFO, String.format("drawing %d border points",points.size()));
+      for (DPoint latlon : points) {
+        DPoint p = Translate.translate(projection, latlon.x, latlon.y);
         IPoint ip = new IPoint(p);
         // getScreenPointForLatLon(displayContext,borderPane,point);
         double dist = ip.dist(prevIp);
@@ -235,21 +248,25 @@ public class TestBorders extends BaseTest {
            * line.setStrokeWidth(2); line.setStroke(borderColor);
            * Platform.runLater(() -> { borderPane.getChildren().add(line); });
            */
-          image.getPixelWriter().setColor(ip.x, ip.y,
-              borderColor);
+          image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
         }
         prevIp = ip;
       }
+      LOGGER.log(Level.INFO,"drawing done");
     }
-  }
+   }
 
   @Ignore
-  public void testDrawingBorders() throws InterruptedException {
+  public void testDrawingBorders() throws Exception {
     SampleApp.toolkitInit();
-    MapView mapView = new MapView(
-        "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
+    File imageFile = new File("src/test/data/image/rad_brd900x900.jpg");
+
+    MapView mapView = new MapView(imageFile.toURI().toURL().toExternalForm());
     for (String name : names) {
-      BorderDraw borderDraw = new BorderDraw(mapView, name, Color.BROWN);
+      Projection projection = new ProjectionImpl(900, 900);
+      Translate.calibrateProjection(projection);
+      BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
+          Color.BROWN);
       SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getPane());
       sampleApp.show();
       sampleApp.waitOpen();
@@ -259,11 +276,12 @@ public class TestBorders extends BaseTest {
       sampleApp.getStage().setHeight(mapView.image.getHeight());
       double width = sampleApp.getStage().getWidth();
       double height = sampleApp.getStage().getHeight();
-      LOGGER.log(Level.INFO, String.format("stage: %.0f x %.0f image: %.0f x %.0f ",
-          width, height, iwidth, iheight));
+      LOGGER.log(Level.INFO,
+          String.format("stage: %.0f x %.0f image: %.0f x %.0f ", width, height,
+              iwidth, iheight));
       sampleApp.getStage().setHeight(mapView.image.getHeight() + 61);
       mapView.addSizeListener(sampleApp.getStage());
-      borderDraw.drawBorders();
+      Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
       sampleApp.close();
     }

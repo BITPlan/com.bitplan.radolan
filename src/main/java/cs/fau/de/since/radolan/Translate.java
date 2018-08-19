@@ -119,8 +119,8 @@ public class Translate {
     double edgeRight;
   }
 
-  public static CornerPoints cornerPoints(Composite c) {
-    switch (detectGrid(c)) {
+  public static CornerPoints cornerPoints(Projection projection) {
+    switch (detectGrid(projection)) {
     case nationalGrid: // described in [1]
       return new CornerPoints(54.5877, 02.0715 // N, E
           , 47.0705, 14.6209 // N, E
@@ -145,45 +145,45 @@ public class Translate {
 
   /** calibrateProjection initializes fields that are necessary for coordinate
    * translation
-   * @param comp
+   * @param projection
    */
-  public static void calibrateProjection(Composite comp) {
+  public static void calibrateProjection(Projection projection) {
     // get corner points
-    CornerPoints cp = cornerPoints(comp);
-    calibrateProjection(comp,cp);
+    CornerPoints cp = cornerPoints(projection);
+    calibrateProjection(projection,cp);
   }
   
   /**
    * calibrate the given Projection with the given CornerPoints
-   * @param pro the projection to calibrate
+   * @param projection the projection to calibrate
    * @param cp - the corner points
    */
-  public static void calibrateProjection(Composite pro, CornerPoints cp) {
+  public static void calibrateProjection(Projection projection, CornerPoints cp) {
     if (cp == null) {
       double nan = Double.NaN;
-      pro.setResX(nan);
-      pro.setResY(nan);
-      pro.setOffSetX(nan);
-      pro.setOffSetY(nan);
+      projection.setResX(nan);
+      projection.setResY(nan);
+      projection.setOffSetX(nan);
+      projection.setOffSetY(nan);
       return;
     }
 
     // found matching projection rule
-    pro.setProjection(true);
+    projection.setProjection(true);
 
     // set resolution to 1 km for calibration
-    pro.setResX(1.0);
-    pro.setResY(1.0);
+    projection.setResX(1.0);
+    projection.setResY(1.0);
 
     // calibrate offset correction
-    DPoint off = translate(pro, cp.originTop, cp.originLeft);
-    pro.setOffSetX(off.x);
-    pro.setOffSetY(off.y);
+    DPoint off = translate(projection, cp.originTop, cp.originLeft);
+    projection.setOffSetX(off.x);
+    projection.setOffSetY(off.y);
 
     // calibrate scaling
-    DPoint res = translate(pro, cp.edgeBottom, cp.edgeRight);
-    pro.setResX((res.x) / pro.getDx());
-    pro.setResY((res.y) / pro.getDy());
+    DPoint res = translate(projection, cp.edgeBottom, cp.edgeRight);
+    projection.setResX((res.x) / projection.getGridWidth());
+    projection.setResY((res.y) / projection.getGridHeight());
   }
 
   public static double square(double n) {
