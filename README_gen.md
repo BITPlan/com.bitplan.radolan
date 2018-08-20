@@ -1,5 +1,7 @@
 # com.bitplan.radolan
 parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan
+# Creator 
+[![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
 
 [![Build Status](https://travis-ci.org/BITPlan/com.bitplan.radolan.svg?branch=master)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
 ### Distribution
@@ -13,8 +15,12 @@ Maven dependency
   <version>0.0.1</version>
 </dependency>
 ```
-### Creator 
-[![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
+### How to build
+```
+git clone https://github.com/BITPlan/com.bitplan.radolan
+cd com.bitplan.radolan
+mvn install
+```
 # History
 * 0.0.1 2018-08-14 Migration of classes and tests (not working yet)
 * 0.0.1 2018-08-16 working display and input/output handling
