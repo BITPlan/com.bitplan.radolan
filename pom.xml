@@ -29,6 +29,8 @@
 		<system>Travis</system>
 	</ciManagement>
 	<properties>
+		<!-- for parent pom to work -->
+		<github.project>com.bitplan.radolan</github.project>
 		<!-- JUnit unit testing framework -->
 		<junit4.version>4.12</junit4.version>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
