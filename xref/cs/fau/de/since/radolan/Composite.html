@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Composite xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/cs/fau/de/since/radolan/Composite.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2018 BITPlan GmbH</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * <a href="http://www.bitplan.co" target="alexandria_uri">http://www.bitplan.co</a>m</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * This file is part of the Opensource project at:</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * https://github.com/BITPlan/com.bitplan.radolan</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *     <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * under MIT license.</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">package</strong> cs.fau.de.since.radolan;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  <em class="jxr_comment">//Package radolan parses the DWD RADOLAN / RADVOR radar composite format. This data</em>
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <strong class="jxr_keyword">import</strong> java.io.ByteArrayInputStream;
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <strong class="jxr_keyword">import</strong> java.io.File;
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <strong class="jxr_keyword">import</strong> java.io.InputStream;
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <strong class="jxr_keyword">import</strong> java.net.URL;
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <strong class="jxr_keyword">import</strong> java.time.Duration;
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">import</strong> java.time.ZonedDateTime;
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>  <strong class="jxr_keyword">import</strong> java.util.function.Consumer;
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>  <strong class="jxr_keyword">import</strong> java.util.logging.Level;
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <strong class="jxr_keyword">import</strong> java.util.zip.GZIPInputStream;
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.io.FileUtils;
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <strong class="jxr_keyword">import</strong> org.apache.commons.io.IOUtils;
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  <strong class="jxr_keyword">import</strong> com.bitplan.geo.Projection;
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>  <strong class="jxr_keyword">import</strong> com.bitplan.geo.ProjectionImpl;
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>  <strong class="jxr_keyword">import</strong> com.bitplan.geo.UnLocodeManager;
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.DisplayContext;
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.ImageViewer;
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.RadarImage;
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.Radolan2Image;
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.Statistics;
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>  <strong class="jxr_keyword">import</strong> com.bitplan.radolan.Zoom;
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>  <strong class="jxr_keyword">import</strong> cs.fau.de.since.radolan.Catalog.Unit;
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>  <strong class="jxr_keyword">import</strong> cs.fau.de.since.radolan.Data.Encoding;
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>  
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>  <em class="jxr_comment">//is available at the Global Basic Dataset (http://www.dwd.de/DE/leistungen/gds/gds.html).</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>  <em class="jxr_comment">//The obtained results can be processed and visualized with additional functions.</em>
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>  <em class="jxr_comment">//Currently the national grid [1][4] and the extended european grid [5] are supported.</em>
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>  <em class="jxr_comment">//Tested input products are PG, FZ, SF, RW, RX and EX. Those can be considered working with</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>  <em class="jxr_comment">//sufficient accuracy.</em>
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>  <em class="jxr_comment">//In cases, where the publicly available format specification is unprecise or contradictory,</em>
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>  <em class="jxr_comment">//reverse engineering was used to obtain reasonable approaches.</em>
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>  <em class="jxr_comment">//Used references:</em>
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  <em class="jxr_comment">//[1] https://www.dwd.de/DE/leistungen/radolan/radolan_info/radolan_radvor_op_komposit_format_pdf.pdf</em>
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>  <em class="jxr_comment">//[2] https://www.dwd.de/DE/leistungen/gds/weiterfuehrende_informationen.zip</em>
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>  <em class="jxr_comment">//[3]  - legend_radar_products_fz_forecast.pdf</em>
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  <em class="jxr_comment">//[4]  - legend_radar_products_pg_coordinates.pdf</em>
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>  <em class="jxr_comment">//[5]  - legend_radar_products_radolan_rw_sf.pdf</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>  <em class="jxr_comment">//[6] https://www.dwd.de/DE/leistungen/radarniederschlag/rn_info/download_niederschlagsbestimmung.pdf</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>  
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>  <em class="jxr_comment">//Radolan radar data is provided as single local sweeps or so called composite</em>
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>  <em class="jxr_comment">//formats. Each composite is a combined image consisting of mulitiple radar</em>
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  <em class="jxr_comment">//sweeps spread over the composite area.</em>
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>  <em class="jxr_comment">//The 2D composite c has a an internal resolution of c.Dx (horizontal) * c.Dy</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>  <em class="jxr_comment">//(vertical) records covering a real surface of c.Dx * c.Rx * c.Dy * c.Dy</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>  <em class="jxr_comment">//square kilometers.</em>
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>  <em class="jxr_comment">//The pixel value at the position (x, y) is represented by</em>
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  <em class="jxr_comment">//c.Data[ y ][ x ] and is stored as raw float value (NaN if the no-data flag</em>
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  <em class="jxr_comment">//is set). Some 3D radar products feature multiple layers in which the voxel</em>
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>  <em class="jxr_comment">//at position (x, y, z) is accessible by c.DataZ[ z ][ y ][ x ].</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>  <em class="jxr_comment">//The data value is used differently depending on the product type:</em>
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>  <em class="jxr_comment">//(also consult the DataUnit field of the Composite)</em>
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  <em class="jxr_comment">//Product label            | values represent         | unit</em>
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>  <em class="jxr_comment">//-------------------------+--------------------------+------------------------</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>  <em class="jxr_comment">//PG, PC, PX*, ...         | cloud reflectivity       | dBZ</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>  <em class="jxr_comment">//RX, WX, EX, FZ, FX, ...  | cloud reflectivity       | dBZ</em>
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>  <em class="jxr_comment">//RW, SF,  ...             | aggregated precipitation | mm/interval</em>
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  <em class="jxr_comment">//PR*, ...                 | doppler radial velocity  | m/s</em>
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>  <em class="jxr_comment">//The cloud reflectivity (in dBZ) can be converted to rainfall rate (in mm/h)</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>  <em class="jxr_comment">//via PrecipitationRate().</em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>  <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>  <em class="jxr_comment">//The cloud reflectivity factor Z is stored in its logarithmic representation dBZ:</em>
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  <em class="jxr_comment">//dBZ = 10 * log(Z)</em>
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>  <em class="jxr_comment">//Real world geographical coordinates (latitude, longitude) can be projected into the</em>
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  <em class="jxr_comment">//coordinate system of the composite by using the translation method:</em>
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  <em class="jxr_comment">//// if c.HasProjection</em>
+<a class="jxr_linenumber" name="L100" href="#L100">100</a> <em class="jxr_comment">//x, y := c.Translate(52.51861, 13.40833) // Berlin (lat, lon)</em>
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L102" href="#L102">102</a> <em class="jxr_comment">//dbz := c.At(int(x), int(y))         // Raw value is Cloud reflectivity (dBZ)</em>
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> <em class="jxr_comment">//rat := radolan.PrecipitationRate(radolan.Doelling98, dbz) // Rainfall rate (mm/h) using Doelling98 as Z-R relationship</em>
+<a class="jxr_linenumber" name="L104" href="#L104">104</a> <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L105" href="#L105">105</a> <em class="jxr_comment">//fmt.Println("Rainfall in Berlin [mm/h]:", rat)</em>
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> <em class="jxr_comment">//</em>
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> 
+<a class="jxr_linenumber" name="L108" href="#L108">108</a> <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L109" href="#L109">109</a> <em class="jxr_javadoccomment"> * migrated to Java from</em>
+<a class="jxr_linenumber" name="L110" href="#L110">110</a> <em class="jxr_javadoccomment"> * https://gitlab.cs.fau.de/since/radolan/blob/master/radolan.go</em>
+<a class="jxr_linenumber" name="L111" href="#L111">111</a> <em class="jxr_javadoccomment"> * </em>
+<a class="jxr_linenumber" name="L112" href="#L112">112</a> <em class="jxr_javadoccomment"> * @author wf</em>
+<a class="jxr_linenumber" name="L113" href="#L113">113</a> <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L114" href="#L114">114</a> <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L115" href="#L115">115</a> <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a> <strong class="jxr_keyword">extends</strong> <a href="../../../../../com/bitplan/geo/ProjectionImpl.html">ProjectionImpl</a> <strong class="jxr_keyword">implements</strong> RadarImage,Projection  {
+<a class="jxr_linenumber" name="L116" href="#L116">116</a> 
+<a class="jxr_linenumber" name="L117" href="#L117">117</a>   <em class="jxr_comment">// by default files from known URL are cached locally</em>
+<a class="jxr_linenumber" name="L118" href="#L118">118</a>   <em class="jxr_comment">// see https://github.com/BITPlan/com.bitplan.radolan/issues/3</em>
+<a class="jxr_linenumber" name="L119" href="#L119">119</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">boolean</strong> useCache = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L120" href="#L120">120</a> 
+<a class="jxr_linenumber" name="L121" href="#L121">121</a>   <em class="jxr_comment">// if not set the default $HOME/.radolan will be used</em>
+<a class="jxr_linenumber" name="L122" href="#L122">122</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String cacheRootPath = <strong class="jxr_keyword">null</strong>;
+<a class="jxr_linenumber" name="L123" href="#L123">123</a> 
+<a class="jxr_linenumber" name="L124" href="#L124">124</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String knownUrls[] = {
+<a class="jxr_linenumber" name="L125" href="#L125">125</a>       <span class="jxr_string">"https://opendata.dwd.de/weather/radar/radolan/"</span>,
+<a class="jxr_linenumber" name="L126" href="#L126">126</a>       <span class="jxr_string">"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan"</span> };
+<a class="jxr_linenumber" name="L127" href="#L127">127</a>   <strong class="jxr_keyword">private</strong> String Product; <em class="jxr_comment">// composite product label</em>
+<a class="jxr_linenumber" name="L128" href="#L128">128</a> 
+<a class="jxr_linenumber" name="L129" href="#L129">129</a>   ZonedDateTime CaptureTime;
+<a class="jxr_linenumber" name="L130" href="#L130">130</a>   <strong class="jxr_keyword">private</strong> ZonedDateTime ForecastTime;
+<a class="jxr_linenumber" name="L131" href="#L131">131</a>   Duration Interval;
+<a class="jxr_linenumber" name="L132" href="#L132">132</a> 
+<a class="jxr_linenumber" name="L133" href="#L133">133</a>   <strong class="jxr_keyword">private</strong> <a href="../../../../../cs/fau/de/since/radolan/Catalog.html">Unit</a> DataUnit;
+<a class="jxr_linenumber" name="L134" href="#L134">134</a> 
+<a class="jxr_linenumber" name="L135" href="#L135">135</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">float</strong>[][] PlainData; <em class="jxr_comment">// data for parsed plain data element [y][x]</em>
+<a class="jxr_linenumber" name="L136" href="#L136">136</a> 
+<a class="jxr_linenumber" name="L137" href="#L137">137</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> Px; <em class="jxr_comment">// plain data width</em>
+<a class="jxr_linenumber" name="L138" href="#L138">138</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> Py; <em class="jxr_comment">// plain data height</em>
+<a class="jxr_linenumber" name="L139" href="#L139">139</a> 
+<a class="jxr_linenumber" name="L140" href="#L140">140</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> dataLength; <em class="jxr_comment">// length of binary section in bytes</em>
+<a class="jxr_linenumber" name="L141" href="#L141">141</a> 
+<a class="jxr_linenumber" name="L142" href="#L142">142</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">int</strong> precision; <em class="jxr_comment">// multiplicator 10^precision for each raw value</em>
+<a class="jxr_linenumber" name="L143" href="#L143">143</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">double</strong> precisionFactor;
+<a class="jxr_linenumber" name="L144" href="#L144">144</a>   <strong class="jxr_keyword">float</strong>[] level; <em class="jxr_comment">// maps data value to corresponding index value in runlength</em>
+<a class="jxr_linenumber" name="L145" href="#L145">145</a>                  <em class="jxr_comment">// based formats</em>
+<a class="jxr_linenumber" name="L146" href="#L146">146</a> 
+<a class="jxr_linenumber" name="L147" href="#L147">147</a> 
+<a class="jxr_linenumber" name="L148" href="#L148">148</a>   <strong class="jxr_keyword">public</strong> byte bytes[];
+<a class="jxr_linenumber" name="L149" href="#L149">149</a>   <strong class="jxr_keyword">public</strong> String header;
+<a class="jxr_linenumber" name="L150" href="#L150">150</a> 
+<a class="jxr_linenumber" name="L151" href="#L151">151</a>   <strong class="jxr_keyword">private</strong> <a href="../../../../../com/bitplan/radolan/Statistics.html">Statistics</a> statistics;
+<a class="jxr_linenumber" name="L152" href="#L152">152</a> 
+<a class="jxr_linenumber" name="L153" href="#L153">153</a>   <em class="jxr_comment">// for lambda error handling</em>
+<a class="jxr_linenumber" name="L154" href="#L154">154</a>   <strong class="jxr_keyword">public</strong> Throwable error;
+<a class="jxr_linenumber" name="L155" href="#L155">155</a>   <strong class="jxr_keyword">protected</strong> String url;
+<a class="jxr_linenumber" name="L156" href="#L156">156</a> 
+<a class="jxr_linenumber" name="L157" href="#L157">157</a>   <em class="jxr_comment">// CallBacks</em>
+<a class="jxr_linenumber" name="L158" href="#L158">158</a>   <strong class="jxr_keyword">private</strong> <strong class="jxr_keyword">static</strong> Consumer&lt;Composite&gt; postInit;
+<a class="jxr_linenumber" name="L159" href="#L159">159</a> 
+<a class="jxr_linenumber" name="L160" href="#L160">160</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getDx() {
+<a class="jxr_linenumber" name="L161" href="#L161">161</a>     <strong class="jxr_keyword">return</strong> Dx;
+<a class="jxr_linenumber" name="L162" href="#L162">162</a>   }
+<a class="jxr_linenumber" name="L163" href="#L163">163</a> 
+<a class="jxr_linenumber" name="L164" href="#L164">164</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDx(<strong class="jxr_keyword">int</strong> dx) {
+<a class="jxr_linenumber" name="L165" href="#L165">165</a>     Dx = dx;
+<a class="jxr_linenumber" name="L166" href="#L166">166</a>   }
+<a class="jxr_linenumber" name="L167" href="#L167">167</a> 
+<a class="jxr_linenumber" name="L168" href="#L168">168</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getDy() {
+<a class="jxr_linenumber" name="L169" href="#L169">169</a>     <strong class="jxr_keyword">return</strong> Dy;
+<a class="jxr_linenumber" name="L170" href="#L170">170</a>   }
+<a class="jxr_linenumber" name="L171" href="#L171">171</a> 
+<a class="jxr_linenumber" name="L172" href="#L172">172</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDy(<strong class="jxr_keyword">int</strong> dy) {
+<a class="jxr_linenumber" name="L173" href="#L173">173</a>     Dy = dy;
+<a class="jxr_linenumber" name="L174" href="#L174">174</a>   }
+<a class="jxr_linenumber" name="L175" href="#L175">175</a> 
+<a class="jxr_linenumber" name="L176" href="#L176">176</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPx() {
+<a class="jxr_linenumber" name="L177" href="#L177">177</a>     <strong class="jxr_keyword">return</strong> Px;
+<a class="jxr_linenumber" name="L178" href="#L178">178</a>   }
+<a class="jxr_linenumber" name="L179" href="#L179">179</a> 
+<a class="jxr_linenumber" name="L180" href="#L180">180</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPx(<strong class="jxr_keyword">int</strong> px) {
+<a class="jxr_linenumber" name="L181" href="#L181">181</a>     Px = px;
+<a class="jxr_linenumber" name="L182" href="#L182">182</a>   }
+<a class="jxr_linenumber" name="L183" href="#L183">183</a> 
+<a class="jxr_linenumber" name="L184" href="#L184">184</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPy() {
+<a class="jxr_linenumber" name="L185" href="#L185">185</a>     <strong class="jxr_keyword">return</strong> Py;
+<a class="jxr_linenumber" name="L186" href="#L186">186</a>   }
+<a class="jxr_linenumber" name="L187" href="#L187">187</a> 
+<a class="jxr_linenumber" name="L188" href="#L188">188</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPy(<strong class="jxr_keyword">int</strong> py) {
+<a class="jxr_linenumber" name="L189" href="#L189">189</a>     Py = py;
+<a class="jxr_linenumber" name="L190" href="#L190">190</a>   }
+<a class="jxr_linenumber" name="L191" href="#L191">191</a> 
+<a class="jxr_linenumber" name="L192" href="#L192">192</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getDataLength() {
+<a class="jxr_linenumber" name="L193" href="#L193">193</a>     <strong class="jxr_keyword">return</strong> dataLength;
+<a class="jxr_linenumber" name="L194" href="#L194">194</a>   }
+<a class="jxr_linenumber" name="L195" href="#L195">195</a> 
+<a class="jxr_linenumber" name="L196" href="#L196">196</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDataLength(<strong class="jxr_keyword">int</strong> dataLength) {
+<a class="jxr_linenumber" name="L197" href="#L197">197</a>     <strong class="jxr_keyword">this</strong>.dataLength = dataLength;
+<a class="jxr_linenumber" name="L198" href="#L198">198</a>   }
+<a class="jxr_linenumber" name="L199" href="#L199">199</a> 
+<a class="jxr_linenumber" name="L200" href="#L200">200</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">int</strong> getPrecision() {
+<a class="jxr_linenumber" name="L201" href="#L201">201</a>     <strong class="jxr_keyword">return</strong> precision;
+<a class="jxr_linenumber" name="L202" href="#L202">202</a>   }
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 
+<a class="jxr_linenumber" name="L204" href="#L204">204</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPrecision(<strong class="jxr_keyword">int</strong> precision) {
+<a class="jxr_linenumber" name="L205" href="#L205">205</a>     <strong class="jxr_keyword">this</strong>.precision = precision;
+<a class="jxr_linenumber" name="L206" href="#L206">206</a>     setPrecisionFactor(Math.pow(10, precision));
+<a class="jxr_linenumber" name="L207" href="#L207">207</a>   }
+<a class="jxr_linenumber" name="L208" href="#L208">208</a> 
+<a class="jxr_linenumber" name="L209" href="#L209">209</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> getPrecisionFactor() {
+<a class="jxr_linenumber" name="L210" href="#L210">210</a>     <strong class="jxr_keyword">return</strong> precisionFactor;
+<a class="jxr_linenumber" name="L211" href="#L211">211</a>   }
+<a class="jxr_linenumber" name="L212" href="#L212">212</a> 
+<a class="jxr_linenumber" name="L213" href="#L213">213</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setPrecisionFactor(<strong class="jxr_keyword">double</strong> precisionFactor) {
+<a class="jxr_linenumber" name="L214" href="#L214">214</a>     <strong class="jxr_keyword">this</strong>.precisionFactor = precisionFactor;
+<a class="jxr_linenumber" name="L215" href="#L215">215</a>   }
+<a class="jxr_linenumber" name="L216" href="#L216">216</a> 
+<a class="jxr_linenumber" name="L217" href="#L217">217</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../cs/fau/de/since/radolan/Catalog.html">Unit</a> getDataUnit() {
+<a class="jxr_linenumber" name="L218" href="#L218">218</a>     <strong class="jxr_keyword">return</strong> DataUnit;
+<a class="jxr_linenumber" name="L219" href="#L219">219</a>   }
+<a class="jxr_linenumber" name="L220" href="#L220">220</a> 
+<a class="jxr_linenumber" name="L221" href="#L221">221</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setDataUnit(<a href="../../../../../cs/fau/de/since/radolan/Catalog.html">Unit</a> dataUnit) {
+<a class="jxr_linenumber" name="L222" href="#L222">222</a>     DataUnit = dataUnit;
+<a class="jxr_linenumber" name="L223" href="#L223">223</a>   }
+<a class="jxr_linenumber" name="L224" href="#L224">224</a> 
+<a class="jxr_linenumber" name="L225" href="#L225">225</a>   <strong class="jxr_keyword">public</strong> String getProduct() {
+<a class="jxr_linenumber" name="L226" href="#L226">226</a>     <strong class="jxr_keyword">return</strong> Product;
+<a class="jxr_linenumber" name="L227" href="#L227">227</a>   }
+<a class="jxr_linenumber" name="L228" href="#L228">228</a> 
+<a class="jxr_linenumber" name="L229" href="#L229">229</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setProduct(String product) {
+<a class="jxr_linenumber" name="L230" href="#L230">230</a>     Product = product;
+<a class="jxr_linenumber" name="L231" href="#L231">231</a>   }
+<a class="jxr_linenumber" name="L232" href="#L232">232</a> 
+<a class="jxr_linenumber" name="L233" href="#L233">233</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../com/bitplan/radolan/Statistics.html">Statistics</a> getStatistics() {
+<a class="jxr_linenumber" name="L234" href="#L234">234</a>     <strong class="jxr_keyword">return</strong> statistics;
+<a class="jxr_linenumber" name="L235" href="#L235">235</a>   }
+<a class="jxr_linenumber" name="L236" href="#L236">236</a> 
+<a class="jxr_linenumber" name="L237" href="#L237">237</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setStatistics(<a href="../../../../../com/bitplan/radolan/Statistics.html">Statistics</a> statistics) {
+<a class="jxr_linenumber" name="L238" href="#L238">238</a>     <strong class="jxr_keyword">this</strong>.statistics = statistics;
+<a class="jxr_linenumber" name="L239" href="#L239">239</a>   }
+<a class="jxr_linenumber" name="L240" href="#L240">240</a> 
+<a class="jxr_linenumber" name="L241" href="#L241">241</a>   <strong class="jxr_keyword">public</strong> ZonedDateTime getForecastTime() {
+<a class="jxr_linenumber" name="L242" href="#L242">242</a>     <strong class="jxr_keyword">return</strong> ForecastTime;
+<a class="jxr_linenumber" name="L243" href="#L243">243</a>   }
+<a class="jxr_linenumber" name="L244" href="#L244">244</a> 
+<a class="jxr_linenumber" name="L245" href="#L245">245</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setForecastTime(ZonedDateTime forecastTime) {
+<a class="jxr_linenumber" name="L246" href="#L246">246</a>     ForecastTime = forecastTime;
+<a class="jxr_linenumber" name="L247" href="#L247">247</a>   }
+<a class="jxr_linenumber" name="L248" href="#L248">248</a> 
+<a class="jxr_linenumber" name="L249" href="#L249">249</a>   <strong class="jxr_keyword">public</strong> Duration getInterval() {
+<a class="jxr_linenumber" name="L250" href="#L250">250</a>     <strong class="jxr_keyword">return</strong> Interval;
+<a class="jxr_linenumber" name="L251" href="#L251">251</a>   }
+<a class="jxr_linenumber" name="L252" href="#L252">252</a> 
+<a class="jxr_linenumber" name="L253" href="#L253">253</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setInterval(Duration interval) {
+<a class="jxr_linenumber" name="L254" href="#L254">254</a>     Interval = interval;
+<a class="jxr_linenumber" name="L255" href="#L255">255</a>   }
+<a class="jxr_linenumber" name="L256" href="#L256">256</a> 
+<a class="jxr_linenumber" name="L257" href="#L257">257</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> Consumer&lt;Composite&gt; getPostInit() {
+<a class="jxr_linenumber" name="L258" href="#L258">258</a>     <strong class="jxr_keyword">return</strong> postInit;
+<a class="jxr_linenumber" name="L259" href="#L259">259</a>   }
+<a class="jxr_linenumber" name="L260" href="#L260">260</a> 
+<a class="jxr_linenumber" name="L261" href="#L261">261</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> setPostInit(Consumer&lt;Composite&gt; pPostInit) {
+<a class="jxr_linenumber" name="L262" href="#L262">262</a>     postInit = pPostInit;
+<a class="jxr_linenumber" name="L263" href="#L263">263</a>   }
+<a class="jxr_linenumber" name="L264" href="#L264">264</a> 
+<a class="jxr_linenumber" name="L265" href="#L265">265</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L266" href="#L266">266</a> <em class="jxr_javadoccomment">   * default constructor</em>
+<a class="jxr_linenumber" name="L267" href="#L267">267</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L268" href="#L268">268</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a>() {
+<a class="jxr_linenumber" name="L269" href="#L269">269</a>     setStatistics(<strong class="jxr_keyword">new</strong> <a href="../../../../../com/bitplan/radolan/Statistics.html">Statistics</a>());
+<a class="jxr_linenumber" name="L270" href="#L270">270</a>   }
+<a class="jxr_linenumber" name="L271" href="#L271">271</a> 
+<a class="jxr_linenumber" name="L272" href="#L272">272</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L273" href="#L273">273</a> <em class="jxr_javadoccomment">   * construct me from the given parameters</em>
+<a class="jxr_linenumber" name="L274" href="#L274">274</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L275" href="#L275">275</a> <em class="jxr_javadoccomment">   * @param product</em>
+<a class="jxr_linenumber" name="L276" href="#L276">276</a> <em class="jxr_javadoccomment">   * @param dx</em>
+<a class="jxr_linenumber" name="L277" href="#L277">277</a> <em class="jxr_javadoccomment">   * @param dy</em>
+<a class="jxr_linenumber" name="L278" href="#L278">278</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L279" href="#L279">279</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a>(String product, <strong class="jxr_keyword">int</strong> dx, <strong class="jxr_keyword">int</strong> dy) {
+<a class="jxr_linenumber" name="L280" href="#L280">280</a>     <strong class="jxr_keyword">this</strong>();
+<a class="jxr_linenumber" name="L281" href="#L281">281</a>     <strong class="jxr_keyword">this</strong>.setProduct(product);
+<a class="jxr_linenumber" name="L282" href="#L282">282</a>     <strong class="jxr_keyword">this</strong>.setDx(dx);
+<a class="jxr_linenumber" name="L283" href="#L283">283</a>     <strong class="jxr_keyword">this</strong>.setDy(dy);
+<a class="jxr_linenumber" name="L284" href="#L284">284</a>   }
+<a class="jxr_linenumber" name="L285" href="#L285">285</a> 
+<a class="jxr_linenumber" name="L286" href="#L286">286</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L287" href="#L287">287</a> <em class="jxr_javadoccomment">   * construct me from an url - read the data immediately from url or if the</em>
+<a class="jxr_linenumber" name="L288" href="#L288">288</a> <em class="jxr_javadoccomment">   * cache is active and the content is available from the cache</em>
+<a class="jxr_linenumber" name="L289" href="#L289">289</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L290" href="#L290">290</a> <em class="jxr_javadoccomment">   * @param url</em>
+<a class="jxr_linenumber" name="L291" href="#L291">291</a> <em class="jxr_javadoccomment">   * @throws Throwable</em>
+<a class="jxr_linenumber" name="L292" href="#L292">292</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L293" href="#L293">293</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a>(String url) <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L294" href="#L294">294</a>     <strong class="jxr_keyword">this</strong>();
+<a class="jxr_linenumber" name="L295" href="#L295">295</a>     <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L296" href="#L296">296</a>       LOGGER.log(Level.INFO, <span class="jxr_string">"getting composite for url "</span> + url);
+<a class="jxr_linenumber" name="L297" href="#L297">297</a>     <strong class="jxr_keyword">this</strong>.url = checkCache(url);
+<a class="jxr_linenumber" name="L298" href="#L298">298</a> 
+<a class="jxr_linenumber" name="L299" href="#L299">299</a>     InputStream inputStream = <strong class="jxr_keyword">new</strong> URL(url).openStream();
+<a class="jxr_linenumber" name="L300" href="#L300">300</a>     read(inputStream);
+<a class="jxr_linenumber" name="L301" href="#L301">301</a>     init();
+<a class="jxr_linenumber" name="L302" href="#L302">302</a>   }
+<a class="jxr_linenumber" name="L303" href="#L303">303</a> 
+<a class="jxr_linenumber" name="L304" href="#L304">304</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L305" href="#L305">305</a> <em class="jxr_javadoccomment">   * if the cache is not active or the url is not starting with a known url then</em>
+<a class="jxr_linenumber" name="L306" href="#L306">306</a> <em class="jxr_javadoccomment">   * return the url as is when the local cache is active then check if the url</em>
+<a class="jxr_linenumber" name="L307" href="#L307">307</a> <em class="jxr_javadoccomment">   * content is not available locally and if needed then read the url content to</em>
+<a class="jxr_linenumber" name="L308" href="#L308">308</a> <em class="jxr_javadoccomment">   * the cache after having made sure the file is available locally return the</em>
+<a class="jxr_linenumber" name="L309" href="#L309">309</a> <em class="jxr_javadoccomment">   * url for the file</em>
+<a class="jxr_linenumber" name="L310" href="#L310">310</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L311" href="#L311">311</a> <em class="jxr_javadoccomment">   * @param url</em>
+<a class="jxr_linenumber" name="L312" href="#L312">312</a> <em class="jxr_javadoccomment">   * @return the (potentially replaced)</em>
+<a class="jxr_linenumber" name="L313" href="#L313">313</a> <em class="jxr_javadoccomment">   * @throws Exception</em>
+<a class="jxr_linenumber" name="L314" href="#L314">314</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L315" href="#L315">315</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String checkCache(String url) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L316" href="#L316">316</a>     <strong class="jxr_keyword">if</strong> (!useCache)
+<a class="jxr_linenumber" name="L317" href="#L317">317</a>       <strong class="jxr_keyword">return</strong> url;
+<a class="jxr_linenumber" name="L318" href="#L318">318</a>     <strong class="jxr_keyword">if</strong> (url.contains(<span class="jxr_string">"-latest-"</span>))
+<a class="jxr_linenumber" name="L319" href="#L319">319</a>       <strong class="jxr_keyword">return</strong> url;
+<a class="jxr_linenumber" name="L320" href="#L320">320</a>     <strong class="jxr_keyword">for</strong> (String knownUrl : knownUrls) {
+<a class="jxr_linenumber" name="L321" href="#L321">321</a>       <strong class="jxr_keyword">if</strong> (url.startsWith(knownUrl)) {
+<a class="jxr_linenumber" name="L322" href="#L322">322</a>         <strong class="jxr_keyword">return</strong> useCache(url, knownUrl);
+<a class="jxr_linenumber" name="L323" href="#L323">323</a>       }
+<a class="jxr_linenumber" name="L324" href="#L324">324</a>     }
+<a class="jxr_linenumber" name="L325" href="#L325">325</a>     <strong class="jxr_keyword">return</strong> url;
+<a class="jxr_linenumber" name="L326" href="#L326">326</a>   }
+<a class="jxr_linenumber" name="L327" href="#L327">327</a> 
+<a class="jxr_linenumber" name="L328" href="#L328">328</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L329" href="#L329">329</a> <em class="jxr_javadoccomment">   * use the cache for the given URL</em>
+<a class="jxr_linenumber" name="L330" href="#L330">330</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L331" href="#L331">331</a> <em class="jxr_javadoccomment">   * @param url</em>
+<a class="jxr_linenumber" name="L332" href="#L332">332</a> <em class="jxr_javadoccomment">   * @param knownUrl</em>
+<a class="jxr_linenumber" name="L333" href="#L333">333</a> <em class="jxr_javadoccomment">   * @return - the URL of the cached file</em>
+<a class="jxr_linenumber" name="L334" href="#L334">334</a> <em class="jxr_javadoccomment">   * @throws Exception</em>
+<a class="jxr_linenumber" name="L335" href="#L335">335</a> <em class="jxr_javadoccomment">   *           - if the URL is malformed</em>
+<a class="jxr_linenumber" name="L336" href="#L336">336</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L337" href="#L337">337</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> String useCache(String url, String knownUrl) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L338" href="#L338">338</a>     File cacheFile = cacheForUrl(url, knownUrl);
+<a class="jxr_linenumber" name="L339" href="#L339">339</a>     <strong class="jxr_keyword">if</strong> (!cacheFile.exists()) {
+<a class="jxr_linenumber" name="L340" href="#L340">340</a>       URL uri = <strong class="jxr_keyword">new</strong> URL(url);
+<a class="jxr_linenumber" name="L341" href="#L341">341</a>       <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L342" href="#L342">342</a>         LOGGER.log(Level.INFO, <span class="jxr_string">"caching to "</span> + cacheFile.getPath());
+<a class="jxr_linenumber" name="L343" href="#L343">343</a>       <em class="jxr_comment">// cache the URL content</em>
+<a class="jxr_linenumber" name="L344" href="#L344">344</a>       FileUtils.copyURLToFile(uri, cacheFile);
+<a class="jxr_linenumber" name="L345" href="#L345">345</a>     } <strong class="jxr_keyword">else</strong> {
+<a class="jxr_linenumber" name="L346" href="#L346">346</a>       <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L347" href="#L347">347</a>         LOGGER.log(Level.INFO,
+<a class="jxr_linenumber" name="L348" href="#L348">348</a>             <span class="jxr_string">"getting cached file from "</span> + cacheFile.getPath());
+<a class="jxr_linenumber" name="L349" href="#L349">349</a>     }
+<a class="jxr_linenumber" name="L350" href="#L350">350</a>     <strong class="jxr_keyword">return</strong> cacheFile.toURI().toURL().toExternalForm();
+<a class="jxr_linenumber" name="L351" href="#L351">351</a>   }
+<a class="jxr_linenumber" name="L352" href="#L352">352</a> 
+<a class="jxr_linenumber" name="L353" href="#L353">353</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L354" href="#L354">354</a> <em class="jxr_javadoccomment">   * get the cache File for the given url in reference to the given knownUrl</em>
+<a class="jxr_linenumber" name="L355" href="#L355">355</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L356" href="#L356">356</a> <em class="jxr_javadoccomment">   * @param url</em>
+<a class="jxr_linenumber" name="L357" href="#L357">357</a> <em class="jxr_javadoccomment">   * @param knownUrl</em>
+<a class="jxr_linenumber" name="L358" href="#L358">358</a> <em class="jxr_javadoccomment">   * @return - the cacheFile</em>
+<a class="jxr_linenumber" name="L359" href="#L359">359</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L360" href="#L360">360</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> File cacheForUrl(String url, String knownUrl) {
+<a class="jxr_linenumber" name="L361" href="#L361">361</a>     String filePath = url.substring(knownUrl.length(), url.length());
+<a class="jxr_linenumber" name="L362" href="#L362">362</a>     <strong class="jxr_keyword">if</strong> (cacheRootPath == <strong class="jxr_keyword">null</strong>)
+<a class="jxr_linenumber" name="L363" href="#L363">363</a>       cacheRootPath = System.getProperty(<span class="jxr_string">"user.home"</span>) + java.io.File.separator
+<a class="jxr_linenumber" name="L364" href="#L364">364</a>           + <span class="jxr_string">".radolan"</span>;
+<a class="jxr_linenumber" name="L365" href="#L365">365</a>     File cacheRoot = <strong class="jxr_keyword">new</strong> File(cacheRootPath);
+<a class="jxr_linenumber" name="L366" href="#L366">366</a>     <strong class="jxr_keyword">if</strong> (!cacheRoot.exists()) {
+<a class="jxr_linenumber" name="L367" href="#L367">367</a>       <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L368" href="#L368">368</a>         LOGGER.log(Level.INFO,
+<a class="jxr_linenumber" name="L369" href="#L369">369</a>             <span class="jxr_string">"Creating radolan data cache directory "</span> + cacheRoot.getPath());
+<a class="jxr_linenumber" name="L370" href="#L370">370</a>       cacheRoot.mkdirs();
+<a class="jxr_linenumber" name="L371" href="#L371">371</a>     }
+<a class="jxr_linenumber" name="L372" href="#L372">372</a>     File cacheFile = <strong class="jxr_keyword">new</strong> File(cacheRoot, filePath);
+<a class="jxr_linenumber" name="L373" href="#L373">373</a>     <strong class="jxr_keyword">return</strong> cacheFile;
+<a class="jxr_linenumber" name="L374" href="#L374">374</a>   }
+<a class="jxr_linenumber" name="L375" href="#L375">375</a> 
+<a class="jxr_linenumber" name="L376" href="#L376">376</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L377" href="#L377">377</a> <em class="jxr_javadoccomment">   * initialize me</em>
+<a class="jxr_linenumber" name="L378" href="#L378">378</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L379" href="#L379">379</a> <em class="jxr_javadoccomment">   * @throws Throwable</em>
+<a class="jxr_linenumber" name="L380" href="#L380">380</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L381" href="#L381">381</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> init() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L382" href="#L382">382</a>     parseData();
+<a class="jxr_linenumber" name="L383" href="#L383">383</a>     arrangeData();
+<a class="jxr_linenumber" name="L384" href="#L384">384</a>     <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L385" href="#L385">385</a>       LOGGER.log(Level.INFO,
+<a class="jxr_linenumber" name="L386" href="#L386">386</a>           String.format(<span class="jxr_string">"parsed %7d grid values for %3d x %3d grid"</span>,
+<a class="jxr_linenumber" name="L387" href="#L387">387</a>               statistics.getTotal(),
+<a class="jxr_linenumber" name="L388" href="#L388">388</a>               <strong class="jxr_keyword">this</strong>.getGridWidth(), <strong class="jxr_keyword">this</strong>.getGridHeight()));
+<a class="jxr_linenumber" name="L389" href="#L389">389</a>     calibrateProjection();
+<a class="jxr_linenumber" name="L390" href="#L390">390</a>     <em class="jxr_comment">// is there a callback installed?</em>
+<a class="jxr_linenumber" name="L391" href="#L391">391</a>     <strong class="jxr_keyword">if</strong> (postInit != <strong class="jxr_keyword">null</strong>) {
+<a class="jxr_linenumber" name="L392" href="#L392">392</a>       postInit.accept(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L393" href="#L393">393</a>     }
+<a class="jxr_linenumber" name="L394" href="#L394">394</a>   }
+<a class="jxr_linenumber" name="L395" href="#L395">395</a> 
+<a class="jxr_linenumber" name="L396" href="#L396">396</a>   <em class="jxr_comment">// NewDummy creates a blank dummy composite with the given product label and</em>
+<a class="jxr_linenumber" name="L397" href="#L397">397</a>   <em class="jxr_comment">// dimensions. It can</em>
+<a class="jxr_linenumber" name="L398" href="#L398">398</a>   <em class="jxr_comment">// be used for generic coordinate translation.</em>
+<a class="jxr_linenumber" name="L399" href="#L399">399</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a> NewDummy(String product, <strong class="jxr_keyword">int</strong> dx, <strong class="jxr_keyword">int</strong> dy) {
+<a class="jxr_linenumber" name="L400" href="#L400">400</a>     <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a> comp = <strong class="jxr_keyword">new</strong> <a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a>(product, dx, dy);
+<a class="jxr_linenumber" name="L401" href="#L401">401</a>     comp.calibrateProjection();
+<a class="jxr_linenumber" name="L402" href="#L402">402</a>     <strong class="jxr_keyword">return</strong> comp;
+<a class="jxr_linenumber" name="L403" href="#L403">403</a>   }
+<a class="jxr_linenumber" name="L404" href="#L404">404</a> 
+<a class="jxr_linenumber" name="L405" href="#L405">405</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L406" href="#L406">406</a> <em class="jxr_javadoccomment">   * read all bytes from the given InpuStream - autodetect zipped input</em>
+<a class="jxr_linenumber" name="L407" href="#L407">407</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L408" href="#L408">408</a> <em class="jxr_javadoccomment">   * @param inputStream</em>
+<a class="jxr_linenumber" name="L409" href="#L409">409</a> <em class="jxr_javadoccomment">   * @throws Exception</em>
+<a class="jxr_linenumber" name="L410" href="#L410">410</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L411" href="#L411">411</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> read(InputStream inputStream) <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L412" href="#L412">412</a>     bytes = IOUtils.toByteArray(inputStream);
+<a class="jxr_linenumber" name="L413" href="#L413">413</a>     <em class="jxr_comment">// https://tools.ietf.org/html/rfc1952</em>
+<a class="jxr_linenumber" name="L414" href="#L414">414</a>     <em class="jxr_comment">// check for gzip header</em>
+<a class="jxr_linenumber" name="L415" href="#L415">415</a>     <strong class="jxr_keyword">if</strong> (bytes.length &lt; 2) {
+<a class="jxr_linenumber" name="L416" href="#L416">416</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(<span class="jxr_string">"input is empty"</span>);
+<a class="jxr_linenumber" name="L417" href="#L417">417</a>     }
+<a class="jxr_linenumber" name="L418" href="#L418">418</a>     <strong class="jxr_keyword">int</strong> magic = ((bytes[0] &amp; 0xff) &lt;&lt; 8) | (bytes[1] &amp; 0xff);
+<a class="jxr_linenumber" name="L419" href="#L419">419</a>     <strong class="jxr_keyword">if</strong> (magic == 0x1f8b) {
+<a class="jxr_linenumber" name="L420" href="#L420">420</a>       <strong class="jxr_keyword">int</strong> zippedLength = bytes.length;
+<a class="jxr_linenumber" name="L421" href="#L421">421</a>       InputStream gzStream = <strong class="jxr_keyword">new</strong> GZIPInputStream(
+<a class="jxr_linenumber" name="L422" href="#L422">422</a>           <strong class="jxr_keyword">new</strong> ByteArrayInputStream(bytes));
+<a class="jxr_linenumber" name="L423" href="#L423">423</a>       byte[] unzipped = IOUtils.toByteArray(gzStream);
+<a class="jxr_linenumber" name="L424" href="#L424">424</a>       bytes = unzipped;
+<a class="jxr_linenumber" name="L425" href="#L425">425</a>       String msg = String.format(<span class="jxr_string">"unzipped %d to %d bytes"</span>, zippedLength,
+<a class="jxr_linenumber" name="L426" href="#L426">426</a>           bytes.length);
+<a class="jxr_linenumber" name="L427" href="#L427">427</a>       <strong class="jxr_keyword">if</strong> (debug)
+<a class="jxr_linenumber" name="L428" href="#L428">428</a>         LOGGER.log(Level.INFO, msg);
+<a class="jxr_linenumber" name="L429" href="#L429">429</a>     }
+<a class="jxr_linenumber" name="L430" href="#L430">430</a>     StringBuffer headerBuffer = <strong class="jxr_keyword">new</strong> StringBuffer();
+<a class="jxr_linenumber" name="L431" href="#L431">431</a>     <strong class="jxr_keyword">int</strong> pos = 0;
+<a class="jxr_linenumber" name="L432" href="#L432">432</a>     <em class="jxr_comment">// read until 0x03 is found or we are way into the binary 2 x typical width</em>
+<a class="jxr_linenumber" name="L433" href="#L433">433</a>     <em class="jxr_comment">// 900 should suffice to terminate ...</em>
+<a class="jxr_linenumber" name="L434" href="#L434">434</a>     <strong class="jxr_keyword">while</strong> (bytes[pos] != 0x03 &amp;&amp; pos &lt;= 1800) {
+<a class="jxr_linenumber" name="L435" href="#L435">435</a>       headerBuffer.append((<strong class="jxr_keyword">char</strong>) bytes[pos]);
+<a class="jxr_linenumber" name="L436" href="#L436">436</a>       pos++;
+<a class="jxr_linenumber" name="L437" href="#L437">437</a>     }
+<a class="jxr_linenumber" name="L438" href="#L438">438</a>     headerBuffer.append((<strong class="jxr_keyword">char</strong>) bytes[pos]);
+<a class="jxr_linenumber" name="L439" href="#L439">439</a>     <strong class="jxr_keyword">if</strong> (pos &gt; 1799 || pos &lt; 21) {
+<a class="jxr_linenumber" name="L440" href="#L440">440</a>       <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> Exception(<span class="jxr_string">"header length "</span> + pos + <span class="jxr_string">" out of valid range"</span>);
+<a class="jxr_linenumber" name="L441" href="#L441">441</a>     }
+<a class="jxr_linenumber" name="L442" href="#L442">442</a>     header = headerBuffer.toString();
+<a class="jxr_linenumber" name="L443" href="#L443">443</a>     <strong class="jxr_keyword">this</strong>.parseHeader();
+<a class="jxr_linenumber" name="L444" href="#L444">444</a>   }
+<a class="jxr_linenumber" name="L445" href="#L445">445</a> 
+<a class="jxr_linenumber" name="L446" href="#L446">446</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parseHeader() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L447" href="#L447">447</a>     Header.parseHeader(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L448" href="#L448">448</a>   }
+<a class="jxr_linenumber" name="L449" href="#L449">449</a> 
+<a class="jxr_linenumber" name="L450" href="#L450">450</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L451" href="#L451">451</a> <em class="jxr_javadoccomment">   * parse the data</em>
+<a class="jxr_linenumber" name="L452" href="#L452">452</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L453" href="#L453">453</a> <em class="jxr_javadoccomment">   * @throws Throwable</em>
+<a class="jxr_linenumber" name="L454" href="#L454">454</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L455" href="#L455">455</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> parseData() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L456" href="#L456">456</a>     Data.getInstance().parseData(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L457" href="#L457">457</a>   }
+<a class="jxr_linenumber" name="L458" href="#L458">458</a> 
+<a class="jxr_linenumber" name="L459" href="#L459">459</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L460" href="#L460">460</a> <em class="jxr_javadoccomment">   * arrange the data</em>
+<a class="jxr_linenumber" name="L461" href="#L461">461</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L462" href="#L462">462</a> <em class="jxr_javadoccomment">   * @throws Throwable</em>
+<a class="jxr_linenumber" name="L463" href="#L463">463</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L464" href="#L464">464</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> arrangeData() <strong class="jxr_keyword">throws</strong> Throwable {
+<a class="jxr_linenumber" name="L465" href="#L465">465</a>     Data.getInstance().arrangeData(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L466" href="#L466">466</a>   }
+<a class="jxr_linenumber" name="L467" href="#L467">467</a> 
+<a class="jxr_linenumber" name="L468" href="#L468">468</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> calibrateProjection() {
+<a class="jxr_linenumber" name="L469" href="#L469">469</a>     Translate.calibrateProjection(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L470" href="#L470">470</a>   }
+<a class="jxr_linenumber" name="L471" href="#L471">471</a> 
+<a class="jxr_linenumber" name="L472" href="#L472">472</a>   <strong class="jxr_keyword">public</strong> <a href="../../../../../cs/fau/de/since/radolan/Data.html">Encoding</a> identifyEncoding() {
+<a class="jxr_linenumber" name="L473" href="#L473">473</a>     <strong class="jxr_keyword">return</strong> Data.getInstance().identifyEncoding(<strong class="jxr_keyword">this</strong>);
+<a class="jxr_linenumber" name="L474" href="#L474">474</a>   }
+<a class="jxr_linenumber" name="L475" href="#L475">475</a> 
+<a class="jxr_linenumber" name="L476" href="#L476">476</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">double</strong> rvp6Raw(<strong class="jxr_keyword">int</strong> value) {
+<a class="jxr_linenumber" name="L477" href="#L477">477</a>     <strong class="jxr_keyword">double</strong> conv=Conversion.rvp6Raw(<strong class="jxr_keyword">this</strong>, value);
+<a class="jxr_linenumber" name="L478" href="#L478">478</a>     <strong class="jxr_keyword">return</strong> conv;
+<a class="jxr_linenumber" name="L479" href="#L479">479</a>   }
+<a class="jxr_linenumber" name="L480" href="#L480">480</a> 
+<a class="jxr_linenumber" name="L481" href="#L481">481</a>   
+<a class="jxr_linenumber" name="L482" href="#L482">482</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L483" href="#L483">483</a> <em class="jxr_javadoccomment">   * get the byte at the given x,y position in the binary data</em>
+<a class="jxr_linenumber" name="L484" href="#L484">484</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L485" href="#L485">485</a> <em class="jxr_javadoccomment">   * @param x</em>
+<a class="jxr_linenumber" name="L486" href="#L486">486</a> <em class="jxr_javadoccomment">   * @param y</em>
+<a class="jxr_linenumber" name="L487" href="#L487">487</a> <em class="jxr_javadoccomment">   * @return - the byte</em>
+<a class="jxr_linenumber" name="L488" href="#L488">488</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L489" href="#L489">489</a>   <strong class="jxr_keyword">public</strong> byte getByte(<strong class="jxr_keyword">int</strong> x, <strong class="jxr_keyword">int</strong> y) {
+<a class="jxr_linenumber" name="L490" href="#L490">490</a>     <strong class="jxr_keyword">int</strong> ofs = header.length();
+<a class="jxr_linenumber" name="L491" href="#L491">491</a>     <strong class="jxr_keyword">int</strong> pos = y * getDx() * 2 + x + ofs;
+<a class="jxr_linenumber" name="L492" href="#L492">492</a>     <strong class="jxr_keyword">return</strong> bytes[pos];
+<a class="jxr_linenumber" name="L493" href="#L493">493</a>   }
+<a class="jxr_linenumber" name="L494" href="#L494">494</a> 
+<a class="jxr_linenumber" name="L495" href="#L495">495</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L496" href="#L496">496</a> <em class="jxr_javadoccomment">   * get the value at the given x,y coordinate</em>
+<a class="jxr_linenumber" name="L497" href="#L497">497</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L498" href="#L498">498</a> <em class="jxr_javadoccomment">   * @param x</em>
+<a class="jxr_linenumber" name="L499" href="#L499">499</a> <em class="jxr_javadoccomment">   * @param y</em>
+<a class="jxr_linenumber" name="L500" href="#L500">500</a> <em class="jxr_javadoccomment">   * @return - the value</em>
+<a class="jxr_linenumber" name="L501" href="#L501">501</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L502" href="#L502">502</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">float</strong> getValue(<strong class="jxr_keyword">int</strong> x, <strong class="jxr_keyword">int</strong> y) {
+<a class="jxr_linenumber" name="L503" href="#L503">503</a>     <strong class="jxr_keyword">float</strong> value = Float.NaN;
+<a class="jxr_linenumber" name="L504" href="#L504">504</a>     <strong class="jxr_keyword">if</strong> (y &gt;= 0 &amp;&amp; y &lt; PlainData.length)
+<a class="jxr_linenumber" name="L505" href="#L505">505</a>       <strong class="jxr_keyword">if</strong> (x &gt;= 0 &amp;&amp; x &lt; PlainData[y].length)
+<a class="jxr_linenumber" name="L506" href="#L506">506</a>         value = PlainData[y][x];
+<a class="jxr_linenumber" name="L507" href="#L507">507</a>     <strong class="jxr_keyword">return</strong> value;
+<a class="jxr_linenumber" name="L508" href="#L508">508</a>   }
+<a class="jxr_linenumber" name="L509" href="#L509">509</a> 
+<a class="jxr_linenumber" name="L510" href="#L510">510</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L511" href="#L511">511</a> <em class="jxr_javadoccomment">   * set a data value</em>
+<a class="jxr_linenumber" name="L512" href="#L512">512</a> <em class="jxr_javadoccomment">   * </em>
+<a class="jxr_linenumber" name="L513" href="#L513">513</a> <em class="jxr_javadoccomment">   * @param x</em>
+<a class="jxr_linenumber" name="L514" href="#L514">514</a> <em class="jxr_javadoccomment">   * @param y</em>
+<a class="jxr_linenumber" name="L515" href="#L515">515</a> <em class="jxr_javadoccomment">   * @param value</em>
+<a class="jxr_linenumber" name="L516" href="#L516">516</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L517" href="#L517">517</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setValue(<strong class="jxr_keyword">int</strong> x, <strong class="jxr_keyword">int</strong> y, <strong class="jxr_keyword">float</strong> value) {
+<a class="jxr_linenumber" name="L518" href="#L518">518</a>     <strong class="jxr_keyword">if</strong> (y &gt;= 0 &amp;&amp; y &lt; PlainData.length)
+<a class="jxr_linenumber" name="L519" href="#L519">519</a>       <strong class="jxr_keyword">if</strong> (x &gt;= 0 &amp;&amp; x &lt; PlainData[y].length) {
+<a class="jxr_linenumber" name="L520" href="#L520">520</a>         <em class="jxr_comment">/*float oldvalue = PlainData[y][x];</em>
+<a class="jxr_linenumber" name="L521" href="#L521">521</a> <em class="jxr_comment">        if (oldvalue != 0f &amp;&amp; value == oldvalue) {</em>
+<a class="jxr_linenumber" name="L522" href="#L522">522</a> <em class="jxr_comment">          throw new RuntimeException(</em>
+<a class="jxr_linenumber" name="L523" href="#L523">523</a> <em class="jxr_comment">              "" + x + "," + y + " already set to " + oldvalue);</em>
+<a class="jxr_linenumber" name="L524" href="#L524">524</a> <em class="jxr_comment">        }*/</em>
+<a class="jxr_linenumber" name="L525" href="#L525">525</a>         PlainData[y][x] = value;
+<a class="jxr_linenumber" name="L526" href="#L526">526</a>         getStatistics().add(value);
+<a class="jxr_linenumber" name="L527" href="#L527">527</a>       }
+<a class="jxr_linenumber" name="L528" href="#L528">528</a>   }
+<a class="jxr_linenumber" name="L529" href="#L529">529</a> 
+<a class="jxr_linenumber" name="L530" href="#L530">530</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L531" href="#L531">531</a> <em class="jxr_javadoccomment">   * activate the static debug flags of components used</em>
+<a class="jxr_linenumber" name="L532" href="#L532">532</a> <em class="jxr_javadoccomment">   */</em>
+<a class="jxr_linenumber" name="L533" href="#L533">533</a>   <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">void</strong> activateDebug() {
+<a class="jxr_linenumber" name="L534" href="#L534">534</a>     Composite.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L535" href="#L535">535</a>     ImageViewer.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L536" href="#L536">536</a>     Radolan2Image.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L537" href="#L537">537</a>     Zoom.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L538" href="#L538">538</a>     DisplayContext.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L539" href="#L539">539</a>     UnLocodeManager.debug = <strong class="jxr_keyword">true</strong>;
+<a class="jxr_linenumber" name="L540" href="#L540">540</a>   }
+<a class="jxr_linenumber" name="L541" href="#L541">541</a> 
+<a class="jxr_linenumber" name="L542" href="#L542">542</a> }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2018 <a href="http://www.bitplan.com">BITPlan GmbH</a>. All rights reserved.</div>
+</body>
+</html>

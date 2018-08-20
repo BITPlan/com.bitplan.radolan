@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<title>Conversion xref</title>
+<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+</head>
+<body>
+<div id="overview"><a href="../../../../../../apidocs/cs/fau/de/since/radolan/Conversion.html">View Javadoc</a></div><pre>
+<a class="jxr_linenumber" name="L1" href="#L1">1</a>   <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L2" href="#L2">2</a>   <em class="jxr_javadoccomment"> * Copyright (c) 2018 BITPlan GmbH</em>
+<a class="jxr_linenumber" name="L3" href="#L3">3</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L4" href="#L4">4</a>   <em class="jxr_javadoccomment"> * <a href="http://www.bitplan.co" target="alexandria_uri">http://www.bitplan.co</a>m</em>
+<a class="jxr_linenumber" name="L5" href="#L5">5</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L6" href="#L6">6</a>   <em class="jxr_javadoccomment"> * This file is part of the Opensource project at:</em>
+<a class="jxr_linenumber" name="L7" href="#L7">7</a>   <em class="jxr_javadoccomment"> * https://github.com/BITPlan/com.bitplan.radolan</em>
+<a class="jxr_linenumber" name="L8" href="#L8">8</a>   <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L9" href="#L9">9</a>   <em class="jxr_javadoccomment"> * Licensed under the Apache License, Version 2.0 (the "License");</em>
+<a class="jxr_linenumber" name="L10" href="#L10">10</a>  <em class="jxr_javadoccomment"> * you may not use this file except in compliance with the License.</em>
+<a class="jxr_linenumber" name="L11" href="#L11">11</a>  <em class="jxr_javadoccomment"> * You may obtain a copy of the License at</em>
+<a class="jxr_linenumber" name="L12" href="#L12">12</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L13" href="#L13">13</a>  <em class="jxr_javadoccomment"> *     <a href="http://www.apache.org/licenses/LICENSE-2." target="alexandria_uri">http://www.apache.org/licenses/LICENSE-2.</a>0</em>
+<a class="jxr_linenumber" name="L14" href="#L14">14</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L15" href="#L15">15</a>  <em class="jxr_javadoccomment"> * Unless required by applicable law or agreed to in writing, software</em>
+<a class="jxr_linenumber" name="L16" href="#L16">16</a>  <em class="jxr_javadoccomment"> * distributed under the License is distributed on an "AS IS" BASIS,</em>
+<a class="jxr_linenumber" name="L17" href="#L17">17</a>  <em class="jxr_javadoccomment"> * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</em>
+<a class="jxr_linenumber" name="L18" href="#L18">18</a>  <em class="jxr_javadoccomment"> * See the License for the specific language governing permissions and</em>
+<a class="jxr_linenumber" name="L19" href="#L19">19</a>  <em class="jxr_javadoccomment"> * limitations under the License.</em>
+<a class="jxr_linenumber" name="L20" href="#L20">20</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L21" href="#L21">21</a>  <em class="jxr_javadoccomment"> * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also</em>
+<a class="jxr_linenumber" name="L22" href="#L22">22</a>  <em class="jxr_javadoccomment"> * under MIT license.</em>
+<a class="jxr_linenumber" name="L23" href="#L23">23</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L24" href="#L24">24</a>  <strong class="jxr_keyword">package</strong> cs.fau.de.since.radolan;
+<a class="jxr_linenumber" name="L25" href="#L25">25</a>  
+<a class="jxr_linenumber" name="L26" href="#L26">26</a>  <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="L27" href="#L27">27</a>  <em class="jxr_javadoccomment"> * migrated to Java from</em>
+<a class="jxr_linenumber" name="L28" href="#L28">28</a>  <em class="jxr_javadoccomment"> * https://gitlab.cs.fau.de/since/radolan/blob/master/conversion.go</em>
+<a class="jxr_linenumber" name="L29" href="#L29">29</a>  <em class="jxr_javadoccomment"> * @author wf</em>
+<a class="jxr_linenumber" name="L30" href="#L30">30</a>  <em class="jxr_javadoccomment"> *</em>
+<a class="jxr_linenumber" name="L31" href="#L31">31</a>  <em class="jxr_javadoccomment"> */</em>
+<a class="jxr_linenumber" name="L32" href="#L32">32</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">Conversion</a> {
+<a class="jxr_linenumber" name="L33" href="#L33">33</a>    
+<a class="jxr_linenumber" name="L34" href="#L34">34</a>    <em class="jxr_comment">/*</em>
+<a class="jxr_linenumber" name="L35" href="#L35">35</a>  <em class="jxr_comment">  var NaN = float32(math.NaN())</em>
+<a class="jxr_linenumber" name="L36" href="#L36">36</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>  <em class="jxr_comment">  func IsNaN(f float32) (is bool) {</em>
+<a class="jxr_linenumber" name="L38" href="#L38">38</a>  <em class="jxr_comment">    return f != f</em>
+<a class="jxr_linenumber" name="L39" href="#L39">39</a>  <em class="jxr_comment">  }*/</em>
+<a class="jxr_linenumber" name="L40" href="#L40">40</a>  
+<a class="jxr_linenumber" name="L41" href="#L41">41</a>    <em class="jxr_comment">// Z-R relationship</em>
+<a class="jxr_linenumber" name="L42" href="#L42">42</a>    <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>  {
+<a class="jxr_linenumber" name="L43" href="#L43">43</a>      <em class="jxr_comment">// intermediate caching</em>
+<a class="jxr_linenumber" name="L44" href="#L44">44</a>      <strong class="jxr_keyword">double</strong> c1; <em class="jxr_comment">// 10*b</em>
+<a class="jxr_linenumber" name="L45" href="#L45">45</a>      <strong class="jxr_keyword">double</strong> c2; <em class="jxr_comment">// a^(-1/b)</em>
+<a class="jxr_linenumber" name="L46" href="#L46">46</a>      <strong class="jxr_keyword">double</strong> c3; <em class="jxr_comment">// 10^(1/(10*b))</em>
+<a class="jxr_linenumber" name="L47" href="#L47">47</a>      <strong class="jxr_keyword">double</strong> c4; <em class="jxr_comment">// 10 * log10(a)</em>
+<a class="jxr_linenumber" name="L48" href="#L48">48</a>    }
+<a class="jxr_linenumber" name="L49" href="#L49">49</a>  
+<a class="jxr_linenumber" name="L50" href="#L50">50</a>    <em class="jxr_comment">// Common Z-R relationships</em>
+<a class="jxr_linenumber" name="L51" href="#L51">51</a>    
+<a class="jxr_linenumber" name="L52" href="#L52">52</a>    <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>  Aniol80          = NewZR(256, 1.42); <em class="jxr_comment">// operational use in germany, described in [6]</em>
+<a class="jxr_linenumber" name="L53" href="#L53">53</a>    <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>  Doelling98       = NewZR(316, 1.50); <em class="jxr_comment">// operational use in switzerland</em>
+<a class="jxr_linenumber" name="L54" href="#L54">54</a>    <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>  JossWaldvogel70  = NewZR(300, 1.50);
+<a class="jxr_linenumber" name="L55" href="#L55">55</a>    <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>   MarshallPalmer55 = NewZR(200, 1.60); <em class="jxr_comment">// operational use in austria</em>
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>   
+<a class="jxr_linenumber" name="L57" href="#L57">57</a>    <em class="jxr_comment">// New Z-R returns a Z-R relationship mathematically expressed as Z = a * R^b</em>
+<a class="jxr_linenumber" name="L58" href="#L58">58</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a> NewZR(<strong class="jxr_keyword">double</strong> A, <strong class="jxr_keyword">double</strong> B)  {
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a> zr=<strong class="jxr_keyword">new</strong> <a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a>();
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>      zr.c1 = 10.0 * B;
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>      zr.c2 = Math.pow(A, -1.0/B);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>      zr.c3 = Math.pow(10.0, 1/zr.c1);
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>      zr.c4 = 10.0 * Math.log10(A);
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>  
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>      <strong class="jxr_keyword">return</strong> zr;
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>    }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>  
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>    <em class="jxr_comment">// PrecipitationRate returns the estimated precipitation rate in mm/h for the given</em>
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>    <em class="jxr_comment">// reflectivity factor and Z-R relationship.</em>
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">double</strong> PrecipitationRate(<a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a> relation ,<strong class="jxr_keyword">double</strong> dBZ) {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      <strong class="jxr_keyword">return</strong> relation.c2 * Math.pow(relation.c3, dBZ);
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>    }
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>  
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>    <em class="jxr_comment">// Reflectivity returns the estimated reflectivity factor for the given precipitation</em>
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>    <em class="jxr_comment">// rate (mm/h) and Z-R relationship.</em>
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">double</strong> Reflectivity(<a href="../../../../../cs/fau/de/since/radolan/Conversion.html">ZR</a> relation, <strong class="jxr_keyword">double</strong> rate)  {
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>      <strong class="jxr_keyword">return</strong> relation.c4 + relation.c1 * Math.log10(rate);
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>    }
+<a class="jxr_linenumber" name="L79" href="#L79">79</a>  
+<a class="jxr_linenumber" name="L80" href="#L80">80</a>    <em class="jxr_comment">// toDBZ converts the given radar video processor values (rvp-6) to radar reflectivity</em>
+<a class="jxr_linenumber" name="L81" href="#L81">81</a>    <em class="jxr_comment">// factors in decibel relative to Z (dBZ).</em>
+<a class="jxr_linenumber" name="L82" href="#L82">82</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">float</strong> toDBZ(<strong class="jxr_keyword">float</strong> rvp)  {
+<a class="jxr_linenumber" name="L83" href="#L83">83</a>      <strong class="jxr_keyword">return</strong> rvp/2.0f - 32.5f;
+<a class="jxr_linenumber" name="L84" href="#L84">84</a>    }
+<a class="jxr_linenumber" name="L85" href="#L85">85</a>  
+<a class="jxr_linenumber" name="L86" href="#L86">86</a>    <em class="jxr_comment">// toRVP6 converts the given radar reflectivity factors (dBZ) to radar video processor</em>
+<a class="jxr_linenumber" name="L87" href="#L87">87</a>    <em class="jxr_comment">// values (rvp-6).</em>
+<a class="jxr_linenumber" name="L88" href="#L88">88</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">double</strong> toRVP6(<strong class="jxr_keyword">float</strong> dBZ) {
+<a class="jxr_linenumber" name="L89" href="#L89">89</a>      <strong class="jxr_keyword">return</strong> (dBZ + 32.5) * 2;
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>    }
+<a class="jxr_linenumber" name="L91" href="#L91">91</a>  
+<a class="jxr_linenumber" name="L92" href="#L92">92</a>    <em class="jxr_comment">// rvp6Raw converts the raw value to radar video processor values (rvp-6) by applying the</em>
+<a class="jxr_linenumber" name="L93" href="#L93">93</a>    <em class="jxr_comment">// products precision field.</em>
+<a class="jxr_linenumber" name="L94" href="#L94">94</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">static</strong> <strong class="jxr_keyword">double</strong> rvp6Raw(<a href="../../../../../cs/fau/de/since/radolan/Composite.html">Composite</a> c, <strong class="jxr_keyword">int</strong> value)  {
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>      <strong class="jxr_keyword">double</strong> rvalue=value * c.getPrecisionFactor();
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>      <strong class="jxr_keyword">return</strong> rvalue;
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>    }
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>  
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>  }
+</pre>
+<hr/>
+<div id="footer">Copyright &#169; 2018 <a href="http://www.bitplan.com">BITPlan GmbH</a>. All rights reserved.</div>
+</body>
+</html>
