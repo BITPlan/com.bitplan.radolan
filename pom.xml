@@ -2,13 +2,18 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.bitplan.pom</groupId>
+		<artifactId>com.bitplan.pom</artifactId>
+		<version>0.0.6</version>
+		<relativePath>../com.bitplan.pom/pom.xml</relativePath>
+	</parent>
 	<groupId>com.bitplan.radolan</groupId>
 	<artifactId>com.bitplan.radolan</artifactId>
 	<version>0.0.1</version>
 	<name>com.bitplan.radolan</name>
 	<description>parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan</description>
 
-	<url>https://github.com/BITPlan/com.bitplan.radolan</url>
 	<licenses>
 		<license>
 			<name>Apache 2.0</name>
@@ -20,46 +25,16 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	<organization>
-		<name>BITPlan GmbH</name>
-		<url>http://www.bitplan.com</url>
-	</organization>
-	<scm>
-		<url>https://github.com/BITPlan/com.bitplan.radolan</url>
-		<developerConnection>Wolfgang Fahl</developerConnection>
-	</scm>
-	<issueManagement>
-		<system>GitHub</system>
-		<url>https://github.com/BITPlan/com.bitplan.radolan/issues</url>
-	</issueManagement>
-	<developers>
-		<developer>
-			<id>wf</id>
-			<name>Wolfgang Fahl</name>
-			<organization>BITPlan GmbH</organization>
-			<organizationUrl>http://www.bitplan.com</organizationUrl>
-		</developer>
-	</developers>
 	<ciManagement>
 		<system>Travis</system>
 	</ciManagement>
 	<properties>
-		<!-- http://stackoverflow.com/questions/3017695/how-to-configure-encoding-in-maven -->
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- JUnit unit testing framework -->
 		<junit4.version>4.12</junit4.version>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
 		<gson.version>2.8.2</gson.version>
 		<!-- https://mvnrepository.com/artifact/commons-io/commons-io/2.6 -->
 		<commons.io.version>2.6</commons.io.version>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-site-plugin -->
-		<maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin -->
-		<maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
-		<!-- https://github.com/github/maven-plugins -->
-		<site-maven-plugin.version>0.12</site-maven-plugin.version>
-		<!--  https://stackoverflow.com/a/35673586/1497139 -->
 		<dependency.locations.enabled>false</dependency.locations.enabled>
 	</properties>
 	<dependencies>
@@ -117,48 +92,12 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-			<!-- sure-fire (test) plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.18.1</version>
-				<configuration>
-					<excludes>
-						<!-- JUnit4 TestSuites -->
-						<exclude>**/TestSuite.java</exclude>
-						<exclude>**/TestDebug.java</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<!-- License header handling -->
-			<plugin>
-				<!-- http://code.mycila.com/license-maven-plugin/ -->
-				<groupId>com.mycila.maven-license-plugin</groupId>
-				<artifactId>maven-license-plugin</artifactId>
-				<version>1.9.0</version>
-				<configuration>
-					<header>src/etc/header.txt</header>
-					<includes>
-						<include>src/**/*.java</include>
-					</includes>
-					<strictCheck>true</strictCheck>
-				</configuration>
-			</plugin>
-
 			<!-- create fat jar -->
 			<!-- http://stackoverflow.com/a/16222971 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
+				<version>${maven-assembly-plugin.version}</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -255,107 +194,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<!-- see http://central.sonatype.org/pages/apache-maven.html Javadoc 
-					and Sources Attachments To get Javadoc and Source jar files generated, you 
-					have to configure the javadoc and source Maven plugins. -->
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.9.1</version>
-				<configuration>
-					<overview>${basedir}\src\main\java\overview.html</overview>
-					<verbose>true</verbose>
-				</configuration>
-				<executions>
-					<execution>
-						<id>attach-javadocs</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- GPG Signed Components The Maven GPG plugin is used to sign the components 
-				with the following configuration. -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-gpg-plugin</artifactId>
-				<version>1.5</version>
-				<executions>
-					<execution>
-						<id>sign-artifacts</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- according to : http://central.sonatype.org/pages/apache-maven.html 
-				Nexus Staging Maven Plugin for Deployment and Release The Nexus Staging Maven 
-				Plugin is the recommended way to deploy your components to OSSRH and release 
-				them to the Central Repository. To configure it simply add the plugin to 
-				your Maven pom.xml. -->
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.8</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>ossrh</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<!-- set to true for automation -->
-					<autoReleaseAfterClose>false</autoReleaseAfterClose>
-				</configuration>
-			</plugin>
-			<!-- Maven release plugin -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-					<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
-	<profiles>
-		<!-- Work around Oracle's (IMHO silly) decision to make doclint default. 
-			http://blog.joda.org/2014/02/turning-off-doclint-in-jdk-8-javadoc.html http://stackoverflow.com/questions/15886209/maven-is-not-working-in-java-8-when-javadoc-tags-are-incomplete -->
-		<profile>
-			<id>doclint-java8-disable</id>
-			<activation>
-				<jdk>[1.8,)</jdk>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.10.4</version>
-						<configuration>
-							<additionalparam>-Xdoclint:none</additionalparam>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>

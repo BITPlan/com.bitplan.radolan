@@ -24,11 +24,9 @@
 package com.bitplan.radolan;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.util.List;
 import java.util.logging.Level;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.bitplan.geo.Borders;
@@ -51,6 +49,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 /**
@@ -242,13 +241,11 @@ public class TestBorders extends BaseTest {
         IPoint ip = new IPoint(p);
         // getScreenPointForLatLon(displayContext,borderPane,point);
         double dist = ip.dist(prevIp);
-        if ((ip.x > 0 && ip.y > 0) && (dist < 30)) {
-          /*
-           * Line line = new Line(prevIp.x, prevIp.y, ip.x, ip.y);
-           * line.setStrokeWidth(2); line.setStroke(borderColor);
-           * Platform.runLater(() -> { borderPane.getChildren().add(line); });
-           */
-          image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
+        if ((ip.x > 0 && ip.y > 0) && (dist < 40)) {
+           Line line = new Line(prevIp.x, prevIp.y, ip.x, ip.y);
+           line.setStrokeWidth(1); line.setStroke(borderColor);
+           mapView.drawPane.getChildren().add(line);
+          // image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
         }
         prevIp = ip;
       }
@@ -256,17 +253,17 @@ public class TestBorders extends BaseTest {
     }
    }
 
-  @Ignore
+  @Test
   public void testDrawingBorders() throws Exception {
-    SampleApp.toolkitInit();
+    Borders.debug=true;
     File imageFile = new File("src/test/data/image/rad_brd900x900.jpg");
-
-    MapView mapView = new MapView(imageFile.toURI().toURL().toExternalForm());
     for (String name : names) {
+      SampleApp.toolkitInit();
+      MapView mapView = new MapView(imageFile.toURI().toURL().toExternalForm());
       Projection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
       BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
-          Color.BROWN);
+          Color.ORANGE);
       SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getPane());
       sampleApp.show();
       sampleApp.waitOpen();
@@ -284,6 +281,7 @@ public class TestBorders extends BaseTest {
       Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
       sampleApp.close();
+      // Platform.exit();
     }
   }
 

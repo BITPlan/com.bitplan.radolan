@@ -43,6 +43,7 @@ import com.github.filosganga.geogson.model.Point;
 import com.github.filosganga.geogson.model.Polygon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 
 /**
  * @author wf
@@ -51,15 +52,22 @@ import com.google.gson.GsonBuilder;
 public class Borders {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  
+
+  public static boolean debug = true;
+
   private List<DPoint> points = new ArrayList<DPoint>();
 
-  public List<DPoint> getPoints() {
-    return points;
-  }
+  private FeatureCollection fc;
 
-  public void setPoints(List<DPoint> points) {
-    this.points = points;
+  /**
+   * get the points
+   * 
+   * @return - the points
+   */
+  public List<DPoint> getPoints() {
+    if (points.size() == 0)
+      fetchPoints();
+    return points;
   }
 
   // https://github.com/isellsoap/deutschlandGeoJSON
@@ -73,27 +81,39 @@ public class Borders {
       // System.out.println(json.length());
       Gson gson = new GsonBuilder()
           .registerTypeAdapterFactory(new GeometryAdapterFactory()).create();
-      FeatureCollection fc = gson.fromJson(json, FeatureCollection.class);
-      for (Feature feature : fc.features()) {
-        // System.out.println(feature.properties().get("NAME_3"));
-        Geometry<?> geometry = feature.geometry();
-        if (geometry instanceof MultiPolygon) {
-          MultiPolygon mpolygon = (MultiPolygon) geometry;
-          for (Polygon polygon : mpolygon.polygons()) {
-            addPoints(polygon);
-          }
-        }
-        if (geometry instanceof Polygon) {
-          Polygon polygon = (Polygon) geometry;
+      fc = gson.fromJson(json, FeatureCollection.class);
+
+    } catch (IOException e) {
+      LOGGER.log(Level.WARNING, "could not load borders " + borderName);
+    }
+  }
+
+  private void fetchPoints() {
+    for (Feature feature : fc.features()) {
+      if (debug) {
+    
+        if (debug)
+          LOGGER.log(Level.INFO,feature.toString());
+      }
+      Geometry<?> geometry = feature.geometry();
+      if (geometry instanceof MultiPolygon) {
+        MultiPolygon mpolygon = (MultiPolygon) geometry;
+        for (Polygon polygon : mpolygon.polygons()) {
           addPoints(polygon);
         }
       }
-    } catch (IOException e) {
-      LOGGER.log(Level.WARNING,"could not load borders "+borderName);
+      if (geometry instanceof Polygon) {
+        Polygon polygon = (Polygon) geometry;
+        addPoints(polygon);
+      }
     }
-
   }
 
+  /**
+   * add the points for the given polygon
+   * 
+   * @param polygon
+   */
   public void addPoints(Polygon polygon) {
     for (LinearRing ring : polygon.linearRings()) {
       addPoints(ring);
@@ -103,9 +123,14 @@ public class Borders {
     }
   }
 
+  /**
+   * get the points
+   * 
+   * @param linearGeometry
+   */
   public void addPoints(LinearGeometry linearGeometry) {
     for (Point point : linearGeometry.points()) {
-      getPoints().add(new DPoint(point.lat(), point.lon()));
+      points.add(new DPoint(point.lat(), point.lon()));
     }
   }
 
