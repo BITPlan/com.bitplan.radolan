@@ -13,18 +13,6 @@
 	<version>0.0.1</version>
 	<name>com.bitplan.radolan</name>
 	<description>parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan</description>
-
-	<licenses>
-		<license>
-			<name>Apache 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
-		</license>
-		<license>
-			<name>MIT License</name>
-			<url>https://opensource.org/licenses/MIT</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 	<ciManagement>
 		<system>Travis</system>
 	</ciManagement>
