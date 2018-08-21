@@ -42,7 +42,8 @@ https://www.dwd.de/DE/leistungen/radolan/radolan_info/home_freie_radolan_kartend
 ![DWD RADOLAN RW](https://www.dwd.de/DE/leistungen/radolan/radolan_info/rw_karte.png?view=nasImage&nn=16102)
 ![DWD RADOLAN SF](https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102)
 
-This is a library to help analyze and visualize the RADOLAN files # History
+This is a library to help analyze and visualize the RADOLAN files
+# History
 * 0.0.1 2018-08-14 Migration of classes and tests (not working yet)
 * 0.0.1 2018-08-16 working display and input/output handling
 * 0.0.1 2018-08-18 fixed data issues and implemented zoom 
