@@ -9,6 +9,7 @@
 [![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
 
 ### Documentation
+* [Wiki](http://www.bitplan.com/Radolan)
 * [com.bitplan.radolan Project pages](https://BITPlan.github.io/com.bitplan.radolan)
 * [Javadoc](https://BITPlan.github.io/com.bitplan.radolan/apidocs/index.html)
 * [Test-Report](https://BITPlan.github.io/com.bitplan.radolan/surefire-report.html)
