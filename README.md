@@ -1,24 +1,17 @@
-# com.bitplan.radolan
-parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan
+### com.bitplan.radolan
+[parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan](http://www.bitplan.com/Radolan) 
 
-Dual Licensed: MIT/Apache
-
-The Precipitation Information of Deutscher Wetterdienst DWD is based on RADOLAN data which is publicly available via the OpenData Services of DWD
-
-https://www.dwd.de/DE/leistungen/radolan/radolan_info/home_freie_radolan_kartendaten.html
-
-![DWD Regenradar](https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg)
-![DWD RADOLAN RW](https://www.dwd.de/DE/leistungen/radolan/radolan_info/rw_karte.png?view=nasImage&nn=16102)
-![DWD RADOLAN SF](https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102)
-
-This is a library to help analyze and visualize the RADOLAN files 
-
-# Creator 
+[![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.radolan.svg)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
+[![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.radolan/com.bitplan.radolan.svg)](https://search.maven.org/artifact/com.bitplan.radolan/com.bitplan.radolan/0.0.1/jar)
+[![GitHub issues](https://img.shields.io/github/issues/BITPlan/com.bitplan.radolan.svg)](https://github.com/BITPlan/com.bitplan.radolan/issues)
+[![GitHub issues](https://img.shields.io/github/issues-closed/BITPlan/com.bitplan.radolan.svg)](https://github.com/BITPlan/com.bitplan.radolan/issues/?q=is%3Aissue+is%3Aclosed)
+[![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.radolan.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
 
-[![Build Status](https://travis-ci.org/BITPlan/com.bitplan.radolan.svg?branch=master)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
-### Distribution
-[Available via maven repository](https://search.maven.org/artifact/com.bitplan.radolan/com.bitplan.radolan/0.0.1/jar)
+### Project pages
+[com.bitplan.radolan](https://BITPlan.github.io/com.bitplan.radolan)
+
+### Maven dependency
 
 Maven dependency
 ```xml
@@ -28,19 +21,28 @@ Maven dependency
   <version>0.0.1</version>
 </dependency>
 ```
+
+[Current release at repo1.maven.org](http://repo1.maven.org/maven2/com/bitplan/radolan/com.bitplan.radolan/0.0.1/)
+
 ### How to build
 ```
 git clone https://github.com/BITPlan/com.bitplan.radolan
 cd com.bitplan.radolan
 mvn install
 ```
+### Dual License
+Some parts of this project are dual Licensed: MIT/Apache since the original golang Library is MIT licensed
 
-# Documentation
-* http://www.bitplan.com/index.php/Radolan
+### DWD OpenData
+The Precipitation Information of Deutscher Wetterdienst DWD is based on RADOLAN data which is publicly available via the OpenData Services of DWD
 
-# Links
-* https://www.dwd.de/DE/leistungen/radolan/radolan.html
-# History
+https://www.dwd.de/DE/leistungen/radolan/radolan_info/home_freie_radolan_kartendaten.html
+
+![DWD Regenradar](https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg)
+![DWD RADOLAN RW](https://www.dwd.de/DE/leistungen/radolan/radolan_info/rw_karte.png?view=nasImage&nn=16102)
+![DWD RADOLAN SF](https://www.dwd.de/DE/leistungen/radolan/radolan_info/sf_karte.png?view=nasImage&nn=16102)
+
+This is a library to help analyze and visualize the RADOLAN files # History
 * 0.0.1 2018-08-14 Migration of classes and tests (not working yet)
 * 0.0.1 2018-08-16 working display and input/output handling
 * 0.0.1 2018-08-18 fixed data issues and implemented zoom 

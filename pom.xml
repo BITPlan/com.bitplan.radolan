@@ -31,6 +31,8 @@
 	<properties>
 		<!-- for parent pom to work -->
 		<github.project>com.bitplan.radolan</github.project>
+		<!-- for README.md generation -->
+		<documentation.wiki>http://www.bitplan.com/Radolan</documentation.wiki>
 		<!-- JUnit unit testing framework -->
 		<junit4.version>4.12</junit4.version>
 		<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
