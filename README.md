@@ -8,8 +8,10 @@
 [![GitHub](https://img.shields.io/github/license/BITPlan/com.bitplan.radolan.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![BITPlan](http://wiki.bitplan.com/images/wiki/thumb/3/38/BITPlanLogoFontLessTransparent.png/198px-BITPlanLogoFontLessTransparent.png)](http://www.bitplan.com)
 
-### Project pages
-[com.bitplan.radolan](https://BITPlan.github.io/com.bitplan.radolan)
+### Documentation
+* [com.bitplan.radolan Project pages](https://BITPlan.github.io/com.bitplan.radolan)
+* [Javadoc](https://BITPlan.github.io/com.bitplan.radolan/apidocs/index.html)
+* [Test-Report](https://BITPlan.github.io/com.bitplan.radolan/surefire-report.html)
 
 ### Maven dependency
 
