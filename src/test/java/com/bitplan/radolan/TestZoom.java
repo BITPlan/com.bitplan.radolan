@@ -32,8 +32,6 @@ import com.bitplan.geo.IPoint;
 import com.bitplan.geo.Projection;
 import com.bitplan.geo.ProjectionImpl;
 
-import cs.fau.de.since.radolan.Composite;
-
 /**
  * test Zoom functionality
  * @author wf
