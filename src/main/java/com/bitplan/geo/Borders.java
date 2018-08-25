@@ -43,11 +43,10 @@ import com.github.filosganga.geogson.model.Point;
 import com.github.filosganga.geogson.model.Polygon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 
 /**
  * @author wf
- *
+ * see https://tools.ietf.org/html/rfc7946
  */
 public class Borders {
   // prepare a LOGGER
@@ -70,8 +69,10 @@ public class Borders {
     return points;
   }
 
-  // https://github.com/isellsoap/deutschlandGeoJSON
-  // https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/master/2_bundeslaender/4_niedrig.geojson
+  /**
+   * https://github.com/isellsoap/deutschlandGeoJSON
+   * https://raw.githubusercontent.com/isellsoap/deutschlandGeoJSON/master/2_bundeslaender/4_niedrig.geojson
+   */
   public Borders(String borderName) {
     // https://stackoverflow.com/a/21337734/1497139
     String json;
@@ -91,9 +92,7 @@ public class Borders {
   private void fetchPoints() {
     for (Feature feature : fc.features()) {
       if (debug) {
-    
-        if (debug)
-          LOGGER.log(Level.INFO,feature.toString());
+          // LOGGER.log(Level.INFO,feature.toString());
       }
       Geometry<?> geometry = feature.geometry();
       if (geometry instanceof MultiPolygon) {

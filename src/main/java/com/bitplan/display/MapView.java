@@ -59,9 +59,8 @@ public class MapView {
    * 
    * @param url
    */
-  public MapView(String url) {
-    if (url != null)
-      getImageView(url);
+  public MapView(String url) { 
+    getImageView(url);
     drawPane = new Pane();
     drawPane.setStyle(
         "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");

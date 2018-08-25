@@ -34,10 +34,15 @@ import com.bitplan.geo.Borders;
 import com.bitplan.geo.Projection;
 import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.javafx.SampleApp;
+import com.bitplan.javafx.WaitableApp;
 
 import cs.fau.de.since.radolan.Translate;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 /**
  * test the border files
@@ -56,6 +61,7 @@ public class TestBorders extends BaseTest {
 
   @Test
   public void testBorders() throws Exception {
+    debug=true;
     for (String name : names) {
       Borders borders = new Borders(name);
       if (debug)
@@ -65,21 +71,45 @@ public class TestBorders extends BaseTest {
   }
 
   static int SHOW_TIME = 4* 1000; // millisecs
+  private void setupStageLocation(Stage stage, int screenNumber) {
+    ObservableList<Screen> screens = Screen.getScreens();
+    Screen screen = screens.size() <= screenNumber ? Screen.getPrimary() : screens.get(screenNumber);
 
+    Rectangle2D bounds = screen.getBounds();
+    boolean primary = screen.equals(Screen.getPrimary());    // WORKAROUND: this doesn't work nice in combination with full screen, so this hack is used to prevent going fullscreen when screen is not primary
+
+    if(primary) {
+      stage.setX(bounds.getMinX());
+      stage.setY(bounds.getMinY());
+      stage.setWidth(bounds.getWidth());
+      stage.setHeight(bounds.getHeight());
+      stage.setFullScreen(true);
+    }
+    else {
+      stage.setX(bounds.getMinX());
+      stage.setY(bounds.getMinY());
+      stage.setWidth(bounds.getWidth());
+      stage.setHeight(bounds.getHeight());
+      stage.toFront();
+    }
+  }
   @Test
   public void testDrawingBorders() throws Exception {
     Borders.debug=true;
-    File imageFile = new File("src/test/data/image/rad_brd900x900.png");
+    File imageFile = new File("src/test/data/image/empty1000x1100.png");
     for (String name : names) {
       SampleApp.toolkitInit();
-      MapView mapView = new MapView(imageFile.toURI().toURL().toExternalForm());
-      Projection projection = new ProjectionImpl(900, 900);
+      String url=imageFile.toURI().toURL().toExternalForm();
+      MapView mapView = new MapView(url);
+      Projection projection = new ProjectionImpl(900, 1100);
       Translate.calibrateProjection(projection);
       BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
           Color.ORANGE);
       SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getPane());
       sampleApp.show();
       sampleApp.waitOpen();
+      // display on another monitor
+      // Platform.runLater(() ->this.setupStageLocation(sampleApp.getStage(), 2));
       double iwidth = mapView.getImage().getWidth();
       double iheight = mapView.getImage().getHeight();
       sampleApp.getStage().setWidth(mapView.getImage().getWidth());
@@ -93,6 +123,8 @@ public class TestBorders extends BaseTest {
       mapView.addSizeListener(sampleApp.getStage());
       Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
+      File snapShot=new File("/tmp/"+name.replace("/", "_")+".png");
+      Platform.runLater(() -> WaitableApp.saveAsPng(sampleApp.getStage(), snapShot));
       sampleApp.close();
       // Platform.exit();
     }
