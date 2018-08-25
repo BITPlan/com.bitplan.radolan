@@ -96,12 +96,12 @@ public class TestBorders extends BaseTest {
   @Test
   public void testDrawingBorders() throws Exception {
     Borders.debug=true;
-    File imageFile = new File("src/test/data/image/empty1000x1100.png");
+    File imageFile = new File("src/test/data/image/empty900x900.png");
     for (String name : names) {
       SampleApp.toolkitInit();
       String url=imageFile.toURI().toURL().toExternalForm();
       MapView mapView = new MapView(url);
-      Projection projection = new ProjectionImpl(900, 1100);
+      Projection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
       BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
           Color.ORANGE);
@@ -124,7 +124,7 @@ public class TestBorders extends BaseTest {
       Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
       File snapShot=new File("/tmp/"+name.replace("/", "_")+".png");
-      Platform.runLater(() -> WaitableApp.saveAsPng(sampleApp.getStage(), snapShot));
+      Platform.runLater(() -> WaitableApp.saveAsPng(mapView.getPane(), snapShot));
       sampleApp.close();
       // Platform.exit();
     }

@@ -53,12 +53,10 @@ public class TestCache extends BaseTest {
     if (!isTravis()) {
       LocalDate start = LocalDate.of(2018, 1, 1);
       LocalDate end = LocalDate.of(2018, 8, 15);
-      String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
+      String knownUrl =KnownUrl.RADOLAN_HISTORY;
       for (LocalDate date = start; date
           .isBefore(end); date = date.plus(Period.ofDays(1))) {
-        String url = String.format(
-            knownUrl + "recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz",
-            date.getYear() % 2000, date.getMonthValue(), date.getDayOfMonth());
+    	String url=KnownUrl.getSFRecent(date);
         Composite.useCache(url, knownUrl);
         File cacheFile = Composite.cacheForUrl(url, knownUrl);
         assertTrue(cacheFile.exists());

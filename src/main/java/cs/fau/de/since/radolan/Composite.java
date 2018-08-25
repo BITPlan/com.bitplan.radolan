@@ -42,6 +42,7 @@ import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.geo.UnLocodeManager;
 import com.bitplan.radolan.DisplayContext;
 import com.bitplan.radolan.ImageViewer;
+import com.bitplan.radolan.KnownUrl;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Radolan2Image;
 import com.bitplan.radolan.Statistics;
@@ -121,9 +122,7 @@ public class Composite extends ProjectionImpl implements RadarImage,Projection  
   // if not set the default $HOME/.radolan will be used
   public static String cacheRootPath = null;
 
-  public static String knownUrls[] = {
-      "https://opendata.dwd.de/weather/radar/radolan/",
-      "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan" };
+  
   private String Product; // composite product label
 
   ZonedDateTime CaptureTime;
@@ -317,7 +316,7 @@ public class Composite extends ProjectionImpl implements RadarImage,Projection  
       return url;
     if (url.contains("-latest-"))
       return url;
-    for (String knownUrl : knownUrls) {
+    for (String knownUrl : KnownUrl.knownUrls) {
       if (url.startsWith(knownUrl)) {
         return useCache(url, knownUrl);
       }
