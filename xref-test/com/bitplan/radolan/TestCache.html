@@ -61,31 +61,29 @@
 <a class="jxr_linenumber" name="L53" href="#L53">53</a>      <strong class="jxr_keyword">if</strong> (!isTravis()) {
 <a class="jxr_linenumber" name="L54" href="#L54">54</a>        LocalDate start = LocalDate.of(2018, 1, 1);
 <a class="jxr_linenumber" name="L55" href="#L55">55</a>        LocalDate end = LocalDate.of(2018, 8, 15);
-<a class="jxr_linenumber" name="L56" href="#L56">56</a>        String knownUrl = <span class="jxr_string">"ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/"</span>;
+<a class="jxr_linenumber" name="L56" href="#L56">56</a>        String knownUrl =KnownUrl.RADOLAN_HISTORY;
 <a class="jxr_linenumber" name="L57" href="#L57">57</a>        <strong class="jxr_keyword">for</strong> (LocalDate date = start; date
 <a class="jxr_linenumber" name="L58" href="#L58">58</a>            .isBefore(end); date = date.plus(Period.ofDays(1))) {
-<a class="jxr_linenumber" name="L59" href="#L59">59</a>          String url = String.format(
-<a class="jxr_linenumber" name="L60" href="#L60">60</a>              knownUrl + <span class="jxr_string">"recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz"</span>,
-<a class="jxr_linenumber" name="L61" href="#L61">61</a>              date.getYear() % 2000, date.getMonthValue(), date.getDayOfMonth());
-<a class="jxr_linenumber" name="L62" href="#L62">62</a>          Composite.useCache(url, knownUrl);
-<a class="jxr_linenumber" name="L63" href="#L63">63</a>          File cacheFile = Composite.cacheForUrl(url, knownUrl);
-<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertTrue(cacheFile.exists());
-<a class="jxr_linenumber" name="L65" href="#L65">65</a>          assertTrue(<span class="jxr_string">".gz"</span>, Composite.checkCache(url).endsWith(<span class="jxr_string">".gz"</span>));
-<a class="jxr_linenumber" name="L66" href="#L66">66</a>          assertTrue(<span class="jxr_string">".file:"</span>, Composite.checkCache(url).startsWith(<span class="jxr_string">"file:"</span>));
-<a class="jxr_linenumber" name="L67" href="#L67">67</a>        }
-<a class="jxr_linenumber" name="L68" href="#L68">68</a>      }
-<a class="jxr_linenumber" name="L69" href="#L69">69</a>    }
-<a class="jxr_linenumber" name="L70" href="#L70">70</a>    
-<a class="jxr_linenumber" name="L71" href="#L71">71</a>    @Test
-<a class="jxr_linenumber" name="L72" href="#L72">72</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNoCacheForLatest() <strong class="jxr_keyword">throws</strong> Exception {
-<a class="jxr_linenumber" name="L73" href="#L73">73</a>      String url=<span class="jxr_string">"https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin"</span>;
-<a class="jxr_linenumber" name="L74" href="#L74">74</a>      String knownUrl=<span class="jxr_string">"https://opendata.dwd.de/weather/radar/radolan"</span>;
-<a class="jxr_linenumber" name="L75" href="#L75">75</a>      String cacheUrl=Composite.checkCache(url);
-<a class="jxr_linenumber" name="L76" href="#L76">76</a>      File cacheFile = Composite.cacheForUrl(url, knownUrl);
-<a class="jxr_linenumber" name="L77" href="#L77">77</a>      assertFalse(cacheFile.exists());
-<a class="jxr_linenumber" name="L78" href="#L78">78</a>      assertEquals(url,cacheUrl);
-<a class="jxr_linenumber" name="L79" href="#L79">79</a>    }
-<a class="jxr_linenumber" name="L80" href="#L80">80</a>  }
+<a class="jxr_linenumber" name="L59" href="#L59">59</a>      	String url=KnownUrl.getSFRecent(date);
+<a class="jxr_linenumber" name="L60" href="#L60">60</a>          Composite.useCache(url, knownUrl);
+<a class="jxr_linenumber" name="L61" href="#L61">61</a>          File cacheFile = Composite.cacheForUrl(url, knownUrl);
+<a class="jxr_linenumber" name="L62" href="#L62">62</a>          assertTrue(cacheFile.exists());
+<a class="jxr_linenumber" name="L63" href="#L63">63</a>          assertTrue(<span class="jxr_string">".gz"</span>, Composite.checkCache(url).endsWith(<span class="jxr_string">".gz"</span>));
+<a class="jxr_linenumber" name="L64" href="#L64">64</a>          assertTrue(<span class="jxr_string">".file:"</span>, Composite.checkCache(url).startsWith(<span class="jxr_string">"file:"</span>));
+<a class="jxr_linenumber" name="L65" href="#L65">65</a>        }
+<a class="jxr_linenumber" name="L66" href="#L66">66</a>      }
+<a class="jxr_linenumber" name="L67" href="#L67">67</a>    }
+<a class="jxr_linenumber" name="L68" href="#L68">68</a>    
+<a class="jxr_linenumber" name="L69" href="#L69">69</a>    @Test
+<a class="jxr_linenumber" name="L70" href="#L70">70</a>    <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> testNoCacheForLatest() <strong class="jxr_keyword">throws</strong> Exception {
+<a class="jxr_linenumber" name="L71" href="#L71">71</a>      String url=<span class="jxr_string">"https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin"</span>;
+<a class="jxr_linenumber" name="L72" href="#L72">72</a>      String knownUrl=<span class="jxr_string">"https://opendata.dwd.de/weather/radar/radolan"</span>;
+<a class="jxr_linenumber" name="L73" href="#L73">73</a>      String cacheUrl=Composite.checkCache(url);
+<a class="jxr_linenumber" name="L74" href="#L74">74</a>      File cacheFile = Composite.cacheForUrl(url, knownUrl);
+<a class="jxr_linenumber" name="L75" href="#L75">75</a>      assertFalse(cacheFile.exists());
+<a class="jxr_linenumber" name="L76" href="#L76">76</a>      assertEquals(url,cacheUrl);
+<a class="jxr_linenumber" name="L77" href="#L77">77</a>    }
+<a class="jxr_linenumber" name="L78" href="#L78">78</a>  }
 </pre>
 <hr/>
 <div id="footer">Copyright &#169; 2018 <a href="http://www.bitplan.com">BITPlan GmbH</a>. All rights reserved.</div>
