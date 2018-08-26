@@ -24,7 +24,6 @@
 package com.bitplan.radolan;
 
 import java.time.LocalDate;
-import java.time.Month;
 
 /**
  * handle known urls
