@@ -99,17 +99,19 @@ public class DisplayContext {
    * @param zoomKm
    * @param locationName
    */
-  public DisplayContext(Composite composite, String borderName,Color borderColor, double zoomKm,
-      String locationName) {
+  public DisplayContext(Composite composite, String borderName,
+      Color borderColor, double zoomKm, String locationName) {
     this.composite = composite;
     this.zoomKm = zoomKm;
     if (composite != null) {
       setUpUnitsAndHeatMap();
-      WritableImage image = new WritableImage(composite.getGridWidth(),composite.getGridHeight());
-      this.mapView=new MapView(image);
+      WritableImage image = new WritableImage(composite.getGridWidth(),
+          composite.getGridHeight());
+      this.mapView = new MapView(image);
     }
-    this.borderDraw=new BorderDraw(mapView, composite, borderName,
-        borderColor);
+    if (borderName != null)
+      this.borderDraw = new BorderDraw(mapView, composite, borderName,
+          borderColor);
     // lookup location
     if (locationName != null) {
       UnLocodeManager ulm = UnLocodeManager.getInstance();

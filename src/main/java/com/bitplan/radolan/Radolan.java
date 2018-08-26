@@ -55,6 +55,9 @@ public class Radolan extends Main {
   protected String cachePath = System.getProperty("user.home")
       + java.io.File.separator + ".radolan";;
 
+  @Option(name = "-b", aliases = { "--borderName" }, usage = "borderName\n")
+  protected String borderName = "2_bundeslaender/2_hoch.geojson";
+
   @Option(name = "-i", aliases = {
       "--input" }, usage = "input\nurl/file of the input")
   protected String input = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif"; // "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
@@ -73,7 +76,7 @@ public class Radolan extends Main {
 
   @Option(name = "-p", aliases = {
       "--product" }, usage = "product e.g. SF,RW,RY or alias daily,hourly,5min")
-  protected String product="sf";
+  protected String product = "sf";
 
   @Option(name = "-s", aliases = {
       "--show" }, usage = "show\nshow resulting image")
@@ -88,7 +91,7 @@ public class Radolan extends Main {
   protected double zoomKm = 1.0;
 
   @Argument
-  private List<String> arguments= new ArrayList<String>();
+  private List<String> arguments = new ArrayList<String>();
 
   private DisplayContext displayContext;
 
@@ -145,8 +148,8 @@ public class Radolan extends Main {
   public void showImage(String input) throws Exception {
     prepareImageViewer();
     Image image = new Image(input);
-    displayContext = new DisplayContext(null, null, null,zoomKm, null);
-    displayContext.mapView=new MapView(image);
+    displayContext = new DisplayContext(null, null, null, zoomKm, null);
+    displayContext.mapView = new MapView(image);
     displayContext.title = input;
     showImage(displayContext);
   }
@@ -171,12 +174,12 @@ public class Radolan extends Main {
       else {
         if (this.arguments.size() > 0) {
           if (debug)
-            LOGGER.log(Level.INFO,arguments.toString());
+            LOGGER.log(Level.INFO, arguments.toString());
           for (String argument : arguments) {
             input = KnownUrl.getUrl(product, argument);
             this.showCompositeForUrl(input);
           }
-        } else  if (input.contains(".png") || input.contains(".jpg")
+        } else if (input.contains(".png") || input.contains(".jpg")
             || input.contains(".gif")) {
           if (this.showImage)
             showImage(input);
@@ -191,8 +194,8 @@ public class Radolan extends Main {
             && output != null && !output.isEmpty()) {
           String ext = FilenameUtils.getExtension(output);
           File outputFile = new File(output);
-          BufferedImage bImage = ImageViewer.fromFXImage(displayContext.mapView.getImage(),
-              null);
+          BufferedImage bImage = ImageViewer
+              .fromFXImage(displayContext.mapView.getImage(), null);
           String formatName = ext;
           ImageIO.write(bImage, formatName, outputFile);
         }
@@ -210,8 +213,8 @@ public class Radolan extends Main {
    */
   public void showCompositeForUrl(String url) throws Throwable {
     Composite composite = new Composite(url);
-    displayContext = new DisplayContext(composite,
-        "2_bundeslaender/2_hoch.geojson", Radolan2Image.borderColor,zoomKm, location);
+    displayContext = new DisplayContext(composite, borderName,
+        Radolan2Image.borderColor, zoomKm, location);
     displayContext.title = String.format("%s-image (%s) showing %s",
         composite.getProduct(), composite.getDataUnit(),
         composite.getForecastTime());

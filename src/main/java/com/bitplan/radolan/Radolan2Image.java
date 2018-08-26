@@ -57,7 +57,7 @@ public class Radolan2Image {
   public static boolean debug = false;
 
   public static Color borderColor = Color.BROWN;
-  public static Color meshColor = Color.BLACK;
+  public static Color meshColor = Color.rgb(0, 0, 0, 0.5);
 
   /**
    * get the Image for the given composite
@@ -86,38 +86,32 @@ public class Radolan2Image {
    *          - the image and it's details
    */
   protected static void drawBorders(DisplayContext displayContext) {
-    displayContext.borderDraw.drawBorders();
+    if (displayContext.borderDraw != null)
+      displayContext.borderDraw.drawBorders();
     /*
      * Pane borderPane = displayContext.borderPane; if (borderPane == null)
      * return; Platform.runLater(() -> { borderPane.getChildren().clear(); if
      * (debug) { drawCross(borderPane, 2, Color.rgb(0xff, 0x00, 0x00, 0.5)); }
      * });
      *
-    RadarImage comp = displayContext.composite;
-    WritableImage image = displayContext.getWriteableImage();
-    String msg = String.format("detected grid: %.1f km * %.1f km\n",
-        comp.getGridWidth() * comp.getResX(),
-        comp.getGridHeight() * comp.getResY());
-    if (debug)
-      LOGGER.log(Level.INFO, msg);
-    Borders borders = new Borders(displayContext.borderName);
-    IPoint prevIp = null;
-    for (DPoint latlon : borders.getPoints()) {
-      DPoint p = displayContext.composite.translateLatLonToGrid(latlon.x,
-          latlon.y);
-      IPoint ip = new IPoint(p);
-      // getScreenPointForLatLon(displayContext,borderPane,point);
-      double dist = ip.dist(prevIp);
-      if ((ip.x > 0 && ip.y > 0) && (dist < 30)) {
-        /*
-         * Line line = new Line(prevIp.x, prevIp.y, ip.x, ip.y);
-         * line.setStrokeWidth(2); line.setStroke(borderColor);
-         * Platform.runLater(() -> { borderPane.getChildren().add(line); });
-         *
-        image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
-      }
-      prevIp = ip;
-    }*/
+     * RadarImage comp = displayContext.composite; WritableImage image =
+     * displayContext.getWriteableImage(); String msg =
+     * String.format("detected grid: %.1f km * %.1f km\n", comp.getGridWidth() *
+     * comp.getResX(), comp.getGridHeight() * comp.getResY()); if (debug)
+     * LOGGER.log(Level.INFO, msg); Borders borders = new
+     * Borders(displayContext.borderName); IPoint prevIp = null; for (DPoint
+     * latlon : borders.getPoints()) { DPoint p =
+     * displayContext.composite.translateLatLonToGrid(latlon.x, latlon.y);
+     * IPoint ip = new IPoint(p); //
+     * getScreenPointForLatLon(displayContext,borderPane,point); double dist =
+     * ip.dist(prevIp); if ((ip.x > 0 && ip.y > 0) && (dist < 30)) { /* Line
+     * line = new Line(prevIp.x, prevIp.y, ip.x, ip.y); line.setStrokeWidth(2);
+     * line.setStroke(borderColor); Platform.runLater(() -> {
+     * borderPane.getChildren().add(line); });
+     *
+     * image.getPixelWriter().setColor(ip.x, ip.y, borderColor); } prevIp = ip;
+     * }
+     */
   }
 
   /**
@@ -127,27 +121,23 @@ public class Radolan2Image {
    *          - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
-    
+
     GeoProjection proj = displayContext.composite;
     DPoint topLeft = proj.getBounds().getTopLeft();
     DPoint bottomRight = proj.getBounds().getBottomRight();
-    /* double meshD=1.0;
-    for (double lon = topLeft.y; lon < bottomRight.y-meshD; lon += meshD) {
-      for (double lat = topLeft.x+meshD; lat > bottomRight.x+meshD; lat -= meshD) {
-        // FIXME Grid to View is missing
-        DPoint topLeftV = proj.translateLatLonToGrid(lat, lon);
-        DPoint bottomRightV = proj.translateLatLonToGrid(lat-meshD, lon+meshD);
-        Polygon  p=new Polygon(topLeftV.x,topLeftV.y,bottomRightV.x,topLeftV.y,
-            bottomRightV.x,bottomRightV.y,topLeftV.x,bottomRightV.y);
-        p.setStrokeWidth(1);
-        p.setFill(Color.TRANSPARENT);
-        p.getStrokeDashArray().addAll(2d,2d);
-        p.setStroke(meshColor);
-        displayContext.mapView.getDrawPane().getChildren().add(p);
-      }
-    }
-    */
-    WritableImage image = displayContext.mapView.getWriteableImage();
+    /*
+     * double meshD=1.0; for (double lon = topLeft.y; lon < bottomRight.y-meshD;
+     * lon += meshD) { for (double lat = topLeft.x+meshD; lat >
+     * bottomRight.x+meshD; lat -= meshD) { // FIXME Grid to View is missing
+     * DPoint topLeftV = proj.translateLatLonToGrid(lat, lon); DPoint
+     * bottomRightV = proj.translateLatLonToGrid(lat-meshD, lon+meshD); Polygon
+     * p=new Polygon(topLeftV.x,topLeftV.y,bottomRightV.x,topLeftV.y,
+     * bottomRightV.x,bottomRightV.y,topLeftV.x,bottomRightV.y);
+     * p.setStrokeWidth(1); p.setFill(Color.TRANSPARENT);
+     * p.getStrokeDashArray().addAll(2d,2d); p.setStroke(meshColor);
+     * displayContext.mapView.getDrawPane().getChildren().add(p); } }
+     */
+    // WritableImage image = displayContext.mapView.getWriteableImage();
     // draw mesh
     // loop over east and north
     for (double e = 1.0; e < 16.0; e += 0.1) {
@@ -160,6 +150,10 @@ public class Radolan2Image {
           if (ip.x >= 0 && ip.y >= 0 && ip.x < proj.getGridWidth()
               && ip.y < proj.getGridHeight()) {
             // image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
+            Circle circle = new Circle(ip.x, ip.y, 0.3, meshColor);
+            circle.setStroke(meshColor);
+            displayContext.mapView.getDrawPane().getChildren().add(circle);
+
           }
         }
       }
@@ -200,7 +194,7 @@ public class Radolan2Image {
     ImageView imageView = displayContext.mapView.getImageView();
     RadarImage composite = displayContext.composite;
     Pane drawOnGlass = displayContext.mapView.getDrawPane();
-    
+
     Bounds viewBounds = imageView.getBoundsInParent();
     String imsg = String.format(
         "events activated in a view with size %.0f x %.0f for composite %d x %d",
@@ -212,19 +206,20 @@ public class Radolan2Image {
     // initial addLocation
     Platform.runLater(() -> addLocation(displayContext));
 
-    //  handle a mouseclick
+    // handle a mouseclick
     displayContext.mapView.getDrawPane().setOnMouseClicked(event -> {
       // view point
       DPoint vp = new DPoint(event.getSceneX(), event.getSceneY());
       // grid point
       IPoint gp = composite.translateViewToGrid(vp, viewBounds.getWidth(),
           viewBounds.getHeight());
-      Zoom zoom=new Zoom(displayContext,12);
-      String text=zoom.arm(gp,vp);
-      Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(), text, 4, Color.BLUE, vp.x, vp.y);
+      Zoom zoom = new Zoom(displayContext, 12);
+      String text = zoom.arm(gp, vp);
+      Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
+          text, 4, Color.BLUE, vp.x, vp.y);
       zoom.popOver.show(circle);
     });
-   
+
     ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
       // too slow
       // drawBorders(displayContext);
@@ -244,7 +239,7 @@ public class Radolan2Image {
     if (displayContext.location == null || displayContext.composite == null)
       return;
     Pane drawOnGlass = displayContext.mapView.getDrawPane();
-    
+
     UnLocode loc = displayContext.location;
     DPoint latlon = new DPoint(loc.getLat(), loc.getLon());
     DPoint gpd = displayContext.composite.translateLatLonToGrid(latlon.x,
@@ -252,11 +247,12 @@ public class Radolan2Image {
     IPoint gp = new IPoint(gpd);
     double value = displayContext.composite.getValue(gp.x, gp.y);
     // Position now needs to be adapted to screen size
-    DPoint vp = displayContext.composite.translateGridToView(gp, drawOnGlass.getWidth(),
-        drawOnGlass.getHeight());
+    DPoint vp = displayContext.composite.translateGridToView(gp,
+        drawOnGlass.getWidth(), drawOnGlass.getHeight());
     String text = String.format("%s - %.1f mm", loc.getName(), value);
-    Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(), text, 4, Color.BLUE, vp.x, vp.y);
-    Zoom zoom=new Zoom(displayContext,12);
+    Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
+        text, 4, Color.BLUE, vp.x, vp.y);
+    Zoom zoom = new Zoom(displayContext, 12);
     zoom.arm(gp, vp);
     zoom.triggerOnMouseEntered(circle);
   }
