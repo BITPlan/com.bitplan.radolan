@@ -23,19 +23,21 @@
  */
 package com.bitplan.display;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.bitplan.geo.Borders;
 import com.bitplan.geo.DPoint;
-import com.bitplan.geo.IPoint;
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
+import com.github.filosganga.geogson.model.LineString;
+import com.github.filosganga.geogson.model.Point;
 
 import cs.fau.de.since.radolan.Translate;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 
 /**
  * Helper class to draw borders
@@ -51,7 +53,7 @@ public class BorderDraw {
   private MapView mapView;
   private Borders borders;
   private Color borderColor;
-  private Projection projection;
+  private GeoProjection projection;
 
   /**
    * construct me
@@ -59,7 +61,7 @@ public class BorderDraw {
    * @param mapView
    * @param borderName
    */
-  public BorderDraw(MapView mapView, Projection projection, String borderName,
+  public BorderDraw(MapView mapView, GeoProjection projection, String borderName,
       Color borderColor) {
     this.mapView = mapView;
     this.projection = projection;
@@ -76,24 +78,43 @@ public class BorderDraw {
       LOGGER.log(Level.WARNING, "can't draw Borders - image is null");
       return;
     }
-    IPoint prevIp = null;
-    List<DPoint> points = borders.getPoints();
+    List<LineString> lineStrings = borders.getLineStrings();
+
+    // List<DPoint> points = borders.getPoints();
     if (debug)
       LOGGER.log(Level.INFO,
-          String.format("drawing %d border points", points.size()));
-    for (DPoint latlon : points) {
-      DPoint p = Translate.translate(projection, latlon.x, latlon.y);
-      IPoint ip = new IPoint(p);
-      // getScreenPointForLatLon(displayContext,borderPane,point);
-      double dist = ip.dist(prevIp);
-      if ((ip.x > 0 && ip.y > 0) && (dist < 40)) {
-        Line line = new Line(prevIp.x, prevIp.y, ip.x, ip.y);
-        line.setStrokeWidth(1);
-        line.setStroke(borderColor);
-        mapView.drawPane.getChildren().add(line);
+          String.format("drawing %d border points", lineStrings.size()));
+    int lineCount = 0;
+    for (LineString lineString : lineStrings) {
+      List<Double> polygonPoints = new ArrayList<Double>();
+
+      // IPoint prevIp = null;
+      for (Point point : lineString.points()) {
+        DPoint latlon = new DPoint(point.lat(), point.lon());
+        DPoint p = Translate.translate(projection, latlon.x, latlon.y);
+        polygonPoints.add(p.x);
+        polygonPoints.add(p.y);
+
+        /*
+         * IPoint ip = new IPoint(p); if (prevIp != null) { Line line = new
+         * Line(prevIp.x, prevIp.y, ip.x, ip.y); line.setStrokeWidth(1);
+         * line.setStroke(borderColor);
+         * mapView.drawPane.getChildren().add(line); } prevIp = ip;
+         */
         // image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
       }
-      prevIp = ip;
+      double points[] = new double[polygonPoints.size()];
+      for (int i = 0; i < polygonPoints.size(); i++)
+        points[i] = polygonPoints.get(i);
+      Polygon polygon = new Polygon(points);
+      polygon.setStrokeWidth(1);
+      polygon.setStroke(borderColor);
+      if (lineCount % 2 == 0)
+        polygon.setFill(Color.rgb(0xF8, 0xF8, 0xF8,0.2));
+      else
+        polygon.setFill(Color.rgb(0xFA, 0xFA, 0xFA,0.2));
+      lineCount++;
+      mapView.getDrawPane().getChildren().add(polygon);
     }
     if (debug)
       LOGGER.log(Level.INFO, "drawing done");

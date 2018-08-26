@@ -23,25 +23,15 @@
  */
 package com.bitplan.radolan;
 
-import java.util.logging.Level;
-
+import com.bitplan.display.MapView;
 import com.bitplan.javafx.WaitableApp;
 
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -54,11 +44,10 @@ import javafx.stage.Stage;
  *
  */
 public class ImageViewer extends WaitableApp {
-  private Image image;
+  
   private String title = "Image Viewer";
-  private ImageView imageView;
   private DisplayContext displayContext;
-  private Pane drawPane;
+  private MapView mapView;
   private Scene scene;
 
   /**
@@ -69,7 +58,7 @@ public class ImageViewer extends WaitableApp {
   public ImageViewer(DisplayContext displayContext) {
     this.displayContext = displayContext;
     this.title = displayContext.title;
-    this.image = displayContext.image;
+    this.mapView = displayContext.mapView;
   }
 
   public ImageViewer() {
@@ -79,67 +68,27 @@ public class ImageViewer extends WaitableApp {
   public void start(Stage stage) {
     super.start(stage);
     if (displayContext != null) {
-      image = displayContext.image;
+      mapView = displayContext.mapView;
     }
     // load the image
-    if (image == null)
-      image = new Image("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
-
-    // simple displays ImageView the image as is
-    imageView = new ImageView();
-    imageView.setImage(image);
-    imageView.setSmooth(true);
-    imageView.setCache(true);
-
-    ChangeListener<Number> widthListener = (observable, oldValue, newValue) -> {
-      imageView.setFitWidth((double) newValue);
-      if (debug)
-        LOGGER.log(Level.INFO,
-            String.format("width %.0f->%.0f", oldValue, newValue));
-    };
-    ChangeListener<Number> heightListener = (observable, oldValue,
-        newValue) -> {
-      imageView.setFitHeight((double) newValue);
-      if (debug)
-        LOGGER.log(Level.INFO,
-            String.format("height %.0f->%.0f", oldValue, newValue));
-    };
-    stage.widthProperty().addListener(widthListener);
-    stage.heightProperty().addListener(heightListener);
-    // imageView.fitWidthProperty().bind(stage.widthProperty());
-    // imageView.fitHeightProperty().bind(stage.heightProperty());
-    // imageView.setPreserveRatio(true);
-
-    drawPane = new Pane();
-    drawPane.setStyle(
-        "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");
-
-    /*
-     * borderPane =new Pane(); borderPane.setStyle(
-     * "-fx-background-color: rgba(255, 128, 0, 0.05); -fx-background-radius: 10;"
-     * );
-     */
-    StackPane stackPane = new StackPane();
-    StackPane.setAlignment(imageView, Pos.CENTER);
-    stackPane.getChildren().addAll(imageView, drawPane);
+    if (mapView == null)
+      mapView = new MapView("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg");
 
     // container with a fill property
-    scene = new Scene(stackPane);
+    scene = new Scene(mapView.getStackPane());
     scene.setFill(Color.WHITE);
 
     // inform the display context
     if (displayContext != null) {
-      displayContext.imageView = imageView;
-      displayContext.drawPane = drawPane;
-      stage.setWidth(displayContext.image.getWidth());
-      stage.setHeight(displayContext.image.getHeight());
+      stage.setWidth(mapView.getWidth());
+      stage.setHeight(mapView.getHeight());
     }
     stage.setTitle(title);
     stage.setScene(scene);
     stage.sizeToScene();
     stage.show();
     if (debug)
-      stackPane.setOnMouseClicked(event -> {
+      mapView.getStackPane().setOnMouseClicked(event -> {
         showSizes();
       });
     // JavaFX: stage's minHeight considering titlebar's height
@@ -165,9 +114,12 @@ public class ImageViewer extends WaitableApp {
     }
     showSize(stage, stage.getWidth(), stage.getHeight());
     showSize(scene, scene.getWidth(), scene.getHeight());
+    ImageView imageView = mapView.getImageView();
     showSize(imageView, imageView.getFitWidth(), imageView.getFitHeight());
     // showSize(borderPane,borderPane.getWidth(),borderPane.getHeight());
+    Pane drawPane = mapView.getDrawPane();
     showSize(drawPane, drawPane.getWidth(), drawPane.getHeight());
+    Image image = mapView.getImage();
     showSize(image, image.getHeight(), image.getWidth());
   }
 

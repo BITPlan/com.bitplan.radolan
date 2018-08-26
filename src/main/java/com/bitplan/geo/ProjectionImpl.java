@@ -33,7 +33,7 @@ import cs.fau.de.since.radolan.Translate;
  * @author wf
  *
  */
-public class ProjectionImpl implements Projection {
+public class ProjectionImpl implements GeoProjection {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("cs.fau.de.since.radolan");
 
@@ -50,26 +50,16 @@ public class ProjectionImpl implements Projection {
   protected int Dy; // data height
 
   private boolean projection; // coordinate translation available
+  private GeoRect bounds;
 
-  public ProjectionImpl() {
-    
-  }
-  
-  /**
-   * create a default 1:1 projection with the given width and height
-   * @param width
-   * @param height
-   */
-  public ProjectionImpl(int width,int height) {
-    Dx=width;
-    Dy=height;
-    setResX(1);
-    setResY(1);
-    setOffSetX(0);
-    setOffSetY(0);
-    setProjection(true);
+  public GeoRect getBounds() {
+    return bounds;
   }
 
+  public void setBounds(GeoRect bounds) {
+    this.bounds = bounds;
+  }
+ 
   public double getResX() {
     return Rx;
   }
@@ -119,6 +109,26 @@ public class ProjectionImpl implements Projection {
   public int getGridHeight() {
     return Dy;
   }
+  
+ public ProjectionImpl() {
+    
+  }
+  
+  /**
+   * create a default 1:1 projection with the given width and height
+   * @param width
+   * @param height
+   */
+  public ProjectionImpl(int width,int height) {
+    Dx=width;
+    Dy=height;
+    setResX(1);
+    setResY(1);
+    setOffSetX(0);
+    setOffSetY(0);
+    setProjection(true);
+  }
+
 
   /**
    * translate the given coordinates to a double precision point

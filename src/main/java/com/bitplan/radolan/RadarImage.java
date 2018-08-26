@@ -25,7 +25,7 @@ package com.bitplan.radolan;
 
 import java.time.Duration;
 
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 
@@ -34,7 +34,7 @@ import cs.fau.de.since.radolan.Catalog.Unit;
  * @author wf
  *
  */
-public interface RadarImage extends Projection {
+public interface RadarImage extends GeoProjection {
   
   /**
    * get the value at the given grid position

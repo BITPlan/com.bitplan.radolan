@@ -36,7 +36,6 @@ import com.github.filosganga.geogson.model.Feature;
 import com.github.filosganga.geogson.model.FeatureCollection;
 import com.github.filosganga.geogson.model.Geometry;
 import com.github.filosganga.geogson.model.LineString;
-import com.github.filosganga.geogson.model.LinearGeometry;
 import com.github.filosganga.geogson.model.LinearRing;
 import com.github.filosganga.geogson.model.MultiPolygon;
 import com.github.filosganga.geogson.model.Point;
@@ -45,8 +44,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * @author wf
- * see https://tools.ietf.org/html/rfc7946
+ * @author wf see https://tools.ietf.org/html/rfc7946
  */
 public class Borders {
   // prepare a LOGGER
@@ -55,6 +53,7 @@ public class Borders {
   public static boolean debug = true;
 
   private List<DPoint> points = new ArrayList<DPoint>();
+  private List<LineString> lineStrings = new ArrayList<LineString>();
 
   private FeatureCollection fc;
 
@@ -67,6 +66,18 @@ public class Borders {
     if (points.size() == 0)
       fetchPoints();
     return points;
+  }
+
+  /**
+   * get the line string
+   * 
+   * @return - the line strings
+   */
+  public List<LineString> getLineStrings() {
+    if (lineStrings.size() == 0) {
+      this.fetchLineStrings();
+    }
+    return lineStrings;
   }
 
   /**
@@ -90,47 +101,53 @@ public class Borders {
   }
 
   private void fetchPoints() {
+    for (LineString lineString : this.getLineStrings()) {
+      for (Point point : lineString.points()) {
+        points.add(new DPoint(point.lat(), point.lon()));
+      }
+    }
+  }
+
+  private void fetchLineStrings() {
     for (Feature feature : fc.features()) {
       if (debug) {
-          // LOGGER.log(Level.INFO,feature.toString());
+        // LOGGER.log(Level.INFO,feature.toString());
       }
       Geometry<?> geometry = feature.geometry();
       if (geometry instanceof MultiPolygon) {
         MultiPolygon mpolygon = (MultiPolygon) geometry;
         for (Polygon polygon : mpolygon.polygons()) {
-          addPoints(polygon);
+          addLineString(polygon);
         }
       }
       if (geometry instanceof Polygon) {
         Polygon polygon = (Polygon) geometry;
-        addPoints(polygon);
+        addLineString(polygon);
       }
     }
   }
 
   /**
-   * add the points for the given polygon
+   * add the lines strings for the given polygon
    * 
    * @param polygon
    */
-  public void addPoints(Polygon polygon) {
+  public void addLineString(Polygon polygon) {
     for (LinearRing ring : polygon.linearRings()) {
-      addPoints(ring);
+      addLineString(ring);
     }
     for (LineString string : polygon.lineStrings()) {
-      addPoints(string);
+      addLineString(string);
     }
   }
 
   /**
-   * get the points
+   * add the given LineString
    * 
-   * @param linearGeometry
+   * @param lineString
    */
-  public void addPoints(LinearGeometry linearGeometry) {
-    for (Point point : linearGeometry.points()) {
-      points.add(new DPoint(point.lat(), point.lon()));
-    }
+  public void addLineString(LineString lineString) {
+    lineStrings.add(lineString);
   }
 
 }

@@ -35,6 +35,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
+import com.bitplan.display.MapView;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
@@ -144,8 +145,8 @@ public class Radolan extends Main {
   public void showImage(String input) throws Exception {
     prepareImageViewer();
     Image image = new Image(input);
-    displayContext = new DisplayContext(null, null, zoomKm, null);
-    displayContext.image = image;
+    displayContext = new DisplayContext(null, null, null,zoomKm, null);
+    displayContext.mapView=new MapView(image);
     displayContext.title = input;
     showImage(displayContext);
   }
@@ -186,11 +187,11 @@ public class Radolan extends Main {
           this.showCompositeForUrl(input);
         }
         // shall we save the (latest) image
-        if (displayContext != null && displayContext.image != null
+        if (displayContext != null && displayContext.mapView.getImage() != null
             && output != null && !output.isEmpty()) {
           String ext = FilenameUtils.getExtension(output);
           File outputFile = new File(output);
-          BufferedImage bImage = ImageViewer.fromFXImage(displayContext.image,
+          BufferedImage bImage = ImageViewer.fromFXImage(displayContext.mapView.getImage(),
               null);
           String formatName = ext;
           ImageIO.write(bImage, formatName, outputFile);
@@ -210,7 +211,7 @@ public class Radolan extends Main {
   public void showCompositeForUrl(String url) throws Throwable {
     Composite composite = new Composite(url);
     displayContext = new DisplayContext(composite,
-        "2_bundeslaender/2_hoch.geojson", zoomKm, location);
+        "2_bundeslaender/2_hoch.geojson", Radolan2Image.borderColor,zoomKm, location);
     displayContext.title = String.format("%s-image (%s) showing %s",
         composite.getProduct(), composite.getDataUnit(),
         composite.getForecastTime());

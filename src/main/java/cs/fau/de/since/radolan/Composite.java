@@ -37,7 +37,7 @@ import java.util.zip.GZIPInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.geo.UnLocodeManager;
 import com.bitplan.radolan.DisplayContext;
@@ -113,7 +113,7 @@ import cs.fau.de.since.radolan.Data.Encoding;
  * @author wf
  *
  */
-public class Composite extends ProjectionImpl implements RadarImage,Projection  {
+public class Composite extends ProjectionImpl implements RadarImage,GeoProjection  {
 
   // by default files from known URL are cached locally
   // see https://github.com/BITPlan/com.bitplan.radolan/issues/3

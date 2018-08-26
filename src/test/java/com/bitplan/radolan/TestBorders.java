@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.bitplan.display.BorderDraw;
 import com.bitplan.display.MapView;
 import com.bitplan.geo.Borders;
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.javafx.SampleApp;
 import com.bitplan.javafx.WaitableApp;
@@ -65,13 +65,18 @@ public class TestBorders extends BaseTest {
     for (String name : names) {
       Borders borders = new Borders(name);
       if (debug)
-        LOGGER.log(Level.INFO, String.format("border %s has %d points", name,
-            borders.getPoints().size()));
+        LOGGER.log(Level.INFO, String.format("border %s has %d lineStrings", name,
+            borders.getLineStrings().size()));
     }
   }
 
-  static int SHOW_TIME = 4* 1000; // millisecs
-  private void setupStageLocation(Stage stage, int screenNumber) {
+  static int SHOW_TIME = 500; // millisecs
+  /**
+   * change the screen on which to view the results
+   * @param stage
+   * @param screenNumber
+   */
+  public void setupStageLocation(Stage stage, int screenNumber) {
     ObservableList<Screen> screens = Screen.getScreens();
     Screen screen = screens.size() <= screenNumber ? Screen.getPrimary() : screens.get(screenNumber);
 
@@ -101,11 +106,11 @@ public class TestBorders extends BaseTest {
       SampleApp.toolkitInit();
       String url=imageFile.toURI().toURL().toExternalForm();
       MapView mapView = new MapView(url);
-      Projection projection = new ProjectionImpl(900, 900);
+      GeoProjection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
       BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
           Color.ORANGE);
-      SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getPane());
+      SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getStackPane());
       sampleApp.show();
       sampleApp.waitOpen();
       // display on another monitor
@@ -124,7 +129,7 @@ public class TestBorders extends BaseTest {
       Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
       File snapShot=new File("/tmp/"+name.replace("/", "_")+".png");
-      Platform.runLater(() -> WaitableApp.saveAsPng(mapView.getPane(), snapShot));
+      Platform.runLater(() -> WaitableApp.saveAsPng(mapView.getDrawPane(), snapShot));
       sampleApp.close();
       // Platform.exit();
     }

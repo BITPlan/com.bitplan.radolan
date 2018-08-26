@@ -39,6 +39,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -127,11 +128,12 @@ public class Zoom {
    */
   private void copyZoomContent(DisplayContext displayContext, IPoint gp) {
     int half = (int) (displayContext.zoomKm / 2);
+    PixelReader pixelReader = displayContext.mapView.getImage().getPixelReader();
     for (int x = gp.x - half; x <= gp.x + half; x++) {
       for (int y = gp.y - half; y <= gp.y + half; y++) {
         if (y >= 0 && y < displayContext.composite.getGridHeight())
           if (x >= 0 && x < displayContext.composite.getGridWidth()) {
-            Color color = displayContext.image.getPixelReader().getColor(x, y);
+            Color color = pixelReader.getColor(x, y);
             int tx0 = x - gp.x + half;
             int ty0 = y - gp.y + half;
 

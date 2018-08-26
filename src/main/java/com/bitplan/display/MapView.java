@@ -49,18 +49,37 @@ public class MapView {
   public static boolean debug = false;
 
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.display");
-  ImageView imageView;
+  private ImageView imageView;
   private Image image;
-  Pane drawPane;
+  private Pane drawPane;
   private StackPane stackPane;
+
+  public ImageView getImageView() {
+    return imageView;
+  }
 
   /**
    * construct me from the given url
    * 
    * @param url
    */
-  public MapView(String url) { 
+  public MapView(String url) {
     getImageView(url);
+    initPanes();
+  }
+
+  /**
+   * construct me from a given image
+   * 
+   * @param image
+   */
+  public MapView(Image image) {
+    setImage(image);
+    this.initImage();
+    initPanes();
+  }
+
+  public void initPanes() {
     drawPane = new Pane();
     drawPane.setStyle(
         "-fx-background-color: rgba(240, 240, 240, 0.05); -fx-background-radius: 10;");
@@ -75,7 +94,11 @@ public class MapView {
     stackPane.getChildren().addAll(imageView, drawPane);
   }
 
-  public Pane getPane() {
+  public Pane getDrawPane() {
+    return drawPane;
+  }
+  
+  public Pane getStackPane() {
     return stackPane;
   }
 
@@ -89,13 +112,19 @@ public class MapView {
     // load the image
     if (url != null)
       setImage(new Image(url));
+    initImage();
+    return imageView;
+  }
 
+  /**
+   * init the Image
+   */
+  public void initImage() {
     // simple displays ImageView the image as is
     imageView = new ImageView();
     imageView.setImage(getImage());
     imageView.setSmooth(true);
     imageView.setCache(true);
-    return imageView;
   }
 
   public Image getImage() {
@@ -151,7 +180,7 @@ public class MapView {
    * copy the given image to a writeable image
    * 
    * @param image
-   * @return a writeable image
+   * @return a writable image
    */
   public static WritableImage copyImage(Image image) {
     int height = (int) image.getHeight();
@@ -177,4 +206,19 @@ public class MapView {
   public void addSizeListener(Stage stage) {
     this.addSizeListener(stage.widthProperty(), stage.heightProperty());
   }
+
+  public double getWidth() {
+    if (this.image != null)
+      return image.getWidth();
+    else
+      return 640;
+  }
+
+  public double getHeight() {
+    if (this.image != null)
+      return image.getHeight();
+    else
+      return 480;
+  }
+
 }

@@ -27,17 +27,15 @@ import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.bitplan.display.BorderDraw;
+import com.bitplan.display.MapView;
 import com.bitplan.geo.UnLocode;
 import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.vis.Vis;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 /**
@@ -58,14 +56,9 @@ public class DisplayContext {
   RadarImage composite;
 
   /**
-   * the image (will be writable if processed from a composite)
+   * the mapView that wraps the image
    */
-  Image image;
-
-  /**
-   * the view in which the image is contained
-   */
-  ImageView imageView;
+  MapView mapView;
 
   /**
    * the title to use for the display
@@ -73,20 +66,9 @@ public class DisplayContext {
   String title;
 
   /**
-   * the name of the border to use - will be read from a json file
+   * the border Draw to be used
    */
-  String borderName;
-
-  /**
-   * the pane on which the borders and mesh might be shown
-   */
-  // Pane borderPane;
-
-  /**
-   * the pane on which we might draw extra information drawPane.clear() is
-   * allowed
-   */
-  Pane drawPane;
+  BorderDraw borderDraw;
 
   /**
    * the visual transformation function of data to colors the default heatMap is
@@ -117,15 +99,17 @@ public class DisplayContext {
    * @param zoomKm
    * @param locationName
    */
-  public DisplayContext(Composite composite, String borderName, double zoomKm,
+  public DisplayContext(Composite composite, String borderName,Color borderColor, double zoomKm,
       String locationName) {
     this.composite = composite;
-    this.borderName = borderName;
     this.zoomKm = zoomKm;
     if (composite != null) {
       setUpUnitsAndHeatMap();
-      image = new WritableImage(composite.getGridWidth(),composite.getGridHeight());
+      WritableImage image = new WritableImage(composite.getGridWidth(),composite.getGridHeight());
+      this.mapView=new MapView(image);
     }
+    this.borderDraw=new BorderDraw(mapView, composite, borderName,
+        borderColor);
     // lookup location
     if (locationName != null) {
       UnLocodeManager ulm = UnLocodeManager.getInstance();
@@ -170,18 +154,6 @@ public class DisplayContext {
       break;
     }
 
-  }
-
-  /**
-   * get the writeAbleImage (if available)
-   * 
-   * @return the writeAbleImage or null if the image is not writeAble
-   */
-  public WritableImage getWriteableImage() {
-    if (image instanceof WritableImage) {
-      return (WritableImage) image;
-    } else
-      return null;
   }
 
 }

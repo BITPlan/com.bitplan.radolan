@@ -29,7 +29,7 @@ import org.junit.Test;
 
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
 /**
@@ -41,7 +41,7 @@ public class TestZoom extends BaseTest {
   
   @Test
   public void testScreenTranslate() {
-    Projection proj=new ProjectionImpl(900,900);
+    GeoProjection proj=new ProjectionImpl(900,900);
     IPoint p=new IPoint(400,400);
     DPoint pt = proj.translateGridToView(p, 450, 450);
     assertEquals(200.0,pt.x,0.0001);
@@ -56,7 +56,7 @@ public class TestZoom extends BaseTest {
     String products[] = { "sf", "rw", };
     for (String product : products) {
       String url = KnownUrl.getUrl(product, "latest");
-      testRadolan(url, 4, product + ".png", null, "-l", "Willich","-z","30");
+      testRadolan(url,5, product + ".png", null, "-l", "Willich","-z","30");
     }
   }
 

@@ -25,7 +25,7 @@ package cs.fau.de.since.radolan;
 
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
-import com.bitplan.geo.Projection;
+import com.bitplan.geo.GeoProjection;
 
 /**
  * migrated to Java from
@@ -79,10 +79,11 @@ public class Translate {
    * detectGrid identifies the used projection grid based on the projection
    * dimensions
    * 
-   * @param pro - the project
+   * @param pro
+   *          - the project
    * @return - the projection
    */
-  public static GridType detectGrid(Projection pro) {
+  public static GridType detectGrid(GeoProjection pro) {
     IPoint d = minRes(new IPoint(pro.getGridWidth(), pro.getGridHeight()));
     if (d.x == nationalGrid.x && d.y == nationalGrid.y) {
       return GridType.nationalGrid;
@@ -103,23 +104,7 @@ public class Translate {
   // middle-european grid based on the dimensions of the composite. The used
   // values are described in [1], [4] and [5]. If an error is returned,
   // translation methods will not work.
-  public static class CornerPoints {
-    public CornerPoints(double originTop, double originLeft, double edgeBottom,
-        double edgeRight) {
-      super();
-      this.originTop = originTop;
-      this.originLeft = originLeft;
-      this.edgeBottom = edgeBottom;
-      this.edgeRight = edgeRight;
-    }
-
-    double originTop;
-    double originLeft;
-    double edgeBottom;
-    double edgeRight;
-  }
-
-  public static CornerPoints cornerPoints(Projection projection) {
+  public static CornerPoints cornerPoints(GeoProjection projection) {
     switch (detectGrid(projection)) {
     case nationalGrid: // described in [1]
       return new CornerPoints(54.5877, 02.0715 // N, E
@@ -143,22 +128,29 @@ public class Translate {
     return null;
   }
 
-  /** calibrateProjection initializes fields that are necessary for coordinate
+  /**
+   * calibrateProjection initializes fields that are necessary for coordinate
    * translation
+   * 
    * @param projection
    */
-  public static void calibrateProjection(Projection projection) {
+  public static void calibrateProjection(GeoProjection projection) {
     // get corner points
     CornerPoints cp = cornerPoints(projection);
-    calibrateProjection(projection,cp);
+    projection.setBounds(cp);
+    calibrateProjection(projection, cp);
   }
-  
+
   /**
    * calibrate the given Projection with the given CornerPoints
-   * @param projection the projection to calibrate
-   * @param cp - the corner points
+   * 
+   * @param projection
+   *          the projection to calibrate
+   * @param cp
+   *          - the corner points
    */
-  public static void calibrateProjection(Projection projection, CornerPoints cp) {
+  public static void calibrateProjection(GeoProjection projection,
+      CornerPoints cp) {
     if (cp == null) {
       double nan = Double.NaN;
       projection.setResX(nan);
@@ -176,12 +168,14 @@ public class Translate {
     projection.setResY(1.0);
 
     // calibrate offset correction
-    DPoint off = translate(projection, cp.originTop, cp.originLeft);
+    DPoint minEdge = cp.getMinEdge();
+    DPoint maxEdge = cp.getMaxEdge();
+    DPoint off = translate(projection, minEdge.x, minEdge.y);
     projection.setOffSetX(off.x);
     projection.setOffSetY(off.y);
 
     // calibrate scaling
-    DPoint res = translate(projection, cp.edgeBottom, cp.edgeRight);
+    DPoint res = translate(projection, maxEdge.x, maxEdge.y);
     projection.setResX((res.x) / projection.getGridWidth());
     projection.setResY((res.y) / projection.getGridHeight());
   }
@@ -240,7 +234,7 @@ public class Translate {
   // according data indices in the coordinate system of the composite.
   // NaN is returned when no projection is available. Procedures adapted from
   // [1].
-  public static DPoint translate(Projection pro, double north, double east) {
+  public static DPoint translate(GeoProjection pro, double north, double east) {
     if (!pro.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
@@ -280,15 +274,17 @@ public class Translate {
 
   /**
    * translate a coordinate to lat/lon
-   * @param pro - the projection
+   * 
+   * @param pro
+   *          - the projection
    * @param p
    * @return the lat/lon point
    */
-  public static DPoint translateXYtoLatLon(Projection pro, DPoint p) {
+  public static DPoint translateXYtoLatLon(GeoProjection pro, DPoint p) {
     if (!pro.isProjection()) {
       return new DPoint(Double.NaN, Double.NaN);
     }
-    DPoint pt=new DPoint(p.x,p.y);
+    DPoint pt = new DPoint(p.x, p.y);
     // scaling
     pt.x *= pro.getResX();
     pt.y *= pro.getResY();

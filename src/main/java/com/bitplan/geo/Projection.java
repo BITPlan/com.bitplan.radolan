@@ -24,7 +24,7 @@
 package com.bitplan.geo;
 
 /**
- * abstraction of a projection
+ * a 2 D projection in a cartesian coordinate system
  * @author wf
  *
  */
@@ -33,7 +33,7 @@ public interface Projection {
   public double getOffSetY(); // vertical offset
   public void setOffSetX(double offSetX);
   public void setOffSetY(double offSetY);
-
+  
   /**
    * get the x resolution km/per grid pixel
    * @return - the x resolution
@@ -50,6 +50,16 @@ public interface Projection {
   public void setResY(double resY);
   
   /**
+   * translate a given x,y coordinate of the grid to a coordinate in a system
+   * with the given width and height
+   * @param p
+   * @param width
+   * @param height
+   * @return the Grid Point
+   */
+  public IPoint translateViewToGrid(DPoint p, double width, double height);
+  
+  /**
    * get the gridWidth
    * @return - the grid width
    */
@@ -60,43 +70,4 @@ public interface Projection {
    * @return - the grid height
    */
   public int getGridHeight();
-
-  /**
-   * translate the given coordinates to a double precision point
-   * 
-   * @param lat
-   * @param lon
-   * @return the translation
-   */
-  public DPoint translateLatLonToGrid(double lat, double lon);
-
-  /**
-   * translate a coordinate to lat/lon
-   * 
-   * @param p
-   * @return the lat/lon point
-   */
-  public DPoint translateGridToLatLon(DPoint p);
-  
-  /**
-   * translate a Grid point to a view point
-   * @param p
-   * @param width - of the view
-   * @param height - of the view
-   * @return - coordinate in the view
-   */
-  public DPoint translateGridToView(IPoint p, double width, double height);
-  
-  /**
-   * translate a given x,y coordinate of the composite grid to a coordinate in a system
-   * with the given width and height
-   * @param p
-   * @param width
-   * @param height
-   * @return the Grid Point
-   */
-  public IPoint translateViewToGrid(DPoint p, double width, double height);
-  
-  boolean isProjection(); // true if the projection is available 
-  public void setProjection(boolean projection);
 }
