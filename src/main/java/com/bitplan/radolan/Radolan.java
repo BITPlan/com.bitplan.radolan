@@ -182,6 +182,8 @@ public class Radolan extends Main {
           else {
             // silently fail here?
           }
+        } else {
+          this.showCompositeForUrl(input);
         }
         // shall we save the (latest) image
         if (displayContext != null && displayContext.image != null

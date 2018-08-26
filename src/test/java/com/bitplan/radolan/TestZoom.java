@@ -52,12 +52,10 @@ public class TestZoom extends BaseTest {
   }
   
   @Test
-  public void testZoom() {
+  public void testZoom() throws Exception {
     String products[] = { "sf", "rw", };
     for (String product : products) {
-      String url = String.format(
-          "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-latest-dwd---bin",
-          product, product);
+      String url = KnownUrl.getUrl(product, "latest");
       testRadolan(url, 4, product + ".png", null, "-l", "Willich","-z","30");
     }
   }

@@ -68,9 +68,9 @@ public class BaseTest {
     Composite.setPostInit(postInit);
     String outputPath = "";
     if (output != null)
-      outputPath = tmpDir + "/" + output;  
+      outputPath = tmpDir  + output;  
     String defaultargs[] = { 
-        //"-d",
+        "-d",
         "-i", url, "-st", "" + viewTimeSecs, "-o",
         outputPath };
     // https://stackoverflow.com/a/23188881/1497139
