@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.bitplan.radolan</groupId>
 	<artifactId>com.bitplan.radolan</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<name>com.bitplan.radolan</name>
 	<description>parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan</description>
 	<ciManagement>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.bitplan.gui</groupId>
 			<artifactId>com.bitplan.javafx</artifactId>
-			<version>0.0.19</version>
+			<version>0.0.20</version>
 		</dependency>
 		<!-- https://gis.stackexchange.com/questions/130913/geojson-java-library 
 			https://github.com/filosganga/geogson -->

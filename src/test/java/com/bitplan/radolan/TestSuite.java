@@ -31,7 +31,7 @@ import cs.fau.de.since.radolan.TestHeader;
 import cs.fau.de.since.radolan.TestTranslate;
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class,TestUnLocodeManager.class, TestTranslate.class,
+@Suite.SuiteClasses({ TestDebug.class,TestUnLocodeManager.class,TestKnownUrls.class, TestTranslate.class,
     TestConversion.class, TestData.class,TestCache.class, TestHeader.class,TestZoom.class, TestRadolan.class })
 /**
  * TestSuite

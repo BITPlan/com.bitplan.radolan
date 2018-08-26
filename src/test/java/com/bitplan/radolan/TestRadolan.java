@@ -97,10 +97,7 @@ public class TestRadolan extends BaseTest {
     LocalDateTime endtime = datetime.minus(Duration.ofMinutes(minutes));
     for (; datetime.isAfter(
         endtime); datetime = datetime.minus(Duration.ofMinutes(minRaster))) {
-      String url = (String.format(
-          "https://opendata.dwd.de/weather/radar/radolan/%s/raa01-%s_10000-%02d%02d%02d%02d%02d-dwd---bin",
-          product, product, datetime.getYear() % 2000, datetime.getMonthValue(),
-          datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute()));
+      String url=KnownUrl.getUrlForProduct(product,datetime);
       String picture = String.format("%s-%04d-%02d-%02d_%02d%02d.png", product,
           datetime.getYear(), datetime.getMonthValue(),
           datetime.getDayOfMonth(), datetime.getHour(), datetime.getMinute());

@@ -25,14 +25,16 @@ package com.bitplan.radolan;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FilenameUtils;
+import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
-import com.bitplan.geo.UnLocodeManager;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
@@ -68,17 +70,24 @@ public class Radolan extends Main {
       "--output" }, usage = "output/e.g. path of png/jpg/gif file")
   protected String output;
 
+  @Option(name = "-p", aliases = {
+      "--product" }, usage = "product e.g. SF,RW,RY or alias daily,hourly,5min")
+  protected String product="sf";
+
   @Option(name = "-s", aliases = {
       "--show" }, usage = "show\nshow resulting image")
   protected boolean showImage = true;
 
-  @Option(name = "-t", aliases = {
+  @Option(name = "-st", aliases = {
       "--showTime" }, usage = "showTime\nshow result for the given time in seconds")
   protected int showTimeSecs = Integer.MAX_VALUE / 1100; // over 20 years
 
   @Option(name = "-z", aliases = {
       "--zoom" }, usage = "zoom/zoom to a grid size of zxz km")
   protected double zoomKm = 1.0;
+
+  @Argument
+  private List<String> arguments= new ArrayList<String>();
 
   private DisplayContext displayContext;
 
@@ -146,7 +155,6 @@ public class Radolan extends Main {
    */
   public void work() {
     try {
-
       if (debug) {
         Composite.activateDebug();
       }
@@ -160,28 +168,22 @@ public class Radolan extends Main {
       if (showHelp)
         this.showHelp();
       else {
-        // is the input a showable image?
-        if (input.contains(".png") || input.contains(".jpg")
+        if (this.arguments.size() > 0) {
+          if (debug)
+            LOGGER.log(Level.INFO,arguments.toString());
+          for (String argument : arguments) {
+            input = KnownUrl.getUrl(product, argument);
+            this.showCompositeForUrl(input);
+          }
+        } else  if (input.contains(".png") || input.contains(".jpg")
             || input.contains(".gif")) {
           if (this.showImage)
             showImage(input);
           else {
             // silently fail here?
           }
-        } else {
-          Composite composite = new Composite(input);
-          displayContext = new DisplayContext(composite,
-              "2_bundeslaender/2_hoch.geojson", zoomKm, location);
-          displayContext.title = String.format("%s-image (%s) showing %s",
-              composite.getProduct(), composite.getDataUnit(),
-              composite.getForecastTime());
-          if (debug)
-            LOGGER.log(Level.INFO, displayContext.title);
-          if (this.showImage)
-            showImage(displayContext);
-
         }
-        // shall we save the image
+        // shall we save the (latest) image
         if (displayContext != null && displayContext.image != null
             && output != null && !output.isEmpty()) {
           String ext = FilenameUtils.getExtension(output);
@@ -195,6 +197,25 @@ public class Radolan extends Main {
     } catch (Throwable th) {
       ErrorHandler.handle(th);
     }
+  }
+
+  /**
+   * show the composite for the given url
+   * 
+   * @param url
+   * @throws Throwable
+   */
+  public void showCompositeForUrl(String url) throws Throwable {
+    Composite composite = new Composite(url);
+    displayContext = new DisplayContext(composite,
+        "2_bundeslaender/2_hoch.geojson", zoomKm, location);
+    displayContext.title = String.format("%s-image (%s) showing %s",
+        composite.getProduct(), composite.getDataUnit(),
+        composite.getForecastTime());
+    if (debug)
+      LOGGER.log(Level.INFO, displayContext.title);
+    if (this.showImage)
+      showImage(displayContext);
   }
 
   /**
