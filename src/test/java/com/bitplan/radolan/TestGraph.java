@@ -27,11 +27,13 @@ import org.junit.Test;
 
 import cs.fau.de.since.radolan.Composite;
 
-public class TestGraph {
+public class TestGraph extends BaseTest {
 
-	@Test
-	public void testRainEventSequence() throws Throwable {
-		String url="ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1808242350-dwd---bin.gz";
-		Composite composite=new Composite(url);
-	}
+  @Test
+  public void testRainEventSequence() throws Throwable {
+    if (!super.isTravis()) {
+      String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1808242350-dwd---bin.gz";
+      Composite composite = new Composite(url);
+    }
+  }
 }

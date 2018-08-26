@@ -50,12 +50,12 @@ public class CornerPoints implements GeoRect {
   }
 
   @Override
-  public DPoint getMinEdge() {
+  public DPoint getTopLeft() {
     return minEdge;
   }
   
   @Override
-  public DPoint getMaxEdge() {
+  public DPoint getBottomRight() {
     return maxEdge;
   }
 }

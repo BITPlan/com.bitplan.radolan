@@ -43,7 +43,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Polygon;
 
 /**
  * transfer RADOLAN composite data to an image
@@ -127,26 +127,26 @@ public class Radolan2Image {
    *          - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
+    
     GeoProjection proj = displayContext.composite;
-    DPoint min = proj.getBounds().getMinEdge();
-    DPoint max = proj.getBounds().getMaxEdge();
-    for (double e = min.y; e < max.y-0.1; e += 0.1) {
-      for (double n = min.x; n < max.x-0.1; n += 0.1) {
+    DPoint topLeft = proj.getBounds().getTopLeft();
+    DPoint bottomRight = proj.getBounds().getBottomRight();
+    /* double meshD=1.0;
+    for (double lon = topLeft.y; lon < bottomRight.y-meshD; lon += meshD) {
+      for (double lat = topLeft.x+meshD; lat > bottomRight.x+meshD; lat -= meshD) {
         // FIXME Grid to View is missing
-        DPoint topLeft = proj.translateLatLonToGrid(n, e);
-        DPoint bottomRight = proj.translateLatLonToGrid(n+0.1, e+0.1);
-        Rectangle r=new Rectangle();
-        r.setX(topLeft.x);
-        r.setY(topLeft.y);
-        r.setWidth(bottomRight.x-topLeft.x);
-        r.setHeight(bottomRight.y-topLeft.y);
-        r.setFill(Color.TRANSPARENT);
-        r.setStrokeWidth(1);
-        r.setStroke(meshColor);
+        DPoint topLeftV = proj.translateLatLonToGrid(lat, lon);
+        DPoint bottomRightV = proj.translateLatLonToGrid(lat-meshD, lon+meshD);
+        Polygon  p=new Polygon(topLeftV.x,topLeftV.y,bottomRightV.x,topLeftV.y,
+            bottomRightV.x,bottomRightV.y,topLeftV.x,bottomRightV.y);
+        p.setStrokeWidth(1);
+        p.setFill(Color.TRANSPARENT);
+        p.getStrokeDashArray().addAll(2d,2d);
+        p.setStroke(meshColor);
+        displayContext.mapView.getDrawPane().getChildren().add(p);
       }
     }
-    
-    /*
+    */
     WritableImage image = displayContext.mapView.getWriteableImage();
     // draw mesh
     // loop over east and north
@@ -163,7 +163,7 @@ public class Radolan2Image {
         }
       }
     }
-    */
+
   }
 
   /**

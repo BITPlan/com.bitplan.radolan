@@ -168,14 +168,14 @@ public class Translate {
     projection.setResY(1.0);
 
     // calibrate offset correction
-    DPoint minEdge = cp.getMinEdge();
-    DPoint maxEdge = cp.getMaxEdge();
-    DPoint off = translate(projection, minEdge.x, minEdge.y);
+    DPoint topLeft = cp.getTopLeft();
+    DPoint bottomRight = cp.getBottomRight();
+    DPoint off = translate(projection, topLeft.x, topLeft.y);
     projection.setOffSetX(off.x);
     projection.setOffSetY(off.y);
 
     // calibrate scaling
-    DPoint res = translate(projection, maxEdge.x, maxEdge.y);
+    DPoint res = translate(projection, bottomRight.x, bottomRight.y);
     projection.setResX((res.x) / projection.getGridWidth());
     projection.setResY((res.y) / projection.getGridHeight());
   }

@@ -31,6 +31,6 @@ package com.bitplan.geo;
  *
  */
 public interface GeoRect {
-  DPoint getMinEdge();
-  DPoint getMaxEdge();
+  DPoint getTopLeft();
+  DPoint getBottomRight();
 }
