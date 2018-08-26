@@ -158,8 +158,9 @@ public class Radolan2Image {
           DPoint dp = proj.translateLatLonToGrid(n, e);
           IPoint ip = new IPoint(dp);
           if (ip.x >= 0 && ip.y >= 0 && ip.x < proj.getGridWidth()
-              && ip.y < proj.getGridHeight())
-            image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
+              && ip.y < proj.getGridHeight()) {
+            // image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
+          }
         }
       }
     }
