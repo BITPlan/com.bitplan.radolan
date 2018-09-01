@@ -56,7 +56,7 @@ public class TestZoom extends BaseTest {
     String products[] = { "sf", "rw", };
     for (String product : products) {
       String url = KnownUrl.getUrl(product, "latest");
-      testRadolan(url,45, product + ".png", null,  "-d", "-l", "Willich","-z","30");
+      testRadolan(url,4, product + ".png", null,  "-d", "-l", "Willich","-z","30");
     }
   }
 

@@ -23,6 +23,8 @@
  */
 package com.bitplan.radolan;
 
+import java.util.logging.Level;
+
 import com.bitplan.display.MapView;
 import com.bitplan.javafx.WaitableApp;
 
@@ -79,10 +81,15 @@ public class ImageViewer extends WaitableApp {
     scene = new Scene(mapView.getStackPane());
     scene.setFill(Color.WHITE);
 
-    // inform the display context
-    if (displayContext != null) {
-      stage.setWidth(mapView.getWidth());
-      stage.setHeight(mapView.getHeight());
+    // set the stage width
+    if (mapView != null) {
+      Image image = mapView.getImage();
+      double width = image.getWidth();
+      double height = image.getHeight();
+      if (debug)
+        LOGGER.log(Level.INFO,String.format("image %.0f x %.0f", width,height));
+      stage.setWidth(width);
+      stage.setHeight(height);
     }
     stage.setTitle(title);
     stage.setScene(scene);

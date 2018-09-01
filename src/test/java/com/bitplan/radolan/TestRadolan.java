@@ -24,6 +24,8 @@
 package com.bitplan.radolan;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -38,10 +40,13 @@ import java.util.function.Consumer;
 
 import org.junit.Test;
 
+import com.bitplan.javafx.WaitableApp;
+
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.vis.Vis;
 import cs.fau.de.since.radolan.vis.Vis.ColorRange;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
@@ -77,7 +82,7 @@ public class TestRadolan extends BaseTest {
    *          - the start Minute e.g. 50 for rw 5 for ry
    * @param minRaster
    *          - the raster of this product e.g. 60 for rw 5 for ry
-   * @throws Exception 
+   * @throws Exception
    */
   public void testOpenDataRecent(String product, int minutes, int minDelay,
       int startMin, int startRest, int minRaster) throws Exception {
@@ -86,11 +91,12 @@ public class TestRadolan extends BaseTest {
         .truncatedTo(ChronoUnit.MINUTES);
     // safety marging
     starttime = starttime.minus(Duration.ofMinutes(minDelay));
-    int count=0;
+    int count = 0;
     while ((starttime.getMinute() % startMin) != startRest) {
       starttime = starttime.minus(Duration.ofMinutes(1));
-      if (count++ >20*365*24*60) {
-        throw new Exception("'endless' loop detected in finding recent data start");
+      if (count++ > 20 * 365 * 24 * 60) {
+        throw new Exception(
+            "'endless' loop detected in finding recent data start");
       }
     }
     LocalDateTime datetime = starttime;
@@ -174,15 +180,49 @@ public class TestRadolan extends BaseTest {
     }
   }
 
+  String rad_brd_akt_url = "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
+  String radar_film_url = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
+
   @Test
   public void testRadarPicture() {
-    String url = "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
-    testRadolan(url, 3, "rad_brd_akt.png", null);
+    testRadolan(rad_brd_akt_url, 4, "rad_brd_akt.png", null);
+  }
+
+  @Test
+  public void testImage() throws InterruptedException {
+    Radolan.disableSslVerification();
+    WaitableApp.toolkitInit();
+    String urls[] = {
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/320px-Flag_of_Germany.svg.png",
+        "https://via.placeholder.com/50x50", rad_brd_akt_url, radar_film_url };
+    int expectedWidth[][] = { { 160, 25, 540, 540 }, { 320, 50, 540, 540 } };
+    int expectedHeight[][] = { { 96, 251, 500, 500 }, { 192, 50, 500, 500 } };
+    boolean backgrounds[] = { false, true };
+    int i = 0;
+    for (boolean background : backgrounds) {
+      int j = 0;
+      for (String url : urls) {
+        Image image = new Image(url, background);
+        assertNotNull(image);
+        if (background)
+          while (image.getProgress() < 1)
+            Thread.sleep(40);
+        if (image.isError())
+          System.out.println(image.getException().getMessage());
+        else {
+          assertEquals("w " + i + "," + j, expectedWidth[i][j],
+              image.getWidth(), 0.1);
+          assertEquals("h " + i + "," + j, expectedHeight[i][j],
+              image.getHeight(), 0.1);
+        }
+        j++;
+      }
+      i++;
+    }
   }
 
   @Test
   public void testRadarfilm() {
-    String url = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif";
-    testRadolan(url, 12, null, null);
+    testRadolan(radar_film_url, 12, null, null);
   }
 }

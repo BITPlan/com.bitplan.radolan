@@ -25,11 +25,20 @@ package com.bitplan.radolan;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
 import javax.imageio.ImageIO;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.commons.io.FilenameUtils;
 import org.kohsuke.args4j.Argument;
@@ -117,6 +126,48 @@ public class Radolan extends Main {
     ImageViewer.testMode = testMode;
     ImageViewer.toolkitInit();
   }
+  /**
+   * disable SSL
+   */
+  public static void disableSslVerification() {
+    try {
+      // Create a trust manager that does not validate certificate chains
+      TrustManager[] trustAllCerts = new TrustManager[] {
+          new X509TrustManager() {
+            public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+              return null;
+            }
+
+            public void checkClientTrusted(X509Certificate[] certs,
+                String authType) {
+            }
+
+            public void checkServerTrusted(X509Certificate[] certs,
+                String authType) {
+            }
+          } };
+
+      // Install the all-trusting trust manager
+      SSLContext sc = SSLContext.getInstance("SSL");
+      sc.init(null, trustAllCerts, new java.security.SecureRandom());
+      HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+      // Create all-trusting host name verifier
+      HostnameVerifier allHostsValid = new HostnameVerifier() {
+        public boolean verify(String hostname, SSLSession session) {
+          return true;
+        }
+      };
+
+      // Install the all-trusting host verifier
+      HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    } catch (KeyManagementException e) {
+      e.printStackTrace();
+    }
+  }
+
 
   /**
    * show the given image
@@ -150,6 +201,8 @@ public class Radolan extends Main {
   public void showImage(String input) throws Exception {
     prepareImageViewer();
     Image image = new Image(input);
+    if (image.isError())
+      throw image.getException();
     displayContext = new DisplayContext(null, null, null, zoomKm, null);
     displayContext.mapView = new MapView(image);
     displayContext.title = input;
@@ -161,6 +214,8 @@ public class Radolan extends Main {
    */
   public void work() {
     try {
+      // make sure we do not get any SSL hassles
+      disableSslVerification();
       if (debug) {
         Composite.activateDebug();
       }
