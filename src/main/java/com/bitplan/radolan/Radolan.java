@@ -197,7 +197,8 @@ public class Radolan extends Main {
           BufferedImage bImage = ImageViewer
               .fromFXImage(displayContext.mapView.getImage(), null);
           String formatName = ext;
-          ImageIO.write(bImage, formatName, outputFile);
+          if (bImage != null)
+            ImageIO.write(bImage, formatName, outputFile);
         }
       }
     } catch (Throwable th) {
