@@ -43,7 +43,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
 
 /**
  * transfer RADOLAN composite data to an image
@@ -153,7 +152,6 @@ public class Radolan2Image {
             Circle circle = new Circle(ip.x, ip.y, 0.3, meshColor);
             circle.setStroke(meshColor);
             displayContext.mapView.getDrawPane().getChildren().add(circle);
-
           }
         }
       }
@@ -223,7 +221,8 @@ public class Radolan2Image {
     ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
       // too slow
       // drawBorders(displayContext);
-      addLocation(displayContext);
+      if (oldValue.intValue()!=0)
+        addLocation(displayContext);
     };
     drawOnGlass.widthProperty().addListener(sizeListener);
     drawOnGlass.heightProperty().addListener(sizeListener);
@@ -252,6 +251,8 @@ public class Radolan2Image {
     String text = String.format("%s - %.1f mm", loc.getName(), value);
     Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
         text, 4, Color.BLUE, vp.x, vp.y);
+    if (debug)
+      LOGGER.log(Level.INFO,String.format("x: %.0f y: %.0f",vp.x,vp.y));
     Zoom zoom = new Zoom(displayContext, 12);
     zoom.arm(gp, vp);
     zoom.triggerOnMouseEntered(circle);
