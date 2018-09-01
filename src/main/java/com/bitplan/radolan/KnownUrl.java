@@ -165,7 +165,7 @@ public class KnownUrl {
     case "sf":
       if (!fileName.contains("latest") && dateTime!=null) {
         long hours = ChronoUnit.HOURS.between(LocalDateTime.now(), dateTime);
-        if (hours<-48) {
+        if (hours<-47) {
           url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent", fileName);
         }
       }

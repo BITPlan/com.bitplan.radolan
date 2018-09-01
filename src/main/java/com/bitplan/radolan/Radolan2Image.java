@@ -72,8 +72,7 @@ public class Radolan2Image {
       getImageContent(displayContext);
       // draw borders and mesh if asked for
       if (displayContext.composite.isProjection()) {
-        drawBorders(displayContext);
-        drawMesh(displayContext);
+        drawBordersMeshAndLocation(displayContext);
       }
     });
   }
@@ -84,33 +83,12 @@ public class Radolan2Image {
    * @param displayContext
    *          - the image and it's details
    */
-  protected static void drawBorders(DisplayContext displayContext) {
+  protected static void drawBordersMeshAndLocation(DisplayContext displayContext) {
+    displayContext.mapView.getDrawPane().getChildren().clear();
     if (displayContext.borderDraw != null)
       displayContext.borderDraw.drawBorders();
-    /*
-     * Pane borderPane = displayContext.borderPane; if (borderPane == null)
-     * return; Platform.runLater(() -> { borderPane.getChildren().clear(); if
-     * (debug) { drawCross(borderPane, 2, Color.rgb(0xff, 0x00, 0x00, 0.5)); }
-     * });
-     *
-     * RadarImage comp = displayContext.composite; WritableImage image =
-     * displayContext.getWriteableImage(); String msg =
-     * String.format("detected grid: %.1f km * %.1f km\n", comp.getGridWidth() *
-     * comp.getResX(), comp.getGridHeight() * comp.getResY()); if (debug)
-     * LOGGER.log(Level.INFO, msg); Borders borders = new
-     * Borders(displayContext.borderName); IPoint prevIp = null; for (DPoint
-     * latlon : borders.getPoints()) { DPoint p =
-     * displayContext.composite.translateLatLonToGrid(latlon.x, latlon.y);
-     * IPoint ip = new IPoint(p); //
-     * getScreenPointForLatLon(displayContext,borderPane,point); double dist =
-     * ip.dist(prevIp); if ((ip.x > 0 && ip.y > 0) && (dist < 30)) { /* Line
-     * line = new Line(prevIp.x, prevIp.y, ip.x, ip.y); line.setStrokeWidth(2);
-     * line.setStroke(borderColor); Platform.runLater(() -> {
-     * borderPane.getChildren().add(line); });
-     *
-     * image.getPixelWriter().setColor(ip.x, ip.y, borderColor); } prevIp = ip;
-     * }
-     */
+    drawMesh(displayContext);
+    addLocation(displayContext);
   }
 
   /**
@@ -120,7 +98,6 @@ public class Radolan2Image {
    *          - the image and it's details
    */
   protected static void drawMesh(DisplayContext displayContext) {
-
     GeoProjection proj = displayContext.composite;
     DPoint topLeft = proj.getBounds().getTopLeft();
     DPoint bottomRight = proj.getBounds().getBottomRight();
@@ -220,9 +197,10 @@ public class Radolan2Image {
 
     ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
       // too slow
-      // drawBorders(displayContext);
-      if (oldValue.intValue()!=0)
-        addLocation(displayContext);
+      // 
+      if (oldValue.intValue()!=0) {
+        drawBordersMeshAndLocation(displayContext);
+      }
     };
     drawOnGlass.widthProperty().addListener(sizeListener);
     drawOnGlass.heightProperty().addListener(sizeListener);
