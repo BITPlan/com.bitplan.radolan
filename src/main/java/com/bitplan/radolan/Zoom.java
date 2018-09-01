@@ -130,6 +130,10 @@ public class Zoom {
   private void copyZoomContent(DisplayContext displayContext, IPoint gp) {
     int half = (int) (displayContext.zoomKm / 2);
     PixelReader pixelReader = displayContext.mapView.getImage().getPixelReader();
+    if (debug) {
+      String msg=String.format("zoom %3d,%3d - %3d,%3d half=%3d",gp.x-half,gp.y-half,gp.x+half,gp.y+half,half);
+      LOGGER.log(Level.INFO,msg);
+    }
     for (int x = gp.x - half; x <= gp.x + half; x++) {
       for (int y = gp.y - half; y <= gp.y + half; y++) {
         if (y >= 0 && y < displayContext.composite.getGridHeight())
