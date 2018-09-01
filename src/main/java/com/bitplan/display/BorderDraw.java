@@ -31,11 +31,13 @@ import java.util.logging.Logger;
 import com.bitplan.geo.Borders;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
+import com.bitplan.geo.IPoint;
 import com.github.filosganga.geogson.model.LineString;
 import com.github.filosganga.geogson.model.Point;
 
 import cs.fau.de.since.radolan.Translate;
 import javafx.scene.image.WritableImage;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
@@ -73,6 +75,7 @@ public class BorderDraw {
    * draw the Borders
    */
   public void drawBorders() {
+    Pane pane = mapView.getDrawPane();
     WritableImage image = mapView.getWriteableImage();
     if (image == null) {
       LOGGER.log(Level.WARNING, "can't draw Borders - image is null");
@@ -89,9 +92,11 @@ public class BorderDraw {
       List<Double> polygonPoints = new ArrayList<Double>();
 
       // IPoint prevIp = null;
-      for (Point point : lineString.points()) {
-        DPoint latlon = new DPoint(point.lat(), point.lon());
-        DPoint p = Translate.translate(projection, latlon.x, latlon.y);
+      for (Point point : lineString.points()) {   
+        DPoint dgp = projection.translateLatLonToGrid(point.lat(), point.lon());
+        IPoint igp=new IPoint(dgp);
+        DPoint p =projection.translateGridToView(igp, pane.getWidth(),pane.getHeight());
+        
         polygonPoints.add(p.x);
         polygonPoints.add(p.y);
 
@@ -104,8 +109,9 @@ public class BorderDraw {
         // image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
       }
       double points[] = new double[polygonPoints.size()];
-      for (int i = 0; i < polygonPoints.size(); i++)
+      for (int i = 0; i < polygonPoints.size(); i++) {
         points[i] = polygonPoints.get(i);
+      }
       Polygon polygon = new Polygon(points);
       polygon.setStrokeWidth(1);
       polygon.setStroke(borderColor);
@@ -114,7 +120,7 @@ public class BorderDraw {
       else
         polygon.setFill(Color.rgb(0xFA, 0xFA, 0xFA,0.2));
       lineCount++;
-      mapView.getDrawPane().getChildren().add(polygon);
+      pane.getChildren().add(polygon);
     }
     if (debug)
       LOGGER.log(Level.INFO, "drawing done");
