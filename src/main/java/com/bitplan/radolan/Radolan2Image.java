@@ -101,6 +101,7 @@ public class Radolan2Image {
     GeoProjection proj = displayContext.composite;
     DPoint topLeft = proj.getBounds().getTopLeft();
     DPoint bottomRight = proj.getBounds().getBottomRight();
+    Pane pane = displayContext.mapView.getDrawPane();
     /*
      * double meshD=1.0; for (double lon = topLeft.y; lon < bottomRight.y-meshD;
      * lon += meshD) { for (double lat = topLeft.x+meshD; lat >
@@ -116,19 +117,20 @@ public class Radolan2Image {
     // WritableImage image = displayContext.mapView.getWriteableImage();
     // draw mesh
     // loop over east and north
-    for (double e = 1.0; e < 16.0; e += 0.1) {
-      for (double n = 46.0; n < 55.0; n += 0.1) {
-        double edist = Math.abs(e - Math.round(e));
-        double ndist = Math.abs(n - Math.round(n));
+    for (double lon = Math.round(topLeft.y-1); lon < Math.round(bottomRight.y+1); lon += 0.1) {
+      for (double lat = Math.round(bottomRight.x-1); lat < Math.round(topLeft.x+1); lat += 0.1) {
+        double edist = Math.abs(lon - Math.round(lon));
+        double ndist = Math.abs(lat - Math.round(lat));
         if ((edist < 0.01) || (ndist < 0.01)) {
-          DPoint dp = proj.translateLatLonToGrid(n, e);
-          IPoint ip = new IPoint(dp);
+          DPoint dpG = proj.translateLatLonToGrid(lat, lon);
+          IPoint ipG = new IPoint(dpG);
+          DPoint ip=proj.translateGridToView(ipG, pane.getWidth(),pane.getHeight());
           if (ip.x >= 0 && ip.y >= 0 && ip.x < proj.getGridWidth()
               && ip.y < proj.getGridHeight()) {
             // image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
             Circle circle = new Circle(ip.x, ip.y, 0.3, meshColor);
             circle.setStroke(meshColor);
-            displayContext.mapView.getDrawPane().getChildren().add(circle);
+            pane.getChildren().add(circle);
           }
         }
       }
@@ -196,8 +198,6 @@ public class Radolan2Image {
     });
 
     ChangeListener<Number> sizeListener = (observable, oldValue, newValue) -> {
-      // too slow
-      // 
       if (oldValue.intValue()!=0) {
         drawBordersMeshAndLocation(displayContext);
       }
