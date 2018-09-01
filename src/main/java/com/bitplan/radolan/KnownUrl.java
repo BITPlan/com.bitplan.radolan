@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import com.bitplan.dateutils.DateUtils;
@@ -50,31 +51,6 @@ public class KnownUrl {
   public static final DateFormat hourFormat = new SimpleDateFormat(
       "yyyy-MM-dd HH:mm");
 
-  /**
-   * get the recent SF data url for the given local date
-   * 
-   * @param date
-   * @return - the url
-   */
-  public static String getSFRecent(LocalDate date) {
-    return getSFRecent(date.getYear(), date.getMonthValue(),
-        date.getDayOfMonth());
-  }
-
-  /**
-   * get the recent SF data url for the given parameters
-   * 
-   * @param year
-   * @param month
-   * @param dayOfMonth
-   * @return - the url
-   */
-  public static String getSFRecent(int year, int month, int dayOfMonth) {
-    String url = String.format(
-        RADOLAN_HISTORY + "recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz",
-        year % 2000, month, dayOfMonth);
-    return url;
-  }
 
   /**
    * get a TimeStamp for the given date
@@ -116,13 +92,13 @@ public class KnownUrl {
     case "sf":
     case "rw":
       // make the time end in :50
-      while (dateTime.getMinute()!=50) {
-        dateTime=dateTime.minus(Duration.ofMinutes(1));
+      while (dateTime.getMinute() != 50) {
+        dateTime = dateTime.minus(Duration.ofMinutes(1));
       }
       break;
     case "ry":
-      while (dateTime.getMinute()%5!=0) {
-        dateTime=dateTime.minus(Duration.ofMinutes(1));
+      while (dateTime.getMinute() % 5 != 0) {
+        dateTime = dateTime.minus(Duration.ofMinutes(1));
       }
       break;
     }
@@ -171,9 +147,30 @@ public class KnownUrl {
    */
   public static String getUrlForProduct(String product,
       LocalDateTime dateTime) {
-    String timeStamp = getTimeStampForProduct(product,dateTime);
+    String timeStamp = getTimeStampForProduct(product, dateTime);
     String fileName = getFileNameForProduct(product, timeStamp);
-    String url = String.format("%s/%s/%s", RADOLAN_OPENDATA, product, fileName);
+    String url=getUrlForProduct(product,fileName,dateTime);
+    return url;
+  }
+  
+  /**
+   * get the URL for the given product
+   * @param product
+   * @param fileName
+   * @return - the url
+   */
+  public static String getUrlForProduct(String product,String fileName,LocalDateTime dateTime) {
+    String url=String.format("%s/%s/%s", RADOLAN_OPENDATA, product, fileName);
+    switch (product.toLowerCase()) {
+    case "sf":
+      if (!fileName.contains("latest") && dateTime!=null) {
+        long hours = ChronoUnit.HOURS.between(LocalDateTime.now(), dateTime);
+        if (hours<-48) {
+          url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent", fileName);
+        }
+      }
+      break;
+    }
     return url;
   }
 
@@ -187,6 +184,7 @@ public class KnownUrl {
    */
   public static String getUrl(String productDescription, String timeDescription)
       throws Exception {
+    LocalDateTime localDateTime=null;
     String product = productDescription.toLowerCase();
     switch (product) {
     case "daily":
@@ -217,15 +215,15 @@ public class KnownUrl {
     default:
       if (timeDescription.startsWith("20")) {
         Date dateTime = hourFormat.parse(timeDescription);
-        LocalDateTime localDateTime = DateUtils.asLocalDateTime(dateTime);
-        timeStamp = getTimeStampForProduct(product,localDateTime);
+        localDateTime = DateUtils.asLocalDateTime(dateTime);
+        timeStamp = getTimeStampForProduct(product, localDateTime);
       } else if (timeDescription.startsWith("-")) {
 
       }
       break;
     }
     String fileName = getFileNameForProduct(product, timeStamp);
-    String url = String.format("%s/%s/%s", RADOLAN_OPENDATA, product, fileName);
+    String url=getUrlForProduct(product,fileName,localDateTime);
     return url;
   }
 

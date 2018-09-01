@@ -26,8 +26,13 @@ package com.bitplan.radolan;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Date;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.logging.Level;
 
 import org.junit.Test;
 
@@ -39,7 +44,52 @@ import com.bitplan.dateutils.DateUtils;
  * @author wf
  *
  */
-public class TestKnownUrls {
+public class TestKnownUrls extends BaseTest {
+
+  /**
+   * https://stackoverflow.com/a/3584332/1497139 Pings a HTTP URL. This
+   * effectively sends a HEAD request and returns <code>true</code> if the
+   * response code is in the 200-399 range.
+   * 
+   * @param url
+   *          The HTTP URL to be pinged.
+   * @param timeout
+   *          The timeout in millis for both the connection timeout and the
+   *          response read timeout. Note that the total timeout is effectively
+   *          two times the given timeout.
+   * @return <code>true</code> if the given HTTP URL has returned response code
+   *         200-399 on a HEAD request within the given timeout, otherwise
+   *         <code>false</code>.
+   */
+  @SuppressWarnings("restriction")
+  public static boolean pingURL(String url, int timeout) {
+    url = url.replaceFirst("^https", "http"); // Otherwise an exception may be
+                                              // thrown on invalid SSL
+                                              // certificates.
+
+    try {
+      URLConnection connection = new URL(url).openConnection();
+
+      connection.setConnectTimeout(timeout);
+      connection.setReadTimeout(timeout);
+      if (connection instanceof HttpURLConnection) {
+        HttpURLConnection hconnection = (HttpURLConnection) connection;
+        hconnection.setRequestMethod("HEAD");
+        int responseCode = hconnection.getResponseCode();
+        return (200 <= responseCode && responseCode <= 399);
+      } else if (connection instanceof sun.net.www.protocol.ftp.FtpURLConnection) {
+        sun.net.www.protocol.ftp.FtpURLConnection ftpConnection = (sun.net.www.protocol.ftp.FtpURLConnection) connection;
+        ftpConnection.connect();
+        ftpConnection.close();
+        return true;
+      } else {
+        throw new IllegalArgumentException("pingURL can not handle url for "
+            + connection.getClass().getName());
+      }
+    } catch (IOException exception) {
+      return false;
+    }
+  }
 
   @Test
   public void testKnownUrls() throws Exception {
@@ -72,11 +122,35 @@ public class TestKnownUrls {
         assertTrue(ago2hHourUrl, ago2hHourUrl.contains("50-dwd"));
         break;
       case "ry":
-        assertTrue(ago2hHourUrl, ago2hHourUrl.contains("5-dwd") || ago2hHourUrl.contains("0-dwd"));
+        assertTrue(ago2hHourUrl,
+            ago2hHourUrl.contains("5-dwd") || ago2hHourUrl.contains("0-dwd"));
         break;
       }
       i++;
     }
+  }
+
+  int TIME_OUT = 400;
+
+  @Test
+  public void testRecent() throws Exception {
+    debug=true;
+    int fails=0;
+    for (int hours = 46; hours <= 50; hours++) {
+      LocalDateTime agoh = LocalDateTime.now().minusHours(hours);
+      Date agohDate = DateUtils.asDate(agoh);
+      String agohString = KnownUrl.hourFormat.format(agohDate);
+      String url = KnownUrl.getUrl("sf", agohString);
+      boolean ok = pingURL(url, TIME_OUT);
+      if (debug)
+        LOGGER.log(Level.INFO, String.format("%3d h:%s %s %s", hours,
+            ok ? "✓" : " ❌", agohString, url));
+      if (hours>48)
+        assertTrue(url.startsWith("ftp"));
+      if (!ok)
+        fails++;
+    }
+    assertEquals(0,fails);
   }
 
 }

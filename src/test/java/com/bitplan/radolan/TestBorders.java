@@ -40,6 +40,7 @@ import cs.fau.de.since.radolan.Translate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -58,39 +59,51 @@ public class TestBorders extends BaseTest {
       "3_regierungsbezirke/3_mittel.geojson",
       "3_regierungsbezirke/4_niedrig.geojson", "4_kreise/2_hoch.geojson",
       "4_kreise/3_mittel.geojson", "4_kreise/4_niedrig.geojson" };
+  private SampleApp sampleApp;
+  private MapView mapView;
 
   @Test
   public void testBorders() throws Exception {
-    debug=true;
+    debug = true;
     for (String name : names) {
       Borders borders = new Borders(name);
       if (debug)
-        LOGGER.log(Level.INFO, String.format("border %s has %d lineStrings", name,
-            borders.getLineStrings().size()));
+        LOGGER.log(Level.INFO, String.format("border %s has %d lineStrings",
+            name, borders.getLineStrings().size()));
     }
   }
 
   static int SHOW_TIME = 500; // millisecs
+
   /**
    * change the screen on which to view the results
+   * 
    * @param stage
    * @param screenNumber
    */
   public void setupStageLocation(Stage stage, int screenNumber) {
     ObservableList<Screen> screens = Screen.getScreens();
-    Screen screen = screens.size() <= screenNumber ? Screen.getPrimary() : screens.get(screenNumber);
+    Screen screen = screens.size() <= screenNumber ? Screen.getPrimary()
+        : screens.get(screenNumber);
 
     Rectangle2D bounds = screen.getBounds();
-    boolean primary = screen.equals(Screen.getPrimary());    // WORKAROUND: this doesn't work nice in combination with full screen, so this hack is used to prevent going fullscreen when screen is not primary
+    boolean primary = screen.equals(Screen.getPrimary()); // WORKAROUND: this
+                                                          // doesn't work nice
+                                                          // in combination with
+                                                          // full screen, so
+                                                          // this hack is used
+                                                          // to prevent going
+                                                          // fullscreen when
+                                                          // screen is not
+                                                          // primary
 
-    if(primary) {
+    if (primary) {
       stage.setX(bounds.getMinX());
       stage.setY(bounds.getMinY());
       stage.setWidth(bounds.getWidth());
       stage.setHeight(bounds.getHeight());
       stage.setFullScreen(true);
-    }
-    else {
+    } else {
       stage.setX(bounds.getMinX());
       stage.setY(bounds.getMinY());
       stage.setWidth(bounds.getWidth());
@@ -98,41 +111,77 @@ public class TestBorders extends BaseTest {
       stage.toFront();
     }
   }
+
+  @Test
+  public void testDrawingMap() throws Exception {
+    GeoProjection projection = new ProjectionImpl(900, 900);
+    Translate.calibrateProjection(projection);
+    String name = "4_kreise/2_hoch.geojson";
+    BorderDraw borderDraw = prepareBorderDraw(projection, name);
+    Platform.runLater(() -> borderDraw.drawBorders());
+    Thread.sleep(SHOW_TIME);
+    sampleApp.close();
+  }
+
   @Test
   public void testDrawingBorders() throws Exception {
-    Borders.debug=true;
-    File imageFile = new File("src/test/data/image/empty900x900.png");
+    Borders.debug = true;
     for (String name : names) {
-      SampleApp.toolkitInit();
-      String url=imageFile.toURI().toURL().toExternalForm();
-      MapView mapView = new MapView(url);
       GeoProjection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
-      BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
-          Color.ORANGE);
-      SampleApp sampleApp = new SampleApp("BorderPlot", mapView.getStackPane());
-      sampleApp.show();
-      sampleApp.waitOpen();
-      // display on another monitor
-      // Platform.runLater(() ->this.setupStageLocation(sampleApp.getStage(), 2));
-      double iwidth = mapView.getImage().getWidth();
-      double iheight = mapView.getImage().getHeight();
-      sampleApp.getStage().setWidth(mapView.getImage().getWidth());
-      sampleApp.getStage().setHeight(mapView.getImage().getHeight());
-      double width = sampleApp.getStage().getWidth();
-      double height = sampleApp.getStage().getHeight();
-      LOGGER.log(Level.INFO,
-          String.format("stage: %.0f x %.0f image: %.0f x %.0f ", width, height,
-              iwidth, iheight));
-      sampleApp.getStage().setHeight(mapView.getImage().getHeight() + 61);
-      mapView.addSizeListener(sampleApp.getStage());
+      BorderDraw borderDraw = prepareBorderDraw(projection, name);
       Platform.runLater(() -> borderDraw.drawBorders());
       Thread.sleep(SHOW_TIME);
-      File snapShot=new File("/tmp/"+name.replace("/", "_")+".png");
-      Platform.runLater(() -> WaitableApp.saveAsPng(mapView.getDrawPane(), snapShot));
+      saveSnapShot(name, mapView.getDrawPane());
       sampleApp.close();
       // Platform.exit();
     }
+  }
+
+  /**
+   * prepare the border drawing for the given geo projection
+   * 
+   * @param projection
+   * @param name
+   * @return - the BorderDraw
+   * @throws Exception
+   */
+  public BorderDraw prepareBorderDraw(GeoProjection projection, String name)
+      throws Exception {
+    File imageFile = new File("src/test/data/image/empty900x900.png");
+    SampleApp.toolkitInit();
+    String url = imageFile.toURI().toURL().toExternalForm();
+    mapView = new MapView(url);
+    BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
+        Color.ORANGE);
+    sampleApp = new SampleApp(name, mapView.getStackPane());
+    sampleApp.show();
+    sampleApp.waitOpen();
+    // display on another monitor
+    // Platform.runLater(() ->this.setupStageLocation(sampleApp.getStage(), 2));
+    double iwidth = mapView.getImage().getWidth();
+    double iheight = mapView.getImage().getHeight();
+    sampleApp.getStage().setWidth(mapView.getImage().getWidth());
+    sampleApp.getStage().setHeight(mapView.getImage().getHeight());
+    double width = sampleApp.getStage().getWidth();
+    double height = sampleApp.getStage().getHeight();
+    LOGGER.log(Level.INFO,
+        String.format("stage: %.0f x %.0f image: %.0f x %.0f ", width, height,
+            iwidth, iheight));
+    sampleApp.getStage().setHeight(mapView.getImage().getHeight() + 61);
+    mapView.addSizeListener(sampleApp.getStage());
+    return borderDraw;
+  }
+
+  /**
+   * save a snapShot
+   * 
+   * @param name
+   * @param pane
+   */
+  public void saveSnapShot(String name, Pane pane) {
+    File snapShot = new File("/tmp/" + name.replace("/", "_") + ".png");
+    Platform.runLater(() -> WaitableApp.saveAsPng(pane, snapShot));
   }
 
 }

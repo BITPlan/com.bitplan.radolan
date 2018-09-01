@@ -30,8 +30,11 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Date;
 
 import org.junit.Test;
+
+import com.bitplan.dateutils.DateUtils;
 
 import cs.fau.de.since.radolan.Composite;
 
@@ -51,12 +54,13 @@ public class TestCache extends BaseTest {
   @Test
   public void testCache() throws Exception {
     if (!isTravis()) {
-      LocalDate start = LocalDate.of(2018, 1, 1);
-      LocalDate end = LocalDate.of(2018, 8, 15);
+      LocalDate start = LocalDate.of(2018, 8, 28);
+      LocalDate end = LocalDate.of(2018, 8, 31);
       String knownUrl =KnownUrl.RADOLAN_HISTORY;
       for (LocalDate date = start; date
           .isBefore(end); date = date.plus(Period.ofDays(1))) {
-    	String url=KnownUrl.getSFRecent(date);
+      Date d = DateUtils.asDate(date);
+    	String url=KnownUrl.getUrlForProduct("sf", DateUtils.asLocalDateTime(d));
         Composite.useCache(url, knownUrl);
         File cacheFile = Composite.cacheForUrl(url, knownUrl);
         assertTrue(cacheFile.exists());
