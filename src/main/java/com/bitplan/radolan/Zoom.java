@@ -23,6 +23,7 @@
  */
 package com.bitplan.radolan;
 
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -98,7 +99,7 @@ public class Zoom {
     // get the location of the point as lat/lon
     DPoint latlon = composite.translateGridToLatLon(new DPoint(gp.x, gp.y));
     if (debug)
-      LOGGER.log(Level.INFO, String.format(
+      LOGGER.log(Level.INFO, String.format(Locale.UK,
           "scene %.0f,%.0f -> grid %d,%d %dx%d -> latlon %.2f,%.2f -> value %.0f mm",
           vp.x, vp.y, gp.x, gp.y, composite.getGridWidth(),
           composite.getGridHeight(), latlon.x, latlon.y, value));

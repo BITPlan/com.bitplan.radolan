@@ -125,8 +125,8 @@ public class Radolan2Image {
           DPoint dpG = proj.translateLatLonToGrid(lat, lon);
           IPoint ipG = new IPoint(dpG);
           DPoint ip=proj.translateGridToView(ipG, pane.getWidth(),pane.getHeight());
-          if (ip.x >= 0 && ip.y >= 0 && ip.x < proj.getGridWidth()
-              && ip.y < proj.getGridHeight()) {
+          if (ip.x >= 0 && ip.y >= 0 && ip.x < pane.getWidth()
+              && ip.y < pane.getHeight()) {
             // image.getPixelWriter().setColor(ip.x, ip.y, meshColor);
             Circle circle = new Circle(ip.x, ip.y, 0.3, meshColor);
             circle.setStroke(meshColor);
@@ -185,11 +185,12 @@ public class Radolan2Image {
 
     // handle a mouseclick
     displayContext.mapView.getDrawPane().setOnMouseClicked(event -> {
+      Pane pane = displayContext.mapView.getDrawPane();
       // view point
       DPoint vp = new DPoint(event.getSceneX(), event.getSceneY());
       // grid point
-      IPoint gp = composite.translateViewToGrid(vp, viewBounds.getWidth(),
-          viewBounds.getHeight());
+      IPoint gp = composite.translateViewToGrid(vp, pane.getWidth(),
+          pane.getHeight());
       Zoom zoom = new Zoom(displayContext, 12);
       String text = zoom.arm(gp, vp);
       Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
