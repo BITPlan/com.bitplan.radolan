@@ -69,6 +69,7 @@ public class ImageViewer extends WaitableApp {
     super.start(stage);
     if (displayContext != null) {
       mapView = displayContext.mapView;
+      mapView.addSizeListener(stage);
     }
     // load the image
     if (mapView == null)

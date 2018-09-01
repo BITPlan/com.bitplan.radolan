@@ -135,6 +135,8 @@ public class Radolan extends Main {
     if (displayContext.composite != null) {
       Radolan2Image.getImage(displayContext);
       Radolan2Image.activateEvents(displayContext);
+    } else {
+     
     }
     imageViewer.waitClose();
   }
