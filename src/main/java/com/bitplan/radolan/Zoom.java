@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 
 import org.controlsfx.control.PopOver;
 
+import com.bitplan.display.Draw;
 import com.bitplan.display.MapView;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
@@ -40,17 +41,18 @@ import com.bitplan.geo.UnLocodeManager;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
  * Zoom an area
+ * 
  * @author wf
  *
  */
@@ -72,19 +74,29 @@ public class Zoom {
    * @param displayContext
    */
   public Zoom(DisplayContext displayContext, int zoomFactor) {
-    this.zoomFactor=zoomFactor;
+    this.zoomFactor = zoomFactor;
     this.displayContext = displayContext;
     zoomImage = new WritableImage((int) displayContext.zoomKm * zoomFactor,
         (int) displayContext.zoomKm * zoomFactor);
     zoomView = new MapView(zoomImage);
-    //zoomView.setFitWidth(zoomImage.getWidth());
-    //zoomView.setFitHeight(zoomImage.getHeight());
+    // zoomView.setFitWidth(zoomImage.getWidth());
+    // zoomView.setFitHeight(zoomImage.getHeight());
     infoLabel = new Label("no info");
     infoLabel.setTextFill(Color.BLUE);
     infoLabel.setBackground(new Background(
         new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-    vbox = new VBox(infoLabel,zoomView.getStackPane());
+    vbox = new VBox(infoLabel, zoomView.getStackPane());
     popOver = new PopOver(vbox);
+  }
+
+  /**
+   * get the half point
+   * 
+   * @return - the half point
+   */
+  public int getHalf() {
+    int half = (int) (displayContext.zoomKm / 2);
+    return half;
   }
 
   /**
@@ -98,7 +110,7 @@ public class Zoom {
    */
   public String arm(IPoint gp, DPoint vp) {
     RadarImage composite = displayContext.composite;
-    copyZoomContent(displayContext, gp);
+    copyZoomContent(gp);
     // get the precipitation value for this point
     float value = composite.getValue(gp.x, gp.y);
     // get the location of the point as lat/lon
@@ -115,8 +127,24 @@ public class Zoom {
     if (closestCities.size() > 0) {
       Entry<Double, UnLocode> cityEntry = closestCities.entrySet().iterator()
           .next();
-      cityInfo = String.format(" near %s (%.1f km)",
-          cityEntry.getValue().getName(), cityEntry.getKey());
+      UnLocode closestCity = cityEntry.getValue();
+      cityInfo = String.format(" near %s (%.1f km)", closestCity.getName(),
+          cityEntry.getKey());
+      Pane pane = displayContext.mapView.getDrawPane();
+      for (UnLocode city : closestCities.values()) {
+        DPoint dgp = composite.translateLatLonToGrid(city.getLat(),
+            city.getLon());
+        IPoint dip = new IPoint(dgp);
+        // get the point where the city would be shown in the non-zoomed grid
+        DPoint cityVp = composite.translateGridToView(dip, pane.getWidth(),
+            pane.getHeight());
+        double x = (cityVp.x - vp.x + getHalf()) * zoomFactor;
+        double y = (cityVp.y - vp.y + getHalf()) * zoomFactor;
+        if (x >= 0 && y >= 0) {
+          Draw.drawCircleWithText(zoomView.getDrawPane(), city.getName(), 2,
+              Color.BLACK, x, y);
+        }
+      }
     }
     String displayMsg = String.format("%.1f %s%s\n%s", value,
         composite.getDataUnit(), cityInfo, latlon.toFormattedDMSString());
@@ -129,15 +157,18 @@ public class Zoom {
 
   /**
    * copy the zoom content for the given grid point
+   * 
    * @param displayContext
    * @param gp
    */
-  private void copyZoomContent(DisplayContext displayContext, IPoint gp) {
-    int half = (int) (displayContext.zoomKm / 2);
-    PixelReader pixelReader = displayContext.mapView.getImage().getPixelReader();
+  private void copyZoomContent(IPoint gp) {
+    int half = getHalf();
+    PixelReader pixelReader = displayContext.mapView.getImage()
+        .getPixelReader();
     if (debug) {
-      String msg=String.format("zoom %3d,%3d - %3d,%3d half=%3d",gp.x-half,gp.y-half,gp.x+half,gp.y+half,half);
-      LOGGER.log(Level.INFO,msg);
+      String msg = String.format("zoom %3d,%3d - %3d,%3d half=%3d", gp.x - half,
+          gp.y - half, gp.x + half, gp.y + half, half);
+      LOGGER.log(Level.INFO, msg);
     }
     for (int x = gp.x - half; x <= gp.x + half; x++) {
       for (int y = gp.y - half; y <= gp.y + half; y++) {
@@ -147,8 +178,10 @@ public class Zoom {
             int tx0 = x - gp.x + half;
             int ty0 = y - gp.y + half;
 
-            for (int tx = tx0*zoomFactor; tx < tx0*zoomFactor + zoomFactor; tx++) {
-              for (int ty = ty0*zoomFactor; ty < ty0*zoomFactor + zoomFactor; ty++) {
+            for (int tx = tx0 * zoomFactor; tx < tx0 * zoomFactor
+                + zoomFactor; tx++) {
+              for (int ty = ty0 * zoomFactor; ty < ty0 * zoomFactor
+                  + zoomFactor; ty++) {
                 if (tx < zoomImage.getWidth() && ty < zoomImage.getHeight())
                   zoomImage.getPixelWriter().setColor(tx, ty, color);
               }

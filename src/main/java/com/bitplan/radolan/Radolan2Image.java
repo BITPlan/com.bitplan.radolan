@@ -26,6 +26,7 @@ package com.bitplan.radolan;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.bitplan.display.Draw;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.IPoint;
@@ -35,14 +36,12 @@ import cs.fau.de.since.radolan.FloatFunction;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 
 /**
  * transfer RADOLAN composite data to an image
@@ -193,7 +192,7 @@ public class Radolan2Image {
           pane.getHeight());
       Zoom zoom = new Zoom(displayContext, 12);
       String text = zoom.arm(gp, vp);
-      Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
+      Circle circle = Draw.drawCircleWithText(displayContext.mapView.getDrawPane(),
           text, 4, Color.BLUE, vp.x, vp.y);
       zoom.popOver.show(circle);
     });
@@ -228,57 +227,12 @@ public class Radolan2Image {
     DPoint vp = displayContext.composite.translateGridToView(gp,
         drawOnGlass.getWidth(), drawOnGlass.getHeight());
     String text = String.format("%s - %.1f mm", loc.getName(), value);
-    Circle circle = drawCircleWithText(displayContext.mapView.getDrawPane(),
+    Circle circle = Draw.drawCircleWithText(displayContext.mapView.getDrawPane(),
         text, 4, Color.BLUE, vp.x, vp.y);
     if (debug)
       LOGGER.log(Level.INFO,String.format("x: %.0f y: %.0f",vp.x,vp.y));
-    Zoom zoom = new Zoom(displayContext, 12);
-    zoom.arm(gp, vp);
-    zoom.triggerOnMouseEntered(circle);
-  }
-
-  /**
-   * draw a circle with given text on the given pane
-   * 
-   * @param pane
-   * @param text
-   * @param radius
-   * @param color
-   * @param x
-   * @param y
-   */
-  public static Circle drawCircleWithText(Pane pane, String text, double radius,
-      Color color, double x, double y) {
-    Circle circle = new Circle();
-    circle.setRadius(radius);
-    circle.setFill(color);
-    circle.setTranslateX(x);
-    circle.setTranslateY(y);
-
-    Label label = new Label(text);
-    label.setTranslateX(x + radius);
-    label.setTranslateY(y + radius);
-    label.setTextFill(color);
-    pane.getChildren().addAll(circle, label);
-    return circle;
-  }
-
-  /**
-   * draw a cross on the given pane with the given stroke width and color
-   * 
-   * @param pane
-   * @param strokeWidth
-   * @param color
-   */
-  public static void drawCross(Pane pane, double strokeWidth, Color color) {
-    double w = pane.getWidth();
-    double h = pane.getHeight();
-    Line line = new Line(0, 0, w, h);
-    line.setStrokeWidth(strokeWidth);
-    line.setStroke(color);
-    Line line2 = new Line(w, 0, 0, h);
-    line2.setStrokeWidth(strokeWidth);
-    line2.setStroke(color);
-    pane.getChildren().addAll(line, line2);
+    //Zoom zoom = new Zoom(displayContext, 12);
+    //zoom.arm(gp, vp);
+    //zoom.triggerOnMouseEntered(circle);
   }
 }
