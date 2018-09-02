@@ -48,6 +48,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+/**
+ * Zoom an area
+ * @author wf
+ *
+ */
 public class Zoom {
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");

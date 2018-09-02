@@ -97,7 +97,7 @@ public class Radolan extends Main {
 
   @Option(name = "-z", aliases = {
       "--zoom" }, usage = "zoom/zoom to a grid size of zxz km")
-  protected double zoomKm = 1.0;
+  protected double zoomKm = 30.0;
 
   @Argument
   private List<String> arguments = new ArrayList<String>();
