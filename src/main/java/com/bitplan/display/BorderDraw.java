@@ -35,7 +35,6 @@ import com.bitplan.geo.IPoint;
 import com.github.filosganga.geogson.model.LineString;
 import com.github.filosganga.geogson.model.Point;
 
-import cs.fau.de.since.radolan.Translate;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

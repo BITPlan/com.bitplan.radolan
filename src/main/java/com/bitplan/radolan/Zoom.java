@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 
 import org.controlsfx.control.PopOver;
 
+import com.bitplan.display.MapView;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
 import com.bitplan.geo.UnLocode;
@@ -58,7 +59,7 @@ public class Zoom {
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
   public static boolean debug = false;
   PopOver popOver;
-  ImageView zoomView;
+  MapView zoomView;
   WritableImage zoomImage;
   VBox vbox;
   Label infoLabel;
@@ -73,17 +74,16 @@ public class Zoom {
   public Zoom(DisplayContext displayContext, int zoomFactor) {
     this.zoomFactor=zoomFactor;
     this.displayContext = displayContext;
-    zoomView = new ImageView();
     zoomImage = new WritableImage((int) displayContext.zoomKm * zoomFactor,
         (int) displayContext.zoomKm * zoomFactor);
-    zoomView.setImage(zoomImage);
+    zoomView = new MapView(zoomImage);
     //zoomView.setFitWidth(zoomImage.getWidth());
     //zoomView.setFitHeight(zoomImage.getHeight());
     infoLabel = new Label("no info");
     infoLabel.setTextFill(Color.BLUE);
     infoLabel.setBackground(new Background(
         new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-    vbox = new VBox(infoLabel,zoomView);
+    vbox = new VBox(infoLabel,zoomView.getStackPane());
     popOver = new PopOver(vbox);
   }
 

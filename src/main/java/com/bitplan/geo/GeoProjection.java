@@ -37,7 +37,7 @@ public interface GeoProjection extends Projection{
   public void setBounds(GeoRect geoRect);
   /**
    * get the bounding Rectangle
-   * @return
+   * @return the bounds
    */
   public GeoRect getBounds();
 
