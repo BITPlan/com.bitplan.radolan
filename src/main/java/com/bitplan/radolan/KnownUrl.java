@@ -164,9 +164,17 @@ public class KnownUrl {
     switch (product.toLowerCase()) {
     case "sf":
       if (!fileName.contains("latest") && dateTime!=null) {
-        long hours = ChronoUnit.HOURS.between(LocalDateTime.now(), dateTime);
-        if (hours<=-47) {
-          url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent", fileName);
+        // check the "age" of the dateTime
+        LocalDateTime now = LocalDateTime.now();
+        // previous year or earlier?
+        if (dateTime.getYear()<now.getYear()) {
+          fileName=String.format("SF%4d%02d.tar", dateTime.getYear(),dateTime.getMonthValue());
+          url = String.format("%s/%s/%4d/%s.gz", RADOLAN_HISTORY, "historical",dateTime.getYear(),fileName);
+        } else {
+          long hours = ChronoUnit.HOURS.between(now, dateTime);
+          if (hours<=-47) {
+            url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent", fileName);
+          }          
         }
       }
       break;

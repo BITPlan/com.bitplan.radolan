@@ -134,7 +134,7 @@ public class TestKnownUrls extends BaseTest {
 
   @Test
   public void testRecent() throws Exception {
-    debug=true;
+    //debug=true;
     int fails=0;
     for (int hours = 46; hours <= 50; hours++) {
       LocalDateTime agoh = LocalDateTime.now().minusHours(hours);
@@ -151,6 +151,20 @@ public class TestKnownUrls extends BaseTest {
         fails++;
     }
     assertEquals(0,fails);
+  }
+  
+  @Test
+  public void testHistory() throws Exception {
+    debug=true;
+    String [] times= {"2006-11-01 23:50","2017-07-05 16:50"};
+    for (String time:times) {
+      String url = KnownUrl.getUrl("sf", time);
+      boolean ok = pingURL(url, TIME_OUT);
+      if (debug)
+        LOGGER.log(Level.INFO, String.format("time:%s %s %s", time,
+            ok ? "✓" : " ❌", url));
+      assertTrue(ok);
+    }
   }
 
 }
