@@ -84,7 +84,7 @@ public class TestData extends BaseTest {
     String history = "src/test/data/history/";
     debug=true;
     if (debug)
-      Composite.activateDebug();
+      Debug.activateDebug();
     File sfHistoryFile = new File(
         history + "raa01-sf_10000-1805301650-dwd---bin.gz");
     assertTrue(sfHistoryFile.getName(), sfHistoryFile.exists());

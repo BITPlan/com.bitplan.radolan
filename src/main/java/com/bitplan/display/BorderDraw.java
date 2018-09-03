@@ -85,7 +85,7 @@ public class BorderDraw {
     // List<DPoint> points = borders.getPoints();
     if (debug)
       LOGGER.log(Level.INFO,
-          String.format("drawing %d border points", lineStrings.size()));
+          String.format("drawing %d border points in %.0f x %.0f", lineStrings.size(),pane.getWidth(),pane.getHeight()));
     int lineCount = 0;
     for (LineString lineString : lineStrings) {
       List<Double> polygonPoints = new ArrayList<Double>();

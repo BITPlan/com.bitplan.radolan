@@ -1,0 +1,96 @@
+{
+	"name": "RADOLAN",
+	"home": "http://www.bitplan.com/index.php/Radolan",
+	"feedback": "https://github.com/BITPlan/com.bitplan.radolan/issues",
+	"help": "http://wiki.bitplan.com/index.php/Radolan/Help",
+	"groups": [
+		{
+			"title": "Rain",
+			"icon": "cloud",
+			"forms": [
+				{
+					"title": "Current",
+					"icon": "clock_alt",
+					"readOnly": "true",
+					"fields": [
+					]
+				},
+				{
+					"title": "Film",
+					"icon": "file_movie_alt",
+					"readOnly": "true",
+					"fields": [
+					]
+				},
+				{
+					"title": "Picture",
+					"icon": "file_picture_alt",
+					"readOnly": "true",
+					"fields": [
+					]
+				}
+			]
+		}
+	],
+	"mainMenu": {
+		"subMenus": [
+			{
+				"title": "File",
+				"shortCut": "F",
+				"menuItems": [
+					{
+						"title": "Quit",
+						"shortCut": "Q"
+					}
+				]
+			},
+			{
+				"title": "Rain",
+				"shortCut": "R",
+				"menuItems": [
+					{
+						"title": "Current",
+						"shortCut": "C"
+					},
+					{
+						"title": "Film",
+						"shortCut": "F"
+					},
+					{
+						"title": "Picture",
+						"shortCut": "P"
+					}
+				]
+			},
+			{
+				"title": "Help",
+				"shortCut": "H",
+				"menuItems": [
+					{
+						"title": "About",
+						"shortCut": "A"
+					},
+					{
+						"title": "Help",
+						"shortCut": "H"
+					},
+					{
+						"title": "Feedback",
+						"shortCut": "F"
+					},
+					{
+						"title": "BugReport",
+						"shortCut": "B"
+					}
+				]
+			}
+		]
+	},
+	"exceptionHelps": [
+		{
+			"exception": "java.net.SocketException:Network is unreachable (connect failed)",
+			"url": "http://can4eve.bitplan.com/index.php/Help#java.net.SocketException:_Network_is_unreachable_.28connect_failed.29",
+			"i18nHint": "networkIsUnreachable"
+		}
+	]
+}

@@ -36,6 +36,7 @@ import cs.fau.de.since.radolan.FloatFunction;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
@@ -186,7 +187,9 @@ public class Radolan2Image {
     displayContext.mapView.getDrawPane().setOnMouseClicked(event -> {
       Pane pane = displayContext.mapView.getDrawPane();
       // view point
-      DPoint vp = new DPoint(event.getSceneX(), event.getSceneY());
+      DPoint mouseP = new DPoint(event.getSceneX(), event.getSceneY());
+      Point2D lp = pane.sceneToLocal(mouseP.x,mouseP.y);
+      DPoint vp=new DPoint(lp.getX(),lp.getY());
       // grid point
       IPoint gp = composite.translateViewToGrid(vp, pane.getWidth(),
           pane.getHeight());

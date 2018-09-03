@@ -39,14 +39,9 @@ import org.apache.commons.io.IOUtils;
 
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
-import com.bitplan.geo.UnLocodeManager;
-import com.bitplan.radolan.DisplayContext;
-import com.bitplan.radolan.ImageViewer;
 import com.bitplan.radolan.KnownUrl;
 import com.bitplan.radolan.RadarImage;
-import com.bitplan.radolan.Radolan2Image;
 import com.bitplan.radolan.Statistics;
-import com.bitplan.radolan.Zoom;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 import cs.fau.de.since.radolan.Data.Encoding;
@@ -524,18 +519,6 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
         PlainData[y][x] = value;
         getStatistics().add(value);
       }
-  }
-
-  /**
-   * activate the static debug flags of components used
-   */
-  public static void activateDebug() {
-    Composite.debug = true;
-    ImageViewer.debug = true;
-    Radolan2Image.debug = true;
-    Zoom.debug = true;
-    DisplayContext.debug = true;
-    UnLocodeManager.debug = true;
   }
 
 }

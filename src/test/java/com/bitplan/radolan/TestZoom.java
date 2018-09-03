@@ -31,6 +31,7 @@ import com.bitplan.geo.DPoint;
 import com.bitplan.geo.IPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
+import com.bitplan.javafx.WaitableApp;
 
 /**
  * test Zoom functionality
@@ -53,10 +54,12 @@ public class TestZoom extends BaseTest {
   
   @Test
   public void testZoom() throws Exception {
+    int wait=4;
     String products[] = { "sf", "rw", };
+    WaitableApp.waitTimeOutSecs=wait;
     for (String product : products) {
       String url = KnownUrl.getUrl(product, "latest");
-      testRadolan(url,90, product + ".png", null,  "-d", "-l", "Willich","-z","30");
+      testRadolan(url,wait, product + ".png", null,  "-d", "-l", "Willich","-z","30");
     }
   }
 

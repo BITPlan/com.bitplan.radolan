@@ -45,6 +45,8 @@ import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.Option;
 
 import com.bitplan.display.MapView;
+import com.bitplan.error.SoftwareVersion;
+import com.bitplan.i18n.Translator;
 import com.bitplan.javafx.Main;
 
 import cs.fau.de.since.radolan.Composite;
@@ -57,7 +59,7 @@ import javafx.scene.image.Image;
  * @author wf
  *
  */
-public class Radolan extends Main {
+public class Radolan extends Main implements SoftwareVersion {
 
   @Option(name = "-cp", aliases = {
       "--cachePath" }, usage = "path to Cache\nthe path to the Cache")
@@ -69,7 +71,7 @@ public class Radolan extends Main {
 
   @Option(name = "-i", aliases = {
       "--input" }, usage = "input\nurl/file of the input")
-  protected String input = "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif"; // "https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg";
+  protected String input = null;
 
   @Option(name = "-nc", aliases = {
       "--noCache" }, usage = "noCache\ndo not use local cache")
@@ -123,9 +125,10 @@ public class Radolan extends Main {
    * prepare the ImageViewer
    */
   protected void prepareImageViewer() {
-    ImageViewer.testMode = testMode;
-    ImageViewer.toolkitInit();
+    RadolanApp.testMode = testMode;
+    RadolanApp.toolkitInit();
   }
+
   /**
    * disable SSL
    */
@@ -168,7 +171,6 @@ public class Radolan extends Main {
     }
   }
 
-
   /**
    * show the given image
    * 
@@ -178,7 +180,7 @@ public class Radolan extends Main {
    */
   public void showImage(DisplayContext displayContext) throws Exception {
     prepareImageViewer();
-    ImageViewer imageViewer = new ImageViewer(displayContext);
+    RadolanApp imageViewer = RadolanApp.getInstance(this, displayContext);
     imageViewer.limitShowTime(this.showTimeSecs);
     imageViewer.show(); // will set view and toolTip
     imageViewer.waitOpen();
@@ -187,7 +189,7 @@ public class Radolan extends Main {
       Radolan2Image.getImage(displayContext);
       Radolan2Image.activateEvents(displayContext);
     } else {
-     
+
     }
     imageViewer.waitClose();
   }
@@ -213,11 +215,13 @@ public class Radolan extends Main {
    * do the required work
    */
   public void work() {
+    Translator.APPLICATION_PREFIX = "radolan";
+    Translator.initialize("radolan", "de");
     try {
       // make sure we do not get any SSL hassles
       disableSslVerification();
       if (debug) {
-        Composite.activateDebug();
+        Debug.activateDebug();
       }
       if (noCache) {
         Composite.useCache = false;
@@ -229,6 +233,8 @@ public class Radolan extends Main {
       if (showHelp)
         this.showHelp();
       else {
+        if (input==null && arguments.size()==0)
+          arguments.add("latest");
         if (this.arguments.size() > 0) {
           if (debug)
             LOGGER.log(Level.INFO, arguments.toString());
@@ -236,22 +242,23 @@ public class Radolan extends Main {
             input = KnownUrl.getUrl(product, argument);
             this.showCompositeForUrl(input);
           }
-        } else if (input.contains(".png") || input.contains(".jpg")
-            || input.contains(".gif")) {
+        } else if (input != null && (input.contains(".png")
+            || input.contains(".jpg") || input.contains(".gif"))) {
           if (this.showImage)
             showImage(input);
           else {
             // silently fail here?
           }
         } else {
-          this.showCompositeForUrl(input);
+          if (input != null)
+            this.showCompositeForUrl(input);
         }
         // shall we save the (latest) image
         if (displayContext != null && displayContext.mapView.getImage() != null
             && output != null && !output.isEmpty()) {
           String ext = FilenameUtils.getExtension(output);
           File outputFile = new File(output);
-          BufferedImage bImage = ImageViewer
+          BufferedImage bImage = RadolanApp
               .fromFXImage(displayContext.mapView.getImage(), null);
           String formatName = ext;
           if (bImage != null)
@@ -301,6 +308,6 @@ public class Radolan extends Main {
 
   @Override
   public String getSupportEMailPreamble() {
-    return "Dear Radolan user";
+    return "Dear BITPlan Radolan Open Source software support,";
   }
 }

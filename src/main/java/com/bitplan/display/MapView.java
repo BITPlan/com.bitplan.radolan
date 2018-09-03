@@ -35,6 +35,7 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -205,6 +206,14 @@ public class MapView {
    */
   public void addSizeListener(Stage stage) {
     this.addSizeListener(stage.widthProperty(), stage.heightProperty());
+  }
+  
+  /**
+   * add a size listener for the given region
+   * @param region - the region to react on size changes
+   */
+  public void addSizeListener(Region region) {
+    this.addSizeListener(region.widthProperty(), region.heightProperty());
   }
 
   public double getWidth() {
