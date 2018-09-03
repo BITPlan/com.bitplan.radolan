@@ -128,10 +128,12 @@ public class TestUnLocodeManager extends BaseTest {
 
   @Test
   public void testBounds() {
+    //debug =true;
     UnLocodeManager ulm = UnLocodeManager.getInstance();
     DPoint max = new DPoint(0, 0);
     DPoint min = new DPoint(360, 360);
     int issues = 0;
+    int nocoord=0;
     for (UnLocode city : ulm.unLocodes) {
 
       double lat = city.getLat();
@@ -159,6 +161,8 @@ public class TestUnLocodeManager extends BaseTest {
           if (lon > max.y)
             max.y = lon;
         }
+      } else {
+        nocoord++;
       }
     }
     String msg = String.format(Locale.ENGLISH,"bounds lat %.2f lon %.2f - lat %.2f lon %.2f",
@@ -167,5 +171,6 @@ public class TestUnLocodeManager extends BaseTest {
       LOGGER.log(Level.INFO, msg+" "+issues+" issues");
     assertEquals("bounds lat 40.80 lon 1.82 - lat 59.22 lon 15.00",msg);
     assertEquals(46,issues);
+    assertEquals(1398,nocoord);
   }
 }
