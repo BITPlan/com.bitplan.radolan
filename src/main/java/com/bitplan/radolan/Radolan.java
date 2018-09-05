@@ -280,9 +280,6 @@ public class Radolan extends Main implements SoftwareVersion {
     Composite composite = new Composite(url);
     displayContext = new DisplayContext(composite, borderName,
         Radolan2Image.borderColor, zoomKm, location);
-    displayContext.title = String.format("%s-image (%s) showing %s",
-        composite.getProduct(), composite.getDataUnit(),
-        composite.getForecastTime());
     if (debug)
       LOGGER.log(Level.INFO, displayContext.title);
     if (this.showImage)

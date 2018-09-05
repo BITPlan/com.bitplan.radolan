@@ -9,8 +9,22 @@
 			"icon": "cloud",
 			"forms": [
 				{
-					"title": "Current",
+					"title": "DailySum",
 					"icon": "clock_alt",
+					"readOnly": "true",
+					"fields": [
+					]
+				},
+				{
+					"title": "HourlySum",
+					"icon": "times_circle",
+					"readOnly": "true",
+					"fields": [
+					]
+				},
+				{
+					"title": "Minutes5",
+					"icon": "times_circle_alt",
 					"readOnly": "true",
 					"fields": [
 					]
@@ -49,8 +63,16 @@
 				"shortCut": "R",
 				"menuItems": [
 					{
-						"title": "Current",
-						"shortCut": "C"
+						"title": "DailySum",
+						"shortCut": "D"
+					},
+					{
+						"title": "HourlySum",
+						"shortCut": "H"
+					},
+					{
+						"title": "Minutes5",
+						"shortCut": "M"
 					},
 					{
 						"title": "Film",

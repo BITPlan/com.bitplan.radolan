@@ -40,12 +40,16 @@ public class RadolanI18n {
   public static final String HELP_MENU__BUG_REPORT_MENU_ITEM="HelpMenu.BugReportMenuItem"; //Create BugReport
   
   public static final String RAIN_MENU="RainMenu"; //Rain
-  public static final String RAIN_MENU__CURRENT_MENU_ITEM="RainMenu.CurrentMenuItem"; //Current
+  public static final String RAIN_MENU__DAILY_SUM_MENU_ITEM="RainMenu.DailySumMenuItem"; //Daily Sum
+  public static final String RAIN_MENU__HOURLY_SUM_MENU_ITEM="RainMenu.HourlySumMenuItem"; //Hourly Sum
+  public static final String RAIN_MENU__MINUTES5_MENU_ITEM="RainMenu.Minutes5MenuItem"; //5 Minutes
   public static final String RAIN_MENU__FILM_MENU_ITEM="RainMenu.FilmMenuItem"; //Film
   public static final String RAIN_MENU__PICTURE_MENU_ITEM="RainMenu.PictureMenuItem"; //Picture
  
   public static final String RAIN_GROUP="RainGroup"; //Rain
-  public static final String CURRENT_FORM="CurrentForm"; //Current
+  public static final String DAILY_SUM_FORM="DailySumForm"; //Tagessumme
+  public static final String HOURLY_SUM_FORM="HourlySumForm"; //Stundensumme
+  public static final String MINUTES5_FORM="Minutes5Form"; //5 Minuten
   public static final String FILM_FORM="FilmForm"; //Radar-Film
   public static final String PICTURE_FORM="PictureForm"; //Radar-Picture
   public static final String NETWORK_IS_UNREACHABLE="networkIsUnreachable"; //network is unreachable

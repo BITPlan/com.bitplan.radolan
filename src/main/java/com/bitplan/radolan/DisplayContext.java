@@ -120,6 +120,9 @@ public class DisplayContext {
         LOGGER.log(Level.WARNING, "could not find location " + locationName);
       }
     }
+    this.title = String.format("%s-image (%s) showing %s",
+        composite.getProduct(), composite.getDataUnit(),
+        composite.getForecastTime());
   }
 
   /**

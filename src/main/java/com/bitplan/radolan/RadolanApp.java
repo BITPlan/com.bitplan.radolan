@@ -26,12 +26,12 @@ package com.bitplan.radolan;
 import java.util.logging.Level;
 
 import com.bitplan.display.MapView;
-import com.bitplan.error.SoftwareVersion;
 import com.bitplan.gui.App;
 import com.bitplan.javafx.GenericApp;
 import com.bitplan.javafx.GenericDialog;
 import com.bitplan.javafx.TaskLaunch;
 
+import cs.fau.de.since.radolan.Composite;
 import javafx.beans.binding.NumberBinding;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,18 +62,20 @@ public class RadolanApp extends GenericApp {
   private String title = "RADOLAN Viewer";
   private DisplayContext displayContext;
   private MapView mapView;
+  private Radolan radolan;
 
   /**
    * construct me
    * 
    * @param app
-   * @param version
+   * @param radolan
    * @param displayContext
    * @param resourcePath
    */
-  public RadolanApp(App app, SoftwareVersion version,
-      DisplayContext displayContext, String resourcePath) {
-    super(app, version, resourcePath);
+  public RadolanApp(App app, Radolan radolan, DisplayContext displayContext,
+      String resourcePath) {
+    super(app, radolan, resourcePath);
+    this.radolan = radolan;
     this.displayContext = displayContext;
     this.title = displayContext.title;
     this.mapView = displayContext.mapView;
@@ -148,16 +150,17 @@ public class RadolanApp extends GenericApp {
             String.format("image %.0f x %.0f", width, height));
       stage.setWidth(width);
       stage.setHeight(height);
-      Tab mapViewTab = xyTabPane.getTab(RadolanI18n.CURRENT_FORM);
-      mapViewTab.setContent(mapView.getStackPane());
-      NumberBinding heightAdjust = getScene().heightProperty()
-          .subtract(xyTabPane.getTabSize()); // getMenuBar().heightProperty().add(
-      NumberBinding widthAdjust = getScene().widthProperty().subtract(xyTabPane.getTabSize());
-      // mapView.addSizeListener(widthAdjust, heightAdjust);
-      // NumberBinding
-      // heightAdjust=rainTabPane.heightProperty().add(getMenuBar().heightProperty());
-      mapView.getImageView().fitHeightProperty().bind(heightAdjust);
-      mapView.getImageView().fitWidthProperty().bind(widthAdjust);
+      addTab(RadolanI18n.DAILY_SUM_FORM, mapView);
+    }
+    try {
+      addTab("rw","latest",RadolanI18n.HOURLY_SUM_FORM);
+    } catch (Throwable th) {
+      super.handleException(th);
+    }
+    try {
+      addTab("ry","latest",RadolanI18n.MINUTES5_FORM);
+    } catch (Throwable th) {
+      super.handleException(th);
     }
     MapView filmView = new MapView(
         "https://www.dwd.de/DWD/wetter/radar/radfilm_brd_akt.gif");
@@ -168,6 +171,37 @@ public class RadolanApp extends GenericApp {
     pictureTab.setContent(
         new MapView("https://www.dwd.de/DWD/wetter/radar/rad_brd_akt.jpg")
             .getStackPane());
+  }
+
+  /**
+   * add a tab for the given product and timeDescription
+   * @param product
+   * @param timeDescription
+   * @param tabId
+   * @throws Throwable
+   */
+  private void addTab(String product, String timeDescription, String tabId) throws Throwable {
+    String productUrl = KnownUrl.getUrl(product, timeDescription);
+    Composite composite = new Composite(productUrl);
+    displayContext = new DisplayContext(composite, radolan.borderName,
+        Radolan2Image.borderColor, radolan.zoomKm, radolan.location);
+    Radolan2Image.getImage(displayContext);
+    Radolan2Image.activateEvents(displayContext);
+    addTab(RadolanI18n.HOURLY_SUM_FORM,displayContext.mapView);
+  }
+
+  private void addTab(String tabId, MapView mapView) {
+    Tab mapViewTab = xyTabPane.getTab(tabId);
+    mapViewTab.setContent(mapView.getStackPane());
+    NumberBinding heightAdjust = getScene().heightProperty()
+        .subtract(xyTabPane.getTabSize()); // getMenuBar().heightProperty().add(
+    NumberBinding widthAdjust = getScene().widthProperty()
+        .subtract(xyTabPane.getTabSize());
+    // mapView.addSizeListener(widthAdjust, heightAdjust);
+    // NumberBinding
+    // heightAdjust=rainTabPane.heightProperty().add(getMenuBar().heightProperty());
+    mapView.getImageView().fitHeightProperty().bind(heightAdjust);
+    mapView.getImageView().fitWidthProperty().bind(widthAdjust);
   }
 
   /**
@@ -244,8 +278,14 @@ public class RadolanApp extends GenericApp {
         case RadolanI18n.HELP_MENU__BUG_REPORT_MENU_ITEM:
           TaskLaunch.start(() -> showLink(app.getFeedback()));
           break;
-        case RadolanI18n.RAIN_MENU__CURRENT_MENU_ITEM:
-          this.selectTab(RadolanI18n.CURRENT_FORM);
+        case RadolanI18n.RAIN_MENU__DAILY_SUM_MENU_ITEM:
+          this.selectTab(RadolanI18n.DAILY_SUM_FORM);
+          break;
+        case RadolanI18n.RAIN_MENU__HOURLY_SUM_MENU_ITEM:
+          this.selectTab(RadolanI18n.HOURLY_SUM_FORM);
+          break;
+        case RadolanI18n.RAIN_MENU__MINUTES5_MENU_ITEM:
+          this.selectTab(RadolanI18n.MINUTES5_FORM);
           break;
         case RadolanI18n.RAIN_MENU__FILM_MENU_ITEM:
           this.selectTab(RadolanI18n.FILM_FORM);
@@ -269,16 +309,16 @@ public class RadolanApp extends GenericApp {
   /**
    * get the instance for the RadolanApp
    * 
-   * @param version
+   * @param radolan
    * @return the RadolanApp
    * @throws Exception
    */
-  public static RadolanApp getInstance(SoftwareVersion version,
+  public static RadolanApp getInstance(Radolan radolan,
       DisplayContext displayContext) throws Exception {
     if (instance == null) {
       App app = App.getInstance(RADOLAN_APP_PATH);
       GenericApp.debug = true;
-      instance = new RadolanApp(app, version, displayContext, RESOURCE_PATH);
+      instance = new RadolanApp(app,radolan, displayContext, RESOURCE_PATH);
     }
     return instance;
   }
