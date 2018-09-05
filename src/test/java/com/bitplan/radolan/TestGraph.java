@@ -23,17 +23,42 @@
  */
 package com.bitplan.radolan;
 
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.Date;
+
 import org.junit.Test;
+
+import com.bitplan.dateutils.DateUtils;
+import com.bitplan.geo.DPoint;
+import com.bitplan.geo.IPoint;
 
 import cs.fau.de.since.radolan.Composite;
 
+/**
+ * test Graph handling
+ * @author wf
+ *
+ */
 public class TestGraph extends BaseTest {
 
   @Test
   public void testRainEventSequence() throws Throwable {
     if (!super.isTravis()) {
-      String url = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/recent/raa01-sf_10000-1808242350-dwd---bin.gz";
-      Composite composite = new Composite(url);
+      String dateStr="2018-08-01 23:50";
+      Date startDate = KnownUrl.hourFormat.parse(dateStr);
+      LocalDateTime startTime=DateUtils.asLocalDateTime(startDate);
+      DPoint schiefbahn=new DPoint(51.244,6.52);
+      for (int day=0;day<35;day++) {
+        LocalDateTime wday = startTime.plus(Period.ofDays(day));
+        String url=KnownUrl.getUrlForProduct("sf", wday);
+        Composite comp=new Composite(url);
+        DPoint gdp = comp.translateLatLonToGrid(schiefbahn.x, schiefbahn.y);
+        IPoint gp=new IPoint(gdp);
+        float rain = comp.getValue(gp.x, gp.y);
+        Date wdate = DateUtils.asDate(wday);
+        System.out.println(String.format("%s %4.2f mm",KnownUrl.hourFormat.format(wdate),rain));
+      }
     }
   }
 }

@@ -24,7 +24,6 @@
 package com.bitplan.radolan;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -89,7 +88,7 @@ public class TestRadolan extends BaseTest {
     LocalDateTime starttime = LocalDateTime
         .ofInstant(Instant.now(), ZoneOffset.UTC)
         .truncatedTo(ChronoUnit.MINUTES);
-    // safety marging
+    // safety margin
     starttime = starttime.minus(Duration.ofMinutes(minDelay));
     int count = 0;
     while ((starttime.getMinute() % startMin) != startRest) {
