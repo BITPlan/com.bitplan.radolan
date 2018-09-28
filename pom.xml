@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>com.bitplan.gui</groupId>
 			<artifactId>com.bitplan.javafx</artifactId>
-			<version>0.0.21</version>
+			<version>0.0.22</version>
 		</dependency>
 		<!-- https://gis.stackexchange.com/questions/130913/geojson-java-library 
 			https://github.com/filosganga/geogson -->
