@@ -34,6 +34,7 @@ import java.util.function.Consumer;
 import java.util.zip.GZIPInputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import cs.fau.de.since.radolan.Composite;
@@ -79,7 +80,7 @@ public class TestData extends BaseTest {
     }
   }
 
-  @Test
+  @Ignore
   public void testSF1805301650() throws Throwable {
     String history = "src/test/data/history/";
     debug=true;
