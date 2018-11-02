@@ -76,14 +76,15 @@ public class TestData extends BaseTest {
           product, product);
       Composite c = new Composite(url);
       checkLittleEndian(c, product.toUpperCase());
-      System.out.println(product + "->" + c.getStatistics());
+      if (debug)
+        System.out.println(product + "->" + c.getStatistics());
     }
   }
 
   @Ignore
   public void testSF1805301650() throws Throwable {
     String history = "src/test/data/history/";
-    debug=true;
+    debug = true;
     if (debug)
       Debug.activateDebug();
     File sfHistoryFile = new File(
@@ -119,9 +120,9 @@ public class TestData extends BaseTest {
         if (Math.abs(crval - cval) > 0.001) {
           errCount++;
           if (errCount < limit) {
-            float d10 = (crval-cval)*10;
-            System.out.println(
-                String.format("%3d,%3d: %5.1f != %5.1f d*10=%5.1f", x, y, cval, crval,d10));
+            float d10 = (crval - cval) * 10;
+            System.out.println(String.format(
+                "%3d,%3d: %5.1f != %5.1f d*10=%5.1f", x, y, cval, crval, d10));
           }
         }
       }

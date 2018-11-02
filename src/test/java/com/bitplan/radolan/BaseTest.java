@@ -36,6 +36,7 @@ import cs.fau.de.since.radolan.Composite;
 
 /**
  * Base class for tests
+ * 
  * @author wf
  *
  */
@@ -43,7 +44,7 @@ public class BaseTest {
   public static boolean debug = false;
 
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  
+
   /**
    * check if we are in the Travis-CI environment
    * 
@@ -53,7 +54,7 @@ public class BaseTest {
     String user = System.getProperty("user.name");
     return user.equals("travis");
   }
-  
+
   String tmpDir = System.getProperty("java.io.tmpdir");
 
   /**
@@ -64,26 +65,30 @@ public class BaseTest {
    * @param fakeGradient2
    */
   public void testRadolan(String url, int viewTimeSecs, String output,
-      Consumer<Composite> postInit, String ... args) {
+      Consumer<Composite> postInit, String... args) {
     Composite.setPostInit(postInit);
     String outputPath = "";
     if (output != null)
-      outputPath = tmpDir + "/"+ output;  
-    String defaultargs[] = { 
-        "-d",
-        "-i", url, "-st", "" + viewTimeSecs, "-o",
+      outputPath = tmpDir + "/" + output;
+    String defaultargs[] = { "-d", "-i", url, "-st", "" + viewTimeSecs, "-o",
         outputPath };
     // https://stackoverflow.com/a/23188881/1497139
     // add args to defaultargs
-    String[] finalargs = Stream.concat(Arrays.stream(defaultargs), Arrays.stream(args))
+    String[] finalargs = Stream
+        .concat(Arrays.stream(defaultargs), Arrays.stream(args))
         .toArray(String[]::new);
     Radolan.testMode = true;
-    Radolan.main(finalargs);
+    Radolan radolan = new Radolan();
+    radolan.maininstance(finalargs);
     if (output != null) {
       File outputFile = new File(outputPath);
       if (debug)
-        LOGGER.log(Level.INFO,"created output file: "+outputFile.getAbsolutePath());
+        LOGGER.log(Level.INFO,
+            "created output file: " + outputFile.getAbsolutePath());
       assertTrue(outputFile.getPath(), outputFile.exists());
     }
+    if (radolan.imageViewer != null)
+      radolan.imageViewer.close();
+
   }
 }

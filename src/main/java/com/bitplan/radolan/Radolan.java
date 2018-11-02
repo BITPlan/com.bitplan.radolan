@@ -106,6 +106,8 @@ public class Radolan extends Main implements SoftwareVersion {
 
   private DisplayContext displayContext;
 
+  RadolanApp imageViewer;
+
   /**
    * stop the application with the given exit Code
    * 
@@ -180,7 +182,7 @@ public class Radolan extends Main implements SoftwareVersion {
    */
   public void showImage(DisplayContext displayContext) throws Exception {
     prepareImageViewer();
-    RadolanApp imageViewer = RadolanApp.getInstance(this, displayContext);
+    imageViewer = RadolanApp.getInstance(this, displayContext);
     imageViewer.limitShowTime(this.showTimeSecs);
     imageViewer.show(); // will set view and toolTip
     imageViewer.waitOpen();
