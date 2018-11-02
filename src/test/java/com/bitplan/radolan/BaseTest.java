@@ -89,6 +89,5 @@ public class BaseTest {
     }
     if (radolan.imageViewer != null)
       radolan.imageViewer.close();
-
   }
 }

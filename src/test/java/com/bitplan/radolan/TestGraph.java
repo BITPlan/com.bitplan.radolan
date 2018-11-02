@@ -49,7 +49,7 @@ public class TestGraph extends BaseTest {
       Date startDate = KnownUrl.hourFormat.parse(dateStr);
       LocalDateTime startTime=DateUtils.asLocalDateTime(startDate);
       DPoint schiefbahn=new DPoint(51.244,6.52);
-      for (int day=0;day<31;day++) {
+      for (int day=0;day<62;day++) {
         LocalDateTime wday = startTime.plus(Period.ofDays(day));
         String url=KnownUrl.getUrlForProduct("sf", wday);
         Composite comp=new Composite(url);
@@ -57,7 +57,7 @@ public class TestGraph extends BaseTest {
         IPoint gp=new IPoint(gdp);
         float rain = comp.getValue(gp.x, gp.y);
         Date wdate = DateUtils.asDate(wday);
-        System.out.println(String.format("%s %4.2f mm",KnownUrl.hourFormat.format(wdate),rain));
+        System.out.println(String.format("%s %5.2f mm",KnownUrl.hourFormat.format(wdate),rain));
       }
     }
   }

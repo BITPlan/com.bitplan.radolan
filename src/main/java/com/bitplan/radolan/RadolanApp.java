@@ -244,6 +244,7 @@ public class RadolanApp extends GenericApp {
 
   public void close() {
     super.close();
+    instance=null;
     // if (!testMode)
     // System.exit(0);
   }

@@ -293,6 +293,7 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
     InputStream inputStream = new URL(url).openStream();
     read(inputStream);
     init();
+    inputStream.close();
   }
 
   /**
@@ -520,5 +521,4 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
         getStatistics().add(value);
       }
   }
-
 }
