@@ -1,5 +1,5 @@
 ### com.bitplan.radolan
-[parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan](http://www.bitplan.com/Radolan) 
+[parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan](http://www.bitplan.com/Radolan)
 
 [![Travis (.org)](https://img.shields.io/travis/BITPlan/com.bitplan.radolan.svg)](https://travis-ci.org/BITPlan/com.bitplan.radolan)
 [![Maven Central](https://img.shields.io/maven-central/v/com.bitplan.radolan/com.bitplan.radolan.svg)](https://search.maven.org/artifact/com.bitplan.radolan/com.bitplan.radolan/0.0.2/jar)
@@ -17,6 +17,7 @@
 
 Maven dependency
 ```xml
+<!-- parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan http://www.bitplan.com/Radolan -->
 <dependency>
   <groupId>com.bitplan.radolan</groupId>
   <artifactId>com.bitplan.radolan</artifactId>
