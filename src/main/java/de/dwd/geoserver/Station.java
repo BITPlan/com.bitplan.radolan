@@ -34,7 +34,7 @@ import de.dwd.geoserver.WFS.WFSResponse;
 import de.dwd.geoserver.WFS.WFSType;
 
 /**
- * a weather station of Deutscher Wetterdienst
+ * a weather station (e.g. of Deutscher Wetterdienst)
  * 
  * @author wf
  *
@@ -126,7 +126,7 @@ public class Station {
     Map<String, Station> stations = new HashMap<String, Station>();
     Coord nw = new Coord(47.3, 5.9);
     Coord se = new Coord(55.0, 15.1);
-    WFSResponse wfsresponse = WFS.getResponseForBox(WFSType.FF, nw, se);
+    WFSResponse wfsresponse = WFS.getResponseForBox(WFSType.VPGB, nw, se);
     for (Feature feature : wfsresponse.features) {
       if (!stations.containsKey(feature.properties.ID)) {
         Station station = new Station(feature);

@@ -35,6 +35,7 @@ import org.openweathermap.weather.Coord;
 
 /**
  * handle Stations
+ * 
  * @author wf
  *
  */
@@ -43,122 +44,167 @@ public class StationManager {
   public static StationManager instance;
   private TinkerGraph graph;
   private File graphFile;
-  
+  public static final Coord Germany_SouthEast = new Coord(55.0, 15.1);
+  public static final Coord Germany_NorthWest = new Coord(47.3, 5.9);
+
   /**
    * the constructor
    */
   protected StationManager() {
     graph = TinkerGraph.open();
-    String graphFilePath=System.getProperty("user.home")
-    + java.io.File.separator + ".radolan/stations.xml";
-    graphFile=new File(graphFilePath);
+    String graphFilePath = System.getProperty("user.home")
+        + java.io.File.separator + ".radolan/stations.xml";
+    graphFile = new File(graphFilePath);
     if (graphFile.exists()) {
       read(graphFile);
     }
   }
-   
+
   public void read(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
-    graph.traversal().io(graphFile.getPath()).with(IO.reader,IO.graphml).read().iterate();   
+    graph.traversal().io(graphFile.getPath()).with(IO.reader, IO.graphml).read()
+        .iterate();
   }
-  
+
   public void write(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
-    graph.traversal().io(graphFile.getPath()).with(IO.writer,IO.graphml).write().iterate();     
+    graph.traversal().io(graphFile.getPath()).with(IO.writer, IO.graphml)
+        .write().iterate();
   }
-  
+
   public void write() {
     write(graphFile);
   }
-  
+
   /**
    * get the instance of the StationManager
+   * 
    * @return - the instance
    */
   public static StationManager getInstance() {
-    if (instance==null) {
-      instance=new StationManager();
+    if (instance == null) {
+      instance = new StationManager();
     }
     return instance;
   }
 
   /**
+   * add the given observation to the graph
+   * 
+   * @param observation
+   */
+  public void add(Observation observation) {
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V()
+        .hasLabel("observation").has("date", observation.date).in("has")
+        .has("id", observation.station.id);
+    if (stationTraversal.hasNext()) {
+      System.out.println(observation.toString() + " already exists");
+    } else {
+      Vertex stationVertex = this.getStationVertexById(observation.station.id);
+      Vertex oVertex = graph.addVertex("observation");
+      observation.toVertex(oVertex);
+      stationVertex.addEdge("has", oVertex);
+    }
+  }
+
+  /**
    * add a station to the graph
+   * 
    * @param station
    */
   public void add(Station station) {
-    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",station.id);
-    Vertex stationVertex;
-    if (stationTraversal.hasNext()) {
-      stationVertex=stationTraversal.next();
-    } else {
-      stationVertex= graph.addVertex();
-    }
-    toVertex(station,stationVertex);
+    Vertex stationVertex = this.getStationVertexById(station.id);
+    toVertex(station, stationVertex);
   }
-  
+
   /**
-   * get the station by it's id
-   * @param id
-   * @return
+   * get the Station vertex for the given station id
+   * 
+   * @param stationid
+   * @return the Station Vertex
    */
-  public Station byId(String id) {
-    Station station=new Station();
-    station.id=id;
-    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",station.id);
+  public Vertex getStationVertexById(String stationid) {
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",
+        stationid);
     Vertex stationVertex;
     if (stationTraversal.hasNext()) {
-      stationVertex=stationTraversal.next();
-      fromVertex(station,stationVertex);
+      stationVertex = stationTraversal.next();
+    } else {
+      stationVertex = graph.addVertex("station");
     }
-    return station;
+    return stationVertex;
   }
-  
+
   /**
    * fill the given stationVertex with the given station data
+   * 
    * @param station
    * @param stationVertex
    */
   private void toVertex(Station station, Vertex stationVertex) {
-    stationVertex.property("id",station.id);
-    stationVertex.property("name",station.name);
-    stationVertex.property("lat",station.coord.getLat());
-    stationVertex.property("lon",station.coord.getLon());
+    stationVertex.property("id", station.id);
+    stationVertex.property("name", station.name);
+    stationVertex.property("lat", station.coord.getLat());
+    stationVertex.property("lon", station.coord.getLon());
   }
-  
+
   /**
    * get the given station from the given station Vertex
+   * 
    * @param station
    * @param stationVertex
    */
-  private void fromVertex(Station station,Vertex stationVertex) {
-    station.id=(String) stationVertex.property("id").value();
-    station.name=(String) stationVertex.property("name").value();
-    double lat=(double) stationVertex.property("lat").value();
-    double lon=(double) stationVertex.property("lon").value();
-    station.coord=new Coord(lat,lon);
+  private void fromVertex(Station station, Vertex stationVertex) {
+    station.id = (String) stationVertex.property("id").value();
+    station.name = (String) stationVertex.property("name").value();
+    double lat = (double) stationVertex.property("lat").value();
+    double lon = (double) stationVertex.property("lon").value();
+    station.coord = new Coord(lat, lon);
+  }
+
+  /**
+   * get the station by it's id
+   * 
+   * @param id
+   * @return
+   */
+  public Station byId(String id) {
+    Station station = new Station();
+    station.id = id;
+    Vertex stationVertex = this.getStationVertexById(station.id);
+    fromVertex(station, stationVertex);
+    return station;
   }
 
   public GraphTraversalSource g() {
     return graph.traversal();
   }
-  
+
   /**
    * initialize the station manager
+   * 
    * @return the initialized station manager
    * @throws Exception
    */
   public static StationManager init() throws Exception {
     Map<String, Station> stations = Station.getAllStations();
     StationManager sm = StationManager.getInstance();
-    for (Station station:stations.values()) {
+    for (Station station : stations.values()) {
       sm.add(station);
     }
     sm.write();
     return sm;
   }
 
+  public Coord getSouthEast() {
+    return Germany_SouthEast;
+  }
+
+  public Coord getNorthWest() {
+    return Germany_NorthWest;
+  }
+
   public static void reset() {
-    instance=null;
+    instance = null;
   }
 }

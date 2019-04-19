@@ -34,11 +34,13 @@ import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
 
+import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import de.dwd.geoserver.WFS;
 import de.dwd.geoserver.WFS.Feature;
 import de.dwd.geoserver.WFS.WFSResponse;
+import de.dwd.geoserver.WFS.WFSType;
 
 /**
  * test Open data services of Deutscher Wetterdienst
@@ -126,6 +128,17 @@ public class TestDWD {
     assertEquals("Düsseldorf",dus.getName());
     assertEquals(6.7686,dus.getCoord().getLon(),0.001);
     assertEquals(51.296,dus.getCoord().getLat(),0.001);
+  }
+  
+  @Test
+  public void testGetObservations() throws Exception {
+    StationManager sm=StationManager.init();
+    Observation.getObservations(sm,WFSType.VPGB);
+    long obsCount = sm.g().V().hasLabel("observation").count().next().longValue();
+    System.out.println(obsCount);
+    sm.write();
+    long sCount=sm.g().V().hasLabel("observation").in("has").count().next().longValue();
+    System.out.println(sCount);
   }
 
 }
