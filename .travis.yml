@@ -46,3 +46,5 @@ addons:
     packages:
       #- oracle-java8-installer
       - xvfb
+      - openjfx
+      - mesa-utils
