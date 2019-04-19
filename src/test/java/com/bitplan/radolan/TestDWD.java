@@ -109,19 +109,23 @@ public class TestDWD {
     assertNotNull(wfsResponse);
     assertEquals(3,wfsResponse.totalFeatures);
   }
-  
+ 
   @Test
   public void testStationManager() throws Exception {
-    Map<String, Station> stations = Station.getAllStations();
-    StationManager sm = StationManager.getInstance();
-    for (Station station:stations.values()) {
-      sm.add(station);
-    }
-    sm.write();
+    StationManager sm = StationManager.init();
     assertEquals(74,sm.g().V().count().next().longValue());
     StationManager.reset();
     sm = StationManager.getInstance();
     assertEquals(74,sm.g().V().count().next().longValue());
+  }
+  
+  @Test
+  public void testStationById() throws Exception {
+    StationManager sm=StationManager.init();
+    Station dus = sm.byId("1078");
+    assertEquals("Düsseldorf",dus.getName());
+    assertEquals(6.7686,dus.getCoord().getLon(),0.001);
+    assertEquals(51.296,dus.getCoord().getLat(),0.001);
   }
 
 }

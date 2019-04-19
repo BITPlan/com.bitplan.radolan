@@ -45,6 +45,30 @@ public class Station {
   Coord coord;
   Double distance;
 
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public Coord getCoord() {
+    return coord;
+  }
+
+  public void setCoord(Coord coord) {
+    this.coord = coord;
+  }
+
   /**
    * Construct a station of Deutscher Wetterdienst
    * 
@@ -78,6 +102,12 @@ public class Station {
    */
   public Station(Feature feature) {
     this(feature, 0.0);
+  }
+
+  /**
+   * default constructor
+   */
+  public Station() {
   }
 
   public String toString() {

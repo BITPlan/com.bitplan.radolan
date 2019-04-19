@@ -24,12 +24,14 @@
 package de.dwd.geoserver;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.tinkerpop.gremlin.process.traversal.IO;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
+import org.openweathermap.weather.Coord;
 
 /**
  * handle Stations
@@ -85,20 +87,75 @@ public class StationManager {
    * @param station
    */
   public void add(Station station) {
-    GraphTraversalSource g = graph.traversal();
-    GraphTraversal<Vertex, Vertex> stationTraversal = g.V().has("id",station.id);
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",station.id);
     Vertex stationVertex;
     if (stationTraversal.hasNext()) {
       stationVertex=stationTraversal.next();
     } else {
       stationVertex= graph.addVertex();
     }
-    stationVertex.property("id",station.id);
-    stationVertex.property("name",station.name);
+    toVertex(station,stationVertex);
   }
   
+  /**
+   * get the station by it's id
+   * @param id
+   * @return
+   */
+  public Station byId(String id) {
+    Station station=new Station();
+    station.id=id;
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",station.id);
+    Vertex stationVertex;
+    if (stationTraversal.hasNext()) {
+      stationVertex=stationTraversal.next();
+      fromVertex(station,stationVertex);
+    }
+    return station;
+  }
+  
+  /**
+   * fill the given stationVertex with the given station data
+   * @param station
+   * @param stationVertex
+   */
+  private void toVertex(Station station, Vertex stationVertex) {
+    stationVertex.property("id",station.id);
+    stationVertex.property("name",station.name);
+    stationVertex.property("lat",station.coord.getLat());
+    stationVertex.property("lon",station.coord.getLon());
+  }
+  
+  /**
+   * get the given station from the given station Vertex
+   * @param station
+   * @param stationVertex
+   */
+  private void fromVertex(Station station,Vertex stationVertex) {
+    station.id=(String) stationVertex.property("id").value();
+    station.name=(String) stationVertex.property("name").value();
+    double lat=(double) stationVertex.property("lat").value();
+    double lon=(double) stationVertex.property("lon").value();
+    station.coord=new Coord(lat,lon);
+  }
+
   public GraphTraversalSource g() {
     return graph.traversal();
+  }
+  
+  /**
+   * initialize the station manager
+   * @return the initialized station manager
+   * @throws Exception
+   */
+  public static StationManager init() throws Exception {
+    Map<String, Station> stations = Station.getAllStations();
+    StationManager sm = StationManager.getInstance();
+    for (Station station:stations.values()) {
+      sm.add(station);
+    }
+    sm.write();
+    return sm;
   }
 
   public static void reset() {
