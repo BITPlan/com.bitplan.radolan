@@ -34,7 +34,8 @@ import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
 
-import de.dwd.geoserver.DWDStation;
+import de.dwd.geoserver.Station;
+import de.dwd.geoserver.StationManager;
 import de.dwd.geoserver.WFS;
 import de.dwd.geoserver.WFS.Feature;
 import de.dwd.geoserver.WFS.WFSResponse;
@@ -56,7 +57,7 @@ public class TestDWD {
    */
   @Test
   public void testWFS() throws Exception {
-    TestSuite.debug = true;
+    // TestSuite.debug = true;
     WFS.debug = TestSuite.debug;
     Location location = Location.byName("Knickelsdorf/DE");
     if (TestSuite.debug)
@@ -75,26 +76,26 @@ public class TestDWD {
         System.out
             .println(String.format("\t%s", feature.properties.toString()));
       }
-    DWDStation dusStation = wfsresponse.getClosestStation(coord);
+    Station dusStation = wfsresponse.getClosestStation(coord);
     assertEquals("Düsseldorf(1078) - 18,6 km   51° 17’ 45.60” N   6° 46’  6.96” E", dusStation.toString());
   }
   
   @Test
   public void testGetAllStations() throws Exception {
-    Map<String, DWDStation> stations = DWDStation.getAllStations();
+    Map<String, Station> stations = Station.getAllStations();
     assertEquals(74,stations.size());
   }
   
-  public DWDStation getDUSStation() {
+  public Station getDUSStation() {
     Coord duscoord=new Coord(51.296,6.7686);
-    DWDStation dusStation=new DWDStation("1078","Düsseldorf",duscoord,18.6);
+    Station dusStation=new Station("1078","Düsseldorf",duscoord,18.6);
     return dusStation;
   }
   
   @Test
   public void testEvaporationHistoryFromDWDStation() throws Exception {
-    WFS.debug=true;
-    DWDStation dusStation=getDUSStation();
+    WFS.debug=TestSuite.debug;
+    Station dusStation=getDUSStation();
     WFSResponse wfsResponse=WFS.getEvaporationHistory(dusStation);
     assertNotNull(wfsResponse);
     assertTrue(wfsResponse.totalFeatures>0);
@@ -102,11 +103,25 @@ public class TestDWD {
   
   @Test
   public void testRainHistoryFromDWDStation() throws Exception {
-    WFS.debug=true;
-    DWDStation dusStation=getDUSStation();
+    WFS.debug=TestSuite.debug;
+    Station dusStation=getDUSStation();
     WFSResponse wfsResponse=WFS.getRainHistory(dusStation);
     assertNotNull(wfsResponse);
     assertEquals(3,wfsResponse.totalFeatures);
+  }
+  
+  @Test
+  public void testStationManager() throws Exception {
+    Map<String, Station> stations = Station.getAllStations();
+    StationManager sm = StationManager.getInstance();
+    for (Station station:stations.values()) {
+      sm.add(station);
+    }
+    sm.write();
+    assertEquals(74,sm.g().V().count().next().longValue());
+    StationManager.reset();
+    sm = StationManager.getInstance();
+    assertEquals(74,sm.g().V().count().next().longValue());
   }
 
 }

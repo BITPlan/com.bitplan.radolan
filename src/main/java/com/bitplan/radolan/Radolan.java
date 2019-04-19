@@ -64,7 +64,7 @@ public class Radolan extends Main implements SoftwareVersion {
   @Option(name = "-cp", aliases = {
       "--cachePath" }, usage = "path to Cache\nthe path to the Cache")
   protected String cachePath = System.getProperty("user.home")
-      + java.io.File.separator + ".radolan";;
+      + java.io.File.separator + ".radolan";
 
   @Option(name = "-b", aliases = { "--borderName" }, usage = "borderName\n")
   protected String borderName = "2_bundeslaender/2_hoch.geojson";

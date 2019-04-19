@@ -30,7 +30,6 @@ import java.util.Map;
 import org.openweathermap.weather.Coord;
 
 import de.dwd.geoserver.WFS.Feature;
-import de.dwd.geoserver.WFS.Property;
 import de.dwd.geoserver.WFS.WFSResponse;
 import de.dwd.geoserver.WFS.WFSType;
 
@@ -40,7 +39,7 @@ import de.dwd.geoserver.WFS.WFSType;
  * @author wf
  *
  */
-public class DWDStation {
+public class Station {
   String name;
   public String id;
   Coord coord;
@@ -54,7 +53,7 @@ public class DWDStation {
    * @param coord
    * @param distance
    */
-  public DWDStation(String id, String name, Coord coord, double distance) {
+  public Station(String id, String name, Coord coord, double distance) {
     this.id = id;
     this.name = name;
     this.coord = coord;
@@ -67,7 +66,7 @@ public class DWDStation {
    * @param feature
    * @param distance
    */
-  public DWDStation(Feature feature, double distance) {
+  public Station(Feature feature, double distance) {
     this(feature.properties.ID, feature.properties.NAME,
         feature.geometry.getCoord(), distance);
   }
@@ -77,7 +76,7 @@ public class DWDStation {
    * 
    * @param feature
    */
-  public DWDStation(Feature feature) {
+  public Station(Feature feature) {
     this(feature, 0.0);
   }
 
@@ -93,17 +92,18 @@ public class DWDStation {
    * @return the map of DWD Stations by ID
    * @throws Exception
    */
-  public static Map<String, DWDStation> getAllStations() throws Exception {
-    Map<String, DWDStation> stations = new HashMap<String, DWDStation>();
+  public static Map<String, Station> getAllStations() throws Exception {
+    Map<String, Station> stations = new HashMap<String, Station>();
     Coord nw = new Coord(47.3, 5.9);
     Coord se = new Coord(55.0, 15.1);
     WFSResponse wfsresponse = WFS.getResponseForBox(WFSType.FF, nw, se);
     for (Feature feature : wfsresponse.features) {
       if (!stations.containsKey(feature.properties.ID)) {
-        DWDStation station = new DWDStation(feature);
+        Station station = new Station(feature);
         stations.put(station.id, station);
       }
     }
     return stations;
   }
+
 }

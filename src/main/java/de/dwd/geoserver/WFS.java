@@ -80,16 +80,16 @@ public class WFS {
      * @param coord
      * @return - the closest DWD Station
      */
-    public DWDStation getClosestStation(Coord coord) {
-      DWDStation station = null;
+    public Station getClosestStation(Coord coord) {
+      Station station = null;
       if (totalFeatures > 0) {
-        Map<Double, DWDStation> distanceMap = new TreeMap<Double, DWDStation>();
+        Map<Double, Station> distanceMap = new TreeMap<Double, Station>();
         for (Feature feature : features) {
           double distance = feature.geometry.getCoord().distance(coord);
-          DWDStation fstation = new DWDStation(feature,distance);
+          Station fstation = new Station(feature,distance);
           distanceMap.put(distance, fstation);
         }
-        Entry<Double, DWDStation> first = distanceMap.entrySet().iterator()
+        Entry<Double, Station> first = distanceMap.entrySet().iterator()
             .next();
         station = first.getValue();
       }
@@ -238,7 +238,7 @@ public class WFS {
    * @return - the rain history
    * @throws Exception
    */
-  public static WFSResponse getRainHistory(DWDStation dwdStation) throws Exception {
+  public static WFSResponse getRainHistory(Station dwdStation) throws Exception {
     return getResponseAt(WFSType.RR,dwdStation.coord,0.01);
   }
 
@@ -248,7 +248,7 @@ public class WFS {
    * @return the evaporation history
    * @throws Exception 
    */
-  public static WFSResponse getEvaporationHistory(DWDStation dwdStation) throws Exception {
+  public static WFSResponse getEvaporationHistory(Station dwdStation) throws Exception {
     return getResponseAt(WFSType.VPGB,dwdStation.coord,0.01);
   }
 }
