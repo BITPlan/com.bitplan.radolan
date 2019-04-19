@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>com.bitplan.pom</groupId>
 		<artifactId>com.bitplan.pom</artifactId>
-		<version>0.0.16</version>
+		<version>0.0.30</version>
 		<relativePath>../com.bitplan.pom/pom.xml</relativePath>
 	</parent>
 	<groupId>com.bitplan.radolan</groupId>
 	<artifactId>com.bitplan.radolan</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>com.bitplan.radolan</name>
 	<description>parses the DWD RADOLAN / RADVOR radar composite format - Java port of https://gitlab.cs.fau.de/since/radolan</description>
 	<ciManagement>
@@ -30,7 +30,6 @@
 		<dependency>
 			<groupId>com.bitplan.gui</groupId>
 			<artifactId>com.bitplan.javafx</artifactId>
-			<version>0.0.22</version>
 		</dependency>
 		<!-- https://gis.stackexchange.com/questions/130913/geojson-java-library 
 			https://github.com/filosganga/geogson -->
@@ -81,9 +80,14 @@
 		<dependency>
 			<groupId>com.bitplan.gui</groupId>
 			<artifactId>com.bitplan.gui</artifactId>
-			<version>${com.bitplan.gui.version}</version>			<type>test-jar</type>
+			<type>test-jar</type>
 			<scope>test</scope>
-
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.6</version>
 		</dependency>
 	</dependencies>
 	<build>

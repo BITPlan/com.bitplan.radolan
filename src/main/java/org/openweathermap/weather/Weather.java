@@ -21,27 +21,11 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package com.bitplan.radolan;
+package org.openweathermap.weather;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class, TestDWD.class, TestUnLocodeManager.class,
-    TestKnownUrls.class, TestTranslate.class, TestConversion.class,
-    TestData.class, TestCache.class, TestHeader.class, TestZoom.class,
-    TestRadolan.class, TestGraph.class })
-/**
- * TestSuite
- * 
- * @author wf
- *
- *         no content necessary - annotation has info
- */
-public class TestSuite {
-  public static boolean debug = false;
+public class Weather {
+  public long id;
+  public String main;
+  public String description;
+  public String icon;
 }

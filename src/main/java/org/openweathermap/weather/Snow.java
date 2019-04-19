@@ -21,27 +21,16 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package com.bitplan.radolan;
+package org.openweathermap.weather;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import com.google.gson.annotations.SerializedName;
 
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class, TestDWD.class, TestUnLocodeManager.class,
-    TestKnownUrls.class, TestTranslate.class, TestConversion.class,
-    TestData.class, TestCache.class, TestHeader.class, TestZoom.class,
-    TestRadolan.class, TestGraph.class })
 /**
- * TestSuite
- * 
+ * Snow as in open weather API
  * @author wf
- *
- *         no content necessary - annotation has info
+ * "snow":{"3h":0},
  */
-public class TestSuite {
-  public static boolean debug = false;
+public class Snow {
+  @SerializedName(value="3h")
+  public double mm;
 }

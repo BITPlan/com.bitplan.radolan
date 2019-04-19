@@ -21,27 +21,39 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package com.bitplan.radolan;
+package org.openweathermap.weather;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class, TestDWD.class, TestUnLocodeManager.class,
-    TestKnownUrls.class, TestTranslate.class, TestConversion.class,
-    TestData.class, TestCache.class, TestHeader.class, TestZoom.class,
-    TestRadolan.class, TestGraph.class })
 /**
- * TestSuite
+ * Weather Report from openweathermap.org
  * 
  * @author wf
  *
- *         no content necessary - annotation has info
  */
-public class TestSuite {
-  public static boolean debug = false;
+public class WeatherReport extends OpenWeatherMapApi {
+  /**
+   * members of the Weather report
+   */
+  public Coord coord;
+  public Weather[] weather;
+  public Main main;
+  public Clouds clouds;
+  public Rain rain;
+  public Wind wind;
+  public Sys sys;
+  public String base;
+  public long id;
+  public long dt;
+  public String name;
+  public long cod;
+  
+  /**
+   * get a Weather report by location
+   * @param location
+   * @return - the weather report
+   */
+  public static WeatherReport getByLocation(Location location) {
+    WeatherReport report=(WeatherReport) OpenWeatherMapApi.getByLocation(location, "weather","",WeatherReport.class);
+    return report;
+  }
+  
 }

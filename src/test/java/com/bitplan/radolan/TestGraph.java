@@ -45,11 +45,12 @@ public class TestGraph extends BaseTest {
   @Test
   public void testRainEventSequence() throws Throwable {
     if (!super.isTravis()) {
-      String dateStr="2019-02-01 23:50";
+      String dateStr="2019-04-15 23:50";
       Date startDate = KnownUrl.hourFormat.parse(dateStr);
       LocalDateTime startTime=DateUtils.asLocalDateTime(startDate);
       DPoint schiefbahn=new DPoint(51.244,6.52);
-      for (int day=0;day<62;day++) {
+      Composite.debug=true;
+      for (int day=0;day<4;day++) {
         LocalDateTime wday = startTime.plus(Period.ofDays(day));
         String url=KnownUrl.getUrlForProduct("sf", wday);
         Composite comp=new Composite(url);

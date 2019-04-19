@@ -21,27 +21,34 @@
  * Parts which are derived from https://gitlab.cs.fau.de/since/radolan are also
  * under MIT license.
  */
-package com.bitplan.radolan;
+package org.openweathermap.weather;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
-
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
-
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class, TestDWD.class, TestUnLocodeManager.class,
-    TestKnownUrls.class, TestTranslate.class, TestConversion.class,
-    TestData.class, TestCache.class, TestHeader.class, TestZoom.class,
-    TestRadolan.class, TestGraph.class })
 /**
- * TestSuite
- * 
+ * Forecast for openweathermap
+ * example https://samples.openweathermap.org/data/2.5/forecast?id=524901&appid=b6907d289e10d714a6e88b30761fae22
  * @author wf
  *
- *         no content necessary - annotation has info
  */
-public class TestSuite {
-  public static boolean debug = false;
+public class Forecast {
+  public long dt;
+  public String dt_txt;
+  public Main main;
+  public Weather[] weather;
+  public Clouds clouds;
+  public Snow snow;
+  public Rain rain;
+  public Wind wind;
+  
+  /**
+   * get the precipitation for this forecast
+   * @return the precipitation
+   */
+  public double getPrecipitation() {
+    double result=0.0;
+    if (rain!=null)
+      result+=rain.mm;
+    if (snow!=null)
+      result+=snow.mm;
+    return result;
+  }
 }

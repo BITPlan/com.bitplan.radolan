@@ -334,7 +334,7 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
     if (!cacheFile.exists()) {
       URL uri = new URL(url);
       if (debug)
-        LOGGER.log(Level.INFO, "caching to " + cacheFile.getPath());
+        LOGGER.log(Level.INFO, String.format("caching %s to %s",url,cacheFile.getPath()));
       // cache the URL content
       FileUtils.copyURLToFile(uri, cacheFile);
     } else {
