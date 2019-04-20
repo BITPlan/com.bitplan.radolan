@@ -224,6 +224,16 @@ public class WFS {
     if (debug)
       LOGGER.log(Level.INFO, url);
     String json = JsonUtil.read(url);
+    return fromJson(json);
+  }
+   
+  /**
+   * get a WFSResponse from the given json string
+   * @param json
+   * @return
+   * @throws Exception
+   */
+  public static WFSResponse fromJson(String json) throws Exception {  
     if (debug) {
       LOGGER.log(Level.INFO, json.replaceAll("\\{", "\n{"));
     }

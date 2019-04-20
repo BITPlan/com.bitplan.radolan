@@ -27,9 +27,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
@@ -139,6 +142,15 @@ public class TestDWD {
     long obsCount = sm.g().V().hasLabel("observation").count().next().longValue();
     System.out.println(obsCount);
     sm.write();
+    long sCount=sm.g().V().hasLabel("observation").in("has").count().next().longValue();
+    System.out.println(sCount);
+  }
+  
+  @Test
+  public void testGetEvaporationHistory() throws Exception {
+    File evapdir = new File("src/test/data/geoserver");
+    StationManager sm=StationManager.init();
+    Observation.getObservations(sm, evapdir);
     long sCount=sm.g().V().hasLabel("observation").in("has").count().next().longValue();
     System.out.println(sCount);
   }
