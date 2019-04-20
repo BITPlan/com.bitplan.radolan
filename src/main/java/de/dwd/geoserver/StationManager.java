@@ -58,14 +58,25 @@ public class StationManager {
     if (graphFile.exists()) {
       read(graphFile);
     }
+    if (!graphFile.getParentFile().exists()) {
+      graphFile.getParentFile().mkdirs();
+    }
   }
 
+  /**
+   * read my data from the given graphFile
+   * @param graphFile
+   */
   public void read(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
     graph.traversal().io(graphFile.getPath()).with(IO.reader, IO.graphml).read()
         .iterate();
   }
 
+  /**
+   * write my data to the given graphFile
+   * @param graphFile
+   */
   public void write(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
     graph.traversal().io(graphFile.getPath()).with(IO.writer, IO.graphml)

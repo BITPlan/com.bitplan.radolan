@@ -82,10 +82,12 @@ public class TestDWD {
     assertEquals("Düsseldorf(1078) - 18,6 km   51° 17’ 45.60” N   6° 46’  6.96” E", dusStation.toString());
   }
   
+  public final int EXPECTED_STATIONS=67;
+  
   @Test
   public void testGetAllStations() throws Exception {
     Map<String, Station> stations = Station.getAllStations();
-    assertEquals(74,stations.size());
+    assertEquals(EXPECTED_STATIONS,stations.size());
   }
   
   public Station getDUSStation() {
@@ -115,10 +117,10 @@ public class TestDWD {
   @Test
   public void testStationManager() throws Exception {
     StationManager sm = StationManager.init();
-    assertEquals(74,sm.g().V().count().next().longValue());
+    assertEquals(EXPECTED_STATIONS,sm.g().V().count().next().longValue());
     StationManager.reset();
     sm = StationManager.getInstance();
-    assertEquals(74,sm.g().V().count().next().longValue());
+    assertEquals(EXPECTED_STATIONS,74,sm.g().V().count().next().longValue());
   }
   
   @Test
