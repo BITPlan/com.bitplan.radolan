@@ -65,6 +65,7 @@ public class StationManager {
 
   /**
    * read my data from the given graphFile
+   * 
    * @param graphFile
    */
   public void read(File graphFile) {
@@ -75,6 +76,7 @@ public class StationManager {
 
   /**
    * write my data to the given graphFile
+   * 
    * @param graphFile
    */
   public void write(File graphFile) {
@@ -107,11 +109,11 @@ public class StationManager {
   public void add(Observation observation) {
     GraphTraversal<Vertex, Vertex> stationTraversal = g().V()
         .hasLabel("observation").has("date", observation.date).in("has")
-        .has("id", observation.station.id);
+        .has("stationid", observation.getStation().id);
     if (stationTraversal.hasNext()) {
       System.out.println(observation.toString() + " already exists");
     } else {
-      Vertex stationVertex = this.getStationVertexById(observation.station.id);
+      Vertex stationVertex = this.getStationVertexById(observation.getStation().id);
       Vertex oVertex = graph.addVertex("observation");
       observation.toVertex(oVertex);
       stationVertex.addEdge("has", oVertex);
@@ -135,7 +137,7 @@ public class StationManager {
    * @return the Station Vertex
    */
   public Vertex getStationVertexById(String stationid) {
-    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("id",
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("stationid",
         stationid);
     Vertex stationVertex;
     if (stationTraversal.hasNext()) {
@@ -153,7 +155,7 @@ public class StationManager {
    * @param stationVertex
    */
   private void toVertex(Station station, Vertex stationVertex) {
-    stationVertex.property("id", station.id);
+    stationVertex.property("stationid", station.id);
     stationVertex.property("name", station.name);
     stationVertex.property("lat", station.coord.getLat());
     stationVertex.property("lon", station.coord.getLon());
@@ -166,11 +168,14 @@ public class StationManager {
    * @param stationVertex
    */
   private void fromVertex(Station station, Vertex stationVertex) {
-    station.id = (String) stationVertex.property("id").value();
+    station.id = (String) stationVertex.property("stationid").value();
     station.name = (String) stationVertex.property("name").value();
-    double lat = (double) stationVertex.property("lat").value();
-    double lon = (double) stationVertex.property("lon").value();
-    station.coord = new Coord(lat, lon);
+    if ((stationVertex.property("lat").isPresent())
+        && (stationVertex.property("lon").isPresent())) {
+      double lat = (double) stationVertex.property("lat").value();
+      double lon = (double) stationVertex.property("lon").value();
+      station.coord = new Coord(lat, lon);
+    }
   }
 
   /**

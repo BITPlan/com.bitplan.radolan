@@ -23,16 +23,16 @@
  */
 package com.bitplan.radolan;
 
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.logging.Logger;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
@@ -47,6 +47,7 @@ import de.dwd.geoserver.WFS.WFSType;
 
 /**
  * test Open data services of Deutscher Wetterdienst
+ * 
  * @author wf
  *
  */
@@ -69,7 +70,7 @@ public class TestDWD {
       System.out.println(location.toString());
     Coord coord = location.getCoord();
     assertNotNull(coord);
-    WFSResponse wfsresponse = WFS.getResponseAt(WFS.WFSType.RR,coord, 0.5);
+    WFSResponse wfsresponse = WFS.getResponseAt(WFS.WFSType.RR, coord, 0.5);
     assertNotNull(wfsresponse);
     assertEquals("FeatureCollection", wfsresponse.type);
     assertEquals(9, wfsresponse.totalFeatures);
@@ -82,77 +83,124 @@ public class TestDWD {
             .println(String.format("\t%s", feature.properties.toString()));
       }
     Station dusStation = wfsresponse.getClosestStation(coord);
-    assertEquals("Düsseldorf(1078) - 18,6 km   51° 17’ 45.60” N   6° 46’  6.96” E", dusStation.toString());
+    assertEquals(
+        "Düsseldorf(1078) - 18,6 km   51° 17’ 45.60” N   6° 46’  6.96” E",
+        dusStation.toString());
   }
-  
-  public final int EXPECTED_STATIONS=67;
-  
+
+  public final int EXPECTED_STATIONS = 67;
+
   @Test
   public void testGetAllStations() throws Exception {
     Map<String, Station> stations = Station.getAllStations();
-    assertEquals(EXPECTED_STATIONS,stations.size());
+    assertEquals(EXPECTED_STATIONS, stations.size());
   }
-  
+
   public Station getDUSStation() {
-    Coord duscoord=new Coord(51.296,6.7686);
-    Station dusStation=new Station("1078","Düsseldorf",duscoord,18.6);
+    Coord duscoord = new Coord(51.296, 6.7686);
+    Station dusStation = new Station("1078", "Düsseldorf", duscoord, 18.6);
     return dusStation;
   }
-  
+
   @Test
   public void testEvaporationHistoryFromDWDStation() throws Exception {
-    WFS.debug=TestSuite.debug;
-    Station dusStation=getDUSStation();
-    WFSResponse wfsResponse=WFS.getEvaporationHistory(dusStation);
+    WFS.debug = TestSuite.debug;
+    Station dusStation = getDUSStation();
+    WFSResponse wfsResponse = WFS.getEvaporationHistory(dusStation);
     assertNotNull(wfsResponse);
-    assertTrue(wfsResponse.totalFeatures>0);
+    assertTrue(wfsResponse.totalFeatures > 0);
   }
-  
+
   @Test
   public void testRainHistoryFromDWDStation() throws Exception {
-    WFS.debug=TestSuite.debug;
-    Station dusStation=getDUSStation();
-    WFSResponse wfsResponse=WFS.getRainHistory(dusStation);
+    WFS.debug = TestSuite.debug;
+    Station dusStation = getDUSStation();
+    WFSResponse wfsResponse = WFS.getRainHistory(dusStation);
     assertNotNull(wfsResponse);
-    assertEquals(3,wfsResponse.totalFeatures);
+    assertEquals(3, wfsResponse.totalFeatures);
   }
- 
+
   @Test
   public void testStationManager() throws Exception {
     StationManager sm = StationManager.init();
-    assertEquals(EXPECTED_STATIONS,sm.g().V().count().next().longValue());
+    assertEquals(EXPECTED_STATIONS,
+        sm.g().V().hasLabel("station").count().next().longValue());
     StationManager.reset();
     sm = StationManager.getInstance();
-    assertEquals(EXPECTED_STATIONS,74,sm.g().V().count().next().longValue());
+    assertEquals(EXPECTED_STATIONS,
+        sm.g().V().hasLabel("station").count().next().longValue());
   }
-  
+
   @Test
   public void testStationById() throws Exception {
-    StationManager sm=StationManager.init();
+    StationManager sm = StationManager.init();
     Station dus = sm.byId("1078");
-    assertEquals("Düsseldorf",dus.getName());
-    assertEquals(6.7686,dus.getCoord().getLon(),0.001);
-    assertEquals(51.296,dus.getCoord().getLat(),0.001);
+    assertEquals("Düsseldorf", dus.getName());
+    assertEquals(6.7686, dus.getCoord().getLon(), 0.001);
+    assertEquals(51.296, dus.getCoord().getLat(), 0.001);
   }
-  
+
   @Test
   public void testGetObservations() throws Exception {
-    StationManager sm=StationManager.init();
-    Observation.getObservations(sm,WFSType.VPGB);
-    long obsCount = sm.g().V().hasLabel("observation").count().next().longValue();
+    StationManager sm = StationManager.init();
+    Observation.getObservations(sm, WFSType.VPGB);
+    long obsCount = sm.g().V().hasLabel("observation").count().next()
+        .longValue();
     System.out.println(obsCount);
     sm.write();
-    long sCount=sm.g().V().hasLabel("observation").in("has").count().next().longValue();
-    System.out.println(sCount);
-  }
-  
-  @Test
-  public void testGetEvaporationHistory() throws Exception {
-    File evapdir = new File("src/test/data/geoserver");
-    StationManager sm=StationManager.init();
-    Observation.getObservations(sm, evapdir);
-    long sCount=sm.g().V().hasLabel("observation").in("has").count().next().longValue();
+    long sCount = sm.g().V().hasLabel("observation").in("has").count().next()
+        .longValue();
     System.out.println(sCount);
   }
 
+  /**
+   * show the given map entries
+   * 
+   * @param map
+   */
+  public void showMap(String title, Map<Object, Object> map) {
+    System.out.println(title + ":" + map.values().size());
+    for (Entry<Object, Object> entry : map.entrySet()) {
+      System.out
+          .println(String.format("\t%s=%s", entry.getKey(), entry.getValue()));
+    }
+  }
+
+  public void showObject(String title, Object object) {
+    System.out.println(title + "("+object.getClass().getName()+"):" + object.toString());
+  }
+
+  @Test
+  public void testGetEvaporationHistory() throws Exception {
+    File evapdir = new File("src/test/data/geoserver");
+    StationManager sm = StationManager.init();
+    Observation.getObservations(sm, evapdir);
+    long eCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
+        .count().next().longValue();
+    sm.g().V().hasLabel("observation").has("name", "evaporation").forEachRemaining(v->{
+      Observation o;
+      try {
+        o = Observation.from(v);
+        Station s=sm.byId(o.getStationid());
+        o.setStation(s);
+        System.out.println(o.toString());
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+
+    });;
+    
+    System.out.println(eCount);
+    sm.g().V().hasLabel("station").group("stations").by("name").out("has")
+        .has("name", "evaporation").group("evapsum").by(values("value").sum())
+        .cap("stations", "evapsum").forEachRemaining(m->{
+          Map<Object,Map<Object,Object>> map=(Map<Object, Map<Object,Object>>) m;
+          Map<Object,Object> m1=map.get("evapsum");
+          Map<Object,Object> m2=map.get("stations");
+          System.out.println(m1.size());
+          System.out.println(m2.size());
+        });
+    
+  }
 }

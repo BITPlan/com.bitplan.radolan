@@ -28,6 +28,7 @@ import java.io.FileFilter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
@@ -47,11 +48,30 @@ public class Observation {
   public static boolean debug = true;
   static DateFormat isoDateFormat = new SimpleDateFormat(
       "yyyy-MM-dd'T'HH:mm:ss'Z'");
+  static DateFormat defaultDateFormatter =new SimpleDateFormat(
+      "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
-  Station station; // the station this Observation was made
+  private Station station; // the station this Observation was made
+  private String stationid; 
   Date date; // date time of the observation
   String name; // the name of the observation
   Double value; // the value of the observation
+
+  public String getStationid() {
+    return stationid;
+  }
+
+  public void setStationid(String stationid) {
+    this.stationid = stationid;
+  }
+
+  public Station getStation() {
+    return station;
+  }
+
+  public void setStation(Station station) {
+    this.station = station;
+  }
 
   /**
    * get the Observations for the given station manager and WFSType
@@ -83,7 +103,7 @@ public class Observation {
       if (debug)
         System.out.println(props.toString());
       Station station = sm.byId(props.ID);
-      observation.station = station;
+      observation.setStation(station);
       observation.date = isoDateFormat.parse(props.M_DATE);
       if (props.EVAPORATION != null) {
         observation.name = "evaporation";
@@ -122,13 +142,37 @@ public class Observation {
     oVertex.property("name", name);
     oVertex.property("value", value);
     oVertex.property("date", date);
+    if (getStation()!=null) {
+      oVertex.property("stationid",getStation().id);
+    }
+  }
+  
+  /**
+   * get an Observation from the given vertex
+   * @param oVertex
+   * @return the Observation
+   * @throws Exception
+   */
+  public static Observation from(Vertex oVertex) throws Exception {
+    Observation o=new Observation();
+    o.name=oVertex.property("name").value().toString();
+    o.value=(Double) oVertex.property("value").value();
+    Object dobject = oVertex.property("date").value();
+    if (dobject instanceof Date)
+      o.date=(Date) dobject;
+    else
+      o.date=defaultDateFormatter.parse(dobject.toString());
+    if (oVertex.property("stationid").isPresent()) {
+      o.setStationid(oVertex.property("stationid").value().toString());
+    }
+    return o;
   }
 
   /**
    * convert me to a human readable string
    */
   public String toString() {
-    String text = String.format("%s: %s=%5.1f", isoDateFormat.format(date),
+    String text = String.format("%s: %s -> %s=%5.1f", getStation()!=null?getStation().name:getStationid(),isoDateFormat.format(date),
         name, value);
     return text;
   }
