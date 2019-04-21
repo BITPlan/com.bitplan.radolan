@@ -135,6 +135,7 @@ public class Observation {
       WFSResponse wfsResponse=WFS.fromJson(json);
       getObservations(sm,wfsResponse);
     }
+    sm.write();
   }
 
   /**
