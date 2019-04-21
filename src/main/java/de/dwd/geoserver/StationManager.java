@@ -110,7 +110,8 @@ public class StationManager {
     GraphTraversal<Vertex, Vertex> stationTraversal = g().V()
         .hasLabel("observation")
         .has("stationid",observation.getStationid())
-        .has("date", observation.date);
+        .has("date", observation.date)
+        .has("name", observation.name);
     if (stationTraversal.hasNext()) {
       System.out.println(observation.toString() + " already exists");
     } else {
@@ -138,7 +139,7 @@ public class StationManager {
    * @return the Station Vertex
    */
   public Vertex getStationVertexById(String stationid) {
-    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().has("stationid",
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().hasLabel("station").has("stationid",
         stationid);
     Vertex stationVertex;
     if (stationTraversal.hasNext()) {

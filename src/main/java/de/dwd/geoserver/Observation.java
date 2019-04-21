@@ -115,6 +115,7 @@ public class Observation {
       }
       sm.add(observation);
     }
+    sm.write();
   }
   
   /**

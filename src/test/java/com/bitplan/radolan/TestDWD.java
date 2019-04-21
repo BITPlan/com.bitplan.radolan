@@ -23,9 +23,7 @@
  */
 package com.bitplan.radolan;
 
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.inV;
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.outV;
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -63,6 +61,7 @@ public class TestDWD {
   public final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
+  public static boolean debug = true;
 
   /**
    * test DWD Data
@@ -149,14 +148,17 @@ public class TestDWD {
   @Test
   public void testGetObservations() throws Exception {
     StationManager sm = StationManager.init();
+    long obsCount1 = sm.g().V().hasLabel("observation")
+        .has("name", "evaporation").count().next().longValue();
     Observation.getObservations(sm, WFSType.VPGB);
-    long obsCount = sm.g().V().hasLabel("observation").count().next()
-        .longValue();
-    assertEquals(EXPECTED_OBSERVATIONS, obsCount);
+    long obsCount2 = sm.g().V().hasLabel("observation")
+        .has("name", "evaporation").count().next().longValue();
+    if (debug)
+      System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
+    assertEquals(EXPECTED_OBSERVATIONS, obsCount2);
 
-    sm.write();
-    long sCount = sm.g().V().hasLabel("observation").in("has").count().next()
-        .longValue();
+    long sCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
+        .in("has").count().next().longValue();
     assertEquals(EXPECTED_OBSERVATIONS, sCount);
   }
 
@@ -204,26 +206,52 @@ public class TestDWD {
   public void testGetEvaporationHistory() throws Exception {
     File evapdir = new File("src/test/data/geoserver");
     StationManager sm = StationManager.init();
-    Observation.getObservations(sm, evapdir);
-    long obsCount = sm.g().V().hasLabel("observation")
+    long obsCount1 = sm.g().V().hasLabel("observation")
         .has("name", "evaporation").count().next().longValue();
-    //assertEquals(EXPECTED_OBSERVATIONS,obsCount);
-    sm.g().V("1577").forEachRemaining(v->showVertex("1577",v));
-    sm.g().E().hasLabel("has").group().by(inV().values("name"))
-        .by(outV().values("value").mean()).order(Scope.local)
-        .by(Column.values, Order.desc)
-        .forEachRemaining(m -> showNumberMap("mean", m, "%5.1f", "mm"));
-    sm.g().E().hasLabel("has").group().by(inV().values("name"))
-        .by(outV().values("value").sum()).order(Scope.local)
+    Observation.getObservations(sm, evapdir);
+    long obsCount2 = sm.g().V().hasLabel("observation")
+        .has("name", "evaporation").count().next().longValue();
+    if (debug)
+      System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
+    assertEquals(EXPECTED_OBSERVATIONS, obsCount2);
+    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
+        .by("stationid").by(values("value").sum()).order(Scope.local)
         .by(Column.values, Order.desc)
         .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f", "mm"));
     sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-        .by("stationid").by(values("value").count())
-        .order(Scope.local).by(Column.values, Order.desc)
+        .by("stationid").by(values("value").count()).order(Scope.local)
+        .by(Column.values, Order.desc)
         .forEachRemaining(m -> showNumberMap("count", m, "%3d", ""));
     Map<Object, Long> countMap = (Map<Object, Long>) sm.g().V()
         .hasLabel("observation").has("name", "evaporation").groupCount()
         .by("stationid").order(Scope.local).by(Column.keys, Order.asc).next();
     System.out.println(countMap.size());
+    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
+        .by("stationid").by(values("value").mean()).order(Scope.local)
+        .by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("mean", m, "%5.1f", "mm"));
+    long edgeCount=sm.g().E().hasLabel("has").count().next().longValue();
+    assertEquals(EXPECTED_OBSERVATIONS,edgeCount);
+    sm.g().E().hasLabel("has").
+       group()
+        .by(outV().values("name"))
+        .by(inV().values("value").count()).
+       order(Scope.local)
+        .by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("count", m, "%3d", ""));
+    sm.g().E().hasLabel("has").
+    group()
+     .by(outV().values("name"))
+     .by(inV().values("value").mean()).
+    order(Scope.local)
+     .by(Column.values, Order.desc)
+    .forEachRemaining(m -> showNumberMap("mean", m, "%5.1f", "mm"));
+    sm.g().E().hasLabel("has").
+    group()
+     .by(outV().values("name"))
+     .by(inV().values("value").sum()).
+    order(Scope.local)
+     .by(Column.values, Order.desc)
+    .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f", "mm"));
   }
 }
