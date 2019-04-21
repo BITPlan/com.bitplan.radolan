@@ -2,7 +2,7 @@
   "type": "FeatureCollection",
   "features": [{
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_858",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-360e",
     "geometry": {
       "type": "Point",
       "coordinates": [13.9908, 53.0316]
@@ -11,13 +11,13 @@
     "properties": {
       "ID": 164,
       "NAME": "Angermünde",
-      "EVAPORATION": 4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.1,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.9908, 53.0316, 13.9908, 53.0316]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_859",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-360d",
     "geometry": {
       "type": "Point",
       "coordinates": [13.4343, 54.6792]
@@ -26,13 +26,13 @@
     "properties": {
       "ID": 183,
       "NAME": "Arkona",
-      "EVAPORATION": 1.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 2.1,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.4343, 54.6792, 13.4343, 54.6792]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85a",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-360c",
     "geometry": {
       "type": "Point",
       "coordinates": [10.942, 48.4254]
@@ -41,13 +41,13 @@
     "properties": {
       "ID": 232,
       "NAME": "Augsburg",
-      "EVAPORATION": 4.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.942, 48.4254, 10.942, 48.4254]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85b",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-360b",
     "geometry": {
       "type": "Point",
       "coordinates": [10.9206, 49.8742]
@@ -56,13 +56,13 @@
     "properties": {
       "ID": 282,
       "NAME": "Bamberg",
-      "EVAPORATION": 5.1,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.9206, 49.8742, 10.9206, 49.8742]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85c",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-360a",
     "geometry": {
       "type": "Point",
       "coordinates": [13.3017, 52.4537]
@@ -71,13 +71,13 @@
     "properties": {
       "ID": 403,
       "NAME": "Berlin-Dahlem (FU)",
-      "EVAPORATION": 4.7,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.3017, 52.4537, 13.3017, 52.4537]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85d",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3609",
     "geometry": {
       "type": "Point",
       "coordinates": [13.3088, 52.5644]
@@ -86,13 +86,13 @@
     "properties": {
       "ID": 430,
       "NAME": "Berlin-Tegel",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.3088, 52.5644, 13.3088, 52.5644]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85e",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3608",
     "geometry": {
       "type": "Point",
       "coordinates": [13.4021, 52.4675]
@@ -101,13 +101,13 @@
     "properties": {
       "ID": 433,
       "NAME": "Berlin-Tempelhof",
-      "EVAPORATION": 4.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.6,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.4021, 52.4675, 13.4021, 52.4675]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_85f",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3607",
     "geometry": {
       "type": "Point",
       "coordinates": [8.7979, 53.045]
@@ -117,12 +117,12 @@
       "ID": 691,
       "NAME": "Bremen",
       "EVAPORATION": 4.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.7979, 53.045, 8.7979, 53.045]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_860",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3606",
     "geometry": {
       "type": "Point",
       "coordinates": [14.3168, 51.776]
@@ -131,13 +131,13 @@
     "properties": {
       "ID": 880,
       "NAME": "Cottbus",
-      "EVAPORATION": 4.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.6,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [14.3168, 51.776, 14.3168, 51.776]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_861",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3605",
     "geometry": {
       "type": "Point",
       "coordinates": [8.7058, 53.8713]
@@ -146,13 +146,13 @@
     "properties": {
       "ID": 891,
       "NAME": "Cuxhaven",
-      "EVAPORATION": 3.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.7058, 53.8713, 8.7058, 53.8713]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_862",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3604",
     "geometry": {
       "type": "Point",
       "coordinates": [13.7543, 51.128]
@@ -161,13 +161,13 @@
     "properties": {
       "ID": 1048,
       "NAME": "Dresden-Klotzsche",
-      "EVAPORATION": 4.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.7543, 51.128, 13.7543, 51.128]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_863",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3603",
     "geometry": {
       "type": "Point",
       "coordinates": [6.7686, 51.296]
@@ -176,13 +176,13 @@
     "properties": {
       "ID": 1078,
       "NAME": "Düsseldorf",
-      "EVAPORATION": 5.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.1,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [6.7686, 51.296, 6.7686, 51.296]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_864",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3602",
     "geometry": {
       "type": "Point",
       "coordinates": [11.8133, 48.3477]
@@ -191,13 +191,13 @@
     "properties": {
       "ID": 1262,
       "NAME": "München-Flughafen",
-      "EVAPORATION": 4.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.8133, 48.3477, 11.8133, 48.3477]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_865",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3601",
     "geometry": {
       "type": "Point",
       "coordinates": [10.9608, 50.9829]
@@ -206,13 +206,13 @@
     "properties": {
       "ID": 1270,
       "NAME": "Erfurt-Weimar",
-      "EVAPORATION": 4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.2,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.9608, 50.9829, 10.9608, 50.9829]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_866",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-3600",
     "geometry": {
       "type": "Point",
       "coordinates": [6.9677, 51.4041]
@@ -221,13 +221,13 @@
     "properties": {
       "ID": 1303,
       "NAME": "Essen-Bredeney",
-      "EVAPORATION": 5.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [6.9677, 51.4041, 6.9677, 51.4041]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_867",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ff",
     "geometry": {
       "type": "Point",
       "coordinates": [8.5213, 50.0259]
@@ -236,13 +236,13 @@
     "properties": {
       "ID": 1420,
       "NAME": "Frankfurt/Main",
-      "EVAPORATION": 5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.5213, 50.0259, 8.5213, 50.0259]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_868",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35fe",
     "geometry": {
       "type": "Point",
       "coordinates": [8.4091, 48.4537]
@@ -251,13 +251,13 @@
     "properties": {
       "ID": 1468,
       "NAME": "Freudenstadt",
-      "EVAPORATION": 3.7,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.4091, 48.4537, 8.4091, 48.4537]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_869",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35fd",
     "geometry": {
       "type": "Point",
       "coordinates": [9.2799, 51.119]
@@ -267,12 +267,12 @@
       "ID": 1504,
       "NAME": "Fritzlar (Flugplatz)",
       "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.2799, 51.119, 9.2799, 51.119]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86a",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35fc",
     "geometry": {
       "type": "Point",
       "coordinates": [12.1289, 50.8813]
@@ -281,13 +281,13 @@
     "properties": {
       "ID": 1612,
       "NAME": "Gera-Leumnitz",
-      "EVAPORATION": 4.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.1289, 50.8813, 12.1289, 50.8813]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86b",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35fb",
     "geometry": {
       "type": "Point",
       "coordinates": [8.6439, 50.6017]
@@ -296,13 +296,13 @@
     "properties": {
       "ID": 1639,
       "NAME": "Gießen/Wettenberg",
-      "EVAPORATION": 5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.6439, 50.6017, 8.6439, 50.6017]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86c",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35fa",
     "geometry": {
       "type": "Point",
       "coordinates": [14.9506, 51.1622]
@@ -311,13 +311,13 @@
     "properties": {
       "ID": 1684,
       "NAME": "Görlitz",
-      "EVAPORATION": 4.1,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [14.9506, 51.1622, 14.9506, 51.1622]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86d",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f9",
     "geometry": {
       "type": "Point",
       "coordinates": [13.4056, 54.0967]
@@ -326,13 +326,13 @@
     "properties": {
       "ID": 1757,
       "NAME": "Greifswald",
-      "EVAPORATION": 1.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 2.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.4056, 54.0967, 13.4056, 54.0967]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86e",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f8",
     "geometry": {
       "type": "Point",
       "coordinates": [7.6969, 52.1344]
@@ -341,13 +341,13 @@
     "properties": {
       "ID": 1766,
       "NAME": "Münster/Osnabrück",
-      "EVAPORATION": 4.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.6969, 52.1344, 7.6969, 52.1344]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_86f",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f7",
     "geometry": {
       "type": "Point",
       "coordinates": [9.9881, 53.6332]
@@ -356,13 +356,13 @@
     "properties": {
       "ID": 1975,
       "NAME": "Hamburg-Fuhlsbüttel",
-      "EVAPORATION": 3.7,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.2,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.9881, 53.6332, 9.9881, 53.6332]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_870",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f6",
     "geometry": {
       "type": "Point",
       "coordinates": [9.6779, 52.4644]
@@ -371,13 +371,13 @@
     "properties": {
       "ID": 2014,
       "NAME": "Hannover",
-      "EVAPORATION": 4.5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.6779, 52.4644, 9.6779, 52.4644]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_871",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f5",
     "geometry": {
       "type": "Point",
       "coordinates": [7.892, 54.175]
@@ -386,13 +386,13 @@
     "properties": {
       "ID": 2115,
       "NAME": "Helgoland",
-      "EVAPORATION": 2.5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 2.6,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.892, 54.175, 7.892, 54.175]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_872",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f4",
     "geometry": {
       "type": "Point",
       "coordinates": [11.8761, 50.3122]
@@ -401,13 +401,13 @@
     "properties": {
       "ID": 2261,
       "NAME": "Hof",
-      "EVAPORATION": 4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.8761, 50.3122, 11.8761, 50.3122]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_873",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f3",
     "geometry": {
       "type": "Point",
       "coordinates": [11.0108, 47.8009]
@@ -416,13 +416,13 @@
     "properties": {
       "ID": 2290,
       "NAME": "Hohenpeißenberg",
-      "EVAPORATION": 3.7,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.0108, 47.8009, 11.0108, 47.8009]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_874",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f2",
     "geometry": {
       "type": "Point",
       "coordinates": [8.4891, 51.1803]
@@ -431,13 +431,13 @@
     "properties": {
       "ID": 2483,
       "NAME": "Kahler Asten",
-      "EVAPORATION": 4.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.4891, 51.1803, 8.4891, 51.1803]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_875",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f1",
     "geometry": {
       "type": "Point",
       "coordinates": [10.3348, 47.7233]
@@ -446,13 +446,13 @@
     "properties": {
       "ID": 2559,
       "NAME": "Kempten",
-      "EVAPORATION": 3.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.3348, 47.7233, 10.3348, 47.7233]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_876",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35f0",
     "geometry": {
       "type": "Point",
       "coordinates": [10.1433, 54.3761]
@@ -461,13 +461,13 @@
     "properties": {
       "ID": 2564,
       "NAME": "Kiel-Holtenau",
-      "EVAPORATION": 2.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.1433, 54.3761, 10.1433, 54.3761]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_877",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ef",
     "geometry": {
       "type": "Point",
       "coordinates": [7.1575, 50.8646]
@@ -476,13 +476,13 @@
     "properties": {
       "ID": 2667,
       "NAME": "Köln-Bonn",
-      "EVAPORATION": 5.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.1575, 50.8646, 7.1575, 50.8646]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_878",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ee",
     "geometry": {
       "type": "Point",
       "coordinates": [9.1901, 47.6774]
@@ -491,13 +491,13 @@
     "properties": {
       "ID": 2712,
       "NAME": "Konstanz",
-      "EVAPORATION": 3.9,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.1901, 47.6774, 9.1901, 47.6774]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_879",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ed",
     "geometry": {
       "type": "Point",
       "coordinates": [7.828, 48.3647]
@@ -506,13 +506,13 @@
     "properties": {
       "ID": 2812,
       "NAME": "Lahr",
-      "EVAPORATION": 4.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.828, 48.3647, 7.828, 48.3647]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87a",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ec",
     "geometry": {
       "type": "Point",
       "coordinates": [12.2396, 51.4348]
@@ -521,13 +521,13 @@
     "properties": {
       "ID": 2932,
       "NAME": "Leipzig/Halle",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.2396, 51.4348, 12.2396, 51.4348]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87b",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35eb",
     "geometry": {
       "type": "Point",
       "coordinates": [14.118, 52.2085]
@@ -537,12 +537,12 @@
       "ID": 3015,
       "NAME": "Lindenberg",
       "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [14.118, 52.2085, 14.118, 52.2085]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87c",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ea",
     "geometry": {
       "type": "Point",
       "coordinates": [8.8388, 51.7855]
@@ -551,13 +551,13 @@
     "properties": {
       "ID": 3028,
       "NAME": "Lippspringe, Bad",
-      "EVAPORATION": 5.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.8388, 51.7855, 8.8388, 51.7855]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87d",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e9",
     "geometry": {
       "type": "Point",
       "coordinates": [11.1374, 52.9724]
@@ -566,13 +566,13 @@
     "properties": {
       "ID": 3093,
       "NAME": "Lüchow",
-      "EVAPORATION": 4.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.1374, 52.9724, 11.1374, 52.9724]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87e",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e8",
     "geometry": {
       "type": "Point",
       "coordinates": [11.5827, 52.1029]
@@ -581,13 +581,13 @@
     "properties": {
       "ID": 3126,
       "NAME": "Magdeburg",
-      "EVAPORATION": 4.1,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.5827, 52.1029, 11.5827, 52.1029]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_87f",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e7",
     "geometry": {
       "type": "Point",
       "coordinates": [11.9319, 53.3223]
@@ -596,13 +596,13 @@
     "properties": {
       "ID": 3196,
       "NAME": "Marnitz",
-      "EVAPORATION": 4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.2,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.9319, 53.3223, 11.9319, 53.3223]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_880",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e6",
     "geometry": {
       "type": "Point",
       "coordinates": [10.3771, 50.5612]
@@ -611,13 +611,13 @@
     "properties": {
       "ID": 3231,
       "NAME": "Meiningen",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.3771, 50.5612, 10.3771, 50.5612]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_881",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e5",
     "geometry": {
       "type": "Point",
       "coordinates": [12.8072, 52.9037]
@@ -626,13 +626,13 @@
     "properties": {
       "ID": 3552,
       "NAME": "Neuruppin",
-      "EVAPORATION": 4.5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.7,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.8072, 52.9037, 12.8072, 52.9037]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_882",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e4",
     "geometry": {
       "type": "Point",
       "coordinates": [7.1519, 53.7123]
@@ -641,13 +641,13 @@
     "properties": {
       "ID": 3631,
       "NAME": "Norderney",
-      "EVAPORATION": 3.1,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 2.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.1519, 53.7123, 7.1519, 53.7123]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_883",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e3",
     "geometry": {
       "type": "Point",
       "coordinates": [10.276, 47.3986]
@@ -656,13 +656,13 @@
     "properties": {
       "ID": 3730,
       "NAME": "Oberstdorf",
-      "EVAPORATION": 3.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [10.276, 47.3986, 10.276, 47.3986]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_884",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e2",
     "geometry": {
       "type": "Point",
       "coordinates": [9.5175, 49.207]
@@ -671,13 +671,13 @@
     "properties": {
       "ID": 3761,
       "NAME": "Öhringen",
-      "EVAPORATION": 4.9,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.2,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.5175, 49.207, 9.5175, 49.207]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_885",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e1",
     "geometry": {
       "type": "Point",
       "coordinates": [13.0622, 52.3813]
@@ -686,13 +686,13 @@
     "properties": {
       "ID": 3987,
       "NAME": "Potsdam",
-      "EVAPORATION": 5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.0622, 52.3813, 13.0622, 52.3813]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_886",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35e0",
     "geometry": {
       "type": "Point",
       "coordinates": [12.1019, 49.0425]
@@ -701,13 +701,13 @@
     "properties": {
       "ID": 4104,
       "NAME": "Regensburg",
-      "EVAPORATION": 4.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.1019, 49.0425, 12.1019, 49.0425]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_887",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35df",
     "geometry": {
       "type": "Point",
       "coordinates": [8.3301, 48.9726]
@@ -716,13 +716,13 @@
     "properties": {
       "ID": 4177,
       "NAME": "Rheinstetten",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.3301, 48.9726, 8.3301, 48.9726]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_888",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35de",
     "geometry": {
       "type": "Point",
       "coordinates": [12.0808, 54.1803]
@@ -731,13 +731,13 @@
     "properties": {
       "ID": 4271,
       "NAME": "Rostock-Warnemünde",
-      "EVAPORATION": 2.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.0808, 54.1803, 12.0808, 54.1803]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_889",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35dd",
     "geometry": {
       "type": "Point",
       "coordinates": [7.1077, 49.2128]
@@ -746,13 +746,13 @@
     "properties": {
       "ID": 4336,
       "NAME": "Saarbrücken-Ensheim",
-      "EVAPORATION": 5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.1077, 49.2128, 7.1077, 49.2128]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88a",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35dc",
     "geometry": {
       "type": "Point",
       "coordinates": [9.5487, 54.5275]
@@ -761,13 +761,13 @@
     "properties": {
       "ID": 4466,
       "NAME": "Schleswig",
-      "EVAPORATION": 3.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 3.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.5487, 54.5275, 9.5487, 54.5275]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88b",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35db",
     "geometry": {
       "type": "Point",
       "coordinates": [11.3872, 53.6425]
@@ -776,13 +776,13 @@
     "properties": {
       "ID": 4625,
       "NAME": "Schwerin",
-      "EVAPORATION": 3.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.2,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.3872, 53.6425, 11.3872, 53.6425]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88c",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35da",
     "geometry": {
       "type": "Point",
       "coordinates": [9.8646, 48.6657]
@@ -791,13 +791,13 @@
     "properties": {
       "ID": 4887,
       "NAME": "Stötten",
-      "EVAPORATION": 4.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.8646, 48.6657, 9.8646, 48.6657]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88d",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d9",
     "geometry": {
       "type": "Point",
       "coordinates": [12.5598, 48.8275]
@@ -806,13 +806,13 @@
     "properties": {
       "ID": 4911,
       "NAME": "Straubing",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.1,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.5598, 48.8275, 12.5598, 48.8275]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88e",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d8",
     "geometry": {
       "type": "Point",
       "coordinates": [9.2235, 48.6883]
@@ -821,13 +821,13 @@
     "properties": {
       "ID": 4931,
       "NAME": "Stuttgart-Echterdingen",
-      "EVAPORATION": 4.5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.2235, 48.6883, 9.2235, 48.6883]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_88f",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d7",
     "geometry": {
       "type": "Point",
       "coordinates": [6.6582, 49.7479]
@@ -836,13 +836,13 @@
     "properties": {
       "ID": 5100,
       "NAME": "Trier-Petrisberg",
-      "EVAPORATION": 5,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [6.6582, 49.7479, 6.6582, 49.7479]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_890",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d6",
     "geometry": {
       "type": "Point",
       "coordinates": [12.6654, 53.5196]
@@ -851,13 +851,13 @@
     "properties": {
       "ID": 5349,
       "NAME": "Waren (Müritz)",
-      "EVAPORATION": 3.9,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.6654, 53.5196, 12.6654, 53.5196]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_891",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d5",
     "geometry": {
       "type": "Point",
       "coordinates": [9.9428, 50.4973]
@@ -866,13 +866,13 @@
     "properties": {
       "ID": 5371,
       "NAME": "Wasserkuppe",
-      "EVAPORATION": 4.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.9428, 50.4973, 9.9428, 50.4973]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_892",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d4",
     "geometry": {
       "type": "Point",
       "coordinates": [12.1845, 49.6663]
@@ -881,13 +881,13 @@
     "properties": {
       "ID": 5397,
       "NAME": "Weiden",
-      "EVAPORATION": 4.1,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [12.1845, 49.6663, 12.1845, 49.6663]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_893",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d3",
     "geometry": {
       "type": "Point",
       "coordinates": [11.0605, 54.5284]
@@ -896,13 +896,13 @@
     "properties": {
       "ID": 5516,
       "NAME": "Fehmarn",
-      "EVAPORATION": 2.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 2.5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [11.0605, 54.5284, 11.0605, 54.5284]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_894",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d2",
     "geometry": {
       "type": "Point",
       "coordinates": [9.9577, 49.7703]
@@ -911,13 +911,13 @@
     "properties": {
       "ID": 5705,
       "NAME": "Würzburg",
-      "EVAPORATION": 5.3,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.6,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [9.9577, 49.7703, 9.9577, 49.7703]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_895",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d1",
     "geometry": {
       "type": "Point",
       "coordinates": [7.2287, 53.3881]
@@ -926,13 +926,13 @@
     "properties": {
       "ID": 5839,
       "NAME": "Emden",
-      "EVAPORATION": 4.4,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.3,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.2287, 53.3881, 7.2287, 53.3881]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_896",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35d0",
     "geometry": {
       "type": "Point",
       "coordinates": [13.3531, 48.5451]
@@ -941,13 +941,13 @@
     "properties": {
       "ID": 5856,
       "NAME": "Fürstenzell",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.5,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [13.3531, 48.5451, 13.3531, 48.5451]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_897",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35cf",
     "geometry": {
       "type": "Point",
       "coordinates": [7.2645, 49.9462]
@@ -956,13 +956,13 @@
     "properties": {
       "ID": 5871,
       "NAME": "Hahn",
-      "EVAPORATION": 4.2,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.9,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [7.2645, 49.9462, 7.2645, 49.9462]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_898",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35ce",
     "geometry": {
       "type": "Point",
       "coordinates": [8.5585, 49.5062]
@@ -971,13 +971,13 @@
     "properties": {
       "ID": 5906,
       "NAME": "Mannheim",
-      "EVAPORATION": 4.9,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.8,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.5585, 49.5062, 8.5585, 49.5062]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_899",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35cd",
     "geometry": {
       "type": "Point",
       "coordinates": [8.7862, 50.09]
@@ -986,13 +986,13 @@
     "properties": {
       "ID": 7341,
       "NAME": "Offenbach-Wetterpark",
-      "EVAPORATION": 4.8,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 4.6,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [8.7862, 50.09, 8.7862, 50.09]
     }
   }, {
     "type": "Feature",
-    "id": "RBSN_VPGB.fid-3a225a71_16a39552f6d_89a",
+    "id": "RBSN_VPGB.fid-3a225a71_16a3e1f2125_-35cc",
     "geometry": {
       "type": "Point",
       "coordinates": [6.0244, 50.7983]
@@ -1001,15 +1001,15 @@
     "properties": {
       "ID": 15000,
       "NAME": "Aachen-Orsbach",
-      "EVAPORATION": 4.6,
-      "M_DATE": "2019-04-18T00:00:00Z",
+      "EVAPORATION": 5.1,
+      "M_DATE": "2019-04-19T00:00:00Z",
       "bbox": [6.0244, 50.7983, 6.0244, 50.7983]
     }
   }],
   "totalFeatures": 67,
   "numberMatched": 67,
   "numberReturned": 67,
-  "timeStamp": "2019-04-20T06:06:52.969Z",
+  "timeStamp": "2019-04-21T04:24:53.374Z",
   "crs": {
     "type": "name",
     "properties": {

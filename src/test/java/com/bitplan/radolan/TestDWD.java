@@ -23,7 +23,8 @@
  */
 package com.bitplan.radolan;
 
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.inV;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.outV;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -33,6 +34,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import org.apache.tinkerpop.gremlin.process.traversal.Order;
+import org.apache.tinkerpop.gremlin.process.traversal.Scope;
+import org.apache.tinkerpop.gremlin.structure.Column;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
@@ -165,6 +170,14 @@ public class TestDWD {
           .println(String.format("\t%s=%s", entry.getKey(), entry.getValue()));
     }
   }
+  
+  public void showVertex(String title, Vertex v) {
+    System.out.println(title + ":" + v.label()+"("+v.id()+")");
+    v.properties().forEachRemaining(p->{
+      System.out
+          .println(String.format("\t%s=%s",p.key(), p.value().toString()));
+    });
+  }
 
   public void showObject(String title, Object object) {
     System.out.println(title + "("+object.getClass().getName()+"):" + object.toString());
@@ -175,32 +188,23 @@ public class TestDWD {
     File evapdir = new File("src/test/data/geoserver");
     StationManager sm = StationManager.init();
     Observation.getObservations(sm, evapdir);
-    long eCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
-        .count().next().longValue();
-    sm.g().V().hasLabel("observation").has("name", "evaporation").forEachRemaining(v->{
-      Observation o;
-      try {
-        o = Observation.from(v);
-        Station s=sm.byId(o.getStationid());
-        o.setStation(s);
-        System.out.println(o.toString());
-      } catch (Exception e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-      }
-
-    });;
+    Map<Object,Object>map=(Map<Object,Object>) sm.g().E().hasLabel("has").
+      group().
+        by(inV().values("name")).
+        by(outV().values("value").mean()).
+      order(Scope.local).
+        by(Column.values, Order.desc).next();
+    for (Entry<Object, Object> evap:map.entrySet()) {
+      String key=(String) evap.getKey();
+      Number value=(Number) evap.getValue();
+      System.out.println(String.format("%30s=%5.1f mm", key,value));
+    }
     
+    long eCount = sm.g().E().hasLabel("has").
+      group().
+        by(inV().values("name")).
+        by(outV().values("value").sum()).count().next().longValue();
     System.out.println(eCount);
-    sm.g().V().hasLabel("station").group("stations").by("name").out("has")
-        .has("name", "evaporation").group("evapsum").by(values("value").sum())
-        .cap("stations", "evapsum").forEachRemaining(m->{
-          Map<Object,Map<Object,Object>> map=(Map<Object, Map<Object,Object>>) m;
-          Map<Object,Object> m1=map.get("evapsum");
-          Map<Object,Object> m2=map.get("stations");
-          System.out.println(m1.size());
-          System.out.println(m2.size());
-        });
     
   }
 }
