@@ -163,23 +163,7 @@ public class StationManager {
     stationVertex.property("lon", station.coord.getLon());
   }
 
-  /**
-   * get the given station from the given station Vertex
-   * 
-   * @param station
-   * @param stationVertex
-   */
-  private void fromVertex(Station station, Vertex stationVertex) {
-    station.id = (String) stationVertex.property("stationid").value();
-    station.name = (String) stationVertex.property("name").value();
-    if ((stationVertex.property("lat").isPresent())
-        && (stationVertex.property("lon").isPresent())) {
-      double lat = (double) stationVertex.property("lat").value();
-      double lon = (double) stationVertex.property("lon").value();
-      station.coord = new Coord(lat, lon);
-    }
-  }
-
+  
   /**
    * get the station by it's id
    * 
@@ -190,7 +174,7 @@ public class StationManager {
     Station station = new Station();
     station.id = id;
     Vertex stationVertex = this.getStationVertexById(station.id);
-    fromVertex(station, stationVertex);
+    station.fromVertex(stationVertex);
     return station;
   }
 

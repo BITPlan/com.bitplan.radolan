@@ -26,13 +26,19 @@ package com.bitplan.radolan;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.openweathermap.weather.Coord;
 
 import com.bitplan.display.BorderDraw;
+import com.bitplan.display.Draw;
+import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
 import cs.fau.de.since.radolan.Translate;
+import de.dwd.geoserver.Station;
+import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
 
 /**
  * test a map for Evaporation data
@@ -41,12 +47,23 @@ public class TestEvaporationMap extends TestBorders {
 
   @Test
   public void testEvaporationMap() throws Exception {
-    String name="3_regierungsbezirke/3_mittel.geojson";
+    StationManager sm = StationManager.init();
+    String name = "3_regierungsbezirke/3_mittel.geojson";
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
     Platform.runLater(() -> borderDraw.drawBorders());
-    Thread.sleep(SHOW_TIME*5);
+    Platform.runLater(() -> {
+      sm.g().V().hasLabel("station").forEachRemaining(v -> {
+        Station s = new Station();
+        s.fromVertex(v);
+        Coord coord = s.getCoord();
+        DPoint dgp = projection.translateLatLonToGrid(coord.getLat(),
+            coord.getLon());
+        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 2.0, Color.BLUE, dgp.x, dgp.y);
+      });
+    });
+    Thread.sleep(SHOW_TIME * 5);
     sampleApp.close();
   }
 

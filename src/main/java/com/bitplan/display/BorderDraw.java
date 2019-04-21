@@ -70,6 +70,9 @@ public class BorderDraw {
     this.borderColor = borderColor;
   }
 
+  public Pane getPane() {
+    return  mapView.getDrawPane();
+  }
   /**
    * draw the Borders
    */

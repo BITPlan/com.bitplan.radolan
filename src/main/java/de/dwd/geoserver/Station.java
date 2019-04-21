@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.openweathermap.weather.Coord;
 
 import de.dwd.geoserver.WFS.Feature;
@@ -134,6 +135,23 @@ public class Station {
       }
     }
     return stations;
+  }
+
+  /**
+   * get the given station from the given station Vertex
+   * 
+   * @param station
+   * @param stationVertex
+   */
+  public void fromVertex(Vertex stationVertex) {
+    id = (String) stationVertex.property("stationid").value();
+    name = (String) stationVertex.property("name").value();
+    if ((stationVertex.property("lat").isPresent())
+        && (stationVertex.property("lon").isPresent())) {
+      double lat = (double) stationVertex.property("lat").value();
+      double lon = (double) stationVertex.property("lon").value();
+      coord = new Coord(lat, lon);
+    }
   }
 
 }
