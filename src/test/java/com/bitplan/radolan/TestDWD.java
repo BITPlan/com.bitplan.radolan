@@ -170,17 +170,30 @@ public class TestDWD {
           .println(String.format("\t%s=%s", entry.getKey(), entry.getValue()));
     }
   }
-  
+
   public void showVertex(String title, Vertex v) {
-    System.out.println(title + ":" + v.label()+"("+v.id()+")");
-    v.properties().forEachRemaining(p->{
+    System.out.println(title + ":" + v.label() + "(" + v.id() + ")");
+    v.properties().forEachRemaining(p -> {
       System.out
-          .println(String.format("\t%s=%s",p.key(), p.value().toString()));
+          .println(String.format("\t%s=%s", p.key(), p.value().toString()));
     });
   }
 
   public void showObject(String title, Object object) {
-    System.out.println(title + "("+object.getClass().getName()+"):" + object.toString());
+    System.out.println(
+        title + "(" + object.getClass().getName() + "):" + object.toString());
+  }
+
+  /**
+   * show a map of number
+   */
+  public void showNumberMap(String title,Map<Object, Object> map,
+      String format,String unit) {
+    for (Entry<Object, Object> evap : map.entrySet()) {
+      String key = (String) evap.getKey();
+      Number value = (Number) evap.getValue();
+      System.out.println(String.format("%30s="+format+" %s", key, value, unit));
+    }
   }
 
   @Test
@@ -188,23 +201,18 @@ public class TestDWD {
     File evapdir = new File("src/test/data/geoserver");
     StationManager sm = StationManager.init();
     Observation.getObservations(sm, evapdir);
-    Map<Object,Object>map=(Map<Object,Object>) sm.g().E().hasLabel("has").
-      group().
-        by(inV().values("name")).
-        by(outV().values("value").mean()).
-      order(Scope.local).
-        by(Column.values, Order.desc).next();
-    for (Entry<Object, Object> evap:map.entrySet()) {
-      String key=(String) evap.getKey();
-      Number value=(Number) evap.getValue();
-      System.out.println(String.format("%30s=%5.1f mm", key,value));
-    }
-    
-    long eCount = sm.g().E().hasLabel("has").
-      group().
-        by(inV().values("name")).
-        by(outV().values("value").sum()).count().next().longValue();
-    System.out.println(eCount);
-    
+    sm.g().E().hasLabel("has").group().by(inV().values("name"))
+        .by(outV().values("value").mean()).order(Scope.local)
+        .by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("mean", m,"%5.1f","mm"));
+    sm.g().E().hasLabel("has").group().by(inV().values("name"))
+        .by(outV().values("value").sum()).order(Scope.local)
+        .by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f","mm"));
+    sm.g().E().hasLabel("has").group().by(inV().values("name"))
+        .by(outV().values("value").count()).order(Scope.local)
+        .by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("count", m, "%3d",""));
+
   }
 }
