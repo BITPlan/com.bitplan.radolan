@@ -25,6 +25,7 @@ package com.bitplan.radolan;
 
 import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.inV;
 import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.outV;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -57,7 +58,9 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class TestDWD {
-
+  public final int EXPECTED_STATIONS = 67;
+  public final int DAYS = 5;
+  public final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
 
@@ -93,8 +96,6 @@ public class TestDWD {
         dusStation.toString());
   }
 
-  public final int EXPECTED_STATIONS = 67;
-
   @Test
   public void testGetAllStations() throws Exception {
     Map<String, Station> stations = Station.getAllStations();
@@ -113,7 +114,7 @@ public class TestDWD {
     Station dusStation = getDUSStation();
     WFSResponse wfsResponse = WFS.getEvaporationHistory(dusStation);
     assertNotNull(wfsResponse);
-    assertTrue(wfsResponse.totalFeatures > 0);
+    assertTrue(wfsResponse.totalFeatures == 2);
   }
 
   @Test
@@ -151,11 +152,12 @@ public class TestDWD {
     Observation.getObservations(sm, WFSType.VPGB);
     long obsCount = sm.g().V().hasLabel("observation").count().next()
         .longValue();
-    System.out.println(obsCount);
+    assertEquals(EXPECTED_OBSERVATIONS, obsCount);
+
     sm.write();
     long sCount = sm.g().V().hasLabel("observation").in("has").count().next()
         .longValue();
-    System.out.println(sCount);
+    assertEquals(EXPECTED_OBSERVATIONS, sCount);
   }
 
   /**
@@ -187,12 +189,14 @@ public class TestDWD {
   /**
    * show a map of number
    */
-  public void showNumberMap(String title,Map<Object, Object> map,
-      String format,String unit) {
+  public void showNumberMap(String title, Map<Object, Object> map,
+      String format, String unit) {
+    System.out.println(title + ":" + map.values().size());
     for (Entry<Object, Object> evap : map.entrySet()) {
       String key = (String) evap.getKey();
       Number value = (Number) evap.getValue();
-      System.out.println(String.format("%30s="+format+" %s", key, value, unit));
+      System.out
+          .println(String.format("%30s=" + format + " %s", key, value, unit));
     }
   }
 
@@ -201,18 +205,25 @@ public class TestDWD {
     File evapdir = new File("src/test/data/geoserver");
     StationManager sm = StationManager.init();
     Observation.getObservations(sm, evapdir);
+    long obsCount = sm.g().V().hasLabel("observation")
+        .has("name", "evaporation").count().next().longValue();
+    assertEquals(EXPECTED_OBSERVATIONS,obsCount);
+    sm.g().V("1577").forEachRemaining(v->showVertex("1577",v));
     sm.g().E().hasLabel("has").group().by(inV().values("name"))
         .by(outV().values("value").mean()).order(Scope.local)
         .by(Column.values, Order.desc)
-        .forEachRemaining(m -> showNumberMap("mean", m,"%5.1f","mm"));
+        .forEachRemaining(m -> showNumberMap("mean", m, "%5.1f", "mm"));
     sm.g().E().hasLabel("has").group().by(inV().values("name"))
         .by(outV().values("value").sum()).order(Scope.local)
         .by(Column.values, Order.desc)
-        .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f","mm"));
-    sm.g().E().hasLabel("has").group().by(inV().values("name"))
-        .by(outV().values("value").count()).order(Scope.local)
-        .by(Column.values, Order.desc)
-        .forEachRemaining(m -> showNumberMap("count", m, "%3d",""));
-
+        .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f", "mm"));
+    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
+        .by("stationid").by(values("value").count())
+        .order(Scope.local).by(Column.values, Order.desc)
+        .forEachRemaining(m -> showNumberMap("count", m, "%3d", ""));
+    Map<Object, Long> countMap = (Map<Object, Long>) sm.g().V()
+        .hasLabel("observation").has("name", "evaporation").groupCount()
+        .by("stationid").order(Scope.local).by(Column.keys, Order.asc).next();
+    System.out.println(countMap.size());
   }
 }

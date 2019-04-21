@@ -1,405 +1,2159 @@
-{"type":"FeatureCollection","features":[
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3807","geometry":
-{"type":"Point","coordinates":[13.9908,53.0316]},"geometry_name":"THE_GEOM","properties":
-{"ID":164,"NAME":"Angermünde","EVAPORATION":3.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.9908,53.0316,13.9908,53.0316]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3808","geometry":
-{"type":"Point","coordinates":[13.9908,53.0316]},"geometry_name":"THE_GEOM","properties":
-{"ID":164,"NAME":"Angermünde","EVAPORATION":2.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.9908,53.0316,13.9908,53.0316]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3809","geometry":
-{"type":"Point","coordinates":[13.4343,54.6792]},"geometry_name":"THE_GEOM","properties":
-{"ID":183,"NAME":"Arkona","EVAPORATION":2.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.4343,54.6792,13.4343,54.6792]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380a","geometry":
-{"type":"Point","coordinates":[13.4343,54.6792]},"geometry_name":"THE_GEOM","properties":
-{"ID":183,"NAME":"Arkona","EVAPORATION":1.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.4343,54.6792,13.4343,54.6792]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380b","geometry":
-{"type":"Point","coordinates":[10.942,48.4254]},"geometry_name":"THE_GEOM","properties":
-{"ID":232,"NAME":"Augsburg","EVAPORATION":2.9,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.942,48.4254,10.942,48.4254]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380c","geometry":
-{"type":"Point","coordinates":[10.942,48.4254]},"geometry_name":"THE_GEOM","properties":
-{"ID":232,"NAME":"Augsburg","EVAPORATION":3.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.942,48.4254,10.942,48.4254]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380d","geometry":
-{"type":"Point","coordinates":[10.9206,49.8742]},"geometry_name":"THE_GEOM","properties":
-{"ID":282,"NAME":"Bamberg","EVAPORATION":4.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.9206,49.8742,10.9206,49.8742]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380e","geometry":
-{"type":"Point","coordinates":[10.9206,49.8742]},"geometry_name":"THE_GEOM","properties":
-{"ID":282,"NAME":"Bamberg","EVAPORATION":4.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.9206,49.8742,10.9206,49.8742]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380f","geometry":
-{"type":"Point","coordinates":[13.3017,52.4537]},"geometry_name":"THE_GEOM","properties":
-{"ID":403,"NAME":"Berlin-Dahlem (FU)","EVAPORATION":3.8,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.3017,52.4537,13.3017,52.4537]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3810","geometry":
-{"type":"Point","coordinates":[13.3017,52.4537]},"geometry_name":"THE_GEOM","properties":
-{"ID":403,"NAME":"Berlin-Dahlem (FU)","EVAPORATION":3.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.3017,52.4537,13.3017,52.4537]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3811","geometry":
-{"type":"Point","coordinates":[13.3088,52.5644]},"geometry_name":"THE_GEOM","properties":
-{"ID":430,"NAME":"Berlin-Tegel","EVAPORATION":3.8,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.3088,52.5644,13.3088,52.5644]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3812","geometry":
-{"type":"Point","coordinates":[13.3088,52.5644]},"geometry_name":"THE_GEOM","properties":
-{"ID":430,"NAME":"Berlin-Tegel","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.3088,52.5644,13.3088,52.5644]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3813","geometry":
-{"type":"Point","coordinates":[13.4021,52.4675]},"geometry_name":"THE_GEOM","properties":
-{"ID":433,"NAME":"Berlin-Tempelhof","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.4021,52.4675,13.4021,52.4675]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3814","geometry":
-{"type":"Point","coordinates":[13.4021,52.4675]},"geometry_name":"THE_GEOM","properties":
-{"ID":433,"NAME":"Berlin-Tempelhof","EVAPORATION":3.3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.4021,52.4675,13.4021,52.4675]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3815","geometry":
-{"type":"Point","coordinates":[8.7979,53.045]},"geometry_name":"THE_GEOM","properties":
-{"ID":691,"NAME":"Bremen","EVAPORATION":3.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.7979,53.045,8.7979,53.045]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3816","geometry":
-{"type":"Point","coordinates":[8.7979,53.045]},"geometry_name":"THE_GEOM","properties":
-{"ID":691,"NAME":"Bremen","EVAPORATION":4.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.7979,53.045,8.7979,53.045]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3817","geometry":
-{"type":"Point","coordinates":[14.3168,51.776]},"geometry_name":"THE_GEOM","properties":
-{"ID":880,"NAME":"Cottbus","EVAPORATION":3.9,"M_DATE":"2019-04-16T00:00:00Z","bbox":[14.3168,51.776,14.3168,51.776]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3818","geometry":
-{"type":"Point","coordinates":[14.3168,51.776]},"geometry_name":"THE_GEOM","properties":
-{"ID":880,"NAME":"Cottbus","EVAPORATION":3.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[14.3168,51.776,14.3168,51.776]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3819","geometry":
-{"type":"Point","coordinates":[8.7058,53.8713]},"geometry_name":"THE_GEOM","properties":
-{"ID":891,"NAME":"Cuxhaven","EVAPORATION":2.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.7058,53.8713,8.7058,53.8713]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381a","geometry":
-{"type":"Point","coordinates":[8.7058,53.8713]},"geometry_name":"THE_GEOM","properties":
-{"ID":891,"NAME":"Cuxhaven","EVAPORATION":3.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.7058,53.8713,8.7058,53.8713]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381b","geometry":
-{"type":"Point","coordinates":[13.7543,51.128]},"geometry_name":"THE_GEOM","properties":
-{"ID":1048,"NAME":"Dresden-Klotzsche","EVAPORATION":4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.7543,51.128,13.7543,51.128]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381c","geometry":
-{"type":"Point","coordinates":[13.7543,51.128]},"geometry_name":"THE_GEOM","properties":
-{"ID":1048,"NAME":"Dresden-Klotzsche","EVAPORATION":4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.7543,51.128,13.7543,51.128]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381d","geometry":
-{"type":"Point","coordinates":[6.7686,51.296]},"geometry_name":"THE_GEOM","properties":
-{"ID":1078,"NAME":"Düsseldorf","EVAPORATION":3.7,"M_DATE":"2019-04-16T00:00:00Z","bbox":[6.7686,51.296,6.7686,51.296]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381e","geometry":
-{"type":"Point","coordinates":[6.7686,51.296]},"geometry_name":"THE_GEOM","properties":
-{"ID":1078,"NAME":"Düsseldorf","EVAPORATION":2.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[6.7686,51.296,6.7686,51.296]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381f","geometry":
-{"type":"Point","coordinates":[11.8133,48.3477]},"geometry_name":"THE_GEOM","properties":
-{"ID":1262,"NAME":"München-Flughafen","EVAPORATION":3.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.8133,48.3477,11.8133,48.3477]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3820","geometry":
-{"type":"Point","coordinates":[11.8133,48.3477]},"geometry_name":"THE_GEOM","properties":
-{"ID":1262,"NAME":"München-Flughafen","EVAPORATION":4.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.8133,48.3477,11.8133,48.3477]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3821","geometry":
-{"type":"Point","coordinates":[10.9608,50.9829]},"geometry_name":"THE_GEOM","properties":
-{"ID":1270,"NAME":"Erfurt-Weimar","EVAPORATION":3.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.9608,50.9829,10.9608,50.9829]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3822","geometry":
-{"type":"Point","coordinates":[10.9608,50.9829]},"geometry_name":"THE_GEOM","properties":
-{"ID":1270,"NAME":"Erfurt-Weimar","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.9608,50.9829,10.9608,50.9829]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3823","geometry":
-{"type":"Point","coordinates":[6.9677,51.4041]},"geometry_name":"THE_GEOM","properties":
-{"ID":1303,"NAME":"Essen-Bredeney","EVAPORATION":4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[6.9677,51.4041,6.9677,51.4041]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3824","geometry":
-{"type":"Point","coordinates":[6.9677,51.4041]},"geometry_name":"THE_GEOM","properties":
-{"ID":1303,"NAME":"Essen-Bredeney","EVAPORATION":2.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[6.9677,51.4041,6.9677,51.4041]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3825","geometry":
-{"type":"Point","coordinates":[8.5213,50.0259]},"geometry_name":"THE_GEOM","properties":
-{"ID":1420,"NAME":"Frankfurt/Main","EVAPORATION":4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.5213,50.0259,8.5213,50.0259]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3826","geometry":
-{"type":"Point","coordinates":[8.5213,50.0259]},"geometry_name":"THE_GEOM","properties":
-{"ID":1420,"NAME":"Frankfurt/Main","EVAPORATION":2.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.5213,50.0259,8.5213,50.0259]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3827","geometry":
-{"type":"Point","coordinates":[8.4091,48.4537]},"geometry_name":"THE_GEOM","properties":
-{"ID":1468,"NAME":"Freudenstadt","EVAPORATION":2.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.4091,48.4537,8.4091,48.4537]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3828","geometry":
-{"type":"Point","coordinates":[8.4091,48.4537]},"geometry_name":"THE_GEOM","properties":
-{"ID":1468,"NAME":"Freudenstadt","EVAPORATION":1.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.4091,48.4537,8.4091,48.4537]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3829","geometry":
-{"type":"Point","coordinates":[9.2799,51.119]},"geometry_name":"THE_GEOM","properties":
-{"ID":1504,"NAME":"Fritzlar (Flugplatz)","EVAPORATION":3.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.2799,51.119,9.2799,51.119]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382a","geometry":
-{"type":"Point","coordinates":[9.2799,51.119]},"geometry_name":"THE_GEOM","properties":
-{"ID":1504,"NAME":"Fritzlar (Flugplatz)","EVAPORATION":2.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.2799,51.119,9.2799,51.119]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382b","geometry":
-{"type":"Point","coordinates":[12.1289,50.8813]},"geometry_name":"THE_GEOM","properties":
-{"ID":1612,"NAME":"Gera-Leumnitz","EVAPORATION":3.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.1289,50.8813,12.1289,50.8813]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382c","geometry":
-{"type":"Point","coordinates":[12.1289,50.8813]},"geometry_name":"THE_GEOM","properties":
-{"ID":1612,"NAME":"Gera-Leumnitz","EVAPORATION":3.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.1289,50.8813,12.1289,50.8813]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382d","geometry":
-{"type":"Point","coordinates":[8.6439,50.6017]},"geometry_name":"THE_GEOM","properties":
-{"ID":1639,"NAME":"Gießen/Wettenberg","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.6439,50.6017,8.6439,50.6017]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382e","geometry":
-{"type":"Point","coordinates":[8.6439,50.6017]},"geometry_name":"THE_GEOM","properties":
-{"ID":1639,"NAME":"Gießen/Wettenberg","EVAPORATION":2.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.6439,50.6017,8.6439,50.6017]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382f","geometry":
-{"type":"Point","coordinates":[14.9506,51.1622]},"geometry_name":"THE_GEOM","properties":
-{"ID":1684,"NAME":"Görlitz","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[14.9506,51.1622,14.9506,51.1622]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3830","geometry":
-{"type":"Point","coordinates":[14.9506,51.1622]},"geometry_name":"THE_GEOM","properties":
-{"ID":1684,"NAME":"Görlitz","EVAPORATION":3.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[14.9506,51.1622,14.9506,51.1622]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3831","geometry":
-{"type":"Point","coordinates":[13.4056,54.0967]},"geometry_name":"THE_GEOM","properties":
-{"ID":1757,"NAME":"Greifswald","EVAPORATION":2.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.4056,54.0967,13.4056,54.0967]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3832","geometry":
-{"type":"Point","coordinates":[13.4056,54.0967]},"geometry_name":"THE_GEOM","properties":
-{"ID":1757,"NAME":"Greifswald","EVAPORATION":1.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.4056,54.0967,13.4056,54.0967]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3833","geometry":
-{"type":"Point","coordinates":[7.6969,52.1344]},"geometry_name":"THE_GEOM","properties":
-{"ID":1766,"NAME":"Münster/Osnabrück","EVAPORATION":3.7,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.6969,52.1344,7.6969,52.1344]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3834","geometry":
-{"type":"Point","coordinates":[7.6969,52.1344]},"geometry_name":"THE_GEOM","properties":
-{"ID":1766,"NAME":"Münster/Osnabrück","EVAPORATION":3.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.6969,52.1344,7.6969,52.1344]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3835","geometry":
-{"type":"Point","coordinates":[9.9881,53.6332]},"geometry_name":"THE_GEOM","properties":
-{"ID":1975,"NAME":"Hamburg-Fuhlsbüttel","EVAPORATION":3.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.9881,53.6332,9.9881,53.6332]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3836","geometry":
-{"type":"Point","coordinates":[9.9881,53.6332]},"geometry_name":"THE_GEOM","properties":
-{"ID":1975,"NAME":"Hamburg-Fuhlsbüttel","EVAPORATION":4.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.9881,53.6332,9.9881,53.6332]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3837","geometry":
-{"type":"Point","coordinates":[9.6779,52.4644]},"geometry_name":"THE_GEOM","properties":
-{"ID":2014,"NAME":"Hannover","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.6779,52.4644,9.6779,52.4644]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3838","geometry":
-{"type":"Point","coordinates":[9.6779,52.4644]},"geometry_name":"THE_GEOM","properties":
-{"ID":2014,"NAME":"Hannover","EVAPORATION":4.3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.6779,52.4644,9.6779,52.4644]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3839","geometry":
-{"type":"Point","coordinates":[7.892,54.175]},"geometry_name":"THE_GEOM","properties":
-{"ID":2115,"NAME":"Helgoland","EVAPORATION":2.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.892,54.175,7.892,54.175]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383a","geometry":
-{"type":"Point","coordinates":[7.892,54.175]},"geometry_name":"THE_GEOM","properties":
-{"ID":2115,"NAME":"Helgoland","EVAPORATION":2.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.892,54.175,7.892,54.175]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383b","geometry":
-{"type":"Point","coordinates":[11.8761,50.3122]},"geometry_name":"THE_GEOM","properties":
-{"ID":2261,"NAME":"Hof","EVAPORATION":3.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.8761,50.3122,11.8761,50.3122]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383c","geometry":
-{"type":"Point","coordinates":[11.8761,50.3122]},"geometry_name":"THE_GEOM","properties":
-{"ID":2261,"NAME":"Hof","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.8761,50.3122,11.8761,50.3122]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383d","geometry":
-{"type":"Point","coordinates":[11.0108,47.8009]},"geometry_name":"THE_GEOM","properties":
-{"ID":2290,"NAME":"Hohenpeißenberg","EVAPORATION":3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.0108,47.8009,11.0108,47.8009]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383e","geometry":
-{"type":"Point","coordinates":[11.0108,47.8009]},"geometry_name":"THE_GEOM","properties":
-{"ID":2290,"NAME":"Hohenpeißenberg","EVAPORATION":3.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.0108,47.8009,11.0108,47.8009]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383f","geometry":
-{"type":"Point","coordinates":[8.4891,51.1803]},"geometry_name":"THE_GEOM","properties":
-{"ID":2483,"NAME":"Kahler Asten","EVAPORATION":3.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.4891,51.1803,8.4891,51.1803]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3840","geometry":
-{"type":"Point","coordinates":[8.4891,51.1803]},"geometry_name":"THE_GEOM","properties":
-{"ID":2483,"NAME":"Kahler Asten","EVAPORATION":2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.4891,51.1803,8.4891,51.1803]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3841","geometry":
-{"type":"Point","coordinates":[10.3348,47.7233]},"geometry_name":"THE_GEOM","properties":
-{"ID":2559,"NAME":"Kempten","EVAPORATION":2.9,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.3348,47.7233,10.3348,47.7233]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3842","geometry":
-{"type":"Point","coordinates":[10.3348,47.7233]},"geometry_name":"THE_GEOM","properties":
-{"ID":2559,"NAME":"Kempten","EVAPORATION":3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.3348,47.7233,10.3348,47.7233]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3843","geometry":
-{"type":"Point","coordinates":[10.1433,54.3761]},"geometry_name":"THE_GEOM","properties":
-{"ID":2564,"NAME":"Kiel-Holtenau","EVAPORATION":2.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.1433,54.3761,10.1433,54.3761]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3844","geometry":
-{"type":"Point","coordinates":[10.1433,54.3761]},"geometry_name":"THE_GEOM","properties":
-{"ID":2564,"NAME":"Kiel-Holtenau","EVAPORATION":2.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.1433,54.3761,10.1433,54.3761]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3845","geometry":
-{"type":"Point","coordinates":[7.1575,50.8646]},"geometry_name":"THE_GEOM","properties":
-{"ID":2667,"NAME":"Köln-Bonn","EVAPORATION":3.8,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.1575,50.8646,7.1575,50.8646]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3846","geometry":
-{"type":"Point","coordinates":[7.1575,50.8646]},"geometry_name":"THE_GEOM","properties":
-{"ID":2667,"NAME":"Köln-Bonn","EVAPORATION":2.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.1575,50.8646,7.1575,50.8646]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3847","geometry":
-{"type":"Point","coordinates":[9.1901,47.6774]},"geometry_name":"THE_GEOM","properties":
-{"ID":2712,"NAME":"Konstanz","EVAPORATION":3.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.1901,47.6774,9.1901,47.6774]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3848","geometry":
-{"type":"Point","coordinates":[9.1901,47.6774]},"geometry_name":"THE_GEOM","properties":
-{"ID":2712,"NAME":"Konstanz","EVAPORATION":3.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.1901,47.6774,9.1901,47.6774]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3849","geometry":
-{"type":"Point","coordinates":[7.828,48.3647]},"geometry_name":"THE_GEOM","properties":
-{"ID":2812,"NAME":"Lahr","EVAPORATION":2.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.828,48.3647,7.828,48.3647]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384a","geometry":
-{"type":"Point","coordinates":[7.828,48.3647]},"geometry_name":"THE_GEOM","properties":
-{"ID":2812,"NAME":"Lahr","EVAPORATION":2.7,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.828,48.3647,7.828,48.3647]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384b","geometry":
-{"type":"Point","coordinates":[12.2396,51.4348]},"geometry_name":"THE_GEOM","properties":
-{"ID":2932,"NAME":"Leipzig/Halle","EVAPORATION":3.7,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.2396,51.4348,12.2396,51.4348]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384c","geometry":
-{"type":"Point","coordinates":[12.2396,51.4348]},"geometry_name":"THE_GEOM","properties":
-{"ID":2932,"NAME":"Leipzig/Halle","EVAPORATION":4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.2396,51.4348,12.2396,51.4348]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384d","geometry":
-{"type":"Point","coordinates":[14.118,52.2085]},"geometry_name":"THE_GEOM","properties":
-{"ID":3015,"NAME":"Lindenberg","EVAPORATION":3.7,"M_DATE":"2019-04-16T00:00:00Z","bbox":[14.118,52.2085,14.118,52.2085]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384e","geometry":
-{"type":"Point","coordinates":[14.118,52.2085]},"geometry_name":"THE_GEOM","properties":
-{"ID":3015,"NAME":"Lindenberg","EVAPORATION":3.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[14.118,52.2085,14.118,52.2085]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384f","geometry":
-{"type":"Point","coordinates":[8.8388,51.7855]},"geometry_name":"THE_GEOM","properties":
-{"ID":3028,"NAME":"Lippspringe, Bad","EVAPORATION":4.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.8388,51.7855,8.8388,51.7855]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3850","geometry":
-{"type":"Point","coordinates":[8.8388,51.7855]},"geometry_name":"THE_GEOM","properties":
-{"ID":3028,"NAME":"Lippspringe, Bad","EVAPORATION":4.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.8388,51.7855,8.8388,51.7855]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3851","geometry":
-{"type":"Point","coordinates":[11.1374,52.9724]},"geometry_name":"THE_GEOM","properties":
-{"ID":3093,"NAME":"Lüchow","EVAPORATION":3.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.1374,52.9724,11.1374,52.9724]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3852","geometry":
-{"type":"Point","coordinates":[11.1374,52.9724]},"geometry_name":"THE_GEOM","properties":
-{"ID":3093,"NAME":"Lüchow","EVAPORATION":3.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.1374,52.9724,11.1374,52.9724]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3853","geometry":
-{"type":"Point","coordinates":[11.5827,52.1029]},"geometry_name":"THE_GEOM","properties":
-{"ID":3126,"NAME":"Magdeburg","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.5827,52.1029,11.5827,52.1029]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3854","geometry":
-{"type":"Point","coordinates":[11.5827,52.1029]},"geometry_name":"THE_GEOM","properties":
-{"ID":3126,"NAME":"Magdeburg","EVAPORATION":3.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.5827,52.1029,11.5827,52.1029]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3855","geometry":
-{"type":"Point","coordinates":[11.9319,53.3223]},"geometry_name":"THE_GEOM","properties":
-{"ID":3196,"NAME":"Marnitz","EVAPORATION":3.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.9319,53.3223,11.9319,53.3223]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3856","geometry":
-{"type":"Point","coordinates":[11.9319,53.3223]},"geometry_name":"THE_GEOM","properties":
-{"ID":3196,"NAME":"Marnitz","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.9319,53.3223,11.9319,53.3223]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3857","geometry":
-{"type":"Point","coordinates":[10.3771,50.5612]},"geometry_name":"THE_GEOM","properties":
-{"ID":3231,"NAME":"Meiningen","EVAPORATION":3.4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.3771,50.5612,10.3771,50.5612]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3858","geometry":
-{"type":"Point","coordinates":[10.3771,50.5612]},"geometry_name":"THE_GEOM","properties":
-{"ID":3231,"NAME":"Meiningen","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.3771,50.5612,10.3771,50.5612]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3859","geometry":
-{"type":"Point","coordinates":[12.8072,52.9037]},"geometry_name":"THE_GEOM","properties":
-{"ID":3552,"NAME":"Neuruppin","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.8072,52.9037,12.8072,52.9037]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385a","geometry":
-{"type":"Point","coordinates":[12.8072,52.9037]},"geometry_name":"THE_GEOM","properties":
-{"ID":3552,"NAME":"Neuruppin","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.8072,52.9037,12.8072,52.9037]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385b","geometry":
-{"type":"Point","coordinates":[7.1519,53.7123]},"geometry_name":"THE_GEOM","properties":
-{"ID":3631,"NAME":"Norderney","EVAPORATION":2.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.1519,53.7123,7.1519,53.7123]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385c","geometry":
-{"type":"Point","coordinates":[7.1519,53.7123]},"geometry_name":"THE_GEOM","properties":
-{"ID":3631,"NAME":"Norderney","EVAPORATION":3.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.1519,53.7123,7.1519,53.7123]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385d","geometry":
-{"type":"Point","coordinates":[10.276,47.3986]},"geometry_name":"THE_GEOM","properties":
-{"ID":3730,"NAME":"Oberstdorf","EVAPORATION":2.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[10.276,47.3986,10.276,47.3986]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385e","geometry":
-{"type":"Point","coordinates":[10.276,47.3986]},"geometry_name":"THE_GEOM","properties":
-{"ID":3730,"NAME":"Oberstdorf","EVAPORATION":2.8,"M_DATE":"2019-04-17T00:00:00Z","bbox":[10.276,47.3986,10.276,47.3986]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385f","geometry":
-{"type":"Point","coordinates":[9.5175,49.207]},"geometry_name":"THE_GEOM","properties":
-{"ID":3761,"NAME":"Öhringen","EVAPORATION":3.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.5175,49.207,9.5175,49.207]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3860","geometry":
-{"type":"Point","coordinates":[9.5175,49.207]},"geometry_name":"THE_GEOM","properties":
-{"ID":3761,"NAME":"Öhringen","EVAPORATION":2.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.5175,49.207,9.5175,49.207]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3861","geometry":
-{"type":"Point","coordinates":[13.0622,52.3813]},"geometry_name":"THE_GEOM","properties":
-{"ID":3987,"NAME":"Potsdam","EVAPORATION":4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.0622,52.3813,13.0622,52.3813]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3862","geometry":
-{"type":"Point","coordinates":[13.0622,52.3813]},"geometry_name":"THE_GEOM","properties":
-{"ID":3987,"NAME":"Potsdam","EVAPORATION":4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.0622,52.3813,13.0622,52.3813]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3863","geometry":
-{"type":"Point","coordinates":[12.1019,49.0425]},"geometry_name":"THE_GEOM","properties":
-{"ID":4104,"NAME":"Regensburg","EVAPORATION":4,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.1019,49.0425,12.1019,49.0425]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3864","geometry":
-{"type":"Point","coordinates":[12.1019,49.0425]},"geometry_name":"THE_GEOM","properties":
-{"ID":4104,"NAME":"Regensburg","EVAPORATION":3.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.1019,49.0425,12.1019,49.0425]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3865","geometry":
-{"type":"Point","coordinates":[8.3301,48.9726]},"geometry_name":"THE_GEOM","properties":
-{"ID":4177,"NAME":"Rheinstetten","EVAPORATION":2.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.3301,48.9726,8.3301,48.9726]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3866","geometry":
-{"type":"Point","coordinates":[8.3301,48.9726]},"geometry_name":"THE_GEOM","properties":
-{"ID":4177,"NAME":"Rheinstetten","EVAPORATION":2.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.3301,48.9726,8.3301,48.9726]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3867","geometry":
-{"type":"Point","coordinates":[12.0808,54.1803]},"geometry_name":"THE_GEOM","properties":
-{"ID":4271,"NAME":"Rostock-Warnemünde","EVAPORATION":2.8,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.0808,54.1803,12.0808,54.1803]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3868","geometry":
-{"type":"Point","coordinates":[12.0808,54.1803]},"geometry_name":"THE_GEOM","properties":
-{"ID":4271,"NAME":"Rostock-Warnemünde","EVAPORATION":3.3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.0808,54.1803,12.0808,54.1803]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3869","geometry":
-{"type":"Point","coordinates":[7.1077,49.2128]},"geometry_name":"THE_GEOM","properties":
-{"ID":4336,"NAME":"Saarbrücken-Ensheim","EVAPORATION":2.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.1077,49.2128,7.1077,49.2128]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386a","geometry":
-{"type":"Point","coordinates":[7.1077,49.2128]},"geometry_name":"THE_GEOM","properties":
-{"ID":4336,"NAME":"Saarbrücken-Ensheim","EVAPORATION":2.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.1077,49.2128,7.1077,49.2128]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386b","geometry":
-{"type":"Point","coordinates":[9.5487,54.5275]},"geometry_name":"THE_GEOM","properties":
-{"ID":4466,"NAME":"Schleswig","EVAPORATION":2.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.5487,54.5275,9.5487,54.5275]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386c","geometry":
-{"type":"Point","coordinates":[9.5487,54.5275]},"geometry_name":"THE_GEOM","properties":
-{"ID":4466,"NAME":"Schleswig","EVAPORATION":3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.5487,54.5275,9.5487,54.5275]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386d","geometry":
-{"type":"Point","coordinates":[11.3872,53.6425]},"geometry_name":"THE_GEOM","properties":
-{"ID":4625,"NAME":"Schwerin","EVAPORATION":3.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.3872,53.6425,11.3872,53.6425]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386e","geometry":
-{"type":"Point","coordinates":[11.3872,53.6425]},"geometry_name":"THE_GEOM","properties":
-{"ID":4625,"NAME":"Schwerin","EVAPORATION":3.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.3872,53.6425,11.3872,53.6425]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386f","geometry":
-{"type":"Point","coordinates":[9.8646,48.6657]},"geometry_name":"THE_GEOM","properties":
-{"ID":4887,"NAME":"Stötten","EVAPORATION":2.6,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.8646,48.6657,9.8646,48.6657]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3870","geometry":
-{"type":"Point","coordinates":[9.8646,48.6657]},"geometry_name":"THE_GEOM","properties":
-{"ID":4887,"NAME":"Stötten","EVAPORATION":3,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.8646,48.6657,9.8646,48.6657]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3871","geometry":
-{"type":"Point","coordinates":[12.5598,48.8275]},"geometry_name":"THE_GEOM","properties":
-{"ID":4911,"NAME":"Straubing","EVAPORATION":3.7,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.5598,48.8275,12.5598,48.8275]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3872","geometry":
-{"type":"Point","coordinates":[12.5598,48.8275]},"geometry_name":"THE_GEOM","properties":
-{"ID":4911,"NAME":"Straubing","EVAPORATION":3.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.5598,48.8275,12.5598,48.8275]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3873","geometry":
-{"type":"Point","coordinates":[9.2235,48.6883]},"geometry_name":"THE_GEOM","properties":
-{"ID":4931,"NAME":"Stuttgart-Echterdingen","EVAPORATION":2.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.2235,48.6883,9.2235,48.6883]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3874","geometry":
-{"type":"Point","coordinates":[9.2235,48.6883]},"geometry_name":"THE_GEOM","properties":
-{"ID":4931,"NAME":"Stuttgart-Echterdingen","EVAPORATION":2.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.2235,48.6883,9.2235,48.6883]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3875","geometry":
-{"type":"Point","coordinates":[6.6582,49.7479]},"geometry_name":"THE_GEOM","properties":
-{"ID":5100,"NAME":"Trier-Petrisberg","EVAPORATION":1.9,"M_DATE":"2019-04-16T00:00:00Z","bbox":[6.6582,49.7479,6.6582,49.7479]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3876","geometry":
-{"type":"Point","coordinates":[6.6582,49.7479]},"geometry_name":"THE_GEOM","properties":
-{"ID":5100,"NAME":"Trier-Petrisberg","EVAPORATION":2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[6.6582,49.7479,6.6582,49.7479]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3877","geometry":
-{"type":"Point","coordinates":[12.6654,53.5196]},"geometry_name":"THE_GEOM","properties":
-{"ID":5349,"NAME":"Waren (Müritz)","EVAPORATION":3.1,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.6654,53.5196,12.6654,53.5196]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3878","geometry":
-{"type":"Point","coordinates":[12.6654,53.5196]},"geometry_name":"THE_GEOM","properties":
-{"ID":5349,"NAME":"Waren (Müritz)","EVAPORATION":3.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.6654,53.5196,12.6654,53.5196]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3879","geometry":
-{"type":"Point","coordinates":[9.9428,50.4973]},"geometry_name":"THE_GEOM","properties":
-{"ID":5371,"NAME":"Wasserkuppe","EVAPORATION":3.9,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.9428,50.4973,9.9428,50.4973]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387a","geometry":
-{"type":"Point","coordinates":[9.9428,50.4973]},"geometry_name":"THE_GEOM","properties":
-{"ID":5371,"NAME":"Wasserkuppe","EVAPORATION":3.4,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.9428,50.4973,9.9428,50.4973]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387b","geometry":
-{"type":"Point","coordinates":[12.1845,49.6663]},"geometry_name":"THE_GEOM","properties":
-{"ID":5397,"NAME":"Weiden","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[12.1845,49.6663,12.1845,49.6663]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387c","geometry":
-{"type":"Point","coordinates":[12.1845,49.6663]},"geometry_name":"THE_GEOM","properties":
-{"ID":5397,"NAME":"Weiden","EVAPORATION":3.6,"M_DATE":"2019-04-17T00:00:00Z","bbox":[12.1845,49.6663,12.1845,49.6663]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387d","geometry":
-{"type":"Point","coordinates":[11.0605,54.5284]},"geometry_name":"THE_GEOM","properties":
-{"ID":5516,"NAME":"Fehmarn","EVAPORATION":2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[11.0605,54.5284,11.0605,54.5284]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387e","geometry":
-{"type":"Point","coordinates":[11.0605,54.5284]},"geometry_name":"THE_GEOM","properties":
-{"ID":5516,"NAME":"Fehmarn","EVAPORATION":2.2,"M_DATE":"2019-04-17T00:00:00Z","bbox":[11.0605,54.5284,11.0605,54.5284]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387f","geometry":
-{"type":"Point","coordinates":[9.9577,49.7703]},"geometry_name":"THE_GEOM","properties":
-{"ID":5705,"NAME":"Würzburg","EVAPORATION":4.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[9.9577,49.7703,9.9577,49.7703]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3880","geometry":
-{"type":"Point","coordinates":[9.9577,49.7703]},"geometry_name":"THE_GEOM","properties":
-{"ID":5705,"NAME":"Würzburg","EVAPORATION":4.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[9.9577,49.7703,9.9577,49.7703]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3881","geometry":
-{"type":"Point","coordinates":[7.2287,53.3881]},"geometry_name":"THE_GEOM","properties":
-{"ID":5839,"NAME":"Emden","EVAPORATION":3.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.2287,53.3881,7.2287,53.3881]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3882","geometry":
-{"type":"Point","coordinates":[7.2287,53.3881]},"geometry_name":"THE_GEOM","properties":
-{"ID":5839,"NAME":"Emden","EVAPORATION":4.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.2287,53.3881,7.2287,53.3881]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3883","geometry":
-{"type":"Point","coordinates":[13.3531,48.5451]},"geometry_name":"THE_GEOM","properties":
-{"ID":5856,"NAME":"Fürstenzell","EVAPORATION":3.8,"M_DATE":"2019-04-16T00:00:00Z","bbox":[13.3531,48.5451,13.3531,48.5451]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3884","geometry":
-{"type":"Point","coordinates":[13.3531,48.5451]},"geometry_name":"THE_GEOM","properties":
-{"ID":5856,"NAME":"Fürstenzell","EVAPORATION":3.7,"M_DATE":"2019-04-17T00:00:00Z","bbox":[13.3531,48.5451,13.3531,48.5451]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3885","geometry":
-{"type":"Point","coordinates":[7.2645,49.9462]},"geometry_name":"THE_GEOM","properties":
-{"ID":5871,"NAME":"Hahn","EVAPORATION":2.3,"M_DATE":"2019-04-16T00:00:00Z","bbox":[7.2645,49.9462,7.2645,49.9462]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3886","geometry":
-{"type":"Point","coordinates":[7.2645,49.9462]},"geometry_name":"THE_GEOM","properties":
-{"ID":5871,"NAME":"Hahn","EVAPORATION":1.7,"M_DATE":"2019-04-17T00:00:00Z","bbox":[7.2645,49.9462,7.2645,49.9462]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3887","geometry":
-{"type":"Point","coordinates":[8.5585,49.5062]},"geometry_name":"THE_GEOM","properties":
-{"ID":5906,"NAME":"Mannheim","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.5585,49.5062,8.5585,49.5062]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3888","geometry":
-{"type":"Point","coordinates":[8.5585,49.5062]},"geometry_name":"THE_GEOM","properties":
-{"ID":5906,"NAME":"Mannheim","EVAPORATION":3.1,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.5585,49.5062,8.5585,49.5062]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3889","geometry":
-{"type":"Point","coordinates":[8.7862,50.09]},"geometry_name":"THE_GEOM","properties":
-{"ID":7341,"NAME":"Offenbach-Wetterpark","EVAPORATION":3.5,"M_DATE":"2019-04-16T00:00:00Z","bbox":[8.7862,50.09,8.7862,50.09]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388a","geometry":
-{"type":"Point","coordinates":[8.7862,50.09]},"geometry_name":"THE_GEOM","properties":
-{"ID":7341,"NAME":"Offenbach-Wetterpark","EVAPORATION":2.9,"M_DATE":"2019-04-17T00:00:00Z","bbox":[8.7862,50.09,8.7862,50.09]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388b","geometry":
-{"type":"Point","coordinates":[6.0244,50.7983]},"geometry_name":"THE_GEOM","properties":
-{"ID":15000,"NAME":"Aachen-Orsbach","EVAPORATION":3.2,"M_DATE":"2019-04-16T00:00:00Z","bbox":[6.0244,50.7983,6.0244,50.7983]}},
-{"type":"Feature","id":"RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388c","geometry":
-{"type":"Point","coordinates":[6.0244,50.7983]},"geometry_name":"THE_GEOM","properties":
-{"ID":15000,"NAME":"Aachen-Orsbach","EVAPORATION":1.5,"M_DATE":"2019-04-17T00:00:00Z","bbox":[6.0244,50.7983,6.0244,50.7983]}}],"totalFeatures":134,"numberMatched":134,"numberReturned":134,"timeStamp":"2019-04-18T17:20:16.658Z","crs":
-{"type":"name","properties":
-{"name":"urn:ogc:def:crs:EPSG::4326"}},"bbox":[47.3986,6.0244,54.6792,14.9506]}
+{
+  "type": "FeatureCollection",
+  "features": [{
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3807",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.9908, 53.0316]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 164,
+        "NAME": "Angermünde",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.9908, 53.0316, 13.9908, 53.0316]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3808",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.9908, 53.0316]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 164,
+        "NAME": "Angermünde",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.9908, 53.0316, 13.9908, 53.0316]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3809",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4343, 54.6792]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 183,
+        "NAME": "Arkona",
+        "EVAPORATION": 2.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.4343, 54.6792, 13.4343, 54.6792]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4343, 54.6792]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 183,
+        "NAME": "Arkona",
+        "EVAPORATION": 1.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.4343, 54.6792, 13.4343, 54.6792]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.942, 48.4254]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 232,
+        "NAME": "Augsburg",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.942, 48.4254, 10.942, 48.4254]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.942, 48.4254]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 232,
+        "NAME": "Augsburg",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.942, 48.4254, 10.942, 48.4254]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.9206, 49.8742]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 282,
+        "NAME": "Bamberg",
+        "EVAPORATION": 4.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.9206, 49.8742, 10.9206, 49.8742]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.9206, 49.8742]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 282,
+        "NAME": "Bamberg",
+        "EVAPORATION": 4.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.9206, 49.8742, 10.9206, 49.8742]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_380f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3017, 52.4537]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 403,
+        "NAME": "Berlin-Dahlem (FU)",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.3017, 52.4537, 13.3017, 52.4537]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3810",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3017, 52.4537]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 403,
+        "NAME": "Berlin-Dahlem (FU)",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.3017, 52.4537, 13.3017, 52.4537]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3811",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3088, 52.5644]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 430,
+        "NAME": "Berlin-Tegel",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.3088, 52.5644, 13.3088, 52.5644]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3812",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3088, 52.5644]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 430,
+        "NAME": "Berlin-Tegel",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.3088, 52.5644, 13.3088, 52.5644]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3813",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4021, 52.4675]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 433,
+        "NAME": "Berlin-Tempelhof",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.4021, 52.4675, 13.4021, 52.4675]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3814",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4021, 52.4675]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 433,
+        "NAME": "Berlin-Tempelhof",
+        "EVAPORATION": 3.3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.4021, 52.4675, 13.4021, 52.4675]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3815",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7979, 53.045]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 691,
+        "NAME": "Bremen",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.7979, 53.045, 8.7979, 53.045]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3816",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7979, 53.045]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 691,
+        "NAME": "Bremen",
+        "EVAPORATION": 4.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.7979, 53.045, 8.7979, 53.045]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3817",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.3168, 51.776]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 880,
+        "NAME": "Cottbus",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [14.3168, 51.776, 14.3168, 51.776]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3818",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.3168, 51.776]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 880,
+        "NAME": "Cottbus",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [14.3168, 51.776, 14.3168, 51.776]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3819",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7058, 53.8713]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 891,
+        "NAME": "Cuxhaven",
+        "EVAPORATION": 2.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.7058, 53.8713, 8.7058, 53.8713]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7058, 53.8713]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 891,
+        "NAME": "Cuxhaven",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.7058, 53.8713, 8.7058, 53.8713]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.7543, 51.128]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1048,
+        "NAME": "Dresden-Klotzsche",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.7543, 51.128, 13.7543, 51.128]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.7543, 51.128]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1048,
+        "NAME": "Dresden-Klotzsche",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.7543, 51.128, 13.7543, 51.128]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.7686, 51.296]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1078,
+        "NAME": "Düsseldorf",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [6.7686, 51.296, 6.7686, 51.296]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.7686, 51.296]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1078,
+        "NAME": "Düsseldorf",
+        "EVAPORATION": 2.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [6.7686, 51.296, 6.7686, 51.296]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_381f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.8133, 48.3477]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1262,
+        "NAME": "München-Flughafen",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.8133, 48.3477, 11.8133, 48.3477]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3820",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.8133, 48.3477]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1262,
+        "NAME": "München-Flughafen",
+        "EVAPORATION": 4.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.8133, 48.3477, 11.8133, 48.3477]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3821",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.9608, 50.9829]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1270,
+        "NAME": "Erfurt-Weimar",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.9608, 50.9829, 10.9608, 50.9829]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3822",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.9608, 50.9829]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1270,
+        "NAME": "Erfurt-Weimar",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.9608, 50.9829, 10.9608, 50.9829]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3823",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.9677, 51.4041]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1303,
+        "NAME": "Essen-Bredeney",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [6.9677, 51.4041, 6.9677, 51.4041]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3824",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.9677, 51.4041]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1303,
+        "NAME": "Essen-Bredeney",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [6.9677, 51.4041, 6.9677, 51.4041]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3825",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.5213, 50.0259]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1420,
+        "NAME": "Frankfurt/Main",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.5213, 50.0259, 8.5213, 50.0259]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3826",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.5213, 50.0259]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1420,
+        "NAME": "Frankfurt/Main",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.5213, 50.0259, 8.5213, 50.0259]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3827",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.4091, 48.4537]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1468,
+        "NAME": "Freudenstadt",
+        "EVAPORATION": 2.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.4091, 48.4537, 8.4091, 48.4537]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3828",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.4091, 48.4537]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1468,
+        "NAME": "Freudenstadt",
+        "EVAPORATION": 1.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.4091, 48.4537, 8.4091, 48.4537]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3829",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.2799, 51.119]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1504,
+        "NAME": "Fritzlar (Flugplatz)",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.2799, 51.119, 9.2799, 51.119]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.2799, 51.119]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1504,
+        "NAME": "Fritzlar (Flugplatz)",
+        "EVAPORATION": 2.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.2799, 51.119, 9.2799, 51.119]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1289, 50.8813]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1612,
+        "NAME": "Gera-Leumnitz",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.1289, 50.8813, 12.1289, 50.8813]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1289, 50.8813]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1612,
+        "NAME": "Gera-Leumnitz",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.1289, 50.8813, 12.1289, 50.8813]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.6439, 50.6017]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1639,
+        "NAME": "Gießen/Wettenberg",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.6439, 50.6017, 8.6439, 50.6017]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.6439, 50.6017]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1639,
+        "NAME": "Gießen/Wettenberg",
+        "EVAPORATION": 2.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.6439, 50.6017, 8.6439, 50.6017]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_382f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.9506, 51.1622]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1684,
+        "NAME": "Görlitz",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [14.9506, 51.1622, 14.9506, 51.1622]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3830",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.9506, 51.1622]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1684,
+        "NAME": "Görlitz",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [14.9506, 51.1622, 14.9506, 51.1622]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3831",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4056, 54.0967]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1757,
+        "NAME": "Greifswald",
+        "EVAPORATION": 2.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.4056, 54.0967, 13.4056, 54.0967]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3832",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.4056, 54.0967]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1757,
+        "NAME": "Greifswald",
+        "EVAPORATION": 1.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.4056, 54.0967, 13.4056, 54.0967]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3833",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.6969, 52.1344]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1766,
+        "NAME": "Münster/Osnabrück",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.6969, 52.1344, 7.6969, 52.1344]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3834",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.6969, 52.1344]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1766,
+        "NAME": "Münster/Osnabrück",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.6969, 52.1344, 7.6969, 52.1344]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3835",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9881, 53.6332]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1975,
+        "NAME": "Hamburg-Fuhlsbüttel",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.9881, 53.6332, 9.9881, 53.6332]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3836",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9881, 53.6332]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 1975,
+        "NAME": "Hamburg-Fuhlsbüttel",
+        "EVAPORATION": 4.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.9881, 53.6332, 9.9881, 53.6332]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3837",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.6779, 52.4644]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2014,
+        "NAME": "Hannover",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.6779, 52.4644, 9.6779, 52.4644]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3838",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.6779, 52.4644]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2014,
+        "NAME": "Hannover",
+        "EVAPORATION": 4.3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.6779, 52.4644, 9.6779, 52.4644]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3839",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.892, 54.175]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2115,
+        "NAME": "Helgoland",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.892, 54.175, 7.892, 54.175]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.892, 54.175]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2115,
+        "NAME": "Helgoland",
+        "EVAPORATION": 2.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.892, 54.175, 7.892, 54.175]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.8761, 50.3122]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2261,
+        "NAME": "Hof",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.8761, 50.3122, 11.8761, 50.3122]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.8761, 50.3122]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2261,
+        "NAME": "Hof",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.8761, 50.3122, 11.8761, 50.3122]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.0108, 47.8009]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2290,
+        "NAME": "Hohenpeißenberg",
+        "EVAPORATION": 3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.0108, 47.8009, 11.0108, 47.8009]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.0108, 47.8009]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2290,
+        "NAME": "Hohenpeißenberg",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.0108, 47.8009, 11.0108, 47.8009]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_383f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.4891, 51.1803]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2483,
+        "NAME": "Kahler Asten",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.4891, 51.1803, 8.4891, 51.1803]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3840",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.4891, 51.1803]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2483,
+        "NAME": "Kahler Asten",
+        "EVAPORATION": 2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.4891, 51.1803, 8.4891, 51.1803]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3841",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.3348, 47.7233]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2559,
+        "NAME": "Kempten",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.3348, 47.7233, 10.3348, 47.7233]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3842",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.3348, 47.7233]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2559,
+        "NAME": "Kempten",
+        "EVAPORATION": 3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.3348, 47.7233, 10.3348, 47.7233]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3843",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.1433, 54.3761]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2564,
+        "NAME": "Kiel-Holtenau",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.1433, 54.3761, 10.1433, 54.3761]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3844",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.1433, 54.3761]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2564,
+        "NAME": "Kiel-Holtenau",
+        "EVAPORATION": 2.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.1433, 54.3761, 10.1433, 54.3761]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3845",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1575, 50.8646]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2667,
+        "NAME": "Köln-Bonn",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.1575, 50.8646, 7.1575, 50.8646]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3846",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1575, 50.8646]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2667,
+        "NAME": "Köln-Bonn",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.1575, 50.8646, 7.1575, 50.8646]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3847",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.1901, 47.6774]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2712,
+        "NAME": "Konstanz",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.1901, 47.6774, 9.1901, 47.6774]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3848",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.1901, 47.6774]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2712,
+        "NAME": "Konstanz",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.1901, 47.6774, 9.1901, 47.6774]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3849",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.828, 48.3647]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2812,
+        "NAME": "Lahr",
+        "EVAPORATION": 2.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.828, 48.3647, 7.828, 48.3647]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.828, 48.3647]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2812,
+        "NAME": "Lahr",
+        "EVAPORATION": 2.7,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.828, 48.3647, 7.828, 48.3647]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.2396, 51.4348]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2932,
+        "NAME": "Leipzig/Halle",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.2396, 51.4348, 12.2396, 51.4348]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.2396, 51.4348]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 2932,
+        "NAME": "Leipzig/Halle",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.2396, 51.4348, 12.2396, 51.4348]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.118, 52.2085]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3015,
+        "NAME": "Lindenberg",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [14.118, 52.2085, 14.118, 52.2085]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.118, 52.2085]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3015,
+        "NAME": "Lindenberg",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [14.118, 52.2085, 14.118, 52.2085]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_384f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.8388, 51.7855]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3028,
+        "NAME": "Lippspringe, Bad",
+        "EVAPORATION": 4.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.8388, 51.7855, 8.8388, 51.7855]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3850",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.8388, 51.7855]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3028,
+        "NAME": "Lippspringe, Bad",
+        "EVAPORATION": 4.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.8388, 51.7855, 8.8388, 51.7855]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3851",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.1374, 52.9724]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3093,
+        "NAME": "Lüchow",
+        "EVAPORATION": 3.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.1374, 52.9724, 11.1374, 52.9724]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3852",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.1374, 52.9724]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3093,
+        "NAME": "Lüchow",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.1374, 52.9724, 11.1374, 52.9724]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3853",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.5827, 52.1029]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3126,
+        "NAME": "Magdeburg",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.5827, 52.1029, 11.5827, 52.1029]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3854",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.5827, 52.1029]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3126,
+        "NAME": "Magdeburg",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.5827, 52.1029, 11.5827, 52.1029]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3855",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.9319, 53.3223]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3196,
+        "NAME": "Marnitz",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.9319, 53.3223, 11.9319, 53.3223]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3856",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.9319, 53.3223]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3196,
+        "NAME": "Marnitz",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.9319, 53.3223, 11.9319, 53.3223]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3857",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.3771, 50.5612]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3231,
+        "NAME": "Meiningen",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.3771, 50.5612, 10.3771, 50.5612]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3858",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.3771, 50.5612]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3231,
+        "NAME": "Meiningen",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.3771, 50.5612, 10.3771, 50.5612]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3859",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.8072, 52.9037]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3552,
+        "NAME": "Neuruppin",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.8072, 52.9037, 12.8072, 52.9037]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.8072, 52.9037]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3552,
+        "NAME": "Neuruppin",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.8072, 52.9037, 12.8072, 52.9037]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1519, 53.7123]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3631,
+        "NAME": "Norderney",
+        "EVAPORATION": 2.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.1519, 53.7123, 7.1519, 53.7123]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1519, 53.7123]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3631,
+        "NAME": "Norderney",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.1519, 53.7123, 7.1519, 53.7123]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.276, 47.3986]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3730,
+        "NAME": "Oberstdorf",
+        "EVAPORATION": 2.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [10.276, 47.3986, 10.276, 47.3986]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.276, 47.3986]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3730,
+        "NAME": "Oberstdorf",
+        "EVAPORATION": 2.8,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [10.276, 47.3986, 10.276, 47.3986]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_385f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.5175, 49.207]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3761,
+        "NAME": "Öhringen",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.5175, 49.207, 9.5175, 49.207]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3860",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.5175, 49.207]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3761,
+        "NAME": "Öhringen",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.5175, 49.207, 9.5175, 49.207]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3861",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.0622, 52.3813]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3987,
+        "NAME": "Potsdam",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.0622, 52.3813, 13.0622, 52.3813]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3862",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.0622, 52.3813]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 3987,
+        "NAME": "Potsdam",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.0622, 52.3813, 13.0622, 52.3813]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3863",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1019, 49.0425]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4104,
+        "NAME": "Regensburg",
+        "EVAPORATION": 4,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.1019, 49.0425, 12.1019, 49.0425]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3864",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1019, 49.0425]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4104,
+        "NAME": "Regensburg",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.1019, 49.0425, 12.1019, 49.0425]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3865",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.3301, 48.9726]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4177,
+        "NAME": "Rheinstetten",
+        "EVAPORATION": 2.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.3301, 48.9726, 8.3301, 48.9726]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3866",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.3301, 48.9726]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4177,
+        "NAME": "Rheinstetten",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.3301, 48.9726, 8.3301, 48.9726]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3867",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.0808, 54.1803]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4271,
+        "NAME": "Rostock-Warnemünde",
+        "EVAPORATION": 2.8,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.0808, 54.1803, 12.0808, 54.1803]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3868",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.0808, 54.1803]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4271,
+        "NAME": "Rostock-Warnemünde",
+        "EVAPORATION": 3.3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.0808, 54.1803, 12.0808, 54.1803]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3869",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1077, 49.2128]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4336,
+        "NAME": "Saarbrücken-Ensheim",
+        "EVAPORATION": 2.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.1077, 49.2128, 7.1077, 49.2128]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.1077, 49.2128]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4336,
+        "NAME": "Saarbrücken-Ensheim",
+        "EVAPORATION": 2.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.1077, 49.2128, 7.1077, 49.2128]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.5487, 54.5275]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4466,
+        "NAME": "Schleswig",
+        "EVAPORATION": 2.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.5487, 54.5275, 9.5487, 54.5275]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.5487, 54.5275]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4466,
+        "NAME": "Schleswig",
+        "EVAPORATION": 3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.5487, 54.5275, 9.5487, 54.5275]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.3872, 53.6425]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4625,
+        "NAME": "Schwerin",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.3872, 53.6425, 11.3872, 53.6425]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.3872, 53.6425]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4625,
+        "NAME": "Schwerin",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.3872, 53.6425, 11.3872, 53.6425]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_386f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.8646, 48.6657]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4887,
+        "NAME": "Stötten",
+        "EVAPORATION": 2.6,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.8646, 48.6657, 9.8646, 48.6657]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3870",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.8646, 48.6657]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4887,
+        "NAME": "Stötten",
+        "EVAPORATION": 3,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.8646, 48.6657, 9.8646, 48.6657]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3871",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.5598, 48.8275]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4911,
+        "NAME": "Straubing",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.5598, 48.8275, 12.5598, 48.8275]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3872",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.5598, 48.8275]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4911,
+        "NAME": "Straubing",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.5598, 48.8275, 12.5598, 48.8275]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3873",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.2235, 48.6883]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4931,
+        "NAME": "Stuttgart-Echterdingen",
+        "EVAPORATION": 2.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.2235, 48.6883, 9.2235, 48.6883]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3874",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.2235, 48.6883]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 4931,
+        "NAME": "Stuttgart-Echterdingen",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.2235, 48.6883, 9.2235, 48.6883]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3875",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.6582, 49.7479]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5100,
+        "NAME": "Trier-Petrisberg",
+        "EVAPORATION": 1.9,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [6.6582, 49.7479, 6.6582, 49.7479]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3876",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.6582, 49.7479]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5100,
+        "NAME": "Trier-Petrisberg",
+        "EVAPORATION": 2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [6.6582, 49.7479, 6.6582, 49.7479]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3877",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.6654, 53.5196]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5349,
+        "NAME": "Waren (Müritz)",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.6654, 53.5196, 12.6654, 53.5196]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3878",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.6654, 53.5196]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5349,
+        "NAME": "Waren (Müritz)",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.6654, 53.5196, 12.6654, 53.5196]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3879",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9428, 50.4973]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5371,
+        "NAME": "Wasserkuppe",
+        "EVAPORATION": 3.9,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.9428, 50.4973, 9.9428, 50.4973]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9428, 50.4973]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5371,
+        "NAME": "Wasserkuppe",
+        "EVAPORATION": 3.4,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.9428, 50.4973, 9.9428, 50.4973]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1845, 49.6663]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5397,
+        "NAME": "Weiden",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [12.1845, 49.6663, 12.1845, 49.6663]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.1845, 49.6663]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5397,
+        "NAME": "Weiden",
+        "EVAPORATION": 3.6,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [12.1845, 49.6663, 12.1845, 49.6663]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387d",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.0605, 54.5284]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5516,
+        "NAME": "Fehmarn",
+        "EVAPORATION": 2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [11.0605, 54.5284, 11.0605, 54.5284]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387e",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.0605, 54.5284]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5516,
+        "NAME": "Fehmarn",
+        "EVAPORATION": 2.2,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [11.0605, 54.5284, 11.0605, 54.5284]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_387f",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9577, 49.7703]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5705,
+        "NAME": "Würzburg",
+        "EVAPORATION": 4.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [9.9577, 49.7703, 9.9577, 49.7703]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3880",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.9577, 49.7703]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5705,
+        "NAME": "Würzburg",
+        "EVAPORATION": 4.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [9.9577, 49.7703, 9.9577, 49.7703]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3881",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.2287, 53.3881]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5839,
+        "NAME": "Emden",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.2287, 53.3881, 7.2287, 53.3881]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3882",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.2287, 53.3881]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5839,
+        "NAME": "Emden",
+        "EVAPORATION": 4.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.2287, 53.3881, 7.2287, 53.3881]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3883",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3531, 48.5451]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5856,
+        "NAME": "Fürstenzell",
+        "EVAPORATION": 3.8,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [13.3531, 48.5451, 13.3531, 48.5451]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3884",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.3531, 48.5451]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5856,
+        "NAME": "Fürstenzell",
+        "EVAPORATION": 3.7,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [13.3531, 48.5451, 13.3531, 48.5451]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3885",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.2645, 49.9462]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5871,
+        "NAME": "Hahn",
+        "EVAPORATION": 2.3,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [7.2645, 49.9462, 7.2645, 49.9462]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3886",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.2645, 49.9462]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5871,
+        "NAME": "Hahn",
+        "EVAPORATION": 1.7,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [7.2645, 49.9462, 7.2645, 49.9462]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3887",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.5585, 49.5062]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5906,
+        "NAME": "Mannheim",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.5585, 49.5062, 8.5585, 49.5062]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3888",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.5585, 49.5062]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 5906,
+        "NAME": "Mannheim",
+        "EVAPORATION": 3.1,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.5585, 49.5062, 8.5585, 49.5062]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_3889",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7862, 50.09]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 7341,
+        "NAME": "Offenbach-Wetterpark",
+        "EVAPORATION": 3.5,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [8.7862, 50.09, 8.7862, 50.09]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388a",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.7862, 50.09]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 7341,
+        "NAME": "Offenbach-Wetterpark",
+        "EVAPORATION": 2.9,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [8.7862, 50.09, 8.7862, 50.09]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388b",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.0244, 50.7983]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 15000,
+        "NAME": "Aachen-Orsbach",
+        "EVAPORATION": 3.2,
+        "M_DATE": "2019-04-16T00:00:00Z",
+        "bbox": [6.0244, 50.7983, 6.0244, 50.7983]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RBSN_VPGB.fid-6f89f8f5_16a3171ba59_388c",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [6.0244, 50.7983]
+      },
+      "geometry_name": "THE_GEOM",
+      "properties": {
+        "ID": 15000,
+        "NAME": "Aachen-Orsbach",
+        "EVAPORATION": 1.5,
+        "M_DATE": "2019-04-17T00:00:00Z",
+        "bbox": [6.0244, 50.7983, 6.0244, 50.7983]
+      }
+    }
+  ],
+  "totalFeatures": 134,
+  "numberMatched": 134,
+  "numberReturned": 134,
+  "timeStamp": "2019-04-18T17:20:16.658Z",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:EPSG::4326"
+    }
+  },
+  "bbox": [47.3986, 6.0244, 54.6792, 14.9506]
+}

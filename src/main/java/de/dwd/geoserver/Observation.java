@@ -48,14 +48,16 @@ public class Observation {
   public static boolean debug = true;
   static DateFormat isoDateFormat = new SimpleDateFormat(
       "yyyy-MM-dd'T'HH:mm:ss'Z'");
+  static DateFormat shortIsoDateFormat = new SimpleDateFormat(
+      "yyyy-MM-dd");
   static DateFormat defaultDateFormatter =new SimpleDateFormat(
       "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
-  private Station station; // the station this Observation was made
-  private String stationid; 
-  Date date; // date time of the observation
-  String name; // the name of the observation
-  Double value; // the value of the observation
+  private Station station; // the station this Observation was made e.g. 1078/Düsseldorf
+  private String stationid; // e.g. 1078 - this is redundant but simpler
+  String date; // date  of the observation as yyyy-MM-DD eg. 2019-04-20
+  String name; // the name of the observation e.g. evaporation
+  Double value; // the value of the observation e.g. 5.2
 
   public String getStationid() {
     return stationid;
@@ -102,9 +104,11 @@ public class Observation {
       Property props = feature.properties;
       if (debug)
         System.out.println(props.toString());
-      Station station = sm.byId(props.ID);
+      observation.setStationid(props.ID);
+      Station station = sm.byId(observation.getStationid());
       observation.setStation(station);
-      observation.date = isoDateFormat.parse(props.M_DATE);
+      Date observation_date = isoDateFormat.parse(props.M_DATE);
+      observation.date=shortIsoDateFormat.format(observation_date);
       if (props.EVAPORATION != null) {
         observation.name = "evaporation";
         observation.value = props.EVAPORATION;
@@ -157,14 +161,7 @@ public class Observation {
     Observation o=new Observation();
     o.name=oVertex.property("name").value().toString();
     o.value=(Double) oVertex.property("value").value();
-    Object dobject = oVertex.property("date").value();
-    if (dobject instanceof Date)
-      o.date=(Date) dobject;
-    else
-      o.date=defaultDateFormatter.parse(dobject.toString());
-    if (oVertex.property("stationid").isPresent()) {
-      o.setStationid(oVertex.property("stationid").value().toString());
-    }
+    o.date=oVertex.property("date").value().toString();
     return o;
   }
 
@@ -172,7 +169,7 @@ public class Observation {
    * convert me to a human readable string
    */
   public String toString() {
-    String text = String.format("%s: %s -> %s=%5.1f", getStation()!=null?getStation().name:getStationid(),isoDateFormat.format(date),
+    String text = String.format("%s: %s -> %s=%5.1f", getStation()!=null?getStation().name:getStationid(),date,
         name, value);
     return text;
   }
