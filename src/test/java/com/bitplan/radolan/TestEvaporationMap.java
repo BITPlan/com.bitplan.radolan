@@ -23,7 +23,10 @@
  */
 package com.bitplan.radolan;
 
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
 import static org.junit.Assert.*;
+
+import java.util.Map;
 
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
@@ -34,7 +37,9 @@ import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
+import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.Translate;
+import cs.fau.de.since.radolan.vis.Vis;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
@@ -52,6 +57,10 @@ public class TestEvaporationMap extends TestBorders {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
+    FloatFunction<Color> evapColorMap = Vis.Heatmap(0.0f,
+        6.0f, Vis.Id);
+    Map<Object, Object> evapmap = sm.g().V().hasLabel("observation").has("name", "evaporation").group()
+    .by("stationid").by(values("value").mean()).next();
     Platform.runLater(() -> borderDraw.drawBorders());
     Platform.runLater(() -> {
       sm.g().V().hasLabel("station").forEachRemaining(v -> {
@@ -60,10 +69,12 @@ public class TestEvaporationMap extends TestBorders {
         Coord coord = s.getCoord();
         DPoint dgp = projection.translateLatLonToGrid(coord.getLat(),
             coord.getLon());
-        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 2.0, Color.BLUE, dgp.x, dgp.y);
+        Number evap = (Number)evapmap.get(s.getId());
+        Color evapColor=evapColorMap.apply(evap.floatValue());
+        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 25., evapColor, dgp.x, dgp.y);
       });
     });
-    Thread.sleep(SHOW_TIME * 5);
+    Thread.sleep(SHOW_TIME * 25);
     sampleApp.close();
   }
 
