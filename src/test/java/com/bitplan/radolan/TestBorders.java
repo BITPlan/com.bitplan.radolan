@@ -59,7 +59,7 @@ public class TestBorders extends BaseTest {
       "3_regierungsbezirke/3_mittel.geojson",
       "3_regierungsbezirke/4_niedrig.geojson", "4_kreise/2_hoch.geojson",
       "4_kreise/3_mittel.geojson", "4_kreise/4_niedrig.geojson" };
-  private SampleApp sampleApp;
+  protected SampleApp sampleApp;
   private MapView mapView;
 
   @Test
