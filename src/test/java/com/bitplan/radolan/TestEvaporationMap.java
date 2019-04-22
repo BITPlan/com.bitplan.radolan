@@ -23,7 +23,13 @@
  */
 package com.bitplan.radolan;
 
+import static org.junit.Assert.assertTrue;
+
+import java.util.List;
+import java.util.Map;
+
 import org.junit.Test;
+import org.openweathermap.weather.Coord;
 
 import com.bitplan.display.BorderDraw;
 import com.bitplan.display.EvaporationView;
@@ -31,6 +37,7 @@ import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
 import cs.fau.de.since.radolan.Translate;
+import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
 
@@ -46,14 +53,36 @@ public class TestEvaporationMap extends TestBorders {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
-    EvaporationView evapView=new EvaporationView(sm,borderDraw);
+    EvaporationView evapView=new EvaporationView(sm);
    
     Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(() -> evapView.draw(40.,0.5));
-    Platform.runLater(() -> evapView.drawInterpolated(12,12));
+    Platform.runLater(() -> evapView.draw(borderDraw,40.,0.5));
+    Platform.runLater(() -> evapView.drawInterpolated(borderDraw,12,12));
       
     Thread.sleep(SHOW_TIME * 100);
     sampleApp.close();
   }
 
+  @Test
+  public void testEvapView() throws Exception {
+    StationManager sm = StationManager.init();
+    EvaporationView evapView=new EvaporationView(sm);
+    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0,150,150);
+    Statistics stats=new Statistics();
+    boolean debug=false;
+    for (Coord c:gridMap.keySet()) {
+      List<Station> stations = gridMap.get(c);
+      if (debug)
+        System.out.println(String.format("%3d %s",stations.size(),c.toString()));
+      if (c.getLon()>8.35 && c.getLon()<12.173 && c.getLat()>47.843 && c.getLat()<53.645) {
+        stats.add(stations.size());
+        assertTrue(c.toString(),stations.size()>=3);
+      }
+      for (Station station:stations) {
+        if (debug)
+          System.out.println(String.format("\t %5.1f km %s",c.distance(station.getCoord()),station.toString()));
+      }
+    }
+    System.out.println(stats.toString());
+  }
 }

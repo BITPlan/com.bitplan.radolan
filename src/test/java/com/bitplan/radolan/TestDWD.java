@@ -57,7 +57,7 @@ import de.dwd.geoserver.WFS.WFSType;
  */
 public class TestDWD {
   public final int EXPECTED_STATIONS = 67;
-  public final int DAYS = 5;
+  public final int DAYS = 6;
   public final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
