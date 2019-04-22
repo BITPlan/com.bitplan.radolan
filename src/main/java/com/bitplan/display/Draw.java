@@ -28,6 +28,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class Draw {
 
@@ -43,7 +45,7 @@ public class Draw {
    */
   public static Circle drawCircleWithText(Pane pane, String text, double radius,
       Color color, double x, double y) {
-    return drawCircleWithText(pane, text, radius, color, 1.0, color, x, y);
+    return drawCircleWithText(pane, text, radius, color, 1.0, color, x, y,false);
   }
 
   /**
@@ -57,10 +59,12 @@ public class Draw {
    * @param textColor
    * @param x
    * @param y
+   * @param center
    * @return
    */
   public static Circle drawCircleWithText(Pane pane, String text, double radius,
-      Color circleColor, double circleOpacity, Color textColor, double x, double y) {
+      Color circleColor, double circleOpacity, Color textColor, double x,
+      double y, boolean center) {
     Circle circle = new Circle();
     circle.setRadius(radius);
     circle.setFill(circleColor);
@@ -68,11 +72,21 @@ public class Draw {
     circle.setTranslateX(x);
     circle.setTranslateY(y);
 
-    Label label = new Label(text);
-    label.setTranslateX(x + radius);
-    label.setTranslateY(y + radius);
-    label.setTextFill(textColor);
-    pane.getChildren().addAll(circle, label);
+    Text textCtrl = new Text(text);
+    if (center) {
+      // https://stackoverflow.com/a/41326161/1497139
+      double width = textCtrl.getBoundsInLocal().getWidth();
+      double height=textCtrl.getBoundsInLocal().getHeight();
+      textCtrl.setTranslateX(x-width/2);
+      textCtrl.setTranslateY(y+height/3);
+      textCtrl.setTextAlignment(TextAlignment.CENTER);
+      
+    } else {
+      textCtrl.setTranslateX(x + radius);
+      textCtrl.setTranslateY(y + radius);
+    }
+    textCtrl.setFill(textColor);
+    pane.getChildren().addAll(circle, textCtrl);
     return circle;
   }
 

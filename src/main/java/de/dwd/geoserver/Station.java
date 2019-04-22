@@ -154,4 +154,12 @@ public class Station {
     }
   }
 
+  public String getShortName() {
+    String shortName=this.name.replaceAll("-.*","");
+    shortName=shortName.replaceAll("/.*","");
+    shortName=shortName.replaceAll("\\(.*","");
+    shortName=shortName.replaceAll("\\,.*","");
+    return shortName;
+  }
+
 }
