@@ -23,28 +23,16 @@
  */
 package com.bitplan.radolan;
 
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
-import static org.junit.Assert.*;
-
-import java.util.Map;
-
 import org.junit.Test;
-import org.openweathermap.weather.Coord;
 
 import com.bitplan.display.BorderDraw;
-import com.bitplan.display.Draw;
 import com.bitplan.display.EvaporationView;
-import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
-import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.Translate;
-import cs.fau.de.since.radolan.vis.Vis;
-import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
-import javafx.scene.paint.Color;
 
 /**
  * test a map for Evaporation data
@@ -58,22 +46,12 @@ public class TestEvaporationMap extends TestBorders {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
-    FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
-    Map<Object, Object> evapmap = sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-    .by("stationid").by(values("value").mean()).next();
+    EvaporationView evapView=new EvaporationView(sm,borderDraw);
+   
     Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(() -> {
-      sm.g().V().hasLabel("station").forEachRemaining(v -> {
-        Station s = new Station();
-        s.fromVertex(v);
-        Coord coord = s.getCoord();
-        DPoint p = borderDraw.translateLatLonToView(coord.getLat(),
-            coord.getLon());
-        Number evap = (Number)evapmap.get(s.getId());
-        Color evapColor=evapColorMap.apply(evap.floatValue());
-        Draw.drawCircleWithText(borderDraw.getPane(), s.getShortName(), 40., evapColor,0.5,Color.BLUE,p.x, p.y,true);
-      });
-    });
+    Platform.runLater(() -> evapView.draw(40.,0.5));
+    Platform.runLater(() -> evapView.drawInterpolated(12,12));
+      
     Thread.sleep(SHOW_TIME * 100);
     sampleApp.close();
   }
