@@ -33,6 +33,7 @@ import org.openweathermap.weather.Coord;
 
 import com.bitplan.display.BorderDraw;
 import com.bitplan.display.Draw;
+import com.bitplan.display.EvaporationView;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
@@ -57,8 +58,7 @@ public class TestEvaporationMap extends TestBorders {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
-    FloatFunction<Color> evapColorMap = Vis.Heatmap(0.0f,
-        6.0f, Vis.Id);
+    FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
     Map<Object, Object> evapmap = sm.g().V().hasLabel("observation").has("name", "evaporation").group()
     .by("stationid").by(values("value").mean()).next();
     Platform.runLater(() -> borderDraw.drawBorders());
