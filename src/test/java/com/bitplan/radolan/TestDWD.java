@@ -113,7 +113,7 @@ public class TestDWD {
     Station dusStation = getDUSStation();
     WFSResponse wfsResponse = WFS.getEvaporationHistory(dusStation);
     assertNotNull(wfsResponse);
-    assertTrue(wfsResponse.totalFeatures == 2);
+    assertTrue(wfsResponse.totalFeatures >= 1);
   }
 
   @Test

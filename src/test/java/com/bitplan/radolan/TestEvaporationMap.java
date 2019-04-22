@@ -71,7 +71,7 @@ public class TestEvaporationMap extends TestBorders {
             coord.getLon());
         Number evap = (Number)evapmap.get(s.getId());
         Color evapColor=evapColorMap.apply(evap.floatValue());
-        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 25., evapColor, dgp.x, dgp.y);
+        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 25., evapColor,Color.BLUE,dgp.x, dgp.y);
       });
     });
     Thread.sleep(SHOW_TIME * 25);
