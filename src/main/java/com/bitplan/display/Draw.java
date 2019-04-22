@@ -43,7 +43,7 @@ public class Draw {
    */
   public static Circle drawCircleWithText(Pane pane, String text, double radius,
       Color color, double x, double y) {
-    return drawCircleWithText(pane, text, radius, color, color, x, y);
+    return drawCircleWithText(pane, text, radius, color, 1.0, color, x, y);
   }
 
   /**
@@ -53,16 +53,18 @@ public class Draw {
    * @param text
    * @param radius
    * @param circleColor
+   * @param circleOpacity
    * @param textColor
    * @param x
    * @param y
-   * @return the circle
+   * @return
    */
   public static Circle drawCircleWithText(Pane pane, String text, double radius,
-      Color circleColor, Color textColor, double x, double y) {
+      Color circleColor, double circleOpacity, Color textColor, double x, double y) {
     Circle circle = new Circle();
     circle.setRadius(radius);
     circle.setFill(circleColor);
+    circle.setOpacity(circleOpacity);
     circle.setTranslateX(x);
     circle.setTranslateY(y);
 

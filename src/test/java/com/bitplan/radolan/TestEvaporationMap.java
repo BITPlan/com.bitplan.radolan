@@ -67,14 +67,14 @@ public class TestEvaporationMap extends TestBorders {
         Station s = new Station();
         s.fromVertex(v);
         Coord coord = s.getCoord();
-        DPoint dgp = projection.translateLatLonToGrid(coord.getLat(),
+        DPoint p = borderDraw.translateLatLonToView(coord.getLat(),
             coord.getLon());
         Number evap = (Number)evapmap.get(s.getId());
         Color evapColor=evapColorMap.apply(evap.floatValue());
-        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 25., evapColor,Color.BLUE,dgp.x, dgp.y);
+        Draw.drawCircleWithText(borderDraw.getPane(), s.getName(), 35., evapColor,0.5,Color.BLUE,p.x, p.y);
       });
     });
-    Thread.sleep(SHOW_TIME * 25);
+    Thread.sleep(SHOW_TIME * 70);
     sampleApp.close();
   }
 

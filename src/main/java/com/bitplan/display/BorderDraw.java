@@ -73,6 +73,23 @@ public class BorderDraw {
   public Pane getPane() {
     return  mapView.getDrawPane();
   }
+  
+  /**
+   * translate a lat/lon value to a point in this view (pane)
+   * @param lat
+   * @param lon
+   * @return the point
+   */
+  public DPoint translateLatLonToView(double lat, double lon) {
+    Pane pane = mapView.getDrawPane();
+    DPoint dgp = projection.translateLatLonToGrid(lat,lon);
+    IPoint igp=new IPoint(dgp);
+    double w = pane.getWidth();
+    double h = pane.getHeight();
+    DPoint p =projection.translateGridToView(igp, w,h);
+    return p;
+  }
+  
   /**
    * draw the Borders
    */
@@ -95,9 +112,7 @@ public class BorderDraw {
 
       // IPoint prevIp = null;
       for (Point point : lineString.points()) {   
-        DPoint dgp = projection.translateLatLonToGrid(point.lat(), point.lon());
-        IPoint igp=new IPoint(dgp);
-        DPoint p =projection.translateGridToView(igp, pane.getWidth(),pane.getHeight());
+        DPoint p=this.translateLatLonToView(point.lat(), point.lon());
         
         polygonPoints.add(p.x);
         polygonPoints.add(p.y);

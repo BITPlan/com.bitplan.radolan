@@ -1,5 +1,12 @@
 #!/bin/bash
 # WF 2019-04-20
-url="https://maps.dwd.de/geoserver/dwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=dwd%3ARBSN_VPGB&outputFormat=application%2Fjson&bbox=++47.30000%2C+++5.90000%2C++55.00000%2C++15.10000"
-today=$(date "+%Y-%m-%d")
-curl -s $url --output "evaporation_$today.json"
+
+GetFeature() {
+  local l_title="$1"
+  local l_code="$2"
+  url="https://maps.dwd.de/geoserver/dwd/ows?service=WFS&version=2.0.0&request=GetFeature&typeName=dwd%3ARBSN_${l_code}&outputFormat=application%2Fjson&bbox=++47.30000%2C+++5.90000%2C++55.00000%2C++15.10000"
+  today=$(date "+%Y-%m-%d")
+  curl -s $url --output "${l_title}_${today}.json"
+}
+
+GetFeature evaporation VPGB
