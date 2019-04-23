@@ -74,7 +74,7 @@ public class TestUnLocodeManager extends BaseTest {
     // System.out.println(ulm.unLocodes.size());
     assertEquals(9657, ulm.unLocodes.size());
     // Bielefeld? - das gibts doch gar nicht!
-    debug = true;
+    // debug = true;
     Map<Double, UnLocode> closeCities = ulm.lookup(52.034, 8.529, 20);
     if (debug)
       for (UnLocode city : closeCities.values()) {

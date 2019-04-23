@@ -49,8 +49,8 @@ import javafx.scene.paint.Color;
  *
  */
 public class EvaporationView {
-  public static boolean debug=false;
-  
+  public static boolean debug = false;
+
   public static final ColorRange[] DWD_Style_Colors = {
       new ColorRange(6.0f, 999999.0f, Color.rgb(204, 0, 0)),
       new ColorRange(5.0f, 5.9999f, Color.rgb(220, 91, 0)),
@@ -117,25 +117,28 @@ public class EvaporationView {
    * @param power
    * @param gridx
    * @param gridy
-   * @param opacity 
+   * @param opacity
    */
-  public void drawInterpolated(BorderDraw borderDraw, double power,int gridx, int gridy, double opacity) {
+  public void drawInterpolated(BorderDraw borderDraw, double power, int gridx,
+      int gridy, double opacity) {
     FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
     Map<Coord, List<Station>> gridMap = this.prepareGrid(120.0, gridx, gridy);
-    double w=borderDraw.getProjection().getGridWidth()/gridx;
-    double h=borderDraw.getProjection().getGridHeight()/gridy;
+    double w = borderDraw.getProjection().getGridWidth() / gridx;
+    double h = borderDraw.getProjection().getGridHeight() / gridy;
     for (Coord c : gridMap.keySet()) {
-      double lat=c.getLat();
-      double lon=c.getLon();
-      DPoint p = borderDraw.translateLatLonToView(lat,lon);
+      double lat = c.getLat();
+      double lon = c.getLon();
+      DPoint p = borderDraw.translateLatLonToView(lat, lon);
       double evap = getInverseWeighted(c, gridMap.get(c), power);
-      Color evapColor = evapColorMap.apply((float)evap);
-      Draw.drawRect(borderDraw.getPane(),opacity,evapColor,p.x-w/2,p.y-h/2,w,h);
-    
-      //String text = c.toString();
-      //String text=String.format("%5.1f %s\n%5.1f %s", lat,lat>=0?"N":"S",lon,lon>=0?"E":"W");
-      //Draw.drawCircleWithText(borderDraw.getPane(), text, 4., evapColor, 0.5,
-      //    Color.BLUE, p.x, p.y, true);
+      Color evapColor = evapColorMap.apply((float) evap);
+      Draw.drawRect(borderDraw.getPane(), opacity, evapColor, p.x - w / 2,
+          p.y - h / 2, w, h);
+
+      // String text = c.toString();
+      // String text=String.format("%5.1f %s\n%5.1f %s",
+      // lat,lat>=0?"N":"S",lon,lon>=0?"E":"W");
+      // Draw.drawCircleWithText(borderDraw.getPane(), text, 4., evapColor, 0.5,
+      // Color.BLUE, p.x, p.y, true);
     }
   }
 
@@ -181,55 +184,65 @@ public class EvaporationView {
     }
     return stations;
   }
-  
+
   /**
    * get the closest coordinate in the given collection of coordinates
+   * 
    * @param c
    * @param coords
    * @return the closest
    */
-  public Coord getClosest(Coord c,Collection<Coord> coords) {
-    Coord closest=null;
-    Double mindist=Double.MAX_VALUE;
-    for (Coord gc:coords) {
-      double dist=c.distance(gc);
-      if (dist<mindist) {
-        closest=gc;
-        mindist=dist;
+  public Coord getClosest(Coord c, Collection<Coord> coords) {
+    Coord closest = null;
+    Double mindist = Double.MAX_VALUE;
+    for (Coord gc : coords) {
+      double dist = c.distance(gc);
+      if (dist < mindist) {
+        closest = gc;
+        mindist = dist;
       }
     }
     return closest;
   }
 
   /**
-   * get the inverse weighted evaporation value for the given coordinate and list of stations
-   * @param c - the coordinate
+   * get the inverse weighted evaporation value for the given coordinate and
+   * list of stations
+   * 
+   * @param c
+   *          - the coordinate
    * @param stations
-   * @param power - power adjustment
+   * @param power
+   *          - power adjustment
    * @return - the inverse weighted interpolated value
    */
-  public double getInverseWeighted(Coord c, List<Station> stations, double power) {
-    double weightSum=0.;
-    double evapSum=0.;
-    for (Station station:stations) {
-      double dist=c.distance(station.getCoord());
-      Number evap=(Number)evapmap.get(station.id);
-      double weight; 
-      double d=Math.pow(dist,power);
-      d=Math.sqrt(d);
-      if (d>0.)
-        weight=1/d;
+  public double getInverseWeighted(Coord c, List<Station> stations,
+      double power) {
+    double weightSum = 0.;
+    double evapSum = 0.;
+    for (Station station : stations) {
+      double dist = c.distance(station.getCoord());
+      Number evap = (Number) evapmap.get(station.id);
+      double weight;
+      double d = Math.pow(dist, power);
+      d = Math.sqrt(d);
+      if (d > 0.)
+        weight = 1 / d;
       else
-        weight=1.e20; // big value to avoid divison by zero
-      if (debug) {
-        station.setDistance(dist);
-        System.out.println(String.format("%5.3f %5.1f mm %s",weight,evap.doubleValue(),station.toString()));
+        weight = 1.e20; // big value to avoid divison by zero
+      if (evap != null) {
+        if (debug) {
+          station.setDistance(dist);
+          System.out.println(String.format("%5.3f %5.1f mm %s", weight,
+              evap.doubleValue(), station.toString()));
+        }
+        weightSum += weight;
+        evapSum += evap.doubleValue() * weight;
       }
-      weightSum+=weight;
-      evapSum+=evap.doubleValue()*weight;
     }
     if (debug)
-      System.out.println(String.format("%5.3f %5.1f mm %5.1f mm",weightSum,evapSum,evapSum/weightSum));
-    return evapSum/weightSum;
+      System.out.println(String.format("%5.3f %5.1f mm %5.1f mm", weightSum,
+          evapSum, evapSum / weightSum));
+    return evapSum / weightSum;
   }
 }
