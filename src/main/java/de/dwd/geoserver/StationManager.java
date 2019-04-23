@@ -24,6 +24,8 @@
 package de.dwd.geoserver;
 
 import java.io.File;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.tinkerpop.gremlin.process.traversal.IO;
@@ -40,10 +42,11 @@ import org.openweathermap.weather.Coord;
  *
  */
 public class StationManager {
-
+  public static boolean debug=false;
   public static StationManager instance;
   private TinkerGraph graph;
   private File graphFile;
+  private Map<String, Station> stationsById = new HashMap<String, Station>();
   public static final Coord Germany_SouthEast = new Coord(55.0, 15.1);
   public static final Coord Germany_NorthWest = new Coord(47.3, 5.9);
 
@@ -108,18 +111,22 @@ public class StationManager {
    */
   public void add(Observation observation) {
     GraphTraversal<Vertex, Vertex> stationTraversal = g().V()
-        .hasLabel("observation")
-        .has("stationid",observation.getStationid())
-        .has("date", observation.date)
-        .has("name", observation.name);
+        .hasLabel("observation").has("stationid", observation.getStationid())
+        .has("date", observation.date).has("name", observation.name);
     if (stationTraversal.hasNext()) {
-      System.out.println(observation.toString() + " already exists");
+      if (debug)
+        System.out.println(observation.toString() + " already exists");
     } else {
-      Vertex stationVertex = this.getStationVertexById(observation.getStation().id);
-      Vertex oVertex = graph.addVertex("observation");
-      observation.toVertex(oVertex);
-      stationVertex.addEdge("has", oVertex);
+      Vertex stationVertex = this
+          .getStationVertexById(observation.getStationid());
+      addDirect(observation, stationVertex);
     }
+  }
+
+  public void addDirect(Observation observation, Vertex stationVertex) {
+    Vertex oVertex = graph.addVertex("observation");
+    observation.toVertex(oVertex);
+    stationVertex.addEdge("has", oVertex);
   }
 
   /**
@@ -130,6 +137,7 @@ public class StationManager {
   public void add(Station station) {
     Vertex stationVertex = this.getStationVertexById(station.id);
     toVertex(station, stationVertex);
+    stationsById.put(station.id, station);
   }
 
   /**
@@ -139,8 +147,8 @@ public class StationManager {
    * @return the Station Vertex
    */
   public Vertex getStationVertexById(String stationid) {
-    GraphTraversal<Vertex, Vertex> stationTraversal = g().V().hasLabel("station").has("stationid",
-        stationid);
+    GraphTraversal<Vertex, Vertex> stationTraversal = g().V()
+        .hasLabel("station").has("stationid", stationid);
     Vertex stationVertex;
     if (stationTraversal.hasNext()) {
       stationVertex = stationTraversal.next();
@@ -163,7 +171,6 @@ public class StationManager {
     stationVertex.property("lon", station.coord.getLon());
   }
 
-  
   /**
    * get the station by it's id
    * 
@@ -208,5 +215,13 @@ public class StationManager {
 
   public static void reset() {
     instance = null;
+  }
+
+  public int size() {
+    return this.stationsById.size();
+  }
+
+  public Collection<String> getIds() {
+    return stationsById.keySet();
   }
 }

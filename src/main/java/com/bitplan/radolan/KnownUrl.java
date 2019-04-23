@@ -42,6 +42,7 @@ import com.bitplan.dateutils.DateUtils;
 public class KnownUrl {
   public static int OPEN_DATA = 0;
   public static int GRIDS = 1;
+  public static int SOIL=2;
 
   public static String knownUrls[] = {
       "https://opendata.dwd.de/weather/radar/radolan",
@@ -49,6 +50,7 @@ public class KnownUrl {
       "ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/"};
   public static final String RADOLAN_HISTORY = knownUrls[GRIDS];
   public static final String RADOLAN_OPENDATA = knownUrls[OPEN_DATA];
+  public static final String DWD_SOIL=knownUrls[SOIL];
 
   public static final DateFormat hourFormat = new SimpleDateFormat(
       "yyyy-MM-dd HH:mm");
@@ -234,6 +236,16 @@ public class KnownUrl {
     }
     String fileName = getFileNameForProduct(product, timeStamp);
     String url=getUrlForProduct(product,fileName,localDateTime);
+    return url;
+  }
+
+  /**
+   * get the URL for CDS soil
+   * @param stationId
+   * @return an URL for the given station
+   */
+  public static String getSoilObservationUrl(String stationId) {
+    String url=String.format("%s/derived_germany_soil_daily_recent_%s.txt.gz", DWD_SOIL,stationId);
     return url;
   }
 

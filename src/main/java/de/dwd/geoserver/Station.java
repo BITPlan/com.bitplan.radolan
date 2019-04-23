@@ -169,7 +169,7 @@ public class Station {
       if (debug)
         System.out.println(record.toString());
       Station station=new Station();
-      station.id=record.get("Stationsindex");
+      station.id=record.get("Stationsindex").trim();
       station.name=record.get(4).trim();
       stations.put(station.id, station);
       double lat=Double.parseDouble(record.get(2).trim());

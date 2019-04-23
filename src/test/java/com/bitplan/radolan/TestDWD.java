@@ -158,11 +158,11 @@ public class TestDWD {
         .has("name", "evaporation").count().next().longValue();
     if (debug)
       System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
-    assertEquals(EXPECTED_OBSERVATIONS, obsCount2);
+    assertEquals(EXPECTED_STATIONS*2, obsCount2);
 
     long sCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
         .in("has").count().next().longValue();
-    assertEquals(EXPECTED_OBSERVATIONS, sCount);
+    assertEquals(EXPECTED_STATIONS*2, sCount);
   }
 
   /**
@@ -258,5 +258,20 @@ public class TestDWD {
       if (debug)
         System.out.println(station.toString());
     }
+  }
+
+  @Test
+  public void testSoilObservations() throws Exception {
+    StationManager.reset();
+    StationManager sm = StationManager.getInstance();
+    Map<String, Station> smap = Station.getAllSoilStations();
+    for (Station station : smap.values()) {
+      sm.add(station);
+    }
+    assertEquals(492,sm.size());
+    boolean useCache=true;
+    Observation.getObservations(sm,useCache);
+    StationManager.reset();
+    // sm.write();
   }
 }

@@ -25,13 +25,20 @@ package de.dwd.geoserver;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.io.FileUtils;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
+
+import com.bitplan.radolan.KnownUrl;
+import com.bitplan.util.CachedUrl;
 
 import de.dwd.geoserver.WFS.Feature;
 import de.dwd.geoserver.WFS.Property;
@@ -45,7 +52,7 @@ import de.dwd.geoserver.WFS.WFSResponse;
  */
 public class Observation {
 
-  public static boolean debug = true;
+  public static boolean debug = false;
   static DateFormat isoDateFormat = new SimpleDateFormat(
       "yyyy-MM-dd'T'HH:mm:ss'Z'");
   static DateFormat shortIsoDateFormat = new SimpleDateFormat(
@@ -91,11 +98,33 @@ public class Observation {
   }
   
   /**
-   * 
+   * get the observations for the given StationManager
    * @param sm
+   * @param useCache
+   * @throws Exception 
    */
-  public static void getObservations(StationManager sm) {
-    
+  public static void getObservations(StationManager sm, boolean useCache) throws Exception {
+    for (String stationId:sm.getIds()) {
+      Vertex stationVertex = sm.getStationVertexById(stationId);
+      String url=KnownUrl.getSoilObservationUrl(stationId);
+      String csv=CachedUrl.readString(url, useCache, "UTF-8");
+      StringReader csvReader = new StringReader(csv);
+      CSVParser parser = new CSVParser(csvReader, CSVFormat.newFormat(';').withHeader());
+      for (final CSVRecord record : parser) {
+        Observation obs=new Observation();
+        obs.stationid=record.get("Stationsindex");
+        obs.date=record.get("Datum");
+        obs.name="evaporation";
+        obs.value=Double.parseDouble(record.get("VPGB"));
+        if (debug) {
+          System.out.println(record.toString());
+          System.out.println(obs.toString());
+        }
+        sm.addDirect(obs, stationVertex);
+        // sm.add(obs);
+      }
+      parser.close();
+    }
   }
 
   /**
