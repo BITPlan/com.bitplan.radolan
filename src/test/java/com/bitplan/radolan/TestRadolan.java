@@ -40,6 +40,7 @@ import java.util.function.Consumer;
 import org.junit.Test;
 
 import com.bitplan.javafx.WaitableApp;
+import com.bitplan.util.CachedUrl;
 
 import cs.fau.de.since.radolan.Composite;
 import cs.fau.de.since.radolan.FloatFunction;
@@ -132,7 +133,7 @@ public class TestRadolan extends BaseTest {
         String url = String.format(
             knownUrl + "recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz",
             date.getYear() % 2000, date.getMonthValue(), date.getDayOfMonth());
-        if (!Composite.cacheForUrl(url, knownUrl).exists() || date.isEqual(end))
+        if (!CachedUrl.cacheForUrl(url, knownUrl).exists() || date.isEqual(end))
           break;
         testRadolan(url, 2, String.format("sf-%04d-%02d-%02d_1650.png",
             date.getYear(), date.getMonthValue(), date.getDayOfMonth()), null);

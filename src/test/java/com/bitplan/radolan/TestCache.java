@@ -35,8 +35,7 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.bitplan.dateutils.DateUtils;
-
-import cs.fau.de.since.radolan.Composite;
+import com.bitplan.util.CachedUrl;
 
 /**
  * Test the Cache as asked for by
@@ -56,27 +55,29 @@ public class TestCache extends BaseTest {
     if (!isTravis()) {
       LocalDate start = LocalDate.of(2018, 8, 28);
       LocalDate end = LocalDate.of(2018, 8, 31);
-      String knownUrl =KnownUrl.RADOLAN_HISTORY;
+      String knownUrl = KnownUrl.RADOLAN_HISTORY;
       for (LocalDate date = start; date
           .isBefore(end); date = date.plus(Period.ofDays(1))) {
-      Date d = DateUtils.asDate(date);
-    	String url=KnownUrl.getUrlForProduct("sf", DateUtils.asLocalDateTime(d));
-        Composite.useCache(url, knownUrl);
-        File cacheFile = Composite.cacheForUrl(url, knownUrl);
+        Date d = DateUtils.asDate(date);
+        String url = KnownUrl.getUrlForProduct("sf",
+            DateUtils.asLocalDateTime(d));
+        url=CachedUrl.useCache(url, knownUrl);
+        File cacheFile = CachedUrl.cacheForUrl(url, knownUrl);
         assertTrue(cacheFile.exists());
-        assertTrue(".gz", Composite.checkCache(url).endsWith(".gz"));
-        assertTrue(".file:", Composite.checkCache(url).startsWith("file:"));
+        boolean useCache=true;
+        assertTrue(".gz", CachedUrl.checkCache(url,useCache).endsWith(".gz"));
+        assertTrue(".file:", CachedUrl.checkCache(url,useCache).startsWith("file:"));
       }
     }
   }
-  
+
   @Test
   public void testNoCacheForLatest() throws Exception {
-    String url="https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
-    String knownUrl="https://opendata.dwd.de/weather/radar/radolan";
-    String cacheUrl=Composite.checkCache(url);
-    File cacheFile = Composite.cacheForUrl(url, knownUrl);
+    String url = "https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
+    String knownUrl = "https://opendata.dwd.de/weather/radar/radolan";
+    String cacheUrl = CachedUrl.checkCache(url,true);
+    File cacheFile = CachedUrl.cacheForUrl(url, knownUrl);
     assertFalse(cacheFile.exists());
-    assertEquals(url,cacheUrl);
+    assertEquals(url, cacheUrl);
   }
 }

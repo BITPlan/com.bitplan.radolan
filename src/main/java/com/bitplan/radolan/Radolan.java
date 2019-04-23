@@ -48,6 +48,7 @@ import com.bitplan.display.MapView;
 import com.bitplan.error.SoftwareVersion;
 import com.bitplan.i18n.Translator;
 import com.bitplan.javafx.Main;
+import com.bitplan.util.CachedUrl;
 
 import cs.fau.de.since.radolan.Composite;
 import javafx.application.Platform;
@@ -228,7 +229,7 @@ public class Radolan extends Main implements SoftwareVersion {
       if (noCache) {
         Composite.useCache = false;
       } else {
-        Composite.cacheRootPath = cachePath;
+        CachedUrl.cacheRootPath = cachePath;
       }
       if (showVersion)
         this.showVersion();

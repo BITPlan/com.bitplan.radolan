@@ -24,24 +24,18 @@
 package cs.fau.de.since.radolan;
 //Package radolan parses the DWD RADOLAN / RADVOR radar composite format. This data
 
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.function.Consumer;
 import java.util.logging.Level;
-import java.util.zip.GZIPInputStream;
-
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
 
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
-import com.bitplan.radolan.KnownUrl;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Statistics;
+import com.bitplan.util.CachedUrl;
 
 import cs.fau.de.since.radolan.Catalog.Unit;
 import cs.fau.de.since.radolan.Data.Encoding;
@@ -113,10 +107,6 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
   // by default files from known URL are cached locally
   // see https://github.com/BITPlan/com.bitplan.radolan/issues/3
   public static boolean useCache = true;
-
-  // if not set the default $HOME/.radolan will be used
-  public static String cacheRootPath = null;
-
   
   private String Product; // composite product label
 
@@ -288,7 +278,7 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
     this();
     if (debug)
       LOGGER.log(Level.INFO, "getting composite for url " + url);
-    this.url = checkCache(url);
+    this.url = CachedUrl.checkCache(url,useCache);
 
     InputStream inputStream = new URL(url).openStream();
     read(inputStream);
@@ -296,78 +286,8 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
     inputStream.close();
   }
 
-  /**
-   * if the cache is not active or the url is not starting with a known url then
-   * return the url as is when the local cache is active then check if the url
-   * content is not available locally and if needed then read the url content to
-   * the cache after having made sure the file is available locally return the
-   * url for the file
-   * 
-   * @param url
-   * @return the (potentially replaced)
-   * @throws Exception
-   */
-  public static String checkCache(String url) throws Exception {
-    if (!useCache)
-      return url;
-    if (url.contains("-latest-"))
-      return url;
-    for (String knownUrl : KnownUrl.knownUrls) {
-      if (url.startsWith(knownUrl)) {
-        return useCache(url, knownUrl);
-      }
-    }
-    return url;
-  }
-
-  /**
-   * use the cache for the given URL
-   * 
-   * @param url
-   * @param knownUrl
-   * @return - the URL of the cached file
-   * @throws Exception
-   *           - if the URL is malformed
-   */
-  public static String useCache(String url, String knownUrl) throws Exception {
-    File cacheFile = cacheForUrl(url, knownUrl);
-    if (!cacheFile.exists()) {
-      URL uri = new URL(url);
-      if (debug)
-        LOGGER.log(Level.INFO, String.format("caching %s to %s",url,cacheFile.getPath()));
-      // cache the URL content
-      FileUtils.copyURLToFile(uri, cacheFile);
-    } else {
-      if (debug)
-        LOGGER.log(Level.INFO,
-            "getting cached file from " + cacheFile.getPath());
-    }
-    return cacheFile.toURI().toURL().toExternalForm();
-  }
-
-  /**
-   * get the cache File for the given url in reference to the given knownUrl
-   * 
-   * @param url
-   * @param knownUrl
-   * @return - the cacheFile
-   */
-  public static File cacheForUrl(String url, String knownUrl) {
-    String filePath = url.substring(knownUrl.length(), url.length());
-    if (cacheRootPath == null)
-      cacheRootPath = System.getProperty("user.home") + java.io.File.separator
-          + ".radolan";
-    File cacheRoot = new File(cacheRootPath);
-    if (!cacheRoot.exists()) {
-      if (debug)
-        LOGGER.log(Level.INFO,
-            "Creating radolan data cache directory " + cacheRoot.getPath());
-      cacheRoot.mkdirs();
-    }
-    File cacheFile = new File(cacheRoot, filePath);
-    return cacheFile;
-  }
-
+  
+ 
   /**
    * initialize me
    * 
@@ -396,32 +316,17 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
     comp.calibrateProjection();
     return comp;
   }
+  
+  
 
   /**
-   * read all bytes from the given InpuStream - autodetect zipped input
+   * read all bytes from the given InputStream - auto detect zipped input
    * 
    * @param inputStream
    * @throws Exception
    */
   public void read(InputStream inputStream) throws Exception {
-    bytes = IOUtils.toByteArray(inputStream);
-    // https://tools.ietf.org/html/rfc1952
-    // check for gzip header
-    if (bytes.length < 2) {
-      throw new Exception("input is empty");
-    }
-    int magic = ((bytes[0] & 0xff) << 8) | (bytes[1] & 0xff);
-    if (magic == 0x1f8b) {
-      int zippedLength = bytes.length;
-      InputStream gzStream = new GZIPInputStream(
-          new ByteArrayInputStream(bytes));
-      byte[] unzipped = IOUtils.toByteArray(gzStream);
-      bytes = unzipped;
-      String msg = String.format("unzipped %d to %d bytes", zippedLength,
-          bytes.length);
-      if (debug)
-        LOGGER.log(Level.INFO, msg);
-    }
+    bytes = CachedUrl.readBytes(inputStream);
     StringBuffer headerBuffer = new StringBuffer();
     int pos = 0;
     // read until 0x03 is found or we are way into the binary 2 x typical width

@@ -23,16 +23,22 @@
  */
 package com.bitplan.radolan;
 
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.*;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.inV;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.outV;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.StringReader;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.tinkerpop.gremlin.process.traversal.Order;
 import org.apache.tinkerpop.gremlin.process.traversal.Scope;
 import org.apache.tinkerpop.gremlin.structure.Column;
@@ -40,6 +46,8 @@ import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 import org.openweathermap.weather.Location;
+
+import com.bitplan.util.CachedUrl;
 
 import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
@@ -61,7 +69,7 @@ public class TestDWD {
   public final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  public static boolean debug = true;
+  public static boolean debug = false;
 
   /**
    * test DWD Data
@@ -253,5 +261,19 @@ public class TestDWD {
     order(Scope.local)
      .by(Column.values, Order.desc)
     .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f", "mm"));
+  }
+  
+  @Test
+  public void testSoilStations() throws Exception {
+    boolean useCache=true;
+    String url="ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
+    String csv = CachedUrl.readString(url, useCache,"ISO-8859-1");
+    StringReader csvReader = new StringReader(csv);
+    CSVParser parser = new CSVParser(csvReader, CSVFormat.newFormat(';').withHeader());
+    for (final CSVRecord record : parser) {
+      if (debug)
+        System.out.println(record.toString());
+    }
+    parser.close();
   }
 }
