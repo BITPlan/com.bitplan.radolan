@@ -57,6 +57,8 @@ public class CachedUrl {
    * @return - the cacheFile
    */
   public static File cacheForUrl(String url, String knownUrl) {
+    if (debug)
+      System.out.println(url+"\n\t"+knownUrl);
     String filePath = url.substring(knownUrl.length(), url.length());
     if (cacheRootPath == null)
       cacheRootPath = System.getProperty("user.home") + java.io.File.separator

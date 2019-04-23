@@ -53,6 +53,7 @@ public class TestCache extends BaseTest {
   @Test
   public void testCache() throws Exception {
     if (!isTravis()) {
+      // CachedUrl.debug = true;
       LocalDate start = LocalDate.of(2018, 8, 28);
       LocalDate end = LocalDate.of(2018, 8, 31);
       String knownUrl = KnownUrl.RADOLAN_HISTORY;
@@ -61,12 +62,14 @@ public class TestCache extends BaseTest {
         Date d = DateUtils.asDate(date);
         String url = KnownUrl.getUrlForProduct("sf",
             DateUtils.asLocalDateTime(d));
-        url=CachedUrl.useCache(url, knownUrl);
+        String fileUrl=CachedUrl.useCache(url, knownUrl);
+        assertTrue(fileUrl.startsWith("file:"));
         File cacheFile = CachedUrl.cacheForUrl(url, knownUrl);
         assertTrue(cacheFile.exists());
-        boolean useCache=true;
-        assertTrue(".gz", CachedUrl.checkCache(url,useCache).endsWith(".gz"));
-        assertTrue(".file:", CachedUrl.checkCache(url,useCache).startsWith("file:"));
+        boolean useCache = true;
+        assertTrue(".gz", CachedUrl.checkCache(url, useCache).endsWith(".gz"));
+        assertTrue(".file:",
+            CachedUrl.checkCache(url, useCache).startsWith("file:"));
       }
     }
   }
@@ -75,7 +78,7 @@ public class TestCache extends BaseTest {
   public void testNoCacheForLatest() throws Exception {
     String url = "https://opendata.dwd.de/weather/radar/radolan/sf/raa01-sf_10000-latest-dwd---bin";
     String knownUrl = "https://opendata.dwd.de/weather/radar/radolan";
-    String cacheUrl = CachedUrl.checkCache(url,true);
+    String cacheUrl = CachedUrl.checkCache(url, true);
     File cacheFile = CachedUrl.cacheForUrl(url, knownUrl);
     assertFalse(cacheFile.exists());
     assertEquals(url, cacheUrl);
