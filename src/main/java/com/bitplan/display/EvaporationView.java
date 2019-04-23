@@ -114,11 +114,12 @@ public class EvaporationView {
    * draw interpolated
    * 
    * @param borderDraw
+   * @param power
    * @param gridx
    * @param gridy
    * @param opacity 
    */
-  public void drawInterpolated(BorderDraw borderDraw, int gridx, int gridy, double opacity) {
+  public void drawInterpolated(BorderDraw borderDraw, double power,int gridx, int gridy, double opacity) {
     FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
     Map<Coord, List<Station>> gridMap = this.prepareGrid(120.0, gridx, gridy);
     double w=borderDraw.getProjection().getGridWidth()/gridx;
@@ -127,7 +128,7 @@ public class EvaporationView {
       double lat=c.getLat();
       double lon=c.getLon();
       DPoint p = borderDraw.translateLatLonToView(lat,lon);
-      double evap = getInverseWeighted(c, gridMap.get(c), 2.0);
+      double evap = getInverseWeighted(c, gridMap.get(c), power);
       Color evapColor = evapColorMap.apply((float)evap);
       Draw.drawRect(borderDraw.getPane(),opacity,evapColor,p.x-w/2,p.y-h/2,w,h);
     

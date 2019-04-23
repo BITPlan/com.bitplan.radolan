@@ -56,8 +56,8 @@ public class TestEvaporationMap extends TestBorders {
     EvaporationView evapView = new EvaporationView(sm);
 
     Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(() -> evapView.drawInterpolated(borderDraw, 40, 40,0.3));
-    Platform.runLater(() -> evapView.draw(borderDraw, 40., 0.6));
+    Platform.runLater(() -> evapView.drawInterpolated(borderDraw,5.0, 80, 80,0.5));
+    //Platform.runLater(() -> evapView.draw(borderDraw, 40., 0.6));
 
     Thread.sleep(SHOW_TIME * 100);
     sampleApp.close();
