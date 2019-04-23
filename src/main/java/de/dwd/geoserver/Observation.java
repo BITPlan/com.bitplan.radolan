@@ -89,6 +89,14 @@ public class Observation {
         sm.getSouthEast());
     getObservations(sm, wfsResponse);
   }
+  
+  /**
+   * 
+   * @param sm
+   */
+  public static void getObservations(StationManager sm) {
+    
+  }
 
   /**
    * get observations from the given station manager and WFSResponse

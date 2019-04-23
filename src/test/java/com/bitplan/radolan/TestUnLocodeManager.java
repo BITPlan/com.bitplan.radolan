@@ -92,7 +92,7 @@ public class TestUnLocodeManager extends BaseTest {
   public void testLookupByName() throws Exception {
     UnLocodeManager ulm = UnLocodeManager.getInstance();
     assertNotNull(ulm);
-    debug = true;
+    // debug = true;
     String[] names = { "Neuss", "Köln", "Düsseldorf", "Mönchengladbach",
         "Krefeld", "Willich", "Münster" };
     DPoint[] latlons = { new DPoint(51.18, 6.68), new DPoint(50.95, 6.93),

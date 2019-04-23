@@ -23,12 +23,18 @@
  */
 package de.dwd.geoserver;
 
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.openweathermap.weather.Coord;
+
+import com.bitplan.util.CachedUrl;
 
 import de.dwd.geoserver.WFS.Feature;
 import de.dwd.geoserver.WFS.WFSResponse;
@@ -41,6 +47,8 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class Station {
+  public static boolean debug=false;
+  
   String name;
   public String id;
   Coord coord;
@@ -142,6 +150,34 @@ public class Station {
         stations.put(station.id, station);
       }
     }
+    return stations;
+  }
+  
+  /**
+   * get all stations from the CDC soil area
+   * @return the map of stations
+   * @throws Exception
+   */
+  public static Map<String, Station> getAllSoilStations() throws Exception {
+    Map<String, Station> stations = new HashMap<String, Station>();
+    boolean useCache=true;
+    String url="ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
+    String csv = CachedUrl.readString(url, useCache,"ISO-8859-1");
+    StringReader csvReader = new StringReader(csv);
+    CSVParser parser = new CSVParser(csvReader, CSVFormat.newFormat(';').withHeader());
+    for (final CSVRecord record : parser) {
+      if (debug)
+        System.out.println(record.toString());
+      Station station=new Station();
+      station.id=record.get("Stationsindex");
+      station.name=record.get(4).trim();
+      stations.put(station.id, station);
+      double lat=Double.parseDouble(record.get(2).trim());
+      double lon=Double.parseDouble(record.get(3).trim());
+      station.coord=new Coord(lat,lon);
+    }
+    parser.close();
+ 
     return stations;
   }
 

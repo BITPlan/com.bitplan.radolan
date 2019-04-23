@@ -42,9 +42,11 @@ import com.bitplan.dateutils.DateUtils;
 public class KnownUrl {
   public static int OPEN_DATA = 0;
   public static int GRIDS = 1;
+
   public static String knownUrls[] = {
       "https://opendata.dwd.de/weather/radar/radolan",
-      "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan" };
+      "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan",
+      "ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/"};
   public static final String RADOLAN_HISTORY = knownUrls[GRIDS];
   public static final String RADOLAN_OPENDATA = knownUrls[OPEN_DATA];
 
