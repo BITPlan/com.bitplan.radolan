@@ -56,6 +56,14 @@ public class BorderDraw {
   private Color borderColor;
   private GeoProjection projection;
 
+  public GeoProjection getProjection() {
+    return projection;
+  }
+
+  public void setProjection(GeoProjection projection) {
+    this.projection = projection;
+  }
+
   /**
    * construct me
    * 

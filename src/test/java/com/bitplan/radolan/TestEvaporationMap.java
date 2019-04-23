@@ -53,12 +53,12 @@ public class TestEvaporationMap extends TestBorders {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
-    EvaporationView evapView=new EvaporationView(sm);
-   
+    EvaporationView evapView = new EvaporationView(sm);
+
     Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(() -> evapView.draw(borderDraw,40.,0.5));
-    Platform.runLater(() -> evapView.drawInterpolated(borderDraw,12,12));
-      
+    Platform.runLater(() -> evapView.drawInterpolated(borderDraw, 40, 40,0.3));
+    Platform.runLater(() -> evapView.draw(borderDraw, 40., 0.6));
+
     Thread.sleep(SHOW_TIME * 100);
     sampleApp.close();
   }
@@ -66,23 +66,39 @@ public class TestEvaporationMap extends TestBorders {
   @Test
   public void testEvapView() throws Exception {
     StationManager sm = StationManager.init();
-    EvaporationView evapView=new EvaporationView(sm);
-    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0,150,150);
-    Statistics stats=new Statistics();
-    boolean debug=false;
-    for (Coord c:gridMap.keySet()) {
+    EvaporationView evapView = new EvaporationView(sm);
+    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0, 150, 150);
+    Statistics stats = new Statistics();
+    for (Coord c : gridMap.keySet()) {
       List<Station> stations = gridMap.get(c);
       if (debug)
-        System.out.println(String.format("%3d %s",stations.size(),c.toString()));
-      if (c.getLon()>8.35 && c.getLon()<12.173 && c.getLat()>47.843 && c.getLat()<53.645) {
+        System.out
+            .println(String.format("%3d %s", stations.size(), c.toString()));
+      if (c.getLon() > 8.35 && c.getLon() < 12.173 && c.getLat() > 47.843
+          && c.getLat() < 53.645) {
         stats.add(stations.size());
-        assertTrue(c.toString(),stations.size()>=3);
+        assertTrue(c.toString(), stations.size() >= 3);
       }
-      for (Station station:stations) {
+      for (Station station : stations) {
         if (debug)
-          System.out.println(String.format("\t %5.1f km %s",c.distance(station.getCoord()),station.toString()));
+          System.out.println(String.format("\t %5.1f km %s",
+              c.distance(station.getCoord()), station.toString()));
       }
     }
     System.out.println(stats.toString());
+  }
+
+  @Test
+  public void testInterpolation() throws Exception {
+    StationManager sm = StationManager.init();
+    EvaporationView evapView = new EvaporationView(sm);
+    if (debug)
+      EvaporationView.debug = true;
+    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0, 150, 150);
+    Coord c = new Coord(51.243, 6.519);
+    Coord gc = evapView.getClosest(c, gridMap.keySet());
+    double evap = evapView.getInverseWeighted(gc, gridMap.get(gc), 2.0);
+    if (debug)
+      System.out.println(String.format("%5.1f mm", evap));
   }
 }

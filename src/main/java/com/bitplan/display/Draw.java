@@ -28,6 +28,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
@@ -107,6 +108,23 @@ public class Draw {
     line2.setStrokeWidth(strokeWidth);
     line2.setStroke(color);
     pane.getChildren().addAll(line, line2);
+  }
+
+  /**
+   * draw a rectangle
+   * @param pane
+   * @param opacity
+   * @param color
+   * @param x
+   * @param y
+   * @param w
+   * @param h
+   */
+  public static void drawRect(Pane pane, double opacity,Color color, double x, double y, double w, double h) {
+    Rectangle rect=new Rectangle(x,y,w,h);
+    rect.setFill(color);
+    rect.setOpacity(opacity);
+    pane.getChildren().add(rect);
   }
 
 }

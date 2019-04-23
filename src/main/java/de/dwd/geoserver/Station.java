@@ -44,7 +44,7 @@ public class Station {
   String name;
   public String id;
   Coord coord;
-  Double distance;
+  private Double distance;
 
   public String getName() {
     return name;
@@ -60,6 +60,14 @@ public class Station {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public Double getDistance() {
+    return distance;
+  }
+
+  public void setDistance(Double distance) {
+    this.distance = distance;
   }
 
   public Coord getCoord() {
@@ -82,7 +90,7 @@ public class Station {
     this.id = id;
     this.name = name;
     this.coord = coord;
-    this.distance = distance;
+    this.setDistance(distance);
   }
 
   /**
@@ -113,7 +121,7 @@ public class Station {
 
   public String toString() {
     String text = String.format(Locale.GERMAN, "%s(%s) - %.1f km %s", name, id,
-        distance, coord.toString());
+        getDistance(), coord.toString());
     return text;
   }
 
