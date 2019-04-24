@@ -112,8 +112,9 @@ public class Observation {
       CSVParser parser = new CSVParser(csvReader, CSVFormat.newFormat(';').withHeader());
       for (final CSVRecord record : parser) {
         Observation obs=new Observation();
-        obs.stationid=record.get("Stationsindex");
+        obs.stationid=record.get("Stationsindex").trim();
         obs.date=record.get("Datum");
+        obs.date=String.format("%s-%s-%s", obs.date.substring(0,4),obs.date.substring(4,6),obs.date.substring(6,8));
         obs.name="evaporation";
         obs.value=Double.parseDouble(record.get("VPGB"));
         if (debug) {
@@ -187,6 +188,8 @@ public class Observation {
     oVertex.property("date", date);
     if (getStation()!=null) {
       oVertex.property("stationid",getStation().id);
+    } else {
+      oVertex.property("stationid",stationid);
     }
   }
   

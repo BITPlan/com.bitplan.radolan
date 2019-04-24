@@ -136,7 +136,7 @@ public class StationManager {
    */
   public void add(Station station) {
     Vertex stationVertex = this.getStationVertexById(station.id);
-    toVertex(station, stationVertex);
+    station.toVertex(stationVertex);
     stationsById.put(station.id, station);
   }
 
@@ -156,19 +156,6 @@ public class StationManager {
       stationVertex = graph.addVertex("station");
     }
     return stationVertex;
-  }
-
-  /**
-   * fill the given stationVertex with the given station data
-   * 
-   * @param station
-   * @param stationVertex
-   */
-  private void toVertex(Station station, Vertex stationVertex) {
-    stationVertex.property("stationid", station.id);
-    stationVertex.property("name", station.name);
-    stationVertex.property("lat", station.coord.getLat());
-    stationVertex.property("lon", station.coord.getLon());
   }
 
   /**
@@ -196,7 +183,7 @@ public class StationManager {
    * @throws Exception
    */
   public static StationManager init() throws Exception {
-    Map<String, Station> stations = Station.getAllStations();
+    Map<String, Station> stations = Station.getAllSoilStations(true);
     StationManager sm = StationManager.getInstance();
     for (Station station : stations.values()) {
       sm.add(station);

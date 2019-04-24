@@ -47,9 +47,10 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class Station {
-  public static boolean debug=false;
-  
+  public static boolean debug = false;
+
   String name;
+  String province;
   public String id;
   Coord coord;
   private Double distance;
@@ -152,33 +153,49 @@ public class Station {
     }
     return stations;
   }
-  
+
   /**
    * get all stations from the CDC soil area
+   * 
    * @return the map of stations
    * @throws Exception
    */
-  public static Map<String, Station> getAllSoilStations() throws Exception {
+  public static Map<String, Station> getAllSoilStations(boolean useCache) throws Exception {
     Map<String, Station> stations = new HashMap<String, Station>();
-    boolean useCache=true;
-    String url="ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
-    String csv = CachedUrl.readString(url, useCache,"ISO-8859-1");
+    String url = "ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
+    String csv = CachedUrl.readString(url, useCache, "ISO-8859-1");
     StringReader csvReader = new StringReader(csv);
-    CSVParser parser = new CSVParser(csvReader, CSVFormat.newFormat(';').withHeader());
+    CSVParser parser = new CSVParser(csvReader,
+        CSVFormat.newFormat(';').withHeader());
     for (final CSVRecord record : parser) {
       if (debug)
         System.out.println(record.toString());
-      Station station=new Station();
-      station.id=record.get("Stationsindex").trim();
-      station.name=record.get(4).trim();
+      Station station = new Station();
+      station.id = record.get("Stationsindex").trim();
+      station.name = record.get(4).trim();
+      station.province=record.get(5).trim();
       stations.put(station.id, station);
-      double lat=Double.parseDouble(record.get(2).trim());
-      double lon=Double.parseDouble(record.get(3).trim());
-      station.coord=new Coord(lat,lon);
+      double lat = Double.parseDouble(record.get(2).trim());
+      double lon = Double.parseDouble(record.get(3).trim());
+      station.coord = new Coord(lat, lon);
     }
     parser.close();
- 
+
     return stations;
+  }
+
+  /**
+   * fill the given stationVertex with my station data
+   * 
+   * @param stationVertex
+   */
+  public void toVertex(Vertex stationVertex) {
+    stationVertex.property("stationid", id);
+    stationVertex.property("name", name);
+    if (province != null)
+      stationVertex.property("province", province);
+    stationVertex.property("lat", coord.getLat());
+    stationVertex.property("lon", coord.getLon());
   }
 
   /**
@@ -189,6 +206,8 @@ public class Station {
    */
   public void fromVertex(Vertex stationVertex) {
     id = (String) stationVertex.property("stationid").value();
+    if (stationVertex.property("province").isPresent())
+      province = (String) stationVertex.property("province").value();
     name = (String) stationVertex.property("name").value();
     if ((stationVertex.property("lat").isPresent())
         && (stationVertex.property("lon").isPresent())) {
@@ -199,10 +218,10 @@ public class Station {
   }
 
   public String getShortName() {
-    String shortName=this.name.replaceAll("-.*","");
-    shortName=shortName.replaceAll("/.*","");
-    shortName=shortName.replaceAll("\\(.*","");
-    shortName=shortName.replaceAll("\\,.*","");
+    String shortName = this.name.replaceAll("-.*", "");
+    shortName = shortName.replaceAll("/.*", "");
+    shortName = shortName.replaceAll("\\(.*", "");
+    shortName = shortName.replaceAll("\\,.*", "");
     return shortName;
   }
 
