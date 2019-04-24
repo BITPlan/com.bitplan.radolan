@@ -58,13 +58,10 @@ import de.dwd.geoserver.WFS.WFSType;
  * @author wf
  *
  */
-public class TestDWD {
+public class TestDWD extends BaseTest {
   public final int EXPECTED_STATIONS = 67;
   public final int DAYS = 7;
   public final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
-  // prepare a LOGGER
-  protected static Logger LOGGER = Logger.getLogger("com.bitplan.radolan");
-  public static boolean debug = false;
 
   /**
    * test DWD Data
@@ -158,11 +155,11 @@ public class TestDWD {
         .has("name", "evaporation").count().next().longValue();
     if (debug)
       System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
-    assertEquals(EXPECTED_STATIONS*2, obsCount2);
+    assertEquals(EXPECTED_STATIONS * 2, obsCount2);
 
     long sCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
         .in("has").count().next().longValue();
-    assertEquals(EXPECTED_STATIONS*2, sCount);
+    assertEquals(EXPECTED_STATIONS * 2, sCount);
   }
 
   /**
@@ -268,10 +265,12 @@ public class TestDWD {
     for (Station station : smap.values()) {
       sm.add(station);
     }
-    assertEquals(492,sm.size());
-    boolean useCache=true;
-    Observation.getObservations(sm,useCache);
-    StationManager.reset();
+    assertEquals(492, sm.size());
+    if (!isTravis()) {
+      boolean useCache = true;
+      Observation.getObservations(sm, useCache);
+      StationManager.reset();
+    }
     // sm.write();
   }
 }
