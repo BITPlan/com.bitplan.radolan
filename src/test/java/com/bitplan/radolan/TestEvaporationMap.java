@@ -57,7 +57,7 @@ public class TestEvaporationMap extends TestBorders {
 
     Platform.runLater(() -> borderDraw.drawBorders());
     Platform.runLater(() -> evapView.drawInterpolated(borderDraw,5.0, 80, 80,0.5));
-    //Platform.runLater(() -> evapView.draw(borderDraw, 40., 0.6));
+    // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
 
     Thread.sleep(SHOW_TIME * 100);
     sampleApp.close();
@@ -67,7 +67,7 @@ public class TestEvaporationMap extends TestBorders {
   public void testEvapView() throws Exception {
     StationManager sm = StationManager.init();
     EvaporationView evapView = new EvaporationView(sm);
-    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0, 150, 150);
+    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
     Statistics stats = new Statistics();
     for (Coord c : gridMap.keySet()) {
       List<Station> stations = gridMap.get(c);
@@ -92,9 +92,10 @@ public class TestEvaporationMap extends TestBorders {
   public void testInterpolation() throws Exception {
     StationManager sm = StationManager.init();
     EvaporationView evapView = new EvaporationView(sm);
+    debug=true;
     if (debug)
       EvaporationView.debug = true;
-    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(120.0, 150, 150);
+    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
     Coord c = new Coord(51.243, 6.519);
     Coord gc = evapView.getClosest(c, gridMap.keySet());
     double evap = evapView.getInverseWeighted(gc, gridMap.get(gc), 2.0);

@@ -122,7 +122,7 @@ public class EvaporationView {
   public void drawInterpolated(BorderDraw borderDraw, double power, int gridx,
       int gridy, double opacity) {
     FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
-    Map<Coord, List<Station>> gridMap = this.prepareGrid(120.0, gridx, gridy);
+    Map<Coord, List<Station>> gridMap = this.prepareGrid(47.0, gridx, gridy);
     double w = borderDraw.getProjection().getGridWidth() / gridx;
     double h = borderDraw.getProjection().getGridHeight() / gridy;
     for (Coord c : gridMap.keySet()) {

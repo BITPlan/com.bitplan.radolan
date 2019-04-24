@@ -54,7 +54,7 @@ public class TestZoom extends BaseTest {
   
   @Test
   public void testZoom() throws Exception {
-    int wait=4;
+    int wait=8;
     String products[] = { "sf", "rw", };
     WaitableApp.waitTimeOutSecs=wait;
     for (String product : products) {
