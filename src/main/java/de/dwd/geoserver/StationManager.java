@@ -24,8 +24,10 @@
 package de.dwd.geoserver;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.tinkerpop.gremlin.process.traversal.IO;
@@ -139,6 +141,14 @@ public class StationManager {
     station.toVertex(stationVertex);
     stationsById.put(station.id, station);
   }
+  
+  public void initStationMap() {
+    g().V().hasLabel("station").forEachRemaining(v -> {
+      Station s = new Station();
+      s.fromVertex(v);
+      stationsById.put(s.id, s);
+    });
+  }
 
   /**
    * get the Station vertex for the given station id
@@ -211,4 +221,28 @@ public class StationManager {
   public Collection<String> getIds() {
     return stationsById.keySet();
   }
+
+  public Map<String,Station> getStationMap() {
+    return this.stationsById;
+  }
+  /**
+   * get a list of stations that are with the given radius
+   * 
+   * @param c
+   * @param radius
+   * @return the list of stations
+   */
+  public List<Station> getStationsWithinRadius(Coord c, double radius) {
+    List<Station> stations = new ArrayList<Station>();
+    for (Station station : getStationMap().values()) {
+      Coord sc = station.getCoord();
+      double dist = sc.distance(c);
+      if (dist < radius) {
+        station.setDistance(dist);
+        stations.add(station);
+      }
+    }
+    return stations;
+  }
+
 }

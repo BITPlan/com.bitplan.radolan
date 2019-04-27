@@ -29,7 +29,10 @@ import java.io.StringReader;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -214,5 +217,22 @@ public class Observation {
     String text = String.format("%s: %s -> %s=%5.1f", getStation()!=null?getStation().name:getStationid(),date,
         name, value);
     return text;
+  }
+  
+  /**
+   * get the observation history for the given station
+   * @param sm
+   * @param stationid
+   * @return a map of of observation values indexed by the number of days in the past (0=today)
+   */
+  public Map<Integer,Double> getObservationHistory(StationManager sm,String stationid) {
+    Map<Integer,Double> map=new LinkedHashMap<Integer,Double>();
+    Map<Object, Object> obsmap = sm.g().V().hasLabel("observation").has("name", "evaporation")
+        .group().by("stationid").next();
+    for (Entry<Object, Object> obsentry:obsmap.entrySet() ) {
+      System.out.println(String.format("%s=%s",obsentry.getKey(),obsentry.getValue()));
+    }
+    return map;
+ 
   }
 }

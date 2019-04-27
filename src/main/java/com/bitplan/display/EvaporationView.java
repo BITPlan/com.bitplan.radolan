@@ -65,7 +65,7 @@ public class EvaporationView {
   private StationManager sm;
 
   Map<Object, Object> evapmap;
-  Map<String, Station> stationmap;
+
 
   /**
    * create an evaporationView for the given stationManager
@@ -76,12 +76,6 @@ public class EvaporationView {
     this.sm = sm;
     evapmap = sm.g().V().hasLabel("observation").has("name", "evaporation")
         .group().by("stationid").by(values("value").mean()).next();
-    stationmap = new HashMap<String, Station>();
-    sm.g().V().hasLabel("station").forEachRemaining(v -> {
-      Station s = new Station();
-      s.fromVertex(v);
-      stationmap.put(s.id, s);
-    });
   }
 
   /**
@@ -93,7 +87,7 @@ public class EvaporationView {
    */
   public void draw(BorderDraw borderDraw, double radius, double opacity) {
     FloatFunction<Color> evapColorMap = EvaporationView.heatmap;
-    for (Station s : stationmap.values()) {
+    for (Station s : sm.getStationMap().values()) {
       // get the station location
       Coord coord = s.getCoord();
       // translate it to the borderDraw coordinates
@@ -160,31 +154,14 @@ public class EvaporationView {
     for (double lat = nw.getLat(); lat < se.getLat(); lat += dy) {
       for (double lon = nw.getLon(); lon < se.getLon(); lon += dx) {
         Coord c = new Coord(lat, lon);
-        List<Station> stations = getStationsWithinRadius(c, radius);
+        List<Station> stations = sm.getStationsWithinRadius(c, radius);
         gridMap.put(c, stations);
       }
     }
     return gridMap;
   }
 
-  /**
-   * get a list of stations that are with the given radius
-   * 
-   * @param c
-   * @param radius
-   * @return the list of stations
-   */
-  private List<Station> getStationsWithinRadius(Coord c, double radius) {
-    List<Station> stations = new ArrayList<Station>();
-    for (Station station : this.stationmap.values()) {
-      Coord sc = station.getCoord();
-      double dist = sc.distance(c);
-      if (dist < radius)
-        stations.add(station);
-    }
-    return stations;
-  }
-
+ 
   /**
    * get the closest coordinate in the given collection of coordinates
    * 

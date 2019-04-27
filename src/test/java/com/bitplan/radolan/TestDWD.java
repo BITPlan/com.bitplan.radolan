@@ -272,9 +272,11 @@ public class TestDWD extends BaseTest {
   @Test
   public void testSoilObservations() throws Exception {
     if (!isTravis()) {
-      boolean useCache = true;
+      boolean useCache = false;
       StationManager.reset();
       StationManager sm = StationManager.getInstance();
+      debug=true;
+      Observation.debug=true;
       // Station.debug=true;
       Map<String, Station> smap = Station.getAllSoilStations(useCache);
       for (Station station : smap.values()) {

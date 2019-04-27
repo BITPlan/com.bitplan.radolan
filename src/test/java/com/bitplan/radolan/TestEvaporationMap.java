@@ -56,7 +56,8 @@ public class TestEvaporationMap extends TestBorders {
     EvaporationView evapView = new EvaporationView(sm);
 
     Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(() -> evapView.drawInterpolated(borderDraw,5.0, 80, 80,0.5));
+    Platform.runLater(
+        () -> evapView.drawInterpolated(borderDraw, 5.0, 80, 80, 0.5));
     // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
 
     Thread.sleep(SHOW_TIME * 100);
@@ -92,7 +93,7 @@ public class TestEvaporationMap extends TestBorders {
   public void testInterpolation() throws Exception {
     StationManager sm = StationManager.init();
     EvaporationView evapView = new EvaporationView(sm);
-    debug=true;
+    debug = true;
     if (debug)
       EvaporationView.debug = true;
     Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
@@ -101,5 +102,19 @@ public class TestEvaporationMap extends TestBorders {
     double evap = evapView.getInverseWeighted(gc, gridMap.get(gc), 2.0);
     if (debug)
       System.out.println(String.format("%5.1f mm", evap));
+  }
+
+  @Test
+  public void testObservationHistory() throws Exception {
+    StationManager sm = StationManager.init();
+    Coord schiefbahn = new Coord(51.244, 6.52);
+    double radius = 47.0;
+    debug=true;
+    List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
+    if (debug) {
+      for (Station station : stations) {
+        System.out.println(station.toString());
+      }
+    }
   }
 }
