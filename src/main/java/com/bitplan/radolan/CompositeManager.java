@@ -25,8 +25,13 @@ package com.bitplan.radolan;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.bitplan.dateutils.DateUtils;
+import com.bitplan.geo.DPoint;
 
 import cs.fau.de.since.radolan.Composite;
 
@@ -39,6 +44,27 @@ import cs.fau.de.since.radolan.Composite;
 public class CompositeManager {
   Map<LocalDate, Composite> historyMap = new HashMap<LocalDate, Composite>();
 
+  
+  /**
+   * get a history rainSum for the number of days ago at the given coordinate
+   * @param daysAgo
+   * @param coord
+   * @return - the rain sum
+   * @throws Throwable
+   */
+  public float getRainSum(int daysAgo,DPoint coord) throws Throwable {
+    LocalDate today = DateUtils.asLocalDate(new Date());
+    LocalDate day=today.minus(Period.ofDays(daysAgo));
+    Composite comp=getRainSum(day);
+    float rain=comp.getValueAtCoord(coord);
+    return rain;
+  }
+  /**
+   * get the rain sum for the given day
+   * @param day
+   * @return - the rain sum
+   * @throws Throwable
+   */
   public Composite getRainSum(LocalDate day) throws Throwable {
     Composite comp = historyMap.get(day);
     if (comp == null) {

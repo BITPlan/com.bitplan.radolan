@@ -111,7 +111,8 @@ public class TestEvaporationMap extends TestBorders {
   public void testObservationHistory() throws Exception {
     StationManager sm = StationManager.init();
     List<Vertex> evapsv = sm.g().V().has("stationid", "5064")
-        .has("name", Observation.EVAPORATION).order().by("date",Order.desc).toList();
+        .has("name", Observation.EVAPORATION).order().by("date", Order.desc)
+        .toList();
     // debug=true;
     for (Vertex evapv : evapsv) {
       Observation observation = Observation.from(evapv);
@@ -122,14 +123,16 @@ public class TestEvaporationMap extends TestBorders {
 
   @Test
   public void testObservationHistoryInterpolated() throws Exception {
-    StationManager sm = StationManager.init();
-    Coord schiefbahn = new Coord(51.244, 6.52);
-    double radius = 47.0;
-    // debug = true;
-    List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
-    if (debug) {
-      for (Station station : stations) {
-        System.out.println(station.toString());
+    if (!super.isTravis()) {
+      StationManager sm = StationManager.init();
+      Coord schiefbahn = new Coord(51.244, 6.52);
+      double radius = 47.0;
+      // debug = true;
+      List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
+      if (debug) {
+        for (Station station : stations) {
+          System.out.println(station.toString());
+        }
       }
     }
   }

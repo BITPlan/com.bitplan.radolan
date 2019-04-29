@@ -35,7 +35,8 @@ import com.bitplan.geo.DPoint;
 import cs.fau.de.since.radolan.Composite;
 
 /**
- * test the History 
+ * test the History
+ * 
  * @author wf
  *
  */
@@ -43,18 +44,14 @@ public class TestHistory extends BaseTest {
 
   @Test
   public void testRainEventSequence() throws Throwable {
-    // if (!super.isTravis()) {
-    // Composite.debug = true;
-    CompositeManager cm=new CompositeManager();
-    LocalDate today = DateUtils.asLocalDate(new Date());
-    DPoint schiefbahn = new DPoint(51.244, 6.52);
-    for (int dayOfs=1;dayOfs<=14;dayOfs++) {
-      LocalDate day=today.minus(Period.ofDays(dayOfs));
-      Composite comp=cm.getRainSum(day);
-      float rain=comp.getValueAtCoord(schiefbahn);
-      Date wdate = DateUtils.asDate(day);
-      System.out.println(String.format("%3d: %s %5.2f mm",dayOfs,
-          KnownUrl.hourFormat.format(wdate), rain));
+    if (!super.isTravis()) {
+      // Composite.debug = true;
+      CompositeManager cm = new CompositeManager();
+      DPoint schiefbahn = new DPoint(51.244, 6.52);
+      for (int daysAgo = 1; daysAgo <= 14; daysAgo++) {
+        float rain = cm.getRainSum(daysAgo, schiefbahn);
+        System.out.println(String.format("%3d: %5.2f mm", daysAgo, rain));
+      }
     }
   }
 
