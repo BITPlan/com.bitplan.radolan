@@ -96,7 +96,7 @@ public class TestEvaporationMap extends TestBorders {
   public void testInterpolation() throws Exception {
     StationManager sm = StationManager.init();
     EvaporationView evapView = new EvaporationView(sm);
-    debug = true;
+    // debug = true;
     if (debug)
       EvaporationView.debug = true;
     Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
@@ -125,7 +125,7 @@ public class TestEvaporationMap extends TestBorders {
     StationManager sm = StationManager.init();
     Coord schiefbahn = new Coord(51.244, 6.52);
     double radius = 47.0;
-    debug = true;
+    // debug = true;
     List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
     if (debug) {
       for (Station station : stations) {

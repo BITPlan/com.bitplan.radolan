@@ -23,25 +23,42 @@
  */
 package com.bitplan.radolan;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
-import cs.fau.de.since.radolan.TestConversion;
-import cs.fau.de.since.radolan.TestHeader;
-import cs.fau.de.since.radolan.TestTranslate;
+import cs.fau.de.since.radolan.Composite;
 
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ TestDebug.class, TestDWD.class, TestUnLocodeManager.class,
-    TestKnownUrls.class, TestTranslate.class, TestConversion.class,
-    TestData.class, TestCache.class, TestHeader.class, TestZoom.class,
-    TestRadolan.class, TestHistory.class,TestGraph.class })
 /**
- * TestSuite
+ * handle composites
  * 
  * @author wf
  *
- *         no content necessary - annotation has info
  */
-public class TestSuite {
-  public static boolean debug = false;
+public class CompositeManager {
+  Map<LocalDate, Composite> historyMap = new HashMap<LocalDate, Composite>();
+
+  public Composite getRainSum(LocalDate day) throws Throwable {
+    Composite comp = historyMap.get(day);
+    if (comp == null) {
+      LocalDateTime dateTime = day.atStartOfDay().plusMinutes(23*60+50);
+      String url = KnownUrl.getUrlForProduct("sf", dateTime);
+      comp = new Composite(url);
+    }
+    return comp;
+  }
+
+  private static CompositeManager instance;
+
+  /**
+   * get an instance of the composite Manager
+   * 
+   * @return - the instance
+   */
+  public static CompositeManager getInstance() {
+    if (instance == null)
+      instance = new CompositeManager();
+    return instance;
+  }
 }

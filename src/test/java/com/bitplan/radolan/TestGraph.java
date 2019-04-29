@@ -26,7 +26,6 @@ package com.bitplan.radolan;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.Date;
-import java.util.function.Function;
 
 import org.apache.commons.lang.time.StopWatch;
 import org.apache.tinkerpop.gremlin.process.traversal.IO;
@@ -49,27 +48,6 @@ import de.dwd.geoserver.StationManager;
  */
 public class TestGraph extends BaseTest {
 
-  @Test
-  public void testRainEventSequence() throws Throwable {
-    if (!super.isTravis()) {
-      String dateStr = "2019-04-15 23:50";
-      Date startDate = KnownUrl.hourFormat.parse(dateStr);
-      LocalDateTime startTime = DateUtils.asLocalDateTime(startDate);
-      DPoint schiefbahn = new DPoint(51.244, 6.52);
-      Composite.debug = true;
-      for (int day = 0; day < 4; day++) {
-        LocalDateTime wday = startTime.plus(Period.ofDays(day));
-        String url = KnownUrl.getUrlForProduct("sf", wday);
-        Composite comp = new Composite(url);
-        DPoint gdp = comp.translateLatLonToGrid(schiefbahn.x, schiefbahn.y);
-        IPoint gp = new IPoint(gdp);
-        float rain = comp.getValue(gp.x, gp.y);
-        Date wdate = DateUtils.asDate(wday);
-        System.out.println(String.format("%s %5.2f mm",
-            KnownUrl.hourFormat.format(wdate), rain));
-      }
-    }
-  }
 
   @Ignore
   // compare speed of different Io Modes - 

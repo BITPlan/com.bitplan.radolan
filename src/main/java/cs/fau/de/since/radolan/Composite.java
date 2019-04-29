@@ -31,7 +31,9 @@ import java.time.ZonedDateTime;
 import java.util.function.Consumer;
 import java.util.logging.Level;
 
+import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
+import com.bitplan.geo.IPoint;
 import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.radolan.RadarImage;
 import com.bitplan.radolan.Statistics;
@@ -425,5 +427,17 @@ public class Composite extends ProjectionImpl implements RadarImage,GeoProjectio
         PlainData[y][x] = value;
         getStatistics().add(value);
       }
+  }
+
+  /**
+   * get the value at the given coordinate
+   * @param coord
+   * @return - the value
+   */
+  public float getValueAtCoord(DPoint coord) {
+    DPoint gdp = translateLatLonToGrid(coord.x, coord.y);
+    IPoint gp = new IPoint(gdp);
+    float rain = getValue(gp.x, gp.y);
+    return rain;
   }
 }
