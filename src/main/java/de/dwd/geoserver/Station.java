@@ -24,13 +24,17 @@
 package de.dwd.geoserver;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.tinkerpop.gremlin.process.traversal.Order;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.openweathermap.weather.Coord;
 
@@ -223,6 +227,26 @@ public class Station {
     shortName = shortName.replaceAll("\\(.*", "");
     shortName = shortName.replaceAll("\\,.*", "");
     return shortName;
+  }
+  List<Observation> history;
+  /**
+   * get the Observation history for this station
+   * @return a map of observations sorted by Date (desc)
+   * @throws Exception 
+   */
+  public List<Observation> getObservationHistory(StationManager sm) throws Exception {
+    if (history==null) {
+      history=new ArrayList<Observation>();
+      List<Vertex> evapsv = sm.g().V().has("stationid", this.id)
+          .has("name", Observation.EVAPORATION).order().by("date", Order.desc)
+          .toList();
+
+      for (Vertex evapv : evapsv) {
+        Observation observation = Observation.from(evapv);
+        history.add(observation);
+      }
+    }
+    return history;
   }
 
 }

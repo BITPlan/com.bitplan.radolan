@@ -23,9 +23,6 @@
  */
 package com.bitplan.display;
 
-import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.values;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -65,18 +62,36 @@ public class EvaporationView {
 
   private StationManager sm;
 
-  Map<Object, Object> evapmap;
-
+  Map<String, Double> evapmap;
 
   /**
    * create an evaporationView for the given stationManager
    * 
    * @param sm
+   * @throws Exception
    */
-  public EvaporationView(StationManager sm) {
+  public EvaporationView(StationManager sm, int day, int days)
+      throws Exception {
     this.sm = sm;
-    evapmap = sm.g().V().hasLabel("observation").has("name", Observation.EVAPORATION)
-        .group().by("stationid").by(values("value").mean()).next();
+    evapmap = new HashMap<String, Double>();
+    for (Station station : sm.getStationMap().values()) {
+      // Station station = sm.getStationMap().get("5064");
+      List<Observation> obs = station.getObservationHistory(sm);
+      Double sum = 0.;
+      // e.g. day=1 days =5
+      // cday = 0 .. 4
+      for (int cday = day - 1; cday < day + days-1; cday++) {
+        if (cday < obs.size()) {
+          sum += obs.get(cday).getValue();
+        }
+      }
+      evapmap.put(station.id, sum / days);
+    }
+    /*
+     * evapmap = sm.g().V().hasLabel("observation").has("name",
+     * Observation.EVAPORATION)
+     * .group().by("stationid").by(values("value").mean()).next();
+     */
   }
 
   /**
@@ -162,7 +177,6 @@ public class EvaporationView {
     return gridMap;
   }
 
- 
   /**
    * get the closest coordinate in the given collection of coordinates
    * 

@@ -67,7 +67,7 @@ public class Observation {
   private String stationid; // e.g. 1078 - this is redundant but simpler
   String date; // date  of the observation as yyyy-MM-DD eg. 2019-04-20
   String name; // the name of the observation e.g. evaporation
-  Double value; // the value of the observation e.g. 5.2
+  private Double value; // the value of the observation e.g. 5.2
   public static final String EVAPORATION="evaporation";
   
   public String getStationid() {
@@ -76,6 +76,14 @@ public class Observation {
 
   public void setStationid(String stationid) {
     this.stationid = stationid;
+  }
+
+  public Double getValue() {
+    return value;
+  }
+
+  public void setValue(Double value) {
+    this.value = value;
   }
 
   public Station getStation() {
@@ -120,7 +128,7 @@ public class Observation {
         obs.date=record.get("Datum");
         obs.date=String.format("%s-%s-%s", obs.date.substring(0,4),obs.date.substring(4,6),obs.date.substring(6,8));
         obs.name=EVAPORATION;
-        obs.value=Double.parseDouble(record.get("VPGB"));
+        obs.setValue(Double.parseDouble(record.get("VPGB")));
         if (debug) {
           System.out.println(record.toString());
           System.out.println(obs.toString());
@@ -153,7 +161,7 @@ public class Observation {
       observation.date=shortIsoDateFormat.format(observation_date);
       if (props.EVAPORATION != null) {
         observation.name = Observation.EVAPORATION;
-        observation.value = props.EVAPORATION;
+        observation.setValue(props.EVAPORATION);
       }
       sm.add(observation);
     }
@@ -188,7 +196,7 @@ public class Observation {
    */
   public void toVertex(Vertex oVertex) {
     oVertex.property("name", name);
-    oVertex.property("value", value);
+    oVertex.property("value", getValue());
     oVertex.property("date", date);
     if (getStation()!=null) {
       oVertex.property("stationid",getStation().id);
@@ -207,7 +215,7 @@ public class Observation {
     Observation o=new Observation();
     o.stationid=oVertex.property("stationid").value().toString();
     o.name=oVertex.property("name").value().toString();
-    o.value=(Double) oVertex.property("value").value();
+    o.setValue((Double) oVertex.property("value").value());
     o.date=oVertex.property("date").value().toString();
     return o;
   }
@@ -217,7 +225,7 @@ public class Observation {
    */
   public String toString() {
     String text = String.format("%s: %s -> %s=%5.1f", getStation()!=null?getStation().name:getStationid(),date,
-        name, value);
+        name, getValue());
     return text;
   }
   

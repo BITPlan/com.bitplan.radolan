@@ -23,16 +23,9 @@
  */
 package com.bitplan.radolan;
 
-import java.time.LocalDate;
-import java.time.Period;
-import java.util.Date;
-
 import org.junit.Test;
 
-import com.bitplan.dateutils.DateUtils;
 import com.bitplan.geo.DPoint;
-
-import cs.fau.de.since.radolan.Composite;
 
 /**
  * test the History

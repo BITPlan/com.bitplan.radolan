@@ -28,8 +28,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tinkerpop.gremlin.process.traversal.Order;
-import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 
@@ -51,26 +49,30 @@ public class TestEvaporationMap extends TestBorders {
 
   @Test
   public void testEvaporationMap() throws Exception {
-    StationManager sm = StationManager.init();
-    String name = "3_regierungsbezirke/3_mittel.geojson";
-    GeoProjection projection = new ProjectionImpl(900, 900);
-    Translate.calibrateProjection(projection);
-    BorderDraw borderDraw = prepareBorderDraw(projection, name);
-    EvaporationView evapView = new EvaporationView(sm);
+    if (!super.isTravis()) {
+      StationManager sm = StationManager.init();
+      String name = "3_regierungsbezirke/3_mittel.geojson";
+      GeoProjection projection = new ProjectionImpl(900, 900);
+      Translate.calibrateProjection(projection);
+      for (int day = 1; day <= 5; day++) {
+        BorderDraw borderDraw = prepareBorderDraw(projection, name);
+        EvaporationView evapView = new EvaporationView(sm, day, 5);
 
-    Platform.runLater(() -> borderDraw.drawBorders());
-    Platform.runLater(
-        () -> evapView.drawInterpolated(borderDraw, 5.0, 80, 80, 0.5));
-    // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
+        Platform.runLater(() -> borderDraw.drawBorders());
+        Platform.runLater(
+            () -> evapView.drawInterpolated(borderDraw, 5.0, 80, 80, 0.5));
+        // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
 
-    Thread.sleep(SHOW_TIME);
-    sampleApp.close();
+        Thread.sleep(SHOW_TIME * 10);
+      }
+      sampleApp.close();
+    }
   }
 
   @Test
   public void testEvapView() throws Exception {
     StationManager sm = StationManager.init();
-    EvaporationView evapView = new EvaporationView(sm);
+    EvaporationView evapView = new EvaporationView(sm, 1, 5);
     Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
     Statistics stats = new Statistics();
     for (Coord c : gridMap.keySet()) {
@@ -95,8 +97,8 @@ public class TestEvaporationMap extends TestBorders {
   @Test
   public void testInterpolation() throws Exception {
     StationManager sm = StationManager.init();
-    EvaporationView evapView = new EvaporationView(sm);
-    // debug = true;
+    EvaporationView evapView = new EvaporationView(sm, 1, 5);
+    debug = true;
     if (debug)
       EvaporationView.debug = true;
     Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
@@ -109,16 +111,22 @@ public class TestEvaporationMap extends TestBorders {
 
   @Test
   public void testObservationHistory() throws Exception {
+    showMemory();
     StationManager sm = StationManager.init();
-    List<Vertex> evapsv = sm.g().V().has("stationid", "5064")
-        .has("name", Observation.EVAPORATION).order().by("date", Order.desc)
-        .toList();
-    // debug=true;
-    for (Vertex evapv : evapsv) {
-      Observation observation = Observation.from(evapv);
-      if (debug)
+    // for (Station station : sm.getStationMap().values()) {
+    // showMemory();
+    Station station = sm.getStationMap().get("5064");
+    List<Observation> obs = station.getObservationHistory(sm);
+    debug = true;
+    if (debug)
+      System.out.println(station.toString());
+
+    for (Observation observation : obs) {
+      if (debug) {
         System.out.println(observation.toString());
+      }
     }
+    // }
   }
 
   @Test
@@ -135,5 +143,22 @@ public class TestEvaporationMap extends TestBorders {
         }
       }
     }
+  }
+
+  public void showMemory() {
+    Runtime runtime = Runtime.getRuntime();
+    int mb = 1024 * 1024;
+    String memMsg = "Used Memory:"
+        + (runtime.totalMemory() - runtime.freeMemory()) / mb + "\n";
+
+    // Print free memory
+    memMsg += "Free Memory:" + runtime.freeMemory() / mb + "\n";
+
+    // Print total available memory
+    memMsg += "Total Memory:" + runtime.totalMemory() / mb + "\n";
+
+    // Print Maximum available memory
+    memMsg += "Max Memory:" + runtime.maxMemory() / mb;
+    System.out.println(memMsg);
   }
 }
