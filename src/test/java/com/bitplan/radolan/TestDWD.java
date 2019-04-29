@@ -118,6 +118,7 @@ public class TestDWD extends BaseTest {
 
   @Test
   public void testRainHistoryFromDWDStation() throws Exception {
+    TestSuite.debug = true;
     WFS.debug = TestSuite.debug;
     Station dusStation = getDUSStation();
     WFSResponse wfsResponse = WFS.getRainHistory(dusStation);
@@ -148,23 +149,25 @@ public class TestDWD extends BaseTest {
   @Ignore
   /**
    * test Observations from Geo Server
+   * 
    * @throws Exception
    */
   public void testGetObservations() throws Exception {
-    debug=true;
+    debug = true;
     StationManager sm = StationManager.init();
     long obsCount1 = sm.g().V().hasLabel("observation")
-        .has("name", "evaporation").count().next().longValue();
+        .has("name", Observation.EVAPORATION).count().next().longValue();
     Observation.getObservations(sm, WFSType.VPGB);
     long obsCount2 = sm.g().V().hasLabel("observation")
-        .has("name", "evaporation").count().next().longValue();
+        .has("name", Observation.EVAPORATION).count().next().longValue();
     if (debug)
       System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
     assertTrue((EXPECTED_STATIONS * 2 == obsCount2)
         || (EXPECTED_STATIONS == obsCount2));
 
-    long sCount = sm.g().V().hasLabel("observation").has("name", "evaporation")
-        .in("has").count().next().longValue();
+    long sCount = sm.g().V().hasLabel("observation")
+        .has("name", Observation.EVAPORATION).in("has").count().next()
+        .longValue();
     assertTrue(
         (EXPECTED_STATIONS * 2 == sCount) || (EXPECTED_STATIONS == sCount));
   }
@@ -214,27 +217,28 @@ public class TestDWD extends BaseTest {
     File evapdir = new File("src/test/data/geoserver");
     StationManager sm = StationManager.init();
     long obsCount1 = sm.g().V().hasLabel("observation")
-        .has("name", "evaporation").count().next().longValue();
+        .has("name", Observation.EVAPORATION).count().next().longValue();
     Observation.getObservations(sm, evapdir);
     long obsCount2 = sm.g().V().hasLabel("observation")
-        .has("name", "evaporation").count().next().longValue();
+        .has("name", Observation.EVAPORATION).count().next().longValue();
     if (debug)
       System.out.println(String.format("%3d -> %3d", obsCount1, obsCount2));
     assertEquals(EXPECTED_OBSERVATIONS, obsCount2);
-    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-        .by("stationid").by(values("value").sum()).order(Scope.local)
+    sm.g().V().hasLabel("observation").has("name", Observation.EVAPORATION)
+        .group().by("stationid").by(values("value").sum()).order(Scope.local)
         .by(Column.values, Order.desc)
         .forEachRemaining(m -> showNumberMap("sum", m, "%5.1f", "mm"));
-    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-        .by("stationid").by(values("value").count()).order(Scope.local)
+    sm.g().V().hasLabel("observation").has("name", Observation.EVAPORATION)
+        .group().by("stationid").by(values("value").count()).order(Scope.local)
         .by(Column.values, Order.desc)
         .forEachRemaining(m -> showNumberMap("count", m, "%3d", ""));
     Map<Object, Long> countMap = (Map<Object, Long>) sm.g().V()
-        .hasLabel("observation").has("name", "evaporation").groupCount()
-        .by("stationid").order(Scope.local).by(Column.keys, Order.asc).next();
+        .hasLabel("observation").has("name", Observation.EVAPORATION)
+        .groupCount().by("stationid").order(Scope.local)
+        .by(Column.keys, Order.asc).next();
     System.out.println(countMap.size());
-    sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-        .by("stationid").by(values("value").mean()).order(Scope.local)
+    sm.g().V().hasLabel("observation").has("name", Observation.EVAPORATION)
+        .group().by("stationid").by(values("value").mean()).order(Scope.local)
         .by(Column.values, Order.desc)
         .forEachRemaining(m -> showNumberMap("mean", m, "%5.1f", "mm"));
     long edgeCount = sm.g().E().hasLabel("has").count().next().longValue();
@@ -272,11 +276,11 @@ public class TestDWD extends BaseTest {
   @Test
   public void testSoilObservations() throws Exception {
     if (!isTravis()) {
-      boolean useCache = false;
+      boolean useCache = true;
       StationManager.reset();
       StationManager sm = StationManager.getInstance();
-      debug=true;
-      Observation.debug=true;
+      // debug=true;
+      // Observation.debug=true;
       // Station.debug=true;
       Map<String, Station> smap = Station.getAllSoilStations(useCache);
       for (Station station : smap.values()) {
@@ -296,12 +300,13 @@ public class TestDWD extends BaseTest {
       sm.write();
       StationManager.reset();
       sm = StationManager.getInstance();
-      Map<Object, Object> obsMap = sm.g().V().hasLabel("observation").has("name", "evaporation").group()
-      .by("stationid").by(values("value").sum()).order(Scope.local)
-      .by(Column.values, Order.desc).next();
+      Map<Object, Object> obsMap = sm.g().V().hasLabel("observation")
+          .has("name", Observation.EVAPORATION).group().by("stationid")
+          .by(values("value").sum()).order(Scope.local)
+          .by(Column.values, Order.desc).next();
       if (debug)
-        showMap("obs",obsMap);
-      assertEquals(EXPECTED_SOIL_STATIONS,obsMap.size());
+        showMap("obs", obsMap);
+      assertEquals(EXPECTED_SOIL_STATIONS, obsMap.size());
     }
 
   }

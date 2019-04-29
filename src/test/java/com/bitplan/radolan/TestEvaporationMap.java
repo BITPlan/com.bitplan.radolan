@@ -28,6 +28,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tinkerpop.gremlin.process.traversal.Order;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 
@@ -37,6 +39,7 @@ import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
 import cs.fau.de.since.radolan.Translate;
+import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
@@ -60,7 +63,7 @@ public class TestEvaporationMap extends TestBorders {
         () -> evapView.drawInterpolated(borderDraw, 5.0, 80, 80, 0.5));
     // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
 
-    Thread.sleep(SHOW_TIME * 100);
+    Thread.sleep(SHOW_TIME);
     sampleApp.close();
   }
 
@@ -107,9 +110,22 @@ public class TestEvaporationMap extends TestBorders {
   @Test
   public void testObservationHistory() throws Exception {
     StationManager sm = StationManager.init();
+    List<Vertex> evapsv = sm.g().V().has("stationid", "5064")
+        .has("name", Observation.EVAPORATION).order().by("date",Order.desc).toList();
+    // debug=true;
+    for (Vertex evapv : evapsv) {
+      Observation observation = Observation.from(evapv);
+      if (debug)
+        System.out.println(observation.toString());
+    }
+  }
+
+  @Test
+  public void testObservationHistoryInterpolated() throws Exception {
+    StationManager sm = StationManager.init();
     Coord schiefbahn = new Coord(51.244, 6.52);
     double radius = 47.0;
-    debug=true;
+    debug = true;
     List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
     if (debug) {
       for (Station station : stations) {

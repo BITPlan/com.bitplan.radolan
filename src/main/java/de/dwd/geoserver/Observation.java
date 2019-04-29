@@ -68,7 +68,8 @@ public class Observation {
   String date; // date  of the observation as yyyy-MM-DD eg. 2019-04-20
   String name; // the name of the observation e.g. evaporation
   Double value; // the value of the observation e.g. 5.2
-
+  public static final String EVAPORATION="evaporation";
+  
   public String getStationid() {
     return stationid;
   }
@@ -118,7 +119,7 @@ public class Observation {
         obs.stationid=record.get("Stationsindex").trim();
         obs.date=record.get("Datum");
         obs.date=String.format("%s-%s-%s", obs.date.substring(0,4),obs.date.substring(4,6),obs.date.substring(6,8));
-        obs.name="evaporation";
+        obs.name=EVAPORATION;
         obs.value=Double.parseDouble(record.get("VPGB"));
         if (debug) {
           System.out.println(record.toString());
@@ -151,7 +152,7 @@ public class Observation {
       Date observation_date = isoDateFormat.parse(props.M_DATE);
       observation.date=shortIsoDateFormat.format(observation_date);
       if (props.EVAPORATION != null) {
-        observation.name = "evaporation";
+        observation.name = Observation.EVAPORATION;
         observation.value = props.EVAPORATION;
       }
       sm.add(observation);
@@ -204,6 +205,7 @@ public class Observation {
    */
   public static Observation from(Vertex oVertex) throws Exception {
     Observation o=new Observation();
+    o.stationid=oVertex.property("stationid").value().toString();
     o.name=oVertex.property("name").value().toString();
     o.value=(Double) oVertex.property("value").value();
     o.date=oVertex.property("date").value().toString();
@@ -227,7 +229,7 @@ public class Observation {
    */
   public Map<Integer,Double> getObservationHistory(StationManager sm,String stationid) {
     Map<Integer,Double> map=new LinkedHashMap<Integer,Double>();
-    Map<Object, Object> obsmap = sm.g().V().hasLabel("observation").has("name", "evaporation")
+    Map<Object, Object> obsmap = sm.g().V().hasLabel("observation").has("name", EVAPORATION)
         .group().by("stationid").next();
     for (Entry<Object, Object> obsentry:obsmap.entrySet() ) {
       System.out.println(String.format("%s=%s",obsentry.getKey(),obsentry.getValue()));

@@ -44,27 +44,43 @@ import org.openweathermap.weather.Coord;
  *
  */
 public class StationManager {
-  public static boolean debug=false;
+  public static boolean debug = false;
   public static StationManager instance;
   private TinkerGraph graph;
-  private File graphFile;
+
   private Map<String, Station> stationsById = new HashMap<String, Station>();
   public static final Coord Germany_SouthEast = new Coord(55.0, 15.1);
   public static final Coord Germany_NorthWest = new Coord(47.3, 5.9);
+  public static String STORE_MODE = IO.graphml;
+  public static String STORE_EXTENSION = ".xml";
 
+  public TinkerGraph getGraph() {
+    return graph;
+  }
+
+  public void setGraph(TinkerGraph graph) {
+    this.graph = graph;
+  }
+
+  /**
+   * get the GraphFile
+   * @return - the GraphFile
+   */
+  public static File getGraphFile() {
+    String graphFilePath = System.getProperty("user.home")
+        + java.io.File.separator + ".radolan/stations" + STORE_EXTENSION;
+    File graphFile = new File(graphFilePath);
+    return graphFile;
+  }
+  
   /**
    * the constructor
    */
   protected StationManager() {
-    graph = TinkerGraph.open();
-    String graphFilePath = System.getProperty("user.home")
-        + java.io.File.separator + ".radolan/stations.xml";
-    graphFile = new File(graphFilePath);
+    setGraph(TinkerGraph.open());
+    File graphFile=getGraphFile();
     if (graphFile.exists()) {
       read(graphFile);
-    }
-    if (!graphFile.getParentFile().exists()) {
-      graphFile.getParentFile().mkdirs();
     }
   }
 
@@ -75,7 +91,7 @@ public class StationManager {
    */
   public void read(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
-    graph.traversal().io(graphFile.getPath()).with(IO.reader, IO.graphml).read()
+    getGraph().traversal().io(graphFile.getPath()).with(IO.reader, STORE_MODE).read()
         .iterate();
   }
 
@@ -86,11 +102,15 @@ public class StationManager {
    */
   public void write(File graphFile) {
     // http://tinkerpop.apache.org/docs/3.4.0/reference/#io-step
-    graph.traversal().io(graphFile.getPath()).with(IO.writer, IO.graphml)
+    getGraph().traversal().io(graphFile.getPath()).with(IO.writer, STORE_MODE)
         .write().iterate();
   }
 
   public void write() {
+    File graphFile=getGraphFile();
+    if (!graphFile.getParentFile().exists()) {
+      graphFile.getParentFile().mkdirs();
+    }
     write(graphFile);
   }
 
@@ -126,7 +146,7 @@ public class StationManager {
   }
 
   public void addDirect(Observation observation, Vertex stationVertex) {
-    Vertex oVertex = graph.addVertex("observation");
+    Vertex oVertex = getGraph().addVertex("observation");
     observation.toVertex(oVertex);
     stationVertex.addEdge("has", oVertex);
   }
@@ -141,7 +161,7 @@ public class StationManager {
     station.toVertex(stationVertex);
     stationsById.put(station.id, station);
   }
-  
+
   public void initStationMap() {
     g().V().hasLabel("station").forEachRemaining(v -> {
       Station s = new Station();
@@ -163,7 +183,7 @@ public class StationManager {
     if (stationTraversal.hasNext()) {
       stationVertex = stationTraversal.next();
     } else {
-      stationVertex = graph.addVertex("station");
+      stationVertex = getGraph().addVertex("station");
     }
     return stationVertex;
   }
@@ -183,7 +203,7 @@ public class StationManager {
   }
 
   public GraphTraversalSource g() {
-    return graph.traversal();
+    return getGraph().traversal();
   }
 
   /**
@@ -222,9 +242,10 @@ public class StationManager {
     return stationsById.keySet();
   }
 
-  public Map<String,Station> getStationMap() {
+  public Map<String, Station> getStationMap() {
     return this.stationsById;
   }
+
   /**
    * get a list of stations that are with the given radius
    * 
@@ -243,6 +264,21 @@ public class StationManager {
       }
     }
     return stations;
+  }
+
+  public static void setStoreMode(String mode) {
+    STORE_MODE = mode;
+    switch (mode) {
+    case IO.graphml:
+      STORE_EXTENSION = ".xml";
+      break;
+    case IO.graphson:
+      STORE_EXTENSION = ".json";
+      break;
+    case IO.gryo:
+      STORE_EXTENSION = ".gryo";
+      break;
+    }
   }
 
 }

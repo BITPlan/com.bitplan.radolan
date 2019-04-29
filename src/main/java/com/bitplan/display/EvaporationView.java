@@ -38,6 +38,7 @@ import com.bitplan.geo.DPoint;
 import cs.fau.de.since.radolan.FloatFunction;
 import cs.fau.de.since.radolan.vis.Vis;
 import cs.fau.de.since.radolan.vis.Vis.ColorRange;
+import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.scene.paint.Color;
@@ -74,7 +75,7 @@ public class EvaporationView {
    */
   public EvaporationView(StationManager sm) {
     this.sm = sm;
-    evapmap = sm.g().V().hasLabel("observation").has("name", "evaporation")
+    evapmap = sm.g().V().hasLabel("observation").has("name", Observation.EVAPORATION)
         .group().by("stationid").by(values("value").mean()).next();
   }
 
