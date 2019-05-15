@@ -56,11 +56,11 @@ import de.dwd.geoserver.WFS.WFSResponse;
 public class Observation {
 
   public static boolean debug = false;
-  static DateFormat isoDateFormat = new SimpleDateFormat(
+  public static DateFormat isoDateFormat = new SimpleDateFormat(
       "yyyy-MM-dd'T'HH:mm:ss'Z'");
-  static DateFormat shortIsoDateFormat = new SimpleDateFormat(
+  public static DateFormat shortIsoDateFormat = new SimpleDateFormat(
       "yyyy-MM-dd");
-  static DateFormat defaultDateFormatter =new SimpleDateFormat(
+  public static DateFormat defaultDateFormatter =new SimpleDateFormat(
       "EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
 
   private Station station; // the station this Observation was made e.g. 1078/Düsseldorf

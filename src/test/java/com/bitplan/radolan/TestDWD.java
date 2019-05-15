@@ -58,7 +58,7 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class TestDWD extends BaseTest {
-  public static final int EXPECTED_SOIL_STATIONS = 492;
+  public static final int EXPECTED_SOIL_STATIONS = 491;
   public static final int EXPECTED_STATIONS = 67;
   public static final int DAYS = 7;
   public static final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
@@ -276,12 +276,12 @@ public class TestDWD extends BaseTest {
   @Test
   public void testSoilObservations() throws Exception {
     if (!isTravis()) {
-      boolean useCache = true;
+      debug=true;
+      boolean useCache = !debug;
       StationManager.reset();
       StationManager sm = StationManager.getInstance();
-      // debug=true;
-      // Observation.debug=true;
-      // Station.debug=true;
+      Observation.debug=debug;
+      Station.debug=debug;
       Map<String, Station> smap = Station.getAllSoilStations(useCache);
       for (Station station : smap.values()) {
         sm.add(station);

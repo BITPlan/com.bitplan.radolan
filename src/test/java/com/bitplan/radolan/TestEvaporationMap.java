@@ -23,8 +23,12 @@
  */
 package com.bitplan.radolan;
 
+import static com.bitplan.dateutils.DateUtils.asDate;
+import static com.bitplan.dateutils.DateUtils.asLocalDate;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +39,7 @@ import com.bitplan.display.BorderDraw;
 import com.bitplan.display.EvaporationView;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
+import com.bitplan.javafx.GenericApp;
 
 import cs.fau.de.since.radolan.Translate;
 import de.dwd.geoserver.Observation;
@@ -54,17 +59,25 @@ public class TestEvaporationMap extends TestBorders {
       String name = "3_regierungsbezirke/3_mittel.geojson";
       GeoProjection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
-      for (int day = 1; day <= 5; day++) {
-        BorderDraw borderDraw = prepareBorderDraw(projection, name);
-        EvaporationView evapView = new EvaporationView(sm, day, 5);
+      int gridx = 200;
+      int gridy = 200;
+      for (int avg = 1; avg <= 1; avg++) {
+        for (int day = 1; day <= 2; day++) {
+          BorderDraw borderDraw = prepareBorderDraw(projection, name);
+          EvaporationView evapView = new EvaporationView(sm, day, avg);
 
-        Platform.runLater(() -> borderDraw.drawBorders());
-        Platform.runLater(
-            () -> evapView.drawInterpolated(borderDraw, 5.0, 80, 80, 0.5));
-        // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
-
-        Thread.sleep(SHOW_TIME * 10);
+          Platform.runLater(() -> borderDraw.drawBorders());
+          Platform.runLater(() -> evapView.drawInterpolated(borderDraw, 5.0,
+              gridx, gridy, 0.5));
+          // Platform.runLater(() -> evapView.draw(borderDraw, 30., 0.4));
+          Date today = new Date();
+          Date evapDay = asDate(asLocalDate(today).minusDays(day));
+          File file = new File(String.format("/tmp/Evaporation_%3d_days_%s.png",
+              avg, Observation.shortIsoDateFormat.format(evapDay)));
+          sampleApp.saveAsPng(file);
+        }
       }
+      Thread.sleep(SHOW_TIME * 100);
       sampleApp.close();
     }
   }
@@ -135,11 +148,15 @@ public class TestEvaporationMap extends TestBorders {
       StationManager sm = StationManager.init();
       Coord schiefbahn = new Coord(51.244, 6.52);
       double radius = 47.0;
-      // debug = true;
+      debug = true;
       List<Station> stations = sm.getStationsWithinRadius(schiefbahn, radius);
       if (debug) {
         for (Station station : stations) {
           System.out.println(station.toString());
+          List<Observation> obs = station.getObservationHistory(sm);
+          for (Observation ob:obs) {
+            System.out.println("\t"+ob.toString());
+          }
         }
       }
     }
