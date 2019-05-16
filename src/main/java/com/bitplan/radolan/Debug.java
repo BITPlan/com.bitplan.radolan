@@ -28,6 +28,8 @@ import com.bitplan.display.MapView;
 import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
+import de.dwd.geoserver.Station;
+import de.dwd.geoserver.StationManager;
 
 /**
  * debug setting
@@ -48,6 +50,8 @@ public class Debug {
     MapView.debug=true;
     DisplayContext.debug = true;
     UnLocodeManager.debug = true;
+    StationManager.debug=true;
+    Station.debug=true;
   }
 
 }
