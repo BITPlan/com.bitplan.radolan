@@ -299,6 +299,8 @@ public class StationManager {
     for (Station station : smap.values()) {
       sm.add(station);
     }
+    Observation.getObservations(sm, useCache);
+    sm.write();
     return sm;
   }
 
