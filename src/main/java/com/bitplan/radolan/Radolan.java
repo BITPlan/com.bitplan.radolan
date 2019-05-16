@@ -74,9 +74,9 @@ public class Radolan extends Main implements SoftwareVersion {
   @Option(name = "-i", aliases = {
       "--input" }, usage = "input\nurl/file of the input")
   protected String input = null;
-  
+
   @Option(name = "-rec", aliases = {
-  "--refreshEvaporationCache" }, usage = "refresh the evaporation cache\ndownload evaporation data for some 500 stations (takes some 3 mins)")
+      "--refreshEvaporationCache" }, usage = "refresh the evaporation cache\ndownload evaporation data for some 500 stations (takes some 3 mins)")
   protected boolean refreshEvaporationCache = false;
 
   @Option(name = "-nc", aliases = {
@@ -238,42 +238,44 @@ public class Radolan extends Main implements SoftwareVersion {
       }
       if (showVersion)
         this.showVersion();
-      if (refreshEvaporationCache) {
-        StationManager.refreshEvaporationCache();
-      }
       if (showHelp)
         this.showHelp();
       else {
-        if (input==null && arguments.size()==0)
-          arguments.add("latest");
-        if (this.arguments.size() > 0) {
-          if (debug)
-            LOGGER.log(Level.INFO, arguments.toString());
-          for (String argument : arguments) {
-            input = KnownUrl.getUrl(product, argument);
-            this.showCompositeForUrl(input);
-          }
-        } else if (input != null && (input.contains(".png")
-            || input.contains(".jpg") || input.contains(".gif"))) {
-          if (this.showImage)
-            showImage(input);
-          else {
-            // silently fail here?
-          }
+        if (refreshEvaporationCache) {
+          StationManager.refreshEvaporationCache();
         } else {
-          if (input != null)
-            this.showCompositeForUrl(input);
-        }
-        // shall we save the (latest) image
-        if (displayContext != null && displayContext.mapView.getImage() != null
-            && output != null && !output.isEmpty()) {
-          String ext = FilenameUtils.getExtension(output);
-          File outputFile = new File(output);
-          BufferedImage bImage = RadolanApp
-              .fromFXImage(displayContext.mapView.getImage(), null);
-          String formatName = ext;
-          if (bImage != null)
-            ImageIO.write(bImage, formatName, outputFile);
+          if (input == null && arguments.size() == 0)
+            arguments.add("latest");
+          if (this.arguments.size() > 0) {
+            if (debug)
+              LOGGER.log(Level.INFO, arguments.toString());
+            for (String argument : arguments) {
+              input = KnownUrl.getUrl(product, argument);
+              this.showCompositeForUrl(input);
+            }
+          } else if (input != null && (input.contains(".png")
+              || input.contains(".jpg") || input.contains(".gif"))) {
+            if (this.showImage)
+              showImage(input);
+            else {
+              // silently fail here?
+            }
+          } else {
+            if (input != null)
+              this.showCompositeForUrl(input);
+          }
+          // shall we save the (latest) image
+          if (displayContext != null
+              && displayContext.mapView.getImage() != null && output != null
+              && !output.isEmpty()) {
+            String ext = FilenameUtils.getExtension(output);
+            File outputFile = new File(output);
+            BufferedImage bImage = RadolanApp
+                .fromFXImage(displayContext.mapView.getImage(), null);
+            String formatName = ext;
+            if (bImage != null)
+              ImageIO.write(bImage, formatName, outputFile);
+          }
         }
       }
     } catch (Throwable th) {
