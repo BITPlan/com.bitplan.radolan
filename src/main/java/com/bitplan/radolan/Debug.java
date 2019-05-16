@@ -28,6 +28,7 @@ import com.bitplan.display.MapView;
 import com.bitplan.geo.UnLocodeManager;
 
 import cs.fau.de.since.radolan.Composite;
+import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 
@@ -52,6 +53,7 @@ public class Debug {
     UnLocodeManager.debug = true;
     StationManager.debug=true;
     Station.debug=true;
+    Observation.debug=true;
   }
 
 }
