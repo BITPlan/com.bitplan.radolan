@@ -281,4 +281,25 @@ public class StationManager {
     }
   }
 
+  /**
+   * get the evaporation cache
+   * @return the new state of the StationManager instance;
+   * @throws Exception 
+   */
+  public static StationManager refreshEvaporationCache() throws Exception {
+    reset();
+    File graphFile=getGraphFile();
+    if (graphFile.exists()) {
+      // TODO create backup ?
+      graphFile.delete();
+    }
+    StationManager sm = StationManager.getInstance();
+    boolean useCache=false;
+    Map<String, Station> smap = Station.getAllSoilStations(useCache);
+    for (Station station : smap.values()) {
+      sm.add(station);
+    }
+    return sm;
+  }
+
 }

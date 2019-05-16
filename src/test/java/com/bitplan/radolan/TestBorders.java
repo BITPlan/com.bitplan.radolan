@@ -152,6 +152,8 @@ public class TestBorders extends BaseTest {
     SampleApp.toolkitInit();
     String url = imageFile.toURI().toURL().toExternalForm();
     mapView = new MapView(url);
+    if (debug)
+      System.out.println(String.format("border %s", name));
     BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
         Color.ORANGE);
     sampleApp = new SampleApp(name, mapView.getStackPane());

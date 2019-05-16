@@ -51,6 +51,7 @@ import com.bitplan.javafx.Main;
 import com.bitplan.util.CachedUrl;
 
 import cs.fau.de.since.radolan.Composite;
+import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
@@ -73,6 +74,10 @@ public class Radolan extends Main implements SoftwareVersion {
   @Option(name = "-i", aliases = {
       "--input" }, usage = "input\nurl/file of the input")
   protected String input = null;
+  
+  @Option(name = "-rec", aliases = {
+  "--refreshEvaporationCache" }, usage = "refresh the evaporation cache\ndownload evaporation data for some 500 stations (takes some 3 mins)")
+  protected boolean refreshEvaporationCache = false;
 
   @Option(name = "-nc", aliases = {
       "--noCache" }, usage = "noCache\ndo not use local cache")
@@ -233,6 +238,9 @@ public class Radolan extends Main implements SoftwareVersion {
       }
       if (showVersion)
         this.showVersion();
+      if (refreshEvaporationCache) {
+        StationManager.refreshEvaporationCache();
+      }
       if (showHelp)
         this.showHelp();
       else {
