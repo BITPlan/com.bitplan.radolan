@@ -1,0 +1,4 @@
+#!/bin/bash
+# WF 2019-05-16 
+# build without tests and gpg signing
+mvn install -D skipTests -D gpg.skip
