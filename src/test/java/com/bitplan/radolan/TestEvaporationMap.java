@@ -39,7 +39,6 @@ import com.bitplan.display.BorderDraw;
 import com.bitplan.display.EvaporationView;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
-import com.bitplan.javafx.GenericApp;
 
 import cs.fau.de.since.radolan.Translate;
 import de.dwd.geoserver.Observation;
@@ -84,62 +83,68 @@ public class TestEvaporationMap extends TestBorders {
 
   @Test
   public void testEvapView() throws Exception {
-    StationManager sm = StationManager.init();
-    EvaporationView evapView = new EvaporationView(sm, 1, 5);
-    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
-    Statistics stats = new Statistics();
-    for (Coord c : gridMap.keySet()) {
-      List<Station> stations = gridMap.get(c);
-      if (debug)
-        System.out
-            .println(String.format("%3d %s", stations.size(), c.toString()));
-      if (c.getLon() > 8.35 && c.getLon() < 12.173 && c.getLat() > 47.843
-          && c.getLat() < 53.645) {
-        stats.add(stations.size());
-        assertTrue(c.toString(), stations.size() >= 3);
-      }
-      for (Station station : stations) {
+    if (!super.isTravis()) {
+      StationManager sm = StationManager.init();
+      EvaporationView evapView = new EvaporationView(sm, 1, 5);
+      Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
+      Statistics stats = new Statistics();
+      for (Coord c : gridMap.keySet()) {
+        List<Station> stations = gridMap.get(c);
         if (debug)
-          System.out.println(String.format("\t %5.1f km %s",
-              c.distance(station.getCoord()), station.toString()));
+          System.out
+              .println(String.format("%3d %s", stations.size(), c.toString()));
+        if (c.getLon() > 8.35 && c.getLon() < 12.173 && c.getLat() > 47.843
+            && c.getLat() < 53.645) {
+          stats.add(stations.size());
+          assertTrue(c.toString(), stations.size() >= 3);
+        }
+        for (Station station : stations) {
+          if (debug)
+            System.out.println(String.format("\t %5.1f km %s",
+                c.distance(station.getCoord()), station.toString()));
+        }
       }
+      if (debug)
+        System.out.println(stats.toString());
     }
-    System.out.println(stats.toString());
   }
 
   @Test
   public void testInterpolation() throws Exception {
-    StationManager sm = StationManager.init();
-    EvaporationView evapView = new EvaporationView(sm, 1, 5);
-    debug = true;
-    if (debug)
-      EvaporationView.debug = true;
-    Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
-    Coord c = new Coord(51.243, 6.519);
-    Coord gc = evapView.getClosest(c, gridMap.keySet());
-    double evap = evapView.getInverseWeighted(gc, gridMap.get(gc), 2.0);
-    if (debug)
-      System.out.println(String.format("%5.1f mm", evap));
+    if (!super.isTravis()) {
+      StationManager sm = StationManager.init();
+      EvaporationView evapView = new EvaporationView(sm, 1, 5);
+      debug = true;
+      if (debug)
+        EvaporationView.debug = true;
+      Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
+      Coord c = new Coord(51.243, 6.519);
+      Coord gc = evapView.getClosest(c, gridMap.keySet());
+      double evap = evapView.getInverseWeighted(gc, gridMap.get(gc), 2.0);
+      if (debug)
+        System.out.println(String.format("%5.1f mm", evap));
+    }
   }
 
   @Test
   public void testObservationHistory() throws Exception {
-    showMemory();
-    StationManager sm = StationManager.init();
-    // for (Station station : sm.getStationMap().values()) {
-    // showMemory();
-    Station station = sm.getStationMap().get("5064");
-    List<Observation> obs = station.getObservationHistory(sm);
-    debug = true;
-    if (debug)
-      System.out.println(station.toString());
+    if (!super.isTravis()) {
+      showMemory();
+      StationManager sm = StationManager.init();
+      // for (Station station : sm.getStationMap().values()) {
+      // showMemory();
+      Station station = sm.getStationMap().get("5064");
+      List<Observation> obs = station.getObservationHistory(sm);
+      debug = true;
+      if (debug)
+        System.out.println(station.toString());
 
-    for (Observation observation : obs) {
-      if (debug) {
-        System.out.println(observation.toString());
+      for (Observation observation : obs) {
+        if (debug) {
+          System.out.println(observation.toString());
+        }
       }
     }
-    // }
   }
 
   @Test
@@ -154,8 +159,8 @@ public class TestEvaporationMap extends TestBorders {
         for (Station station : stations) {
           System.out.println(station.toString());
           List<Observation> obs = station.getObservationHistory(sm);
-          for (Observation ob:obs) {
-            System.out.println("\t"+ob.toString());
+          for (Observation ob : obs) {
+            System.out.println("\t" + ob.toString());
           }
         }
       }

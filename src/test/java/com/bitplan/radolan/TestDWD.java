@@ -276,7 +276,7 @@ public class TestDWD extends BaseTest {
   @Test
   public void testSoilObservations() throws Exception {
     if (!isTravis()) {
-      debug=true;
+      //debug=true;
       boolean useCache = !debug;
       StationManager.reset();
       StationManager sm = StationManager.getInstance();

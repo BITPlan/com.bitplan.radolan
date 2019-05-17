@@ -64,7 +64,6 @@ public class TestUnLocodeManager extends BaseTest {
     assertEquals(48.1, code.getLat(), 0.001);
     assertEquals(9.616, code.getLon(), 0.001);
     // assertEquals("?",code.toString());
-
   }
 
   @Test

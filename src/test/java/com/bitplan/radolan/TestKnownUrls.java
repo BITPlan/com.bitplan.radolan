@@ -155,7 +155,7 @@ public class TestKnownUrls extends BaseTest {
   
   @Test
   public void testHistory() throws Exception {
-    debug=true;
+    //debug=true;
     String [] times= {"2006-11-01 23:50","2017-07-05 16:50"};
     for (String time:times) {
       String url = KnownUrl.getUrl("sf", time);
