@@ -38,9 +38,9 @@ public class TestHistory extends BaseTest {
   @Test
   public void testRainEventSequence() throws Throwable {
     if (!super.isTravis()) {
+      DPoint schiefbahn = new DPoint(51.244, 6.52);
       // Composite.debug = true;
       CompositeManager cm = new CompositeManager();
-      DPoint schiefbahn = new DPoint(51.244, 6.52);
       for (int daysAgo = 1; daysAgo <= 14; daysAgo++) {
         float rain = cm.getRainSum(daysAgo, schiefbahn);
         System.out.println(String.format("%3d: %5.2f mm", daysAgo, rain));
