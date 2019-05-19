@@ -192,7 +192,7 @@ public class StationManager {
    * get the station by it's id
    * 
    * @param id
-   * @return
+   * @return the Station
    */
   public Station byId(String id) {
     Station station = new Station();

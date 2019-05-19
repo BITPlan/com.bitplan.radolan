@@ -54,14 +54,16 @@ public class WFS {
   public static boolean debug = false;
   // prepare a LOGGER
   protected static Logger LOGGER = Logger.getLogger("de.dwd.geoserver");
+
   /**
    * reale Evapotranspiration von Gras über sandigem Lehm (AMBAV) VGSL mm
-   * potentielle Evapotranspiration vonGras (AMBAV) VPGB mm
-   * potentielle Verdunstung über Gras (Haude) VPGH mm
-   * FF: Windgeschwindigkeit an RBSN Stationen
-   * RH: Relative Feuchte an RBSN Stationen
+   * potentielle Evapotranspiration vonGras (AMBAV) VPGB mm potentielle
+   * Verdunstung über Gras (Haude) VPGH mm FF: Windgeschwindigkeit an RBSN
+   * Stationen RH: Relative Feuchte an RBSN Stationen
    */
-  public enum WFSType{FF,RH,RR,T2m,VPGB};
+  public enum WFSType {
+    FF, RH, RR, T2m, VPGB
+  };
 
   /**
    * Json WFS response decoding
@@ -86,11 +88,10 @@ public class WFS {
         Map<Double, Station> distanceMap = new TreeMap<Double, Station>();
         for (Feature feature : features) {
           double distance = feature.geometry.getCoord().distance(coord);
-          Station fstation = new Station(feature,distance);
+          Station fstation = new Station(feature, distance);
           distanceMap.put(distance, fstation);
         }
-        Entry<Double, Station> first = distanceMap.entrySet().iterator()
-            .next();
+        Entry<Double, Station> first = distanceMap.entrySet().iterator().next();
         station = first.getValue();
       }
       return station;
@@ -99,6 +100,7 @@ public class WFS {
 
   /**
    * a Feature
+   * 
    * @author wf
    *
    */
@@ -134,8 +136,9 @@ public class WFS {
     }
   }
 
-  static final DateFormat isoDateFormat=new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-  
+  static final DateFormat isoDateFormat = new SimpleDateFormat(
+      "yyyy-MM-dd'T'HH:mm:ss'Z'");
+
   // a property
   public class Property {
     String ID;
@@ -151,11 +154,12 @@ public class WFS {
       Coord corner1 = new Coord(bbox[1], bbox[0]);
       Coord corner2 = new Coord(bbox[3], bbox[2]);
       String text = String.format(
-          "id: %s name: %s precipitation: %5.1f mm, evaporation: %5.1f mm, mdate: %s, bbox: %s-%s", ID,
-          NAME, PRECIPITATION,EVAPORATION,M_DATE, corner1.toString(), corner2.toString());
+          "id: %s name: %s precipitation: %5.1f mm, evaporation: %5.1f mm, mdate: %s, bbox: %s-%s",
+          ID, NAME, PRECIPITATION, EVAPORATION, M_DATE, corner1.toString(),
+          corner2.toString());
       return text;
     }
-    
+
     public Date getDate() throws ParseException {
       return isoDateFormat.parse(M_DATE);
     }
@@ -174,25 +178,35 @@ public class WFS {
     builder.addParameter("service", "WFS");
     builder.addParameter("version", version);
     builder.addParameter("request", "GetFeature");
-    builder.addParameter("typeName", "dwd:RBSN_"+wfsType.toString()); // _RR = Niederschlag _FF=Wind _VPGB - potentielle Verdunstung
+    builder.addParameter("typeName", "dwd:RBSN_" + wfsType.toString()); // _RR =
+                                                                        // Niederschlag
+                                                                        // _FF=Wind
+                                                                        // _VPGB
+                                                                        // -
+                                                                        // potentielle
+                                                                        // Verdunstung
     builder.addParameter("outputFormat", "application/json");
     return builder;
   }
-  
+
   /**
-   * get a response for the given box with the given north west and south east corner
+   * get a response for the given box with the given north west and south east
+   * corner
+   * 
    * @param wfsType
-   * @param nw - north west corner
-   * @param se - south east corner
+   * @param nw
+   *          - north west corner
+   * @param se
+   *          - south east corner
    * @return - the response
-   * @throws Exception 
+   * @throws Exception
    */
-  public static WFSResponse getResponseForBox(WFSType wfsType,Coord nw,Coord se) throws Exception {
+  public static WFSResponse getResponseForBox(WFSType wfsType, Coord nw,
+      Coord se) throws Exception {
     URIBuilder builder = getGeoServiceURIBuilder(wfsType);
     builder.addParameter("bbox",
         String.format(Locale.ENGLISH, "%10.5f,%10.5f,%10.5f,%10.5f",
-            nw.getLat(), nw.getLon(),
-            se.getLat(), se.getLon()));
+            nw.getLat(), nw.getLon(), se.getLat(), se.getLon()));
     WFSResponse wfsresponse = fromURIBuilder(builder);
     return wfsresponse;
   }
@@ -206,34 +220,39 @@ public class WFS {
    * @return a WFS Response
    * @throws Exception
    */
-  public static WFSResponse getResponseAt(WFSType wfsType,Coord coord, double boxMargin)
-      throws Exception {
-     Coord nw=new Coord(coord.getLat() - boxMargin, coord.getLon() - boxMargin);
-     Coord se=new Coord(coord.getLat() + boxMargin, coord.getLon() + boxMargin);
-    return getResponseForBox(wfsType,nw,se);
+  public static WFSResponse getResponseAt(WFSType wfsType, Coord coord,
+      double boxMargin) throws Exception {
+    Coord nw = new Coord(coord.getLat() - boxMargin,
+        coord.getLon() - boxMargin);
+    Coord se = new Coord(coord.getLat() + boxMargin,
+        coord.getLon() + boxMargin);
+    return getResponseForBox(wfsType, nw, se);
   }
 
   /**
    * get a WFS response for the given builder
+   * 
    * @param builder
    * @return the WFS response
-   * @throws Exception 
+   * @throws Exception
    */
-  public static WFSResponse fromURIBuilder(URIBuilder builder) throws Exception {
+  public static WFSResponse fromURIBuilder(URIBuilder builder)
+      throws Exception {
     String url = builder.build().toString();
     if (debug)
       LOGGER.log(Level.INFO, url);
     String json = JsonUtil.read(url);
     return fromJson(json);
   }
-   
+
   /**
    * get a WFSResponse from the given json string
+   * 
    * @param json
-   * @return
+   * @return the WFSResponse
    * @throws Exception
    */
-  public static WFSResponse fromJson(String json) throws Exception {  
+  public static WFSResponse fromJson(String json) throws Exception {
     if (debug) {
       LOGGER.log(Level.INFO, json.replaceAll("\\{", "\n{"));
     }
@@ -243,22 +262,26 @@ public class WFS {
   }
 
   /**
-   * get the rain history for the given station id
-   * @param dwdid
-   * @return - the rain history
+   * get the rain history for the given station
+   * 
+   * @param dwdStation
+   * @return - the WFSResponse containing the rain history
    * @throws Exception
    */
-  public static WFSResponse getRainHistory(Station dwdStation) throws Exception {
-    return getResponseAt(WFSType.RR,dwdStation.coord,0.01);
+  public static WFSResponse getRainHistory(Station dwdStation)
+      throws Exception {
+    return getResponseAt(WFSType.RR, dwdStation.coord, 0.01);
   }
 
   /**
    * get the Evaporation History
+   * 
    * @param dwdStation
    * @return the evaporation history
-   * @throws Exception 
+   * @throws Exception
    */
-  public static WFSResponse getEvaporationHistory(Station dwdStation) throws Exception {
-    return getResponseAt(WFSType.VPGB,dwdStation.coord,0.01);
+  public static WFSResponse getEvaporationHistory(Station dwdStation)
+      throws Exception {
+    return getResponseAt(WFSType.VPGB, dwdStation.coord, 0.01);
   }
 }

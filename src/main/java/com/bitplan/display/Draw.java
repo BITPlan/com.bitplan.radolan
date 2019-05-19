@@ -23,7 +23,6 @@
  */
 package com.bitplan.display;
 
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -61,7 +60,7 @@ public class Draw {
    * @param x
    * @param y
    * @param center
-   * @return
+   * @return the circle
    */
   public static Circle drawCircleWithText(Pane pane, String text, double radius,
       Color circleColor, double circleOpacity, Color textColor, double x,

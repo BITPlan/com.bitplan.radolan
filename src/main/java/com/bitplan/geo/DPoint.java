@@ -31,8 +31,10 @@ import gov.nasa.worldwind.geom.Angle;
  *
  */
 public class DPoint {
+ 
   public double x;
   public double y;
+
   /**
    * construct me
    * @param x
@@ -79,5 +81,14 @@ public class DPoint {
     String dms=(lat+" "+lon);
     dms=dms.replaceAll("\\s+"," ").trim();
     return dms;
+  }
+  
+  @Override
+  public boolean equals(Object other) {
+    if (other == null) return false;
+    if (other == this) return true;
+    if (!(other instanceof DPoint))return false;
+    DPoint otherPoint=(DPoint) other;
+    return otherPoint.x==x && otherPoint.y==y;
   }
 }

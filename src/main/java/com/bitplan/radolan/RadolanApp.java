@@ -207,7 +207,7 @@ public class RadolanApp extends GenericApp {
   /**
    * show the sizes of stage, scene, and the given other nodes
    * 
-   * @param region
+   * @param regions
    *          - the regions to show
    */
   public void showSizes(Region... regions) {

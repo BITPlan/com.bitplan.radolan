@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -80,6 +81,9 @@ public class MapView {
     initPanes();
   }
 
+  /**
+   * initialize the panes
+   */
   public void initPanes() {
     drawPane = new Pane();
     drawPane.setStyle(
@@ -228,6 +232,14 @@ public class MapView {
       return image.getHeight();
     else
       return 480;
+  }
+  
+  /**
+   * set the clipping for this mapView
+   * @param clipNode
+   */
+  public final void setClip(Node clipNode) {
+    this.drawPane.setClip(clipNode);
   }
 
 }

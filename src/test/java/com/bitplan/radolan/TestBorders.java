@@ -23,7 +23,12 @@
  */
 package com.bitplan.radolan;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
+import java.net.MalformedURLException;
+import java.util.List;
 import java.util.logging.Level;
 
 import org.junit.Test;
@@ -31,6 +36,8 @@ import org.junit.Test;
 import com.bitplan.display.BorderDraw;
 import com.bitplan.display.MapView;
 import com.bitplan.geo.Borders;
+import com.bitplan.geo.ConvexHull;
+import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 import com.bitplan.javafx.SampleApp;
@@ -42,6 +49,8 @@ import javafx.collections.ObservableList;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
@@ -60,11 +69,10 @@ public class TestBorders extends BaseTest {
       "3_regierungsbezirke/4_niedrig.geojson", "4_kreise/2_hoch.geojson",
       "4_kreise/3_mittel.geojson", "4_kreise/4_niedrig.geojson" };
   protected SampleApp sampleApp;
-  private MapView mapView;
 
   @Test
   public void testBorders() throws Exception {
-    debug = true;
+    // debug = true;
     for (String name : names) {
       Borders borders = new Borders(name);
       if (debug)
@@ -114,28 +122,146 @@ public class TestBorders extends BaseTest {
 
   @Test
   public void testDrawingMap() throws Exception {
+    showBorderDraw("4_kreise/2_hoch.geojson");
+  }
+
+  public BorderDraw getBorderDraw(String name) throws Exception {
     GeoProjection projection = new ProjectionImpl(900, 900);
     Translate.calibrateProjection(projection);
-    String name = "4_kreise/2_hoch.geojson";
     BorderDraw borderDraw = prepareBorderDraw(projection, name);
+    return borderDraw;
+  }
+
+  /**
+   * show the given border Draw with the given name for the borders
+   * 
+   * @param name
+   * @throws Exception
+   */
+  public void showBorderDraw(String name) throws Exception {
+    BorderDraw borderDraw = getBorderDraw(name);
+    showBorderDraw(name, borderDraw, 1);
+  }
+
+  /**
+   * show the given border draw
+   * 
+   * @param borderDraw
+   * @throws InterruptedException
+   */
+  public void showBorderDraw(String name, BorderDraw borderDraw, int factor)
+      throws InterruptedException {
     Platform.runLater(() -> borderDraw.drawBorders());
-    Thread.sleep(SHOW_TIME);
+    waitClose(name,borderDraw,factor);
+  }
+    
+  /**
+   * waitClose
+   * @param name
+   * @param borderDraw
+   * @param factor
+   * @throws InterruptedException
+   */
+  public void waitClose(String name, BorderDraw borderDraw, int factor) throws InterruptedException {  
+    Thread.sleep(SHOW_TIME * factor);
+    saveSnapShot(name, borderDraw.getPane());
     sampleApp.close();
+    // Platform.exit();
   }
 
   @Test
   public void testDrawingBorders() throws Exception {
-    Borders.debug = true;
+    // Borders.debug = true;
     for (String name : names) {
-      GeoProjection projection = new ProjectionImpl(900, 900);
-      Translate.calibrateProjection(projection);
-      BorderDraw borderDraw = prepareBorderDraw(projection, name);
-      Platform.runLater(() -> borderDraw.drawBorders());
-      Thread.sleep(SHOW_TIME);
-      saveSnapShot(name, mapView.getDrawPane());
-      sampleApp.close();
-      // Platform.exit();
+      showBorderDraw(name);
     }
+  }
+
+  @Test
+  public void testConvexHullAlgorithm() throws Exception {
+    DPoint points[] = new DPoint[7];
+    points[0] = new DPoint(0, 3);
+    points[1] = new DPoint(2, 3);
+    points[2] = new DPoint(1, 1);
+    points[3] = new DPoint(2, 1);
+    points[4] = new DPoint(3, 0);
+    points[5] = new DPoint(0, 0);
+    points[6] = new DPoint(3, 3);
+    ConvexHull ch = ConvexHull.fromPointArray(points);
+    List<DPoint> hull = ch.getHull();
+    assertEquals(4, hull.size());
+    debug = true;
+    if (debug)
+      for (DPoint point : hull) {
+        System.out.println(String.format("%.0f %.0f", point.x, point.y));
+      }
+    assertTrue(new DPoint(0, 3).equals(hull.get(0)));
+    assertTrue(new DPoint(0, 0).equals(hull.get(1)));
+    assertTrue(new DPoint(3, 0).equals(hull.get(2)));
+    assertTrue(new DPoint(3, 3).equals(hull.get(3)));
+  }
+
+  @Test
+  public void testConvexHull() throws Exception {
+    String names[] = { "1_deutschland/4_niedrig.geojson",
+        "4_kreise/4_niedrig.geojson" };
+    double strokeWidth=1;
+    for (String name : names) {
+      BorderDraw borderDraw = getBorderDraw(name);
+      Borders borders = new Borders(name);
+      List<Polygon> polygons = borders.asPolygons(strokeWidth,borderDraw.getBorderColor(),
+          borderDraw.getOpacity(),
+          (lat, lon) -> borderDraw.translateLatLonToView(lat, lon));
+      ConvexHull ch = ConvexHull.fromPolygons(polygons);
+      List<DPoint> hull = ch.getHull();
+      System.out.println(String.format("%s %3d -> %3d", name,
+          ch.getPoints().size(), hull.size()));
+    }
+  }
+
+  @Test
+  public void testClipping() throws Exception {
+    Debug.activateDebug();
+    String name = "4_kreise/4_niedrig.geojson";
+    BorderDraw borderDraw = getBorderDraw(name);
+    Borders borders = borderDraw.getBorders();
+    double strokeWidth=1.5;
+    List<Polygon> polygons = borders.asPolygons(strokeWidth,Color.RED,
+        borderDraw.getOpacity(),
+        (lat, lon) -> borderDraw.translateLatLonToView(lat, lon));
+    ConvexHull ch = ConvexHull.fromPolygons(polygons);
+    Polygon hpolygon = new Polygon();
+    hpolygon.setStrokeWidth(2);
+    hpolygon.setStroke(Color.BLUE);
+    hpolygon.setFill(Color.rgb(0xFF, 0x80, 0x00, 0.5));
+    for (DPoint point : ch.getHull()) {
+      hpolygon.getPoints().add(point.x);
+      hpolygon.getPoints().add(point.y);
+    }
+    Rectangle clipRect = new Rectangle(500, 500);
+    clipRect.setTranslateX(100);
+    clipRect.setTranslateY(100);
+    Platform.runLater(() -> borderDraw.drawBorders());
+    for (Polygon polygon : polygons)
+      Platform.runLater(() -> borderDraw.draw(polygon));
+    Platform.runLater(() -> borderDraw.draw(hpolygon));
+    // borderDraw.setClip(polygon);
+
+    waitClose(name, borderDraw, 50);
+  }
+
+  /**
+   * get the MapView
+   * 
+   * @return
+   * @throws MalformedURLException
+   */
+  public MapView getMapView() throws MalformedURLException {
+    File imageFile = new File("src/test/data/image/empty900x900.png");
+    SampleApp.toolkitInit();
+    String url = imageFile.toURI().toURL().toExternalForm();
+    MapView lMapView = new MapView(url);
+    return lMapView;
   }
 
   /**
@@ -146,19 +272,15 @@ public class TestBorders extends BaseTest {
    * @return - the BorderDraw
    * @throws Exception
    */
-  public BorderDraw prepareBorderDraw(GeoProjection projection, String name)
-      throws Exception {
-    File imageFile = new File("src/test/data/image/empty900x900.png");
-    SampleApp.toolkitInit();
-    String url = imageFile.toURI().toURL().toExternalForm();
-    mapView = new MapView(url);
+  public BorderDraw prepareBorderDraw(GeoProjection projection, String name) throws Exception {
+    MapView mapView = getMapView();
     if (debug)
       System.out.println(String.format("border %s", name));
-    BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
-        Color.ORANGE);
     sampleApp = new SampleApp(name, mapView.getStackPane());
     sampleApp.show();
     sampleApp.waitOpen();
+    BorderDraw borderDraw = new BorderDraw(mapView, projection, name,
+        Color.ORANGE);
     // display on another monitor
     // Platform.runLater(() ->this.setupStageLocation(sampleApp.getStage(), 2));
     double iwidth = mapView.getImage().getWidth();
@@ -167,9 +289,10 @@ public class TestBorders extends BaseTest {
     sampleApp.getStage().setHeight(mapView.getImage().getHeight());
     double width = sampleApp.getStage().getWidth();
     double height = sampleApp.getStage().getHeight();
-    LOGGER.log(Level.INFO,
-        String.format("stage: %.0f x %.0f image: %.0f x %.0f ", width, height,
-            iwidth, iheight));
+    if (debug)
+      LOGGER.log(Level.INFO,
+          String.format("stage: %.0f x %.0f image: %.0f x %.0f ", width, height,
+              iwidth, iheight));
     sampleApp.getStage().setHeight(mapView.getImage().getHeight() + 61);
     mapView.addSizeListener(sampleApp.getStage());
     return borderDraw;

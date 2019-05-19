@@ -23,7 +23,6 @@
  */
 package com.bitplan.display;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,9 +31,10 @@ import com.bitplan.geo.Borders;
 import com.bitplan.geo.DPoint;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.IPoint;
-import com.github.filosganga.geogson.model.LineString;
-import com.github.filosganga.geogson.model.Point;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.Node;
 import javafx.scene.image.WritableImage;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -53,8 +53,13 @@ public class BorderDraw {
 
   private MapView mapView;
   private Borders borders;
-  private Color borderColor;
+  Color borderColor;
+  double opacity=0.2;
+  double strokeWidth=1;
   private GeoProjection projection;
+
+  private DoubleProperty widthProperty=new SimpleDoubleProperty();
+  private DoubleProperty heightProperty=new SimpleDoubleProperty();
 
   public GeoProjection getProjection() {
     return projection;
@@ -62,6 +67,36 @@ public class BorderDraw {
 
   public void setProjection(GeoProjection projection) {
     this.projection = projection;
+  }
+
+  /**
+   * @return the borders
+   */
+  public Borders getBorders() {
+    return borders;
+  }
+
+  /**
+   * @param borders the borders to set
+   */
+  public void setBorders(Borders borders) {
+    this.borders = borders;
+  }
+
+  public Color getBorderColor() {
+    return borderColor;
+  }
+
+  public void setBorderColor(Color borderColor) {
+    this.borderColor = borderColor;
+  }
+
+  public double getOpacity() {
+    return opacity;
+  }
+
+  public void setOpacity(double opacity) {
+    this.opacity = opacity;
   }
 
   /**
@@ -73,9 +108,20 @@ public class BorderDraw {
   public BorderDraw(MapView mapView, GeoProjection projection, String borderName,
       Color borderColor) {
     this.mapView = mapView;
+    Pane pane = mapView.getDrawPane();
+    widthProperty.bind(pane.widthProperty());
+    heightProperty.bind(pane.heightProperty());
     this.projection = projection;
-    borders = new Borders(borderName);
-    this.borderColor = borderColor;
+    setBorders(new Borders(borderName));
+    this.setBorderColor(borderColor);
+  }
+  
+  /**
+   * set the clipping for this mapView
+   * @param clipNode
+   */
+  public final void setClip(Node clipNode) {
+    mapView.setClip(clipNode);
   }
 
   public Pane getPane() {
@@ -89,12 +135,12 @@ public class BorderDraw {
    * @return the point
    */
   public DPoint translateLatLonToView(double lat, double lon) {
-    Pane pane = mapView.getDrawPane();
+    
     DPoint dgp = projection.translateLatLonToGrid(lat,lon);
     IPoint igp=new IPoint(dgp);
-    double w = pane.getWidth();
-    double h = pane.getHeight();
-    DPoint p =projection.translateGridToView(igp, w,h);
+    double width=widthProperty.doubleValue();
+    double height=heightProperty.doubleValue();
+    DPoint p =projection.translateGridToView(igp, width,height);
     return p;
   }
   
@@ -108,46 +154,22 @@ public class BorderDraw {
       LOGGER.log(Level.WARNING, "can't draw Borders - image is null");
       return;
     }
-    List<LineString> lineStrings = borders.getLineStrings();
-
-    // List<DPoint> points = borders.getPoints();
+   
+    List<Polygon> polygons=getBorders().asPolygons(strokeWidth,getBorderColor(),getOpacity(),(lat,lon)->this.translateLatLonToView(lat, lon));
     if (debug)
       LOGGER.log(Level.INFO,
-          String.format("drawing %d border points in %.0f x %.0f", lineStrings.size(),pane.getWidth(),pane.getHeight()));
-    int lineCount = 0;
-    for (LineString lineString : lineStrings) {
-      List<Double> polygonPoints = new ArrayList<Double>();
+          String.format("drawing %d border polygons in %.0f x %.0f", polygons.size(),pane.getWidth(),pane.getHeight()));
 
-      // IPoint prevIp = null;
-      for (Point point : lineString.points()) {   
-        DPoint p=this.translateLatLonToView(point.lat(), point.lon());
-        
-        polygonPoints.add(p.x);
-        polygonPoints.add(p.y);
-
-        /*
-         * IPoint ip = new IPoint(p); if (prevIp != null) { Line line = new
-         * Line(prevIp.x, prevIp.y, ip.x, ip.y); line.setStrokeWidth(1);
-         * line.setStroke(borderColor);
-         * mapView.drawPane.getChildren().add(line); } prevIp = ip;
-         */
-        // image.getPixelWriter().setColor(ip.x, ip.y, borderColor);
-      }
-      double points[] = new double[polygonPoints.size()];
-      for (int i = 0; i < polygonPoints.size(); i++) {
-        points[i] = polygonPoints.get(i);
-      }
-      Polygon polygon = new Polygon(points);
-      polygon.setStrokeWidth(1);
-      polygon.setStroke(borderColor);
-      if (lineCount % 2 == 0)
-        polygon.setFill(Color.rgb(0xF8, 0xF8, 0xF8,0.2));
-      else
-        polygon.setFill(Color.rgb(0xFA, 0xFA, 0xFA,0.2));
-      lineCount++;
-      pane.getChildren().add(polygon);
-    }
+    pane.getChildren().addAll(polygons);
     if (debug)
       LOGGER.log(Level.INFO, "drawing done");
+  }
+  
+  /**
+   * draw a single node
+   * @param node
+   */
+  public void draw(Node node) {
+    mapView.getDrawPane().getChildren().add(node);
   }
 }

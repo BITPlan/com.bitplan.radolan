@@ -26,6 +26,7 @@ package com.bitplan.geo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,6 +43,8 @@ import com.github.filosganga.geogson.model.Point;
 import com.github.filosganga.geogson.model.Polygon;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import javafx.scene.paint.Color;
 
 /**
  * @author wf see https://tools.ietf.org/html/rfc7946
@@ -148,6 +151,45 @@ public class Borders {
    */
   public void addLineString(LineString lineString) {
     lineStrings.add(lineString);
+  }
+
+  /**
+   * convert me to a list of polygons
+   * @param borderColor
+   * @param translate
+   * @return the list of polygons
+   */
+  public List<javafx.scene.shape.Polygon> asPolygons(double strokeWidth,Color borderColor,double opacity,BiFunction<Double,Double,DPoint> translate) {
+    List<javafx.scene.shape.Polygon> polygons=new ArrayList<javafx.scene.shape.Polygon>();
+    List<LineString> lineStrings = getLineStrings();
+
+    int lineCount = 0;
+    for (LineString lineString : lineStrings) {
+      List<Double> polygonPoints = new ArrayList<Double>();
+
+      // IPoint prevIp = null;
+      for (Point point : lineString.points()) {
+        DPoint p = translate.apply(point.lat(),point.lon());
+
+        polygonPoints.add(p.x);
+        polygonPoints.add(p.y);
+
+      }
+      double points[] = new double[polygonPoints.size()];
+      for (int i = 0; i < polygonPoints.size(); i++) {
+        points[i] = polygonPoints.get(i);
+      }
+      javafx.scene.shape.Polygon polygon = new javafx.scene.shape.Polygon(points);
+      polygon.setStrokeWidth(strokeWidth);
+      polygon.setStroke(borderColor);
+      if (lineCount % 2 == 0)
+        polygon.setFill(Color.rgb(0xF8, 0xF8, 0xF8, opacity));
+      else
+        polygon.setFill(Color.rgb(0xFA, 0xFA, 0xFA, opacity));
+      lineCount++;
+      polygons.add(polygon);
+    }
+    return polygons;
   }
 
 }

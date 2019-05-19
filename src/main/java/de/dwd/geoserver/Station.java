@@ -202,9 +202,8 @@ public class Station {
   }
 
   /**
-   * get the given station from the given station Vertex
+   * fill me from the given station Vertex
    * 
-   * @param station
    * @param stationVertex
    */
   public void fromVertex(Vertex stationVertex) {
