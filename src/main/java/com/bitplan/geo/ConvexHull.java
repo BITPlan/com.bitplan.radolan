@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -185,6 +186,19 @@ public class ConvexHull {
 
     } while (p != l); // While we don't come to first
                       // point
+  }
+
+  /**
+   * get my hull as a polygon
+   * @return - the hull polygon
+   */
+  public Polygon asPolygon() {
+    Polygon hPolygon=new Polygon();
+    for (DPoint point : getHull()) {
+      hPolygon.getPoints().add(point.x);
+      hPolygon.getPoints().add(point.y);
+    }
+    return hPolygon;
   }
 
 }

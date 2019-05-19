@@ -37,6 +37,8 @@ import org.openweathermap.weather.Coord;
 
 import com.bitplan.display.BorderDraw;
 import com.bitplan.display.EvaporationView;
+import com.bitplan.geo.Borders;
+import com.bitplan.geo.ConvexHull;
 import com.bitplan.geo.GeoProjection;
 import com.bitplan.geo.ProjectionImpl;
 
@@ -45,6 +47,9 @@ import de.dwd.geoserver.Observation;
 import de.dwd.geoserver.Station;
 import de.dwd.geoserver.StationManager;
 import javafx.application.Platform;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 
 /**
  * test a map for Evaporation data
@@ -58,11 +63,19 @@ public class TestEvaporationMap extends TestBorders {
       String name = "3_regierungsbezirke/3_mittel.geojson";
       GeoProjection projection = new ProjectionImpl(900, 900);
       Translate.calibrateProjection(projection);
-      int gridx = 200;
-      int gridy = 200;
+      int gridx = 30;
+      int gridy = 30;
       for (int avg = 1; avg <= 1; avg++) {
         for (int day = 1; day <= 2; day++) {
           BorderDraw borderDraw = prepareBorderDraw(projection, name);
+          Borders borders = borderDraw.getBorders();
+          double strokeWidth=1.5;
+          List<Polygon> polygons = borders.asPolygons(strokeWidth,Color.RED,
+              borderDraw.getOpacity(),
+              (lat, lon) -> borderDraw.translateLatLonToView(lat, lon));
+          ConvexHull ch = ConvexHull.fromPolygons(polygons);
+          Polygon hpolygon = ch.asPolygon();
+          borderDraw.setClip(hpolygon);
           EvaporationView evapView = new EvaporationView(sm, day, avg);
 
           Platform.runLater(() -> borderDraw.drawBorders());

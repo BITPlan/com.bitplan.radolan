@@ -230,23 +230,17 @@ public class TestBorders extends BaseTest {
         borderDraw.getOpacity(),
         (lat, lon) -> borderDraw.translateLatLonToView(lat, lon));
     ConvexHull ch = ConvexHull.fromPolygons(polygons);
-    Polygon hpolygon = new Polygon();
-    hpolygon.setStrokeWidth(2);
-    hpolygon.setStroke(Color.BLUE);
-    hpolygon.setFill(Color.rgb(0xFF, 0x80, 0x00, 0.5));
-    for (DPoint point : ch.getHull()) {
-      hpolygon.getPoints().add(point.x);
-      hpolygon.getPoints().add(point.y);
-    }
+    Polygon hpolygon = ch.asPolygon();
     Rectangle clipRect = new Rectangle(500, 500);
     clipRect.setTranslateX(100);
     clipRect.setTranslateY(100);
+    borderDraw.setClip(hpolygon);
     Platform.runLater(() -> borderDraw.drawBorders());
-    for (Polygon polygon : polygons)
+    /*for (Polygon polygon : polygons)
       Platform.runLater(() -> borderDraw.draw(polygon));
-    Platform.runLater(() -> borderDraw.draw(hpolygon));
-    // borderDraw.setClip(polygon);
-
+      */
+    // Platform.runLater(() -> borderDraw.draw(hpolygon));
+    
     waitClose(name, borderDraw, 50);
   }
 
