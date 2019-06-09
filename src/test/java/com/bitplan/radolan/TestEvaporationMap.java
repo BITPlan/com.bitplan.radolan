@@ -128,8 +128,10 @@ public class TestEvaporationMap extends TestBorders {
       StationManager sm = StationManager.init();
       EvaporationView evapView = new EvaporationView(sm, 1, 5);
       debug = true;
-      if (debug)
+      if (debug) {
         EvaporationView.debug = true;
+        StationManager.debug=true;
+      }
       Map<Coord, List<Station>> gridMap = evapView.prepareGrid(47.0, 150, 150);
       Coord c = new Coord(51.243, 6.519);
       Coord gc = evapView.getClosest(c, gridMap.keySet());

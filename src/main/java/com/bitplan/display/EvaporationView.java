@@ -80,7 +80,7 @@ public class EvaporationView {
       Double sum = 0.;
       // e.g. day=1 days =5
       // cday = 0 .. 4
-      for (int cday = day - 1; cday < day + days-1; cday++) {
+      for (int cday = day - 1; cday < day + days - 1; cday++) {
         if (cday < obs.size()) {
           sum += obs.get(cday).getValue();
         }
@@ -210,31 +210,10 @@ public class EvaporationView {
    */
   public double getInverseWeighted(Coord c, List<Station> stations,
       double power) {
-    double weightSum = 0.;
-    double evapSum = 0.;
-    for (Station station : stations) {
-      double dist = c.distance(station.getCoord());
+    double result = sm.getInverseWeighted(c, stations, power, station -> {
       Number evap = (Number) evapmap.get(station.id);
-      double weight;
-      double d = Math.pow(dist, power);
-      d = Math.sqrt(d);
-      if (d > 0.)
-        weight = 1 / d;
-      else
-        weight = 1.e20; // big value to avoid divison by zero
-      if (evap != null) {
-        if (debug) {
-          station.setDistance(dist);
-          System.out.println(String.format("%5.3f %5.1f mm %s", weight,
-              evap.doubleValue(), station.toString()));
-        }
-        weightSum += weight;
-        evapSum += evap.doubleValue() * weight;
-      }
-    }
-    if (debug)
-      System.out.println(String.format("%5.3f %5.1f mm %5.1f mm", weightSum,
-          evapSum, evapSum / weightSum));
-    return evapSum / weightSum;
+      return evap.doubleValue();
+    });
+    return result;
   }
 }

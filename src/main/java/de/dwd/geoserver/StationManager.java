@@ -29,6 +29,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 import org.apache.tinkerpop.gremlin.process.traversal.IO;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
@@ -302,6 +303,47 @@ public class StationManager {
     Observation.getObservations(sm, useCache);
     sm.write();
     return sm;
+  }
+  
+  /**
+   * get the inverse weighted evaporation value for the given coordinate and
+   * list of stations
+   * 
+   * @param c
+   *          - the coordinate
+   * @param stations
+   * @param power
+   *          - power adjustment
+   * @return - the inverse weighted interpolated value
+   */
+  public double getInverseWeighted(Coord c, List<Station> stations,
+      double power,Function<Station,Double> getValue) {
+    double weightSum = 0.;
+    double evapSum = 0.;
+    for (Station station : stations) {
+      double dist = c.distance(station.getCoord());
+      Double evap=getValue.apply(station);
+      double weight;
+      double d = Math.pow(dist, power);
+      d = Math.sqrt(d);
+      if (d > 0.)
+        weight = 1 / d;
+      else
+        weight = 1.e20; // big value to avoid divison by zero
+      if (evap != null) {
+        if (debug) {
+          station.setDistance(dist);
+          System.out.println(String.format("%5.3f %5.1f mm %s", weight,
+              evap, station.toString()));
+        }
+        weightSum += weight;
+        evapSum += evap * weight;
+      }
+    }
+    if (debug)
+      System.out.println(String.format("%5.3f %5.1f mm %5.1f mm", weightSum,
+          evapSum, evapSum / weightSum));
+    return evapSum / weightSum;
   }
 
 }
