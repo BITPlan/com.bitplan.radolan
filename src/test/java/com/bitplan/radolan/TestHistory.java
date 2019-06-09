@@ -56,45 +56,52 @@ public class TestHistory extends BaseTest {
       }
     }
   }
-  
+
   @Test
   public void testRainAndEvaporation() throws Throwable {
     if (!super.isTravis()) {
-      int pastDays=14;
-      double radius=36.0;
+      int pastDays = 14;
+      double radius = 36.0;
       DPoint schiefbahn = new DPoint(51.244, 6.52);
-      Coord schiefbahnC=new Coord(schiefbahn.x,schiefbahn.y);
+      Coord schiefbahnC = new Coord(schiefbahn.x, schiefbahn.y);
       CompositeManager cm = new CompositeManager();
       StationManager sm = StationManager.init();
       List<Station> stations = sm.getStationsWithinRadius(schiefbahnC, radius);
-      HashMap<String, List<Observation>> evapmap = new HashMap<String, List<Observation> >();
-      for (Station station:stations) {
+      HashMap<String, List<Observation>> evapmap = new HashMap<String, List<Observation>>();
+      for (Station station : stations) {
         List<Observation> obs = station.getObservationHistory(sm);
-        evapmap.put(station.id,obs);
+        evapmap.put(station.id, obs);
       }
-      
-      double power=2.0;
-      System.out.println("#   | rain  | evap  | total");
-      String        line="----+-------+-------+-------";
+
+      double power = 2.0;
+      System.out.println("#   | rain  | evap  | total | balance");
+      String line = "----+-------+-------+-------+--------";
       System.out.println(line);
-      double rainsum=0.;
-      double evapsum=0.;
-      double total=0.;
-      for (int daysAgo = 1; daysAgo <= pastDays; daysAgo++) {
+      double rainsum = 0.;
+      double evapsum = 0.;
+      double total = 0.;
+      double balance = 0.0;
+      for (int daysAgo = pastDays; daysAgo >= 1; daysAgo--) {
         float rain = cm.getRainSum(daysAgo, schiefbahn);
-        final int dayIndex=daysAgo-1;
-        double evap=sm.getInverseWeighted(schiefbahnC, stations, power, station->{
-          List<Observation> obs = evapmap.get(station.id);
-          Observation o=obs.get(dayIndex);
-          return o.getValue();
-        });
-        System.out.println(String.format("%3d | %5.1f | %5.1f | %5.1f", daysAgo, rain,evap,rain-evap));
-        rainsum+=rain;
-        evapsum+=evap;
-        total+=rain-evap;
+        final int dayIndex = daysAgo - 1;
+        double evap = sm.getInverseWeighted(schiefbahnC, stations, power,
+            station -> {
+              List<Observation> obs = evapmap.get(station.id);
+              Observation o = obs.get(dayIndex);
+              return o.getValue();
+            });
+        rainsum += rain;
+        evapsum += evap;
+        total += rain - evap;
+        balance+=Math.min(rain,15)-evap;
+        balance=Math.min(balance, 15);
+        balance=Math.max(balance, -15);
+        System.out.println(String.format("%3d | %5.1f | %5.1f | %5.1f | %5.1f", daysAgo,
+            rain, evap, rain - evap, balance));
       }
       System.out.println(line);
-      System.out.println(String.format("sum | %5.1f | %5.1f | %5.1f", rainsum,evapsum,total));
+      System.out.println(String.format("sum | %5.1f | %5.1f | %5.1f", rainsum,
+          evapsum, total));
     }
   }
 
