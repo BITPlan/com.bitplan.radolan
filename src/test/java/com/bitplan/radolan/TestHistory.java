@@ -23,13 +23,16 @@
  */
 package com.bitplan.radolan;
 
+import static org.junit.Assert.assertNotNull;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
 import org.junit.Test;
 import org.openweathermap.weather.Coord;
 
-import com.bitplan.display.EvaporationView;
 import com.bitplan.geo.DPoint;
 
 import de.dwd.geoserver.Observation;
@@ -60,12 +63,13 @@ public class TestHistory extends BaseTest {
   @Test
   public void testRainAndEvaporation() throws Throwable {
     if (!super.isTravis()) {
-      int pastDays = 14;
+      int pastDays = 21;
       double radius = 36.0;
       DPoint schiefbahn = new DPoint(51.244, 6.52);
       Coord schiefbahnC = new Coord(schiefbahn.x, schiefbahn.y);
       CompositeManager cm = new CompositeManager();
       StationManager sm = StationManager.init();
+      StationManager.debug=false;
       List<Station> stations = sm.getStationsWithinRadius(schiefbahnC, radius);
       HashMap<String, List<Observation>> evapmap = new HashMap<String, List<Observation>>();
       for (Station station : stations) {
@@ -74,13 +78,15 @@ public class TestHistory extends BaseTest {
       }
 
       double power = 2.0;
-      System.out.println("#   | rain  | evap  | total | balance");
-      String line = "----+-------+-------+-------+--------";
+      System.out.println(String.format("Willich Schiefbahn -  %s %s",schiefbahnC.getLatDMS(), schiefbahnC.getLonDMS()));
+      System.out.println("#   |    date    | rain  | evap  | total | balance");
+      String line      = "----+------------+-------+-------+-------+--------";
       System.out.println(line);
       double rainsum = 0.;
       double evapsum = 0.;
       double total = 0.;
       double balance = 0.0;
+      LocalDate today=LocalDate.now();
       for (int daysAgo = pastDays; daysAgo >= 1; daysAgo--) {
         float rain = cm.getRainSum(daysAgo, schiefbahn);
         final int dayIndex = daysAgo - 1;
@@ -96,12 +102,27 @@ public class TestHistory extends BaseTest {
         balance+=Math.min(rain,15)-evap;
         balance=Math.min(balance, 15);
         balance=Math.max(balance, -15);
-        System.out.println(String.format("%3d | %5.1f | %5.1f | %5.1f | %5.1f", daysAgo,
-            rain, evap, rain - evap, balance));
+        LocalDate rainDate = today.plusDays(-daysAgo);
+        String dateStr=rainDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        System.out.println(String.format("%3d | %s | %5.1f | %5.1f | %5.1f | %5.1f", daysAgo,
+            dateStr,rain, evap, rain - evap, balance));
       }
       System.out.println(line);
-      System.out.println(String.format("sum | %5.1f | %5.1f | %5.1f", rainsum,
+      System.out.println(String.format("sum |            | %5.1f | %5.1f | %5.1f", rainsum,
           evapsum, total));
+    }
+  }
+  
+  @Test
+  public void testEvapHistory() throws Exception {
+    String toenisVorstId="5064";
+    StationManager sm = StationManager.init();
+    Station toenisVorst = sm.getStationMap().get(toenisVorstId);
+    assertNotNull(toenisVorst);
+    System.out.println(toenisVorst.toString());
+    List<Observation> obs = toenisVorst.getObservationHistory(sm);
+    for (Observation ob:obs) {
+      System.out.println(ob);
     }
   }
 
