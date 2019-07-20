@@ -47,7 +47,7 @@ public class KnownUrl {
   public static String knownUrls[] = {
       "https://opendata.dwd.de/weather/radar/radolan",
       "ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/daily/radolan",
-      "ftp://ftp-cdc.dwd.de/climate_environment/CDC/derived_germany/soil/daily/recent/"};
+      "ftp://ftp-cdc.dwd.de/climate_environment/CDC/derived_germany/soil/daily/recent"};
   public static final String RADOLAN_HISTORY = knownUrls[GRIDS];
   public static final String RADOLAN_OPENDATA = knownUrls[OPEN_DATA];
   public static final String DWD_SOIL=knownUrls[SOIL];
@@ -177,7 +177,7 @@ public class KnownUrl {
         } else {
           long hours = ChronoUnit.HOURS.between(now, dateTime);
           if (hours<=-47) {
-            url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent", fileName);
+            url = String.format("%s/%s/%s.gz", RADOLAN_HISTORY, "recent/bin", fileName);
           }          
         }
       }
