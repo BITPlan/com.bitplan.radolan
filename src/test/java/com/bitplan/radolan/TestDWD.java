@@ -265,7 +265,7 @@ public class TestDWD extends BaseTest {
   public void testSoilStations() throws Exception {
     if (!super.isTravis()) {
       // debug = true;
-      boolean useCache = true;
+      boolean useCache = false;
       Map<String, Station> smap = Station.getAllStations();
       Map<String, Station> smapsoil = Station.getAllSoilStations(useCache);
       assertEquals(EXPECTED_SOIL_STATIONS, smapsoil.size());

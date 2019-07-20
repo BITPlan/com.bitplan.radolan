@@ -129,7 +129,7 @@ public class TestRadolan extends BaseTest {
       LocalDate date = LocalDate.of(2019, 4, 13);
       LocalDate end = LocalDate.of(2019, 5, 16); // actually one day before this
                                                  // ...
-      String knownUrl = "ftp://ftp-cdc.dwd.de/pub/CDC/grids_germany/daily/radolan/";
+      String knownUrl = "ftp://ftp-cdc.dwd.de/climate_environment/CDC/grids_germany/daily/radolan/";
       do {
         String url = String.format(
             knownUrl + "recent/raa01-sf_10000-%02d%02d%02d1650-dwd---bin.gz",

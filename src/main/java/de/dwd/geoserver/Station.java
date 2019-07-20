@@ -165,7 +165,7 @@ public class Station {
    */
   public static Map<String, Station> getAllSoilStations(boolean useCache) throws Exception {
     Map<String, Station> stations = new HashMap<String, Station>();
-    String url = "ftp://ftp-cdc.dwd.de/pub/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
+    String url = "ftp://ftp-cdc.dwd.de/climate_environment/CDC/derived_germany/soil/daily/recent/derived_germany_soil_daily_recent_stations_list.txt";
     String csv = CachedUrl.readString(url, useCache, "ISO-8859-1");
     StringReader csvReader = new StringReader(csv);
     CSVParser parser = new CSVParser(csvReader,
