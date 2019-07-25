@@ -241,7 +241,7 @@ public class TestBorders extends BaseTest {
       */
     // Platform.runLater(() -> borderDraw.draw(hpolygon));
     
-    waitClose(name, borderDraw, 50);
+    waitClose(name, borderDraw, 1);
   }
 
   /**

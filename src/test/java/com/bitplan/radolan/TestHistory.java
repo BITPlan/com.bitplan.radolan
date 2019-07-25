@@ -63,7 +63,7 @@ public class TestHistory extends BaseTest {
   @Test
   public void testRainAndEvaporation() throws Throwable {
     if (!super.isTravis()) {
-      int pastDays = 24;
+      int pastDays = 7;
       double radius = 36.0;
       DPoint schiefbahn = new DPoint(51.244, 6.52);
       Coord schiefbahnC = new Coord(schiefbahn.x, schiefbahn.y);
