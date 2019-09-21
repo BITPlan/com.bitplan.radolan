@@ -69,7 +69,7 @@ public class TestHistory extends BaseTest {
       Coord schiefbahnC = new Coord(schiefbahn.x, schiefbahn.y);
       CompositeManager cm = new CompositeManager();
       StationManager sm = StationManager.init();
-      StationManager.debug=false;
+      StationManager.debug = false;
       List<Station> stations = sm.getStationsWithinRadius(schiefbahnC, radius);
       HashMap<String, List<Observation>> evapmap = new HashMap<String, List<Observation>>();
       for (Station station : stations) {
@@ -78,15 +78,16 @@ public class TestHistory extends BaseTest {
       }
 
       double power = 2.0;
-      System.out.println(String.format("Willich Schiefbahn -  %s %s",schiefbahnC.getLatDMS(), schiefbahnC.getLonDMS()));
+      System.out.println(String.format("Willich Schiefbahn -  %s %s",
+          schiefbahnC.getLatDMS(), schiefbahnC.getLonDMS()));
       System.out.println("#   |    date    | rain  | evap  | total | balance");
-      String line      = "----+------------+-------+-------+-------+--------";
+      String line = "----+------------+-------+-------+-------+--------";
       System.out.println(line);
       double rainsum = 0.;
       double evapsum = 0.;
       double total = 0.;
       double balance = 0.0;
-      LocalDate today=LocalDate.now();
+      LocalDate today = LocalDate.now();
       for (int daysAgo = pastDays; daysAgo >= 1; daysAgo--) {
         float rain = cm.getRainSum(daysAgo, schiefbahn);
         final int dayIndex = daysAgo - 1;
@@ -99,30 +100,33 @@ public class TestHistory extends BaseTest {
         rainsum += rain;
         evapsum += evap;
         total += rain - evap;
-        balance+=Math.min(rain,15)-evap;
-        balance=Math.min(balance, 15);
-        balance=Math.max(balance, -15);
+        balance += Math.min(rain, 15) - evap;
+        balance = Math.min(balance, 15);
+        balance = Math.max(balance, -15);
         LocalDate rainDate = today.plusDays(-daysAgo);
-        String dateStr=rainDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
-        System.out.println(String.format("%3d | %s | %5.1f | %5.1f | %5.1f | %5.1f", daysAgo,
-            dateStr,rain, evap, rain - evap, balance));
+        String dateStr = rainDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        System.out
+            .println(String.format("%3d | %s | %5.1f | %5.1f | %5.1f | %5.1f",
+                daysAgo, dateStr, rain, evap, rain - evap, balance));
       }
       System.out.println(line);
-      System.out.println(String.format("sum |            | %5.1f | %5.1f | %5.1f", rainsum,
-          evapsum, total));
+      System.out.println(String.format(
+          "sum |            | %5.1f | %5.1f | %5.1f", rainsum, evapsum, total));
     }
   }
-  
+
   @Test
   public void testEvapHistory() throws Exception {
-    String toenisVorstId="5064";
-    StationManager sm = StationManager.init();
-    Station toenisVorst = sm.getStationMap().get(toenisVorstId);
-    assertNotNull(toenisVorst);
-    System.out.println(toenisVorst.toString());
-    List<Observation> obs = toenisVorst.getObservationHistory(sm);
-    for (Observation ob:obs) {
-      System.out.println(ob);
+    if (!super.isTravis()) {
+      String toenisVorstId = "5064";
+      StationManager sm = StationManager.init();
+      Station toenisVorst = sm.getStationMap().get(toenisVorstId);
+      assertNotNull(toenisVorst);
+      System.out.println(toenisVorst.toString());
+      List<Observation> obs = toenisVorst.getObservationHistory(sm);
+      for (Observation ob : obs) {
+        System.out.println(ob);
+      }
     }
   }
 

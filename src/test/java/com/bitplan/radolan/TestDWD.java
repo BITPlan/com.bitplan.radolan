@@ -58,7 +58,7 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class TestDWD extends BaseTest {
-  public static final int EXPECTED_SOIL_STATIONS = 491;
+  public static final int EXPECTED_SOIL_STATIONS = 492;
   public static final int EXPECTED_STATIONS = 67;
   public static final int DAYS = 7;
   public static final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
@@ -98,7 +98,7 @@ public class TestDWD extends BaseTest {
   @Test
   public void testGetAllStations() throws Exception {
     Map<String, Station> stations = Station.getAllStations();
-    assertEquals(EXPECTED_STATIONS - 1, stations.size());
+    assertEquals(EXPECTED_STATIONS, stations.size());
   }
 
   public Station getDUSStation() {
