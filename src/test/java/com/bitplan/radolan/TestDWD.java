@@ -58,7 +58,7 @@ import de.dwd.geoserver.WFS.WFSType;
  *
  */
 public class TestDWD extends BaseTest {
-  public static final int EXPECTED_SOIL_STATIONS = 492;
+  public static final int EXPECTED_SOIL_STATIONS = 493;
   public static final int EXPECTED_STATIONS = 67;
   public static final int DAYS = 7;
   public static final int EXPECTED_OBSERVATIONS = EXPECTED_STATIONS * DAYS;
@@ -268,7 +268,7 @@ public class TestDWD extends BaseTest {
       boolean useCache = false;
       Map<String, Station> smap = Station.getAllStations();
       Map<String, Station> smapsoil = Station.getAllSoilStations(useCache);
-      assertEquals(EXPECTED_SOIL_STATIONS, smapsoil.size());
+      assertEquals(EXPECTED_SOIL_STATIONS-3, smapsoil.size());
       for (Station station : smap.values()) {
         assertTrue(station.id, smapsoil.containsKey(station.id));
       }
@@ -292,7 +292,7 @@ public class TestDWD extends BaseTest {
       for (Station station : smap.values()) {
         sm.add(station);
       }
-      assertEquals(EXPECTED_SOIL_STATIONS, sm.size());
+      assertEquals(EXPECTED_SOIL_STATIONS-1, sm.size());
       Map<Object, Long> pmap = sm.g().V().hasLabel("station").groupCount()
           .by("province").next();
       assertEquals(16, pmap.size());
